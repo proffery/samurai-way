@@ -1,12 +1,25 @@
-import React from 'react';
-import './App.css';
+import styled from "styled-components";
+import { HashRouter as Router, Route } from 'react-router-dom'
+import { Footer } from "./layout/footer/Footer";
+import { Navbar } from "./layout/navbar/Navbar";
+import { Header } from "./layout/header/Header";
+import { Container } from "./components/Container";
+
+
 
 function App() {
 
   return (
-    <div className="App">
-      Hello, samurai! Let's go!
-    </div>
+    <>
+      <Container>
+        <Navbar />
+        <Header />
+        <Router >
+        
+        </Router>
+      </Container>
+      <Footer />
+    </>
   );
 }
 
