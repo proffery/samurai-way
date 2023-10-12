@@ -23,8 +23,8 @@ export const GlobalStyle = createGlobalStyle`
         margin: 0 auto;
         height: 100vh;
         min-width: 320px;
-        background-color: ${theme.color.background.primary};
-        ${font({Fmin: 10, Fmax: 22})}
+        background-color: white;
+        ${font({Fmin: 10, Fmax: 18})}
         font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Oxygen',
             'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
             sans-serif;
@@ -38,6 +38,9 @@ export const GlobalStyle = createGlobalStyle`
 
     section {
         padding: 0;
+        background-color: ${theme.color.background.primary};
+        height: 100%;
+        min-height: 90vh;
     }
 
 

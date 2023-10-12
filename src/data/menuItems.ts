@@ -2,7 +2,7 @@ export const menuItems = [
     {
         id: 1,
         item_name: "Home",
-        item_href: "/home",
+        item_href: "/feed",
         item_icon: "home",
         viewBox: "-5 -5 30 30",
     },
@@ -32,7 +32,7 @@ export const menuItems = [
         item_name: "Settings",
         item_href: "/settings",
         item_icon: "settings",
-        viewBox: "-3 -3 30 30",
+        viewBox: "-2 -2 30 30",
     },
     
 ]

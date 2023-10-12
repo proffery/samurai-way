@@ -3,15 +3,25 @@ import { Icon } from "../../../components/icon/Icon"
 import { Link } from "../../../components/link/Link.styled"
 import { menuItems } from "../../../data/menuItems"
 
-export const Menu = () => {
+type MenuType = {
+    type: 'primary' | 'secondary'
+    icons: boolean
+    direction: 'row' | 'column'
+}
+
+export const Menu = (props: MenuType) => {
     return (
-        <StyledMenu>
+        <StyledMenu direction={props.direction}>
             <ul role="menu" aria-label="menu">
                 {menuItems.map(item => {
                     return(
                         <li role="menuitem" key={item.id}>
-                            <Link type={'secondary'} href={item.item_href}>
-                                <Icon iconId={item.item_icon} viewBox={item.viewBox}/>
+                            <Link type={props.type} href={item.item_href}>
+                                {props.icons && 
+                                    <IconWrapper>
+                                        <Icon iconId={item.item_icon} height="100%" width="100%" viewBox={item.viewBox} />
+                                    </IconWrapper>
+                                }
                                 {item.item_name}
                             </Link>
                         </li>
@@ -22,10 +32,16 @@ export const Menu = () => {
     )
 }
 
-const StyledMenu = styled.nav`
+
+type StyledMenuType = {
+    direction: 'row' | 'column'
+}
+
+const StyledMenu = styled.nav<StyledMenuType>`
     ul {
         display: flex;
-        flex-direction: column;
+        flex-wrap: wrap;
+        flex-direction: ${props => props.direction};
         list-style-type: none;
         gap: 32px;
         li {
@@ -34,4 +50,10 @@ const StyledMenu = styled.nav`
             justify-content: flex-start;
         }
     }
+`
+const IconWrapper = styled.div`
+    display: flex;
+    height: 15%;
+    width: 15%;
+
 `
