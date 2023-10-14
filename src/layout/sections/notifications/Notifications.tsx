@@ -1,5 +1,5 @@
 export const Notifications = () => {
     return (
-        <section>Notifications</section>
+        <main id="notifications">Notifications</main>
     )
 }

@@ -1,5 +1,5 @@
 export const Profile = () => {
     return (
-        <section>Profile</section>
+        <main id="profile">Profile</main>
     )
 }

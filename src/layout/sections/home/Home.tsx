@@ -1,5 +1,5 @@
 export const Home = () => {
     return (
-        <section>Home</section>
+        <main id="feed">Home</main>
     )
 }

@@ -14,10 +14,10 @@ export const Menu = (props: MenuType) => {
     return (
         <StyledMenu direction={props.direction} type={props.type}>
             <ul role="menu" aria-label="menu">
-                {menuItems.map(item => {
+                {menuItems.map((item) => {
                     return(
                         <li role="menuitem" key={item.id}>
-                            <StyledNavLink to={item.href} type={props.type}>
+                            <StyledNavLink to={item.href} type={props.type} tabIndex={0}>
                                 {props.icons && 
                                     <IconWrapper>
                                         <Icon iconId={item.icon_id} height="100%" width="100%" viewBox={item.viewBox} />
@@ -35,7 +35,7 @@ export const Menu = (props: MenuType) => {
 
 
 
-const StyledMenu = styled.nav<MenuType>`
+const StyledMenu = styled.div<MenuType>`
     ul {
         display: flex;
         flex-wrap: wrap;

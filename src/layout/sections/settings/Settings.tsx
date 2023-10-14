@@ -1,5 +1,5 @@
 export const Settings = () => {
     return (
-        <section>Settings</section>
+        <main id="settings">Settings</main>
     )
 }

@@ -6,20 +6,23 @@ import { Logo } from "../../components/logo/Logo"
 
 export const Navbar = () => {
     return (
-        <StyledNavbar direction="column">
+        <StyledNavbar>
             <Logo type={'secondary'}/>
             <Menu type={'secondary'} icons={true} direction={'column'}/>
         </StyledNavbar>
     )
 }
 
-const StyledNavbar = styled(FlexWrapper)`
+const StyledNavbar = styled.nav`
+    display: flex;
+    flex-direction: column;
     grid-area: 1 / 1 / 3 / 2 ;
     background-color: ${theme.color.background.menu};
     padding: 54px 28px;
-    gap: 110px;
+    gap: 54px;
     @media ${theme.media.mobile} {
-        gap: 55px;
+        gap: 27px;
+        padding: 27px 18px;
     }
 `
 

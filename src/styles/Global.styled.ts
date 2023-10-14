@@ -37,7 +37,7 @@ export const GlobalStyle = createGlobalStyle`
         text-decoration: none;
     }
 
-    section {
+    main {
         padding: 0;
         background-color: ${theme.color.background.primary};
     }

@@ -38,14 +38,14 @@ export default App;
 
 const Container = styled.div`
   display: grid;
-  grid-template-rows: auto 2fr 1fr;
+  grid-template-rows: 70px 93vh 1fr;
   grid-template-columns: repeat(5, 1fr);
   max-width: 1440px;
   width: 90%;
   height: 100%;
   margin: 0 auto;
   padding: 0;
-  section {
+  main {
     grid-area: 2 / 2 / 3 / 6 ;
   }
 `
