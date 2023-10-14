@@ -2,6 +2,7 @@ import styled from "styled-components"
 import { Icon } from "../../../components/icon/Icon"
 import { Link } from "../../../components/link/Link.styled"
 import { menuItems } from "../../../data/menuItems"
+import { theme } from "../../../styles/Theme.styled"
 
 type MenuType = {
     type: 'primary' | 'secondary'
@@ -49,11 +50,17 @@ const StyledMenu = styled.nav<StyledMenuType>`
             align-items: center;
             justify-content: flex-start;
         }
+        @media ${theme.media.mobile} {
+            gap: 16px;
+        }
     }
 `
 const IconWrapper = styled.div`
     display: flex;
     height: 15%;
     width: 15%;
-
+    min-width: 24px;
+    @media ${theme.media.mobile} {
+        min-width: 20px;
+    }
 `

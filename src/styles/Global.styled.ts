@@ -9,6 +9,7 @@ export const GlobalStyle = createGlobalStyle`
         margin: 0;
         padding: 0;
         box-sizing: border-box;
+        /* outline: 1px solid red; */
     }
 
     *:focus-visible {
@@ -22,7 +23,6 @@ export const GlobalStyle = createGlobalStyle`
     body {
         margin: 0 auto;
         height: 100vh;
-        min-width: 320px;
         background-color: white;
         ${font({Fmin: 10, Fmax: 18})}
         font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Oxygen',

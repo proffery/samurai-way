@@ -18,7 +18,10 @@ const StyledNavbar = styled(FlexWrapper)`
     min-height: 100vh;
     padding: 54px 28px;
     width: 25%;
-    min-width: 218px;
+    min-width: 160px;
     gap: 110px;
+    @media ${theme.media.mobile} {
+        gap: 55px;
+    }
 `
 
