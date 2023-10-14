@@ -8,7 +8,7 @@ export const Header = () => {
 }
 
 const StyledHeader = styled.header`
-    height: 100px;
-    width: 100%;
+    display: flex;
+    grid-area: 1 / 2 / 2 / 6 ;
     background-color: ${theme.color.background.primary};
 `

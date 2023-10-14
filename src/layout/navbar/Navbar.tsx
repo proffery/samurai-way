@@ -14,11 +14,9 @@ export const Navbar = () => {
 }
 
 const StyledNavbar = styled(FlexWrapper)`
+    grid-area: 1 / 1 / 3 / 2 ;
     background-color: ${theme.color.background.menu};
-    min-height: 100vh;
     padding: 54px 28px;
-    width: 25%;
-    min-width: 160px;
     gap: 110px;
     @media ${theme.media.mobile} {
         gap: 55px;

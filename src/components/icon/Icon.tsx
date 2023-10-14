@@ -1,7 +1,7 @@
 import iconsSprite from '../../assets/images/icons-sprite.svg'
 
 
-type IconPropsType = {
+export type IconPropsType = {
     iconId: string,
     viewBox?: string,
     width?: string,

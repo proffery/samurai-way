@@ -30,6 +30,7 @@ export const GlobalStyle = createGlobalStyle`
             sans-serif;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
+        color: ${theme.color.text.primary_dark};
     }
 
     a {
@@ -39,8 +40,6 @@ export const GlobalStyle = createGlobalStyle`
     section {
         padding: 0;
         background-color: ${theme.color.background.primary};
-        height: 100%;
-        min-height: 90vh;
     }
 
 

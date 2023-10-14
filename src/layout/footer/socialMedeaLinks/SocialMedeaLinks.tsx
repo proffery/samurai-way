@@ -2,6 +2,7 @@ import styled from "styled-components"
 import { Icon } from "../../../components/icon/Icon"
 import { Link } from "../../../components/link/Link.styled"
 import { socialLinks } from "../../../data/socialLinks"
+import { theme } from "../../../styles/Theme.styled"
 
 export const SocialMedeaLinks = () => {
     return (
@@ -9,11 +10,11 @@ export const SocialMedeaLinks = () => {
             {socialLinks.map(link => {
                 return (
                     <Link key={link.id}
-                        href={link.item_href} 
-                        title={link.item_name} 
-                        aria-label={link.item_name + ' link'} 
+                        href={link.href} 
+                        title={link.name} 
+                        aria-label={link.name + ' link'} 
                         type="primary"
-                    ><Icon iconId={link.item_icon} /></Link>
+                    ><Icon iconId={link.icon_id} /></Link>
                 )
             })}
         </LinksContainer>
@@ -26,4 +27,15 @@ const LinksContainer = styled.div`
     align-items: center;
     flex-wrap: wrap;
     gap: 24px;
+    @media ${theme.media.mobile} {
+        gap: 15px;
+    }
+    ${Link} {
+        @media ${theme.media.mobile} {
+            svg {
+                min-width: 18px;
+                width: 18px;
+            }
+        }
+    }
 `
