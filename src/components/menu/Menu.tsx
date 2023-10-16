@@ -1,20 +1,21 @@
 import styled, { css } from "styled-components"
-import { Icon } from "../../../components/icon/Icon"
-import { menuItems } from "../../../data/menuItems"
-import { theme } from "../../../styles/Theme.styled"
+import { Icon } from "../icon/Icon"
+import { theme } from "../../styles/Theme.styled"
 import { NavLink } from "react-router-dom"
+import { MenuItemStateType } from "../../redux/state"
 
-type MenuType = {
+type MenuPropsType = {
     type: 'primary' | 'secondary'
     direction: 'row' | 'column'
     icons?: boolean
+    menuItems: MenuItemStateType[]
 }
 
-export const Menu = (props: MenuType) => {
+export const Menu: React.FC<MenuPropsType> = (props) => {
     return (
         <StyledMenu direction={props.direction} type={props.type}>
             <ul role="menu" aria-label="menu">
-                {menuItems.map((item) => {
+                {props.menuItems.map((item) => {
                     return(
                         <li role="menuitem" key={item.id}>
                             <StyledNavLink to={item.href} type={props.type} tabIndex={0}>
@@ -33,9 +34,12 @@ export const Menu = (props: MenuType) => {
     )
 }
 
+type StyledMenuType = {
+    type: 'primary' | 'secondary'
+    direction: 'row' | 'column'
+}
 
-
-const StyledMenu = styled.div<MenuType>`
+const StyledMenu = styled.div<StyledMenuType>`
     ul {
         display: flex;
         flex-wrap: wrap;
@@ -53,16 +57,16 @@ const StyledMenu = styled.div<MenuType>`
     }
 `
 
-const StyledNavLink = styled(NavLink)<MenuType>`
+const StyledNavLink = styled(NavLink)<StyledMenuType>`
     display: flex;
     align-items: center;
     opacity: .7;
-    ${props => props.type === 'primary' && css<MenuType>`
+    ${props => props.type === 'primary' && css<StyledMenuType>`
         color: ${theme.color.text.primary_dark};
 
     `}
     
-    ${props => props.type === 'secondary' && css<MenuType>`
+    ${props => props.type === 'secondary' && css<StyledMenuType>`
         color: ${theme.color.text.second};
     `}
     

@@ -2,12 +2,18 @@ import styled from "styled-components"
 import { Logo } from "../../components/logo/Logo"
 import { theme } from "../../styles/Theme.styled"
 import { FlexWrapper } from "../../components/FlexWrapper"
-import { Menu } from "../navbar/menu/Menu"
+import { Menu } from "../../components/menu/Menu"
 import { Link } from "../../components/link/Link.styled"
 import { Icon } from "../../components/icon/Icon"
 import { SocialMedeaLinks } from "./socialMedeaLinks/SocialMedeaLinks"
+import { FooterStateType, MenuStateType } from "../../redux/state"
 
-export const Footer = () => {
+type FooterPropsType = {
+    menuData: MenuStateType
+    footerData: FooterStateType
+}
+
+export const Footer:React.FC<FooterPropsType> = (props) => {
     return (
         <StyledFooter>
             <TopWrapper align="start" direction="row" wrap="wrap" justify="space-between">
@@ -30,12 +36,16 @@ export const Footer = () => {
                         </IconWrapper>
                     </FlexWrapper>
                     <FlexWrapper>
-                        <SocialMedeaLinks />
+                        <SocialMedeaLinks socialLinks={props.footerData.socialLinks} />
                     </FlexWrapper>
                 </ContactsHalf>
             </TopWrapper>
             <BottomWrapper align="start" direction="row" wrap="wrap" justify="space-between">
-                <Menu type="primary" direction="row" icons={false}/>
+                <Menu type="primary" 
+                    direction="row" 
+                    icons={false} 
+                    menuItems={props.footerData.socialLinks}
+                />
                 <Copyright><span>Copyright © 2023&nbsp;</span><Link type="primary">Dmitry Shamko</Link></Copyright>
             </BottomWrapper>
         </StyledFooter>

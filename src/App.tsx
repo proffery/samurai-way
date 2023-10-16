@@ -1,3 +1,4 @@
+import styled from 'styled-components';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { Footer } from "./layout/footer/Footer";
 import { Navbar } from "./layout/navbar/Navbar";
@@ -7,17 +8,19 @@ import { Profile } from "./layout/sections/profile/Profile";
 import { Messages } from "./layout/sections/messages/Messages";
 import { Notifications } from "./layout/sections/notifications/Notifications";
 import { Settings } from "./layout/sections/settings/Settings";
-import styled from 'styled-components';
 import { NotFound } from './layout/sections/notFound/NotFound';
+import { RootStateType } from './redux/state';
 
+type AppType = {
+  state: RootStateType
+}
 
-
-function App() {
+function App(props: AppType) {
 
   return (
     <Router >
       <Container>
-        <Navbar />
+        <Navbar menuData={props.state.menu} />
         <Header />
         <Switch>
           <Route path='/' exact component={Home} />
@@ -28,7 +31,7 @@ function App() {
           <Route path='/settings' component={Settings} />
           <Route path='*' component={NotFound} />
         </Switch>
-        <Footer />
+        <Footer menuData={props.state.menu} footerData={props.state.footer} />
       </Container>
     </Router>
   )

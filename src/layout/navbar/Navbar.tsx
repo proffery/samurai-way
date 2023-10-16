@@ -1,14 +1,22 @@
 import styled from "styled-components"
-import { FlexWrapper } from "../../components/FlexWrapper"
-import { Menu } from "./menu/Menu"
+import { Menu } from "../../components/menu/Menu"
 import { theme } from "../../styles/Theme.styled"
 import { Logo } from "../../components/logo/Logo"
+import { MenuStateType } from "../../redux/state"
 
-export const Navbar = () => {
+type NavbarPropsType = {
+    menuData: MenuStateType
+}
+
+export const Navbar: React.FC<NavbarPropsType> = (props) => {
     return (
         <StyledNavbar>
             <Logo type={'secondary'}/>
-            <Menu type={'secondary'} icons={true} direction={'column'}/>
+            <Menu type={'secondary'} 
+                icons={true} 
+                direction={'column'} 
+                menuItems={props.menuData.menuItems}
+            />
         </StyledNavbar>
     )
 }

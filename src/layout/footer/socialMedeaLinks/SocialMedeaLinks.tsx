@@ -1,13 +1,17 @@
 import styled from "styled-components"
 import { Icon } from "../../../components/icon/Icon"
 import { Link } from "../../../components/link/Link.styled"
-import { socialLinks } from "../../../data/socialLinks"
 import { theme } from "../../../styles/Theme.styled"
+import { SocialLinkStateType } from "../../../redux/state"
 
-export const SocialMedeaLinks = () => {
+type SocialMedeaLinksPropsType = {
+    socialLinks: SocialLinkStateType[]
+}
+
+export const SocialMedeaLinks:React.FC<SocialMedeaLinksPropsType> = (props) => {
     return (
         <LinksContainer>
-            {socialLinks.map(link => {
+            {props.socialLinks.map(link => {
                 return (
                     <Link key={link.id}
                         href={link.href} 
