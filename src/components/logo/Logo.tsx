@@ -19,5 +19,5 @@ const LogoLink = styled(Link)`
     flex-direction: column;
     align-items: start;
     opacity: 1;
-    ${font({family: 'Orbitron', weight: 700, Fmin: 14, Fmax: 36})}
+    ${font({family: 'Orbitron', weight: 700, Fmin: 18, Fmax: 30})}
 `

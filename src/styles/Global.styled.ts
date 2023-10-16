@@ -24,7 +24,7 @@ export const GlobalStyle = createGlobalStyle`
         margin: 0 auto;
         height: 100vh;
         background-color: white;
-        ${font({Fmin: 10, Fmax: 18})}
+        ${font({weight: 400, Fmin: 10, Fmax: 22})}
         font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Oxygen',
             'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
             sans-serif;
@@ -38,10 +38,16 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     main {
-        padding: 0;
+        padding: 0 32px;
+        gap: 32px;
         background-color: ${theme.color.background.primary};
     }
 
+    section {
+        display: flex;
+        border-radius: 10px;
+        background-color: ${theme.color.background.block};
+    }
 
     @media (prefers-reduced-motion: reduce) {
         animation: unset;

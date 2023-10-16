@@ -44,7 +44,7 @@ export const Footer:React.FC<FooterPropsType> = (props) => {
                 <Menu type="primary" 
                     direction="row" 
                     icons={false} 
-                    menuItems={props.footerData.socialLinks}
+                    menuItems={props.menuData.menuItems}
                 />
                 <Copyright><span>Copyright © 2023&nbsp;</span><Link type="primary">Dmitry Shamko</Link></Copyright>
             </BottomWrapper>

@@ -3,12 +3,12 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { Footer } from "./layout/footer/Footer";
 import { Navbar } from "./layout/navbar/Navbar";
 import { Header } from "./layout/header/Header";
-import { Home } from "./layout/sections/home/Home";
-import { Profile } from "./layout/sections/profile/Profile";
-import { Messages } from "./layout/sections/messages/Messages";
-import { Notifications } from "./layout/sections/notifications/Notifications";
-import { Settings } from "./layout/sections/settings/Settings";
-import { NotFound } from './layout/sections/notFound/NotFound';
+import { Home } from "./layout/pages/home/Home";
+import { Profile } from "./layout/pages/profile/Profile";
+import { Messages } from "./layout/pages/messages/Messages";
+import { Notifications } from "./layout/pages/notifications/Notifications";
+import { Settings } from "./layout/pages/settings/Settings";
+import { NotFound } from './layout/pages/notFound/NotFound';
 import { RootStateType } from './redux/state';
 
 type AppType = {
