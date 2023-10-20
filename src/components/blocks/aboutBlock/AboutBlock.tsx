@@ -16,12 +16,14 @@ export const AboutBlock: React.FC<AboutBlockPropsType> = (props) => {
 }
 
 const StyledAboutBlock = styled.section`
+    display: flex;
+    flex-direction: column;
     color: ${theme.color.text.primary_dark};
     padding: 40px 23px;
     height: fit-content;
 `
 
-const Header = styled.section`
+const Header = styled.h2`
     color: ${theme.color.text.primary};
     ${font({weight: 700, Fmin: 14, Fmax: 26})}
 `

@@ -13,7 +13,7 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     *:focus-visible {
-        outline: 2px solid gray
+        outline: 1px solid ${theme.color.text.placeholder};
     }
     
     html {

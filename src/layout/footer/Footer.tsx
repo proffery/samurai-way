@@ -18,7 +18,7 @@ export const Footer:React.FC<FooterPropsType> = (props) => {
         <StyledFooter>
             <TopWrapper align="start" direction="row" wrap="wrap" justify="space-between">
                 <ContactsHalf>
-                    <Logo type="primary"/>
+                    <Logo logo_style="primary"/>
                 </ContactsHalf>
                 <ContactsHalf direction="column">
                     <IconWrapper align="center">
@@ -46,7 +46,7 @@ export const Footer:React.FC<FooterPropsType> = (props) => {
                     icons={false} 
                     menuItems={props.menuData.menuItems}
                 />
-                <Copyright><span>Copyright © 2023&nbsp;</span><Link type="primary">Dmitry Shamko</Link></Copyright>
+                <Copyright><span>Copyright © 2023&nbsp;</span><Link link_style="primary">Dmitry Shamko</Link></Copyright>
             </BottomWrapper>
         </StyledFooter>
     )

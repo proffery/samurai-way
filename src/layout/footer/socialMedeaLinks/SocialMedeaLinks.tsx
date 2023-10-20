@@ -17,7 +17,7 @@ export const SocialMedeaLinks:React.FC<SocialMedeaLinksPropsType> = (props) => {
                         href={link.href} 
                         title={link.name} 
                         aria-label={link.name + ' link'} 
-                        type="primary"
+                        link_style="primary"
                     ><Icon iconId={link.icon_id} /></Link>
                 )
             })}

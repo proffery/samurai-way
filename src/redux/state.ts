@@ -2,6 +2,7 @@ export type PostStateType = {
     id: number
     message: string
     likeCount: number
+    commentsCount: number
 }
 
 export type MessageStateType = {
@@ -61,27 +62,32 @@ export const state:RootStateType = {
             {
                 id: 1,
                 message: 'Hi',
-                likeCount: 10
+                likeCount: 10,
+                commentsCount: 10
             },
             {
                 id: 2,
                 message: 'How are you?',
-                likeCount: 10
+                likeCount: 10,
+                commentsCount: 10
             },
             {
                 id: 3,
                 message: 'Yo',
-                likeCount: 10
+                likeCount: 10,
+                commentsCount: 10
             },
             {
                 id: 4,
                 message: 'Samurai way!',
-                likeCount: 10
+                likeCount: 10,
+                commentsCount: 10
             },
             {
                 id: 5,
                 message: 'Bye-bye!',
-                likeCount: 10
+                likeCount: 10,
+                commentsCount: 10
             },
         ]
     },

@@ -1,15 +1,18 @@
-import styled, { css } from "styled-components";
-import { theme } from "../../styles/Theme.styled";
+import styled, { css } from "styled-components"
+import { theme } from "../../styles/Theme.styled"
 
-type ButtonPropsType = {
-    type: 'primary' | 'outlined' | 'link'
+
+type LinkPropsType = {
+    link_style: 'primary' | 'secondary' | 'buttonPrimary' | 'buttonSecondary',
 }
 
-export const Button = styled.button<ButtonPropsType>`
-    cursor: pointer;
+export const Link = styled.a<LinkPropsType>`
     white-space: nowrap;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
 
-    ${props => props.type === 'primary' && css<ButtonPropsType>`
+    ${props => props.link_style === 'buttonPrimary' && css<LinkPropsType>`
         background-color: ${theme.color.background.second};
         color: ${theme.color.text.second};
         border-color: ${theme.color.background.second};
@@ -24,7 +27,7 @@ export const Button = styled.button<ButtonPropsType>`
         }
     `}
     
-    ${props => props.type === 'outlined' && css<ButtonPropsType>`
+    ${props => props.link_style === 'buttonSecondary' && css<LinkPropsType>`
         background-color: transparent;
         color: ${theme.color.text.primary};
         border-color: ${theme.color.background.second};
@@ -38,10 +41,18 @@ export const Button = styled.button<ButtonPropsType>`
         }
     `}
     
-    ${props => props.type === 'link' && css<ButtonPropsType>`
+    ${props => props.link_style === 'primary' && css<LinkPropsType>`
         background-color: transparent;
         color: ${theme.color.text.primary};
-        border: none;
+        opacity: .7;
+        &:hover {
+            opacity: 1;
+        }
+    `}
+    
+    ${props => props.link_style === 'secondary' && css<LinkPropsType>`
+        background-color: transparent;
+        color: ${theme.color.text.second};
         opacity: .7;
         &:hover {
             opacity: 1;

@@ -2,13 +2,13 @@ import { Link } from "../../components/link/Link.styled"
 import { font } from '../../styles/Font'
 import styled from "styled-components"
 
-type LogoType ={
-    type: 'primary' | 'secondary'
+type LogoPropsType ={
+    logo_style: 'primary' | 'secondary'
 }
 
-export const Logo = (props: LogoType) => {
+export const Logo = (props: LogoPropsType) => {
     return (
-        <LogoLink type={props.type} href="/">
+        <LogoLink link_style={props.logo_style} href="/">
             <span>Social</span>
             <span>Network</span>
         </LogoLink>

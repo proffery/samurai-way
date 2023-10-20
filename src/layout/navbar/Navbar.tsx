@@ -11,7 +11,7 @@ type NavbarPropsType = {
 export const Navbar: React.FC<NavbarPropsType> = (props) => {
     return (
         <StyledNavbar>
-            <Logo type={'secondary'}/>
+            <Logo logo_style={'secondary'}/>
             <Menu type={'secondary'} 
                 icons={true} 
                 direction={'column'} 
