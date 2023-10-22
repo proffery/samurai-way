@@ -3,14 +3,19 @@ import { ActiveFriendsBlock } from "../../../components/blocks/activeFriendsBloc
 import { HeaderBlock } from "../../../components/blocks/HeaderBlock/HeaderBlock"
 import { FriendsBlock } from "../../../components/blocks/friendsBlock/FriendsBlock"
 import { PostsBlock } from "../../../components/blocks/postsBlock/PostsBlock"
+import { ProfilePageStateType } from "../../../redux/state"
 import styled from "styled-components"
 
-export const Profile = () => {
+type ProfilePropsType = {
+    profileData: ProfilePageStateType
+}
+
+export const Profile: React.FC<ProfilePropsType> = (props) => {
     return (
         <StyledProfile id="profile">
             <ProfileHeaderBlock />
             <ProfileAboutBlock />
-            <ProfilePostsBlock />
+            <ProfilePostsBlock postsData={props.profileData.posts} />
             <ProfileFriendsBlock />
             <StyledActiveFriendsBlock />
         </StyledProfile>

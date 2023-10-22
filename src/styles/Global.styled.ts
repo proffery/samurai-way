@@ -41,6 +41,8 @@ export const GlobalStyle = createGlobalStyle`
         padding: 0 32px;
         gap: 32px;
         background-color: ${theme.color.background.primary};
+        overflow-y: auto;
+        overflow-x: hidden;
     }
 
     section {
@@ -51,5 +53,21 @@ export const GlobalStyle = createGlobalStyle`
 
     @media (prefers-reduced-motion: reduce) {
         animation: unset;
+    }
+
+    ////////////////SCROLLBAR///////////////
+    /* width */
+    ::-webkit-scrollbar {
+        width: 2px;
+    }
+
+    /* Track */
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: ${theme.color.background.second}; 
     }
 `

@@ -5,7 +5,7 @@ type ButtonPropsType = {
     button_style: 'primary' | 'outlined' | 'link'
     type?: 'button' | 'reset' | 'submit'
     className?: string
-    name: string
+    name?: any
     callback: () => void
 }
 
