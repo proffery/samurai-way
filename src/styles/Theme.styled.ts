@@ -18,8 +18,9 @@ export const theme = {
     },
     shadow: {
         main: 'rgba(0, 0, 0, 0.05) 8px 8px 34px ',
-        card: 'rgba(0, 0, 0, 0.15) 0 4px 6px',
-        text: 'rgba(0, 0, 0,  0.25) 0 4px 4px'
+        block: 'rgba(0, 0, 0, 0.15) 0 4px 6px',
+        text: 'rgba(0, 0, 0,  0.25) 0 4px 4px',
+        navbar: 'rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px'
     },
     gradient: {
         dot: 'linear-gradient(180deg, rgba(166, 188, 250, 1), rgba(33, 87, 242, 1))',

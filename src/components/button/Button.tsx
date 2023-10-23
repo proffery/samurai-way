@@ -1,11 +1,13 @@
 import styled, { css } from "styled-components";
 import { theme } from "../../styles/Theme.styled";
+import { ReactElement } from "react";
+import { font } from "../../styles/Font";
 
 type ButtonPropsType = {
     button_style: 'primary' | 'outlined' | 'link'
     type?: 'button' | 'reset' | 'submit'
     className?: string
-    name?: any
+    name?: string | ReactElement
     callback: () => void
 }
 
@@ -21,7 +23,7 @@ export const Button: React.FC<ButtonPropsType> = (props) => {
             onClick={onClickButtonHandler} 
             type={props.type || 'button'}
             className={props.className}
-        >{props.name}</StyledButton>
+        >{props.name || ''}</StyledButton>
     )
 }
 
@@ -33,7 +35,7 @@ const StyledButton = styled.button<StyledButtonPropsType>`
     cursor: pointer;
     white-space: nowrap;
     max-width: 172px;
-    
+    ${font({weight: 400, Fmin: 10, Fmax: 22})}
 
     ${props => props.button_style === 'primary' && css<StyledButtonPropsType>`
         background-color: ${theme.color.background.second};
@@ -42,7 +44,11 @@ const StyledButton = styled.button<StyledButtonPropsType>`
         border-radius: 10px;
         border-width: 1px;
         border-style: solid;
-        
+        padding: 12px 24px;
+        @media ${theme.media.mobile} {
+            border-radius: 8px ;
+            padding: 8px 16px;
+        }
         &:hover {
             background-color: transparent;
             color: ${theme.color.text.primary};
@@ -51,12 +57,17 @@ const StyledButton = styled.button<StyledButtonPropsType>`
     `}
     
     ${props => props.button_style === 'outlined' && css<StyledButtonPropsType>`
-        background-color: transparent;
+        background-color: ${theme.color.background.primary};;
         color: ${theme.color.text.primary};
         border-color: ${theme.color.background.second};
         border-radius: 10px;
         border-width: 1px;
         border-style: solid;
+        padding: 12px 24px;
+        @media ${theme.media.mobile} {
+            border-radius: 8px ;
+            padding: 8px 16px;
+        }
         &:hover {
             background-color: ${theme.color.background.second};
             color: ${theme.color.text.second};

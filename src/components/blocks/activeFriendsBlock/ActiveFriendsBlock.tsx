@@ -8,7 +8,7 @@ type ActiveFriendsBlockPropsType = {
 export const ActiveFriendsBlock: React.FC<ActiveFriendsBlockPropsType> = (props) => {
     return (
         <StyledActiveFriendsBlock id="active-friends" className={props.className}>
-            ActiveFriends_BLOCK
+            Active
         </StyledActiveFriendsBlock>
     )
 }

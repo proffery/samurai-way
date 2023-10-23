@@ -55,7 +55,6 @@ export const Footer:React.FC<FooterPropsType> = (props) => {
 const StyledFooter = styled.footer`
     display: flex;
     flex-direction: column;
-    grid-area: 3 / 1 / 4 / 6 ;
     align-items: center;
     justify-content: center;
     text-align: center;

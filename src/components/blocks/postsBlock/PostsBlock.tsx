@@ -19,8 +19,6 @@ export const PostsBlock: React.FC<PostsBlockPropsType> = (props) => {
         alert('SendPost')
     }
 
-    
-
     return (
         <StyledPostsBlock id="posts" className={props.className}>
             <Header>Posts</Header>
@@ -32,7 +30,7 @@ export const PostsBlock: React.FC<PostsBlockPropsType> = (props) => {
                     bordered={'true'}
                 />
                 <FlexWrapper>
-                    <StyledButton 
+                    <Button 
                         type={'submit'} 
                         button_style={'primary'} 
                         callback={sendButtonHandler}
@@ -62,7 +60,7 @@ position: relative;
     display: flex;
     flex-direction: column;
     color: ${theme.color.text.primary_dark};
-    padding: 40px 46px 0px ;
+    padding: 40px 48px 0px ;
     height: fit-content;
     gap: 20px;
     &::before {
@@ -73,6 +71,12 @@ position: relative;
         left: 0;
         top: 80px;
         background-color: ${theme.color.background.primary};
+        @media ${theme.media.mobile} {
+            top: 60px;
+        }
+    }
+    @media ${theme.media.mobile} {
+        padding: 27px 16px 0;
     }
 `
 
@@ -89,8 +93,4 @@ const Form = styled.form`
     textarea {
         min-height: 70px;
     }
-`
-
-const StyledButton = styled(Button)`
-    padding: 12px 24px;
 `

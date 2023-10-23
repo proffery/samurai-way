@@ -19,7 +19,11 @@ export const Link = styled.a<LinkPropsType>`
         border-radius: 10px;
         border-width: 1px;
         border-style: solid;
-        
+        padding: 12px 24px;
+        @media ${theme.media.mobile} {
+            border-radius: 8px ;
+            padding: 8px 16px;
+        }
         &:hover {
             background-color: transparent;
             color: ${theme.color.text.primary};
@@ -34,6 +38,11 @@ export const Link = styled.a<LinkPropsType>`
         border-radius: 10px;
         border-width: 1px;
         border-style: solid;
+        padding: 12px 24px;
+        @media ${theme.media.mobile} {
+            border-radius: 8px ;
+            padding: 8px 16px;
+        }
         &:hover {
             background-color: ${theme.color.background.second};
             color: ${theme.color.text.second};

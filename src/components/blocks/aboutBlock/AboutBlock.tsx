@@ -19,8 +19,11 @@ const StyledAboutBlock = styled.section`
     display: flex;
     flex-direction: column;
     color: ${theme.color.text.primary_dark};
-    padding: 40px 23px;
+    padding: 40px 20px;
     height: fit-content;
+    @media ${theme.media.mobile} {
+        padding: 27px 16px;
+    }
 `
 
 const Header = styled.h2`

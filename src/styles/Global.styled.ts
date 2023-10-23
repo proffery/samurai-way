@@ -43,6 +43,10 @@ export const GlobalStyle = createGlobalStyle`
         background-color: ${theme.color.background.primary};
         overflow-y: auto;
         overflow-x: hidden;
+        @media ${theme.media.mobile} {
+            padding: 0 20px;
+            gap: 20px;
+        }
     }
 
     section {

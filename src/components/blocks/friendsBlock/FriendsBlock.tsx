@@ -8,7 +8,7 @@ type FriendsBlockPropsType = {
 export const FriendsBlock: React.FC<FriendsBlockPropsType> = (props) => {
     return (
         <StyledFriendsBlock id="friends" className={props.className}>
-            Friends_BLOCK
+            Friends
         </StyledFriendsBlock>
     )
 }
