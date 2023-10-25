@@ -11,6 +11,7 @@ import { Settings } from "./layout/pages/settings/Settings";
 import { NotFound } from './layout/pages/notFound/NotFound';
 import { RootStateType } from './redux/state';
 import { useState } from 'react';
+import { theme } from './styles/Theme.styled';
 
 type AppType = {
   state: RootStateType
@@ -77,4 +78,7 @@ const Container = styled.div<ContainerPropsType>`
       grid-area: 1 / 1 / 2 / 6 ;
     }
   `}
+  @media ${theme.media.mobile} {
+    grid-template-rows: 80px 93vh 1fr;
+  }
 `

@@ -25,7 +25,7 @@ export const Link = styled.a<LinkPropsType>`
             padding: 8px 16px;
         }
         &:hover {
-            background-color: transparent;
+            background-color: ${theme.color.background.primary};
             color: ${theme.color.text.primary};
             border-color: ${theme.color.background.second};
         }

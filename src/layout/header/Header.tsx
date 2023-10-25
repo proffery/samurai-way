@@ -5,7 +5,7 @@ import search from "../../assets/images/Search.svg"
 
 export const Header = () => {
     return (
-        <StyledHeader>
+        <StyledHeader id="header">
             <StyledField search={search} bordered="false" placeholder={"Search"}/> 
         </StyledHeader>
     )

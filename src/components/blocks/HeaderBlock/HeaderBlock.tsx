@@ -7,7 +7,7 @@ type HeaderBlockPropsType = {
 
 export const HeaderBlock: React.FC<HeaderBlockPropsType> = (props) => {
     return (
-        <StyledHeaderBlock id="header" className={props.className}>
+        <StyledHeaderBlock id="profile-header" className={props.className}>
             Header_BLOCK
         </StyledHeaderBlock>
     )

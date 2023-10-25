@@ -43,18 +43,6 @@ export const PostsBlock: React.FC<PostsBlockPropsType> = (props) => {
     )
 }
 
-type PostsListPropsType = {
-    postsData: PostStateType[]
-}
-
-const PostsList: React.FC<PostsListPropsType> = (props) => {
-    return (
-        <>
-            {props.postsData.map(post => <Post key={post.id} postData={post}/>)}
-        </>
-    )
-}
-
 const StyledPostsBlock = styled.section`
 position: relative;
     display: flex;
@@ -93,4 +81,19 @@ const Form = styled.form`
     textarea {
         min-height: 70px;
     }
+`
+type PostsListPropsType = {
+    postsData: PostStateType[]
+}
+
+const PostsList: React.FC<PostsListPropsType> = (props) => {
+    return (
+        <StyledPostList>
+            {props.postsData.map(post => <Post key={post.id} postData={post}/>)}
+        </StyledPostList>
+    )
+}
+
+const StyledPostList = styled.div`
+    /* overflow-y: auto; */
 `

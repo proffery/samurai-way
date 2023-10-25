@@ -8,6 +8,7 @@ type ButtonPropsType = {
     type?: 'button' | 'reset' | 'submit'
     className?: string
     name?: string | ReactElement
+    title?: string
     callback: () => void
 }
 
@@ -23,6 +24,7 @@ export const Button: React.FC<ButtonPropsType> = (props) => {
             onClick={onClickButtonHandler} 
             type={props.type || 'button'}
             className={props.className}
+            title={props.title}
         >{props.name || ''}</StyledButton>
     )
 }
@@ -50,14 +52,14 @@ const StyledButton = styled.button<StyledButtonPropsType>`
             padding: 8px 16px;
         }
         &:hover {
-            background-color: transparent;
+            background-color: ${theme.color.background.primary};
             color: ${theme.color.text.primary};
             border-color: ${theme.color.background.second};
         }
     `}
     
     ${props => props.button_style === 'outlined' && css<StyledButtonPropsType>`
-        background-color: ${theme.color.background.primary};;
+        background-color: ${theme.color.background.primary};
         color: ${theme.color.text.primary};
         border-color: ${theme.color.background.second};
         border-radius: 10px;

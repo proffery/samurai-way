@@ -41,8 +41,7 @@ export const GlobalStyle = createGlobalStyle`
         padding: 0 32px;
         gap: 32px;
         background-color: ${theme.color.background.primary};
-        overflow-y: auto;
-        overflow-x: hidden;
+        scroll-behavior: smooth;
         @media ${theme.media.mobile} {
             padding: 0 20px;
             gap: 20px;
