@@ -1,5 +1,6 @@
 import React from "react"
-import styled from "styled-components"
+import { BlockSection } from "../BlockSection.styled"
+import { BlockHeader } from "../BlockHeader.styled"
 
 type ActiveFriendsBlockPropsType = {
     className?: string
@@ -7,12 +8,8 @@ type ActiveFriendsBlockPropsType = {
 
 export const ActiveFriendsBlock: React.FC<ActiveFriendsBlockPropsType> = (props) => {
     return (
-        <StyledActiveFriendsBlock id="active-friends" className={props.className}>
-            Active
-        </StyledActiveFriendsBlock>
+        <BlockSection id="active-friends" className={props.className}>
+            <BlockHeader>Active</BlockHeader>
+        </BlockSection>
     )
 }
-
-const StyledActiveFriendsBlock = styled.section`
-    
-`

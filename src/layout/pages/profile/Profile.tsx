@@ -1,6 +1,6 @@
 import { AboutBlock } from "../../../components/blocks/aboutBlock/AboutBlock"
 import { ActiveFriendsBlock } from "../../../components/blocks/activeFriendsBlock/ActiveFriendsBlock"
-import { HeaderBlock } from "../../../components/blocks/HeaderBlock/HeaderBlock"
+import { HeaderBlock } from "../../../components/blocks/headerBlock/HeaderBlock"
 import { FriendsBlock } from "../../../components/blocks/friendsBlock/FriendsBlock"
 import { PostsBlock } from "../../../components/blocks/postsBlock/PostsBlock"
 import { ProfilePageStateType } from "../../../redux/state"
@@ -19,7 +19,7 @@ export const Profile: React.FC<ProfilePropsType> = (props) => {
             <ProfileHeaderBlock />
             <ProfileAboutBlock />
             <ProfilePostsBlock postsData={props.profileData.posts} />
-            <ProfileFriendsBlock />
+            <ProfileFriendsBlock block_header="Friends"/>
             <StyledActiveFriendsBlock />
             <ToTopLink top_block_anchor_id="profile-header"/>
         </StyledProfile>

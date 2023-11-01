@@ -34,6 +34,7 @@ export type MenuItemStateType = {
 
 export type ProfilePageStateType = {
     posts: PostStateType[]
+    friends: DialogStateType[]
 }
 
 export type MessagesPageStateType = {
@@ -88,6 +89,32 @@ export const state:RootStateType = {
                 message: 'Bye-bye!',
                 likeCount: 10,
                 commentsCount: 10
+            },
+        ],
+        friends: [
+            {
+                id: 1,
+                name: 'Dimych'
+            },
+            {
+                id: 2,
+                name: 'Anrew'
+            },
+            {
+                id: 3,
+                name: 'Sveta'
+            },
+            {
+                id: 4,
+                name: 'Sasha'
+            },
+            {
+                id: 5,
+                name: 'Viktor'
+            },
+            {
+                id: 6,
+                name: 'Dimych'
             },
         ]
     },

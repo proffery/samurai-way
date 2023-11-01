@@ -1,18 +1,16 @@
 import React from "react"
-import styled from "styled-components"
+import { BlockHeader } from "../BlockHeader.styled"
+import { BlockSection } from "../BlockSection.styled"
 
 type FriendsBlockPropsType = {
     className?: string
+    block_header: string
 }
 
 export const FriendsBlock: React.FC<FriendsBlockPropsType> = (props) => {
     return (
-        <StyledFriendsBlock id="friends" className={props.className}>
-            Friends
-        </StyledFriendsBlock>
+        <BlockSection id="friends" className={props.className}>
+            <BlockHeader>{props.block_header}</BlockHeader>
+        </BlockSection>
     )
 }
-
-const StyledFriendsBlock = styled.section`
-    
-`
