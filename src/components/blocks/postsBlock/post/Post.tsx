@@ -1,11 +1,11 @@
 import styled from "styled-components"
 import { PostStateType } from "../../../../redux/state"
 import { theme } from "../../../../styles/Theme.styled"
-import { Button } from "../../../button/Button"
-import { FlexWrapper } from "../../../FlexWrapper"
+import { Button } from "../../../micro/button/Button"
+import { FlexWrapper } from "../../../micro/FlexWrapper"
 import { font } from "../../../../styles/Font"
 import Avatar from '../../../../assets/images/Author.webp'
-import { Icon } from "../../../icon/Icon"
+import { Icon } from "../../../micro/icon/Icon"
 
 type PostPropsType = {
     postData: PostStateType
@@ -31,7 +31,7 @@ export const Post: React.FC<PostPropsType> = (props) => {
                         <PostDate>15mins ago</PostDate>
                     </FlexWrapper>
                 </AuthorInfo>
-                <MoreButton button_style="link" name={'...'} callback={moreButtonOnClickHandler} />
+                <MoreButton button_style="link" name={'...'} onClick={moreButtonOnClickHandler} />
             </Author>
             <Picture>
 
@@ -42,11 +42,11 @@ export const Post: React.FC<PostPropsType> = (props) => {
             </Message>
             <PostActivites>
                 <FlexWrapper align="center">
-                    <Button callback={likesButtonOnClickHandler} name={<Icon iconId="likes" viewBox="0 0 28 28" width="100%" height="100%" />} button_style="link" />
+                    <Button onClick={likesButtonOnClickHandler} name={<Icon iconId="likes" viewBox="0 0 28 28" width="100%" height="100%" />} button_style="link" />
                     <AuthorName>{props.postData.likeCount}</AuthorName>
                 </FlexWrapper>
                 <FlexWrapper align="center">
-                    <Button callback={commentsButtonOnClickHandler} name={<Icon iconId="comments" viewBox="0 0 28 28" width="100%" height="100%" />} button_style="link" />
+                    <Button onClick={commentsButtonOnClickHandler} name={<Icon iconId="comments" viewBox="0 0 28 28" width="100%" height="100%" />} button_style="link" />
                     <AuthorName>{props.postData.commentsCount}</AuthorName>
                 </FlexWrapper>
             </PostActivites>

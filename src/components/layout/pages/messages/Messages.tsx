@@ -1,9 +1,9 @@
 import styled from "styled-components"
-import { FriendsBlock } from "../../../components/blocks/friendsBlock/FriendsBlock"
-import { MessagesBlock } from "../../../components/blocks/messagesBlock/MessagesBlock"
-import { ToTopLink } from "../../../components/toTopLink/ToTopLink"
-import { theme } from "../../../styles/Theme.styled"
-import { MessagesPageStateType } from "../../../redux/state"
+import { FriendsBlock } from "../../../blocks/friendsBlock/FriendsBlock"
+import { MessagesBlock } from "../../../blocks/messagesBlock/MessagesBlock"
+import { ToTopLink } from "../../../micro/toTopLink/ToTopLink"
+import { theme } from "../../../../styles/Theme.styled"
+import { MessagesPageStateType } from "../../../../redux/state"
 
 type MessagesPropsType = {
     messagesData: MessagesPageStateType

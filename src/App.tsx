@@ -1,14 +1,14 @@
 import styled, { css } from 'styled-components';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import { Footer } from "./layout/footer/Footer";
-import { Navbar } from "./layout/navbar/Navbar";
-import { Header } from "./layout/header/Header";
-import { Home } from "./layout/pages/home/Home";
-import { Profile } from "./layout/pages/profile/Profile";
-import { Messages } from "./layout/pages/messages/Messages";
-import { Notifications } from "./layout/pages/notifications/Notifications";
-import { Settings } from "./layout/pages/settings/Settings";
-import { NotFound } from './layout/pages/notFound/NotFound';
+import { Footer } from "./components/layout/footer/Footer";
+import { Navbar } from "./components/layout/navbar/Navbar";
+import { Header } from "./components/layout/header/Header";
+import { Home } from "./components/layout/pages/home/Home";
+import { Profile } from "./components/layout/pages/profile/Profile";
+import { Messages } from "./components/layout/pages/messages/Messages";
+import { Notifications } from "./components/layout/pages/notifications/Notifications";
+import { Settings } from "./components/layout/pages/settings/Settings";
+import { NotFound } from './components/layout/pages/notFound/NotFound';
 import { RootStateType } from './redux/state';
 import { useState } from 'react';
 import { theme } from './styles/Theme.styled';

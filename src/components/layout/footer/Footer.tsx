@@ -1,12 +1,12 @@
 import styled from "styled-components"
-import { Logo } from "../../components/logo/Logo"
-import { theme } from "../../styles/Theme.styled"
-import { FlexWrapper } from "../../components/FlexWrapper"
-import { Menu } from "../../components/menu/Menu"
-import { Link } from "../../components/link/Link.styled"
-import { Icon } from "../../components/icon/Icon"
+import { Logo } from "../../../components/micro/logo/Logo"
+import { theme } from "../../../styles/Theme.styled"
+import { FlexWrapper } from "../../../components/micro/FlexWrapper"
+import { Menu } from "../../../components/micro/menu/Menu"
+import { Link } from "../../../components/micro/link/Link.styled"
+import { Icon } from "../../../components/micro/icon/Icon"
 import { SocialMedeaLinks } from "./socialMedeaLinks/SocialMedeaLinks"
-import { FooterStateType, MenuStateType } from "../../redux/state"
+import { FooterStateType, MenuStateType } from "../../../redux/state"
 
 type FooterPropsType = {
     menuData: MenuStateType

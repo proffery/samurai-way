@@ -1,9 +1,9 @@
 import React from "react"
 import styled from "styled-components"
 import { theme } from "../../../styles/Theme.styled"
-import { Button } from "../../button/Button"
-import { Field } from "../../field/Field.styled"
-import { FlexWrapper } from "../../FlexWrapper"
+import { Button } from "../../micro/button/Button"
+import { Field } from "../../micro/field/Field.styled"
+import { FlexWrapper } from "../../micro/FlexWrapper"
 import { Post } from "./post/Post"
 import { PostStateType } from "../../../redux/state"
 import { BlockHeader } from "../BlockHeader.styled"
@@ -34,7 +34,7 @@ export const PostsBlock: React.FC<PostsBlockPropsType> = (props) => {
                     <Button 
                         type={'submit'} 
                         button_style={'primary'} 
-                        callback={sendButtonHandler}
+                        onClick={sendButtonHandler}
                         name={'Send'}
                     />
                 </FlexWrapper>

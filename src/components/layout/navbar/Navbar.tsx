@@ -1,12 +1,12 @@
 import styled from "styled-components"
-import { Menu } from "../../components/menu/Menu"
-import { theme } from "../../styles/Theme.styled"
-import { Logo } from "../../components/logo/Logo"
-import { MenuStateType } from "../../redux/state"
-import { Button } from "../../components/button/Button"
+import { Menu } from "../../../components/micro/menu/Menu"
+import { theme } from "../../../styles/Theme.styled"
+import { Logo } from "../../../components/micro/logo/Logo"
+import { MenuStateType } from "../../../redux/state"
+import { Button } from "../../../components/micro/button/Button"
 import { useEffect, useState } from "react"
 import React from "react"
-import { Icon } from "../../components/icon/Icon"
+import { Icon } from "../../../components/micro/icon/Icon"
 
 type NavbarPropsType = {
     menuData: MenuStateType
@@ -47,7 +47,7 @@ export const Navbar: React.FC<NavbarPropsType> = (props) => {
                 </>
             }
             <CollapseButton button_style="primary" 
-                callback={navbarCollapseHandler} 
+                onClick={navbarCollapseHandler} 
                 name={props.navcollapsed ? <Icon iconId="leftArrow" viewBox="-1 9 18 18"/> : <Icon iconId="rightArrow" viewBox="19 9 18 18"/>}
                 title={props.navcollapsed ? 'Close' : 'Open'}
             />

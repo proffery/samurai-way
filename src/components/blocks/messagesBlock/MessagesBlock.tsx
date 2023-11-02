@@ -25,7 +25,8 @@ type MessagesListPropsType = {
 const MessagesList: React.FC<MessagesListPropsType> = (props) => {
     return (
         <>
-            {props.messagesData.map(message => <Message key={message.id} messageData={message} />)}
+            {props.messagesData.map(message => 
+            <Message key={message.id} messageData={message} />)}
         </>
     )
 }

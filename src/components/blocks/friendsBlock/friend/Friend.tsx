@@ -3,7 +3,8 @@ import { DialogStateType, FriendStateType } from "../../../../redux/state"
 import avatarImg from "../../../../assets/images/Author.webp"
 import { theme } from "../../../../styles/Theme.styled"
 import { font } from "../../../../styles/Font"
-import { FlexWrapper } from "../../../FlexWrapper"
+import { FlexWrapper } from "../../../micro/FlexWrapper"
+import { NavLink } from "react-router-dom"
 
 type FriendPropsType = {
     friendData: FriendStateType | DialogStateType
@@ -11,7 +12,7 @@ type FriendPropsType = {
 
 export const Friend: React.FC<FriendPropsType> = (props) => {
     return(
-        <StyledFriend>
+        <StyledFriend to={"/messages/" + props.friendData.id}>
             <Avatar src={avatarImg}/>
             <FlexWrapper direction="column">
                 <Name>{props.friendData.name}</Name>
@@ -21,7 +22,7 @@ export const Friend: React.FC<FriendPropsType> = (props) => {
     )
 }
 
-const StyledFriend = styled.div`
+const StyledFriend = styled(NavLink)`
     display: flex;
     align-items: center;
     flex-wrap: wrap;

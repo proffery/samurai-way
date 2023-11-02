@@ -1,12 +1,12 @@
-import { AboutBlock } from "../../../components/blocks/aboutBlock/AboutBlock"
-import { ActiveFriendsBlock } from "../../../components/blocks/activeFriendsBlock/ActiveFriendsBlock"
-import { HeaderBlock } from "../../../components/blocks/headerBlock/HeaderBlock"
-import { FriendsBlock } from "../../../components/blocks/friendsBlock/FriendsBlock"
-import { PostsBlock } from "../../../components/blocks/postsBlock/PostsBlock"
-import { ProfilePageStateType } from "../../../redux/state"
+import { AboutBlock } from "../../../blocks/aboutBlock/AboutBlock"
+import { ActiveFriendsBlock } from "../../../blocks/activeFriendsBlock/ActiveFriendsBlock"
+import { HeaderBlock } from "../../../blocks/headerBlock/HeaderBlock"
+import { FriendsBlock } from "../../../blocks/friendsBlock/FriendsBlock"
+import { PostsBlock } from "../../../blocks/postsBlock/PostsBlock"
+import { ProfilePageStateType } from "../../../../redux/state"
 import styled from "styled-components"
-import { theme } from "../../../styles/Theme.styled"
-import { ToTopLink } from "../../../components/toTopLink/ToTopLink"
+import { theme } from "../../../../styles/Theme.styled"
+import { ToTopLink } from "../../../micro/toTopLink/ToTopLink"
 
 type ProfilePropsType = {
     profileData: ProfilePageStateType

@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
-import { theme } from "../../styles/Theme.styled";
+import { theme } from "../../../styles/Theme.styled";
 import { ReactElement } from "react";
-import { font } from "../../styles/Font";
+import { font } from "../../../styles/Font";
 
 type ButtonPropsType = {
     button_style: 'primary' | 'outlined' | 'link'
@@ -9,13 +9,13 @@ type ButtonPropsType = {
     className?: string
     name?: string | ReactElement
     title?: string
-    callback: () => void
+    onClick: () => void
 }
 
 export const Button: React.FC<ButtonPropsType> = (props) => {
 
     const onClickButtonHandler = () => {
-        props.callback()
+        props.onClick()
     }
 
     return (

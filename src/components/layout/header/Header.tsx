@@ -1,7 +1,7 @@
 import styled from "styled-components"
-import { theme } from "../../styles/Theme.styled"
-import { Field } from "../../components/field/Field.styled"
-import search from "../../assets/images/Search.svg"
+import { theme } from "../../../styles/Theme.styled"
+import { Field } from "../../../components/micro/field/Field.styled"
+import search from "../../../assets/images/Search.svg"
 
 export const Header = () => {
     return (

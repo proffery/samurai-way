@@ -1,5 +1,5 @@
-import { Link } from "../../components/link/Link.styled"
-import { font } from '../../styles/Font'
+import { Link } from "../../../components/micro/link/Link.styled"
+import { font } from '../../../styles/Font'
 import styled from "styled-components"
 
 type LogoPropsType ={

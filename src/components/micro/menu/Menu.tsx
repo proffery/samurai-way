@@ -1,8 +1,8 @@
 import styled, { css } from "styled-components"
 import { Icon } from "../icon/Icon"
-import { theme } from "../../styles/Theme.styled"
+import { theme } from "../../../styles/Theme.styled"
 import { NavLink } from "react-router-dom"
-import { MenuItemStateType } from "../../redux/state"
+import { MenuItemStateType } from "../../../redux/state"
 
 type MenuPropsType = {
     type: 'primary' | 'secondary'
