@@ -3,7 +3,6 @@ import { DialogStateType, FriendStateType } from "../../../../redux/state"
 import avatarImg from "../../../../assets/images/Author.webp"
 import { theme } from "../../../../styles/Theme.styled"
 import { font } from "../../../../styles/Font"
-import { FlexWrapper } from "../../../micro/FlexWrapper"
 import { NavLink } from "react-router-dom"
 
 type FriendPropsType = {
@@ -11,18 +10,20 @@ type FriendPropsType = {
 }
 
 export const Friend: React.FC<FriendPropsType> = (props) => {
-    return(
-        <StyledFriend to={"/messages/" + props.friendData.id}>
-            <Avatar src={avatarImg}/>
-            <FlexWrapper direction="column">
+    return (
+        <StyledFriend >
+            <NavLink to={"/profile/" + props.friendData.id}>
+                <Avatar src={avatarImg} />
+            </NavLink>
+            <NavLink to={"/messages/" + props.friendData.id}>
                 <Name>{props.friendData.name}</Name>
                 <Name>{props.friendData.second_name}</Name>
-            </FlexWrapper>
+            </NavLink>
         </StyledFriend>
     )
 }
 
-const StyledFriend = styled(NavLink)`
+const StyledFriend = styled.div`
     display: flex;
     align-items: center;
     flex-wrap: wrap;
@@ -39,6 +40,6 @@ const Avatar = styled.img`
 const Name = styled.span`
     display: flex;
     width: 60%;
-    ${font({weight: 400, Fmin: 10, Fmax: 14})}
+    ${font({ weight: 400, Fmin: 10, Fmax: 14 })}
     color: ${theme.color.text.primary_dark};
 `

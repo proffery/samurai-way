@@ -4,7 +4,7 @@ import { theme } from "../../../../styles/Theme.styled"
 import { Button } from "../../../micro/button/Button"
 import { FlexWrapper } from "../../../micro/FlexWrapper"
 import { font } from "../../../../styles/Font"
-import Avatar from '../../../../assets/images/Author.webp'
+import avatarImg from '../../../../assets/images/Author.webp'
 import { Icon } from "../../../micro/icon/Icon"
 
 type PostPropsType = {
@@ -25,7 +25,7 @@ export const Post: React.FC<PostPropsType> = (props) => {
         <StyledPost>
             <Author>
                 <AuthorInfo>
-                    <AuthorAvatar src={Avatar}/>
+                    <AuthorAvatar src={avatarImg}/>
                     <FlexWrapper direction="column">
                         <AuthorName>Dmitry Shamko</AuthorName>
                         <PostDate>15mins ago</PostDate>
@@ -42,11 +42,17 @@ export const Post: React.FC<PostPropsType> = (props) => {
             </Message>
             <PostActivites>
                 <FlexWrapper align="center">
-                    <Button onClick={likesButtonOnClickHandler} name={<Icon iconId="likes" viewBox="0 0 28 28" width="100%" height="100%" />} button_style="link" />
+                    <Button onClick={likesButtonOnClickHandler} 
+                        name={<Icon iconId="likes" viewBox="0 0 28 28" width="100%" height="100%" />} 
+                        button_style="link" 
+                    />
                     <AuthorName>{props.postData.likeCount}</AuthorName>
                 </FlexWrapper>
                 <FlexWrapper align="center">
-                    <Button onClick={commentsButtonOnClickHandler} name={<Icon iconId="comments" viewBox="0 0 28 28" width="100%" height="100%" />} button_style="link" />
+                    <Button onClick={commentsButtonOnClickHandler} 
+                        name={<Icon iconId="comments" viewBox="0 0 28 28" width="100%" height="100%" />} 
+                        button_style="link" 
+                    />
                     <AuthorName>{props.postData.commentsCount}</AuthorName>
                 </FlexWrapper>
             </PostActivites>
@@ -81,7 +87,7 @@ const AuthorInfo = styled.div`
 const AuthorAvatar = styled.img`
    border-radius: 50%;
    width: 20%;
-   max-width: 80px;
+   max-width: 60px;
 `
 
 const AuthorName = styled.span`
@@ -97,8 +103,6 @@ const MoreButton = styled(Button)`
     ${font({weight: 800, Fmin: 10, Fmax: 16})}
     align-self: flex-start;
 `
-
-
 
 const Picture = styled.div`
     display: flex;
