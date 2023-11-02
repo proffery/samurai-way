@@ -10,10 +10,16 @@ export type MessageStateType = {
     message: string
 }
 
-
 export type DialogStateType = {
     id: number
     name: string
+    second_name: string
+}
+
+export type FriendStateType = {
+    id: number
+    name: string
+    second_name: string
 }
 
 export type SocialLinkStateType = {
@@ -34,7 +40,7 @@ export type MenuItemStateType = {
 
 export type ProfilePageStateType = {
     posts: PostStateType[]
-    friends: DialogStateType[]
+    friends: FriendStateType[]
 }
 
 export type MessagesPageStateType = {
@@ -94,27 +100,33 @@ export const state:RootStateType = {
         friends: [
             {
                 id: 1,
-                name: 'Dimych'
+                name: 'Dimych',
+                second_name: 'Incubator'
             },
             {
                 id: 2,
-                name: 'Anrew'
+                name: 'Anrew',
+                second_name: 'Incubator'
             },
             {
                 id: 3,
-                name: 'Sveta'
+                name: 'Sveta',
+                second_name: 'Incubator'
             },
             {
                 id: 4,
-                name: 'Sasha'
+                name: 'Sasha',
+                second_name: 'Incubator'
             },
             {
                 id: 5,
-                name: 'Viktor'
+                name: 'Viktor',
+                second_name: 'Incubator'
             },
             {
                 id: 6,
-                name: 'Dimych'
+                name: 'Dimych',
+                second_name: 'Incubator'
             },
         ]
     },
@@ -144,27 +156,33 @@ export const state:RootStateType = {
         dialogs: [
             {
                 id: 1,
-                name: 'Dimych'
+                name: 'Dimych',
+                second_name: 'Incubator'
             },
             {
                 id: 2,
-                name: 'Anrew'
+                name: 'Anrew',
+                second_name: 'Incubator'
             },
             {
                 id: 3,
-                name: 'Sveta'
+                name: 'Sveta',
+                second_name: 'Incubator'
             },
             {
                 id: 4,
-                name: 'Sasha'
+                name: 'Sasha',
+                second_name: 'Incubator'
             },
             {
                 id: 5,
-                name: 'Viktor'
+                name: 'Viktor',
+                second_name: 'Incubator'
             },
             {
                 id: 6,
-                name: 'Dimych'
+                name: 'Dimych',
+                second_name: 'Incubator'
             },
         ]
     },

@@ -28,7 +28,7 @@ function App(props: AppType) {
           <Route path='/' exact component={Home} />
           <Route path='/feed' component={Home} />
           <Route path='/profile' render={() => <Profile profileData={props.state.profilePage} />} />
-          <Route path='/messages' component={Messages} />
+          <Route path='/messages' render={() => <Messages messagesData={props.state.messagesPage} /> } />
           <Route path='/notifications' component={Notifications} />
           <Route path='/settings' component={Settings} />
           <Route path='*' component={NotFound} />

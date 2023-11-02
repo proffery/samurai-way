@@ -19,7 +19,7 @@ export const Profile: React.FC<ProfilePropsType> = (props) => {
             <ProfileHeaderBlock />
             <ProfileAboutBlock />
             <ProfilePostsBlock postsData={props.profileData.posts} />
-            <ProfileFriendsBlock block_header="Friends"/>
+            <ProfileFriendsBlock block_header="Friends" friendsData={props.profileData.friends}/>
             <StyledActiveFriendsBlock />
             <ToTopLink top_block_anchor_id="profile-header"/>
         </StyledProfile>
@@ -30,11 +30,11 @@ const StyledProfile = styled.main`
     display: grid;
     overflow-y: auto;
     overflow-x: hidden;
-    grid-template-rows: auto 1fr 1fr ;
+    grid-template-rows: auto 1fr 1fr;
     grid-template-columns: 1fr 3fr 1fr;
     @media ${theme.media.mobile} {
-        grid-template-rows: auto auto 1fr 1fr;
-        grid-template-columns: 3fr 1fr;
+        grid-template-rows: auto auto 40vh 40vh;
+        grid-template-columns: 3fr 1.5fr;
     }
 `
 
@@ -61,6 +61,7 @@ const ProfilePostsBlock = styled(PostsBlock)`
 
 const ProfileFriendsBlock = styled(FriendsBlock)`
     grid-area: 2 / 3 / 3 / 4 ;
+    height: 100%;
     @media ${theme.media.mobile} {
         grid-area: 3 / 2 / 4 / 3 ;
     }

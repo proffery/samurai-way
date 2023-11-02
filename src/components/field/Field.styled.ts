@@ -11,7 +11,7 @@ export const Field = styled.input.attrs<FieldPropsType>((props) => ({
 
 }))`
     min-width: 100%;
-    border-radius: 5px;
+    border-radius: 10px;
     border: 1px solid ${props => props.bordered === 'true' ? theme.color.text.placeholder : 'transparent'};
     resize: vertical;
 `

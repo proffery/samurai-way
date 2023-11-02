@@ -2,12 +2,18 @@ import styled from "styled-components"
 import { FriendsBlock } from "../../../components/blocks/friendsBlock/FriendsBlock"
 import { MessagesBlock } from "../../../components/blocks/messagesBlock/MessagesBlock"
 import { ToTopLink } from "../../../components/toTopLink/ToTopLink"
+import { theme } from "../../../styles/Theme.styled"
+import { MessagesPageStateType } from "../../../redux/state"
 
-export const Messages = () => {
+type MessagesPropsType = {
+    messagesData: MessagesPageStateType
+}
+
+export const Messages: React.FC<MessagesPropsType> = (props) => {
     return (
         <StyledMessages id="messages">
-            <MessagesFriendsBlock block_header="Dialogs"/>
-            <StyledMessagesBlock />
+            <MessagesFriendsBlock block_header="Dialogs" friendsData={props.messagesData.dialogs}/>
+            <StyledMessagesBlock messagesData={props.messagesData.messages}/>
             <ToTopLink top_block_anchor_id="messages"/>
         </StyledMessages>
     )
@@ -15,12 +21,21 @@ export const Messages = () => {
 
 const StyledMessages = styled.main`
     display: flex;
+    @media ${theme.media.mobile} {
+        flex-direction: column;
+    }
 `
 
 const MessagesFriendsBlock = styled(FriendsBlock)`
-    
+    width: 30%;
+    @media ${theme.media.mobile} {
+        width: 100%;
+        max-height: 30%;
+    }
 `
 
 const StyledMessagesBlock = styled(MessagesBlock)`
     width: 100%;
+    height: 100%;
+    overflow-y: scroll;
 `

@@ -45,19 +45,7 @@ export const PostsBlock: React.FC<PostsBlockPropsType> = (props) => {
 }
 
 const PostsBlockSection = styled(BlockSection)`
-position: relative;
-    &::before {
-        position: absolute;
-        content: "";
-        height: 1px;
-        width: 100%;
-        left: 0;
-        top: 80px;
-        background-color: ${theme.color.background.primary};
-        @media ${theme.media.mobile} {
-            top: 60px;
-        }
-    }
+
 `
 
 const Form = styled.form`
