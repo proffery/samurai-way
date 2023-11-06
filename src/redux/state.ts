@@ -1,5 +1,7 @@
+import { v1 } from "uuid"
+
 export type PostStateType = {
-    id: number
+    id: string
     message: string
     likeCount: number
     commentsCount: number
@@ -41,6 +43,7 @@ export type MenuItemStateType = {
 export type ProfilePageStateType = {
     posts: PostStateType[]
     friends: FriendStateType[]
+    newPostForm: string
 }
 
 export type MessagesPageStateType = {
@@ -63,38 +66,43 @@ export type RootStateType = {
     menu: MenuStateType
 }
 
+let rerenderEntireTree = () => {
+    console.log('State changed!');
+    
+}
+
 export const state:RootStateType = {
     profilePage: {
         posts: [
             {
-                id: 1,
+                id: v1(),
                 message: 'Hi',
                 likeCount: 10,
-                commentsCount: 10
+                commentsCount: 20
             },
             {
-                id: 2,
+                id: v1(),
                 message: 'How are you?',
-                likeCount: 10,
-                commentsCount: 10
+                likeCount: 4,
+                commentsCount: 1
             },
             {
-                id: 3,
+                id: v1(),
                 message: 'Yo',
-                likeCount: 10,
-                commentsCount: 10
+                likeCount: 7,
+                commentsCount: 2
             },
             {
-                id: 4,
+                id: v1(),
                 message: 'Samurai way!',
-                likeCount: 10,
-                commentsCount: 10
+                likeCount: 12,
+                commentsCount: 1
             },
             {
-                id: 5,
+                id: v1(),
                 message: 'Bye-bye!',
-                likeCount: 10,
-                commentsCount: 10
+                likeCount: 1,
+                commentsCount: 0
             },
         ],
         friends: [
@@ -128,7 +136,8 @@ export const state:RootStateType = {
                 name: 'Dimych',
                 second_name: 'Incubator'
             },
-        ]
+        ],
+        newPostForm: ''
     },
     messagesPage: {
         messages: [
@@ -271,4 +280,25 @@ export const state:RootStateType = {
             }
         ]
     }
+}
+
+export const addPost = () => {
+    const newPost: PostStateType = {
+        id: v1(),
+        message: state.profilePage.newPostForm,
+        likeCount: 0,
+        commentsCount: 0
+    }
+    state.profilePage.posts.push(newPost)
+    state.profilePage.newPostForm = ''
+    rerenderEntireTree()
+}
+
+export const newPostChange = (postMessage: string) => {
+    state.profilePage.newPostForm = postMessage
+    rerenderEntireTree()
+}
+
+export const subscribe = (observer: () => void) => {
+    rerenderEntireTree = observer
 }

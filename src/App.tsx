@@ -15,6 +15,8 @@ import { theme } from './styles/Theme.styled';
 
 type AppType = {
   state: RootStateType
+  addPost: () => void
+  newPostChange: (postMessage: string) => void
 }
 
 function App(props: AppType) {
@@ -22,13 +24,19 @@ function App(props: AppType) {
   return (
     <Router >
       <Container collapsed={navCollapsed ? 'true' : 'false'}>
-        <Navbar menuData={props.state.menu} navcollapsed={navCollapsed} setNavCollapsed={setNavCollapsed}/>
+        <Navbar menuData={props.state.menu} navcollapsed={navCollapsed} setNavCollapsed={setNavCollapsed} />
         <Header />
         <Switch>
           <Route path='/' exact component={Home} />
           <Route path='/feed' component={Home} />
-          <Route path='/profile' render={() => <Profile profileData={props.state.profilePage} />} />
-          <Route path='/messages' render={() => <Messages messagesData={props.state.messagesPage} /> } />
+          <Route path='/profile' render={() => 
+            <Profile 
+              profileData={props.state.profilePage} 
+              addPost={props.addPost} 
+              newPostChange={props.newPostChange}
+            />} 
+          />
+          <Route path='/messages' render={() => <Messages messagesData={props.state.messagesPage} />} />
           <Route path='/notifications' component={Notifications} />
           <Route path='/settings' component={Settings} />
           <Route path='*' component={NotFound} />

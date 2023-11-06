@@ -10,6 +10,8 @@ import { ToTopLink } from "../../../micro/toTopLink/ToTopLink"
 
 type ProfilePropsType = {
     profileData: ProfilePageStateType
+    addPost: () => void
+    newPostChange: (postMessage: string) => void
 }
 
 export const Profile: React.FC<ProfilePropsType> = (props) => {
@@ -18,7 +20,11 @@ export const Profile: React.FC<ProfilePropsType> = (props) => {
         <StyledProfile id="profile">
             <ProfileHeaderBlock />
             <ProfileAboutBlock />
-            <ProfilePostsBlock postsData={props.profileData.posts} />
+            <ProfilePostsBlock 
+                postsData={props.profileData} 
+                addPost={props.addPost}
+                newPostChange={props.newPostChange}
+            />
             <ProfileFriendsBlock block_header="Friends" friendsData={props.profileData.friends}/>
             <StyledActiveFriendsBlock />
             <ToTopLink top_block_anchor_id="profile-header"/>

@@ -9,13 +9,13 @@ type ButtonPropsType = {
     className?: string
     name?: string | ReactElement
     title?: string
-    onClick: () => void
+    onClick: (e?:any) => void
 }
 
 export const Button: React.FC<ButtonPropsType> = (props) => {
 
-    const onClickButtonHandler = () => {
-        props.onClick()
+    const onClickButtonHandler = (e?:any) => {
+        props.onClick(e)
     }
 
     return (

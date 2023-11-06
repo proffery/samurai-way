@@ -1,44 +1,53 @@
-import React from "react"
+import React, { ChangeEvent, FormEvent, MouseEvent } from "react"
 import styled from "styled-components"
 import { Button } from "../../micro/button/Button"
 import { Field } from "../../micro/field/Field.styled"
 import { FlexWrapper } from "../../micro/FlexWrapper"
 import { Post } from "./post/Post"
-import { PostStateType } from "../../../redux/state"
+import { PostStateType, ProfilePageStateType } from "../../../redux/state"
 import { BlockHeader } from "../BlockHeader.styled"
 import { BlockSection } from "../BlockSection.styled"
 
 type PostsBlockPropsType = {
     className?: string
-    postsData: PostStateType[]
+    postsData: ProfilePageStateType
+    addPost: () => void
+    newPostChange: (postMessage: string) => void
 }
 
 export const PostsBlock: React.FC<PostsBlockPropsType> = (props) => {
 
-    const AddPostHandler = () => {
-        alert('SendPost')
+    const onChangeNewPostHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        props.newPostChange(e.currentTarget.value)
+    }
+
+    const addPostHandler = (e: MouseEvent<HTMLButtonElement> | FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        props.addPost()
     }
 
     return (
         <BlockSection id="posts" className={props.className}>
             <BlockHeader>Posts</BlockHeader>
-            <Form>
+            <Form onSubmit={addPostHandler}>
                 <Field
                     as={"textarea"}
                     aria-label="enter your post"
                     placeholder="Enter your post"
                     bordered={'true'}
+                    value={props.postsData.newPostForm}
+                    onChange={onChangeNewPostHandler}
                 />
                 <FlexWrapper>
                     <Button
                         type={'submit'}
                         button_style={'primary'}
-                        onClick={AddPostHandler}
                         name={'Send'}
+                        onClick={addPostHandler}
                     />
                 </FlexWrapper>
             </Form>
-            <PostsList postsData={props.postsData} />
+            <PostsList postsData={props.postsData.posts} />
         </BlockSection>
     )
 }
