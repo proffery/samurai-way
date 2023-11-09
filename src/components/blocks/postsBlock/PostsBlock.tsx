@@ -21,8 +21,10 @@ export const PostsBlock: React.FC<PostsBlockPropsType> = (props) => {
         props.newPostChange(e.currentTarget.value)
     }
 
-    const addPostHandler = (e: MouseEvent<HTMLButtonElement> | FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
+    const addPostHandler = (e: MouseEvent<HTMLButtonElement> | FormEvent<HTMLFormElement> | undefined) => {
+        if (e) {
+            e.preventDefault()
+        }
         props.addPost()
     }
 
