@@ -29,12 +29,12 @@ function App(props: AppType) {
         <Switch>
           <Route path='/' exact component={Home} />
           <Route path='/feed' component={Home} />
-          <Route path='/profile' render={() => 
-            <Profile 
-              profileData={props.state.profilePage} 
-              addPost={props.addPost} 
+          <Route path='/profile' render={() =>
+            <Profile
+              profileData={props.state.profilePage}
+              addPost={props.addPost}
               newPostChange={props.newPostChange}
-            />} 
+            />}
           />
           <Route path='/messages' render={() => <Messages messagesData={props.state.messagesPage} />} />
           <Route path='/notifications' component={Notifications} />

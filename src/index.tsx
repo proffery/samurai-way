@@ -1,20 +1,24 @@
-import { state, subscribe } from "./redux/state";
+import { store } from "./redux/state";
 import ReactDOM from 'react-dom';
 import App from './App';
 import { GlobalStyle } from './styles/Global.styled';
 import { ThemeProvider } from 'styled-components';
 import { theme } from './styles/Theme.styled';
-import { RootStateType, addPost, newPostChange } from './redux/state';
+import { RootStateType } from './redux/state';
 
-export const rerenderEntireTree = (state:RootStateType) => {
-    ReactDOM.render(
-      <ThemeProvider theme={theme}>
-        <App state={state} addPost={addPost} newPostChange={newPostChange} />
-        <GlobalStyle />
-      </ThemeProvider>,
+const rerenderEntireTree = (state: RootStateType) => {
+  ReactDOM.render(
+    <ThemeProvider theme={theme}>
+      <App
+        state={state}
+        addPost={store.addPost.bind(store)}
+        newPostChange={store.newPostChange.bind(store)}
+      />
+      <GlobalStyle />
+    </ThemeProvider>,
     document.getElementById('root'))
-  }
+}
 
-rerenderEntireTree(state)
+rerenderEntireTree(store.getState())
 
-subscribe(() => rerenderEntireTree(state))
+store.subscribe(() => rerenderEntireTree(store.getState()))

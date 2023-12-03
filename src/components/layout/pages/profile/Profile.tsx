@@ -15,19 +15,19 @@ type ProfilePropsType = {
 }
 
 export const Profile: React.FC<ProfilePropsType> = (props) => {
-    
+
     return (
         <StyledProfile id="profile">
             <ProfileHeaderBlock />
             <ProfileAboutBlock />
-            <ProfilePostsBlock 
-                postsData={props.profileData} 
+            <ProfilePostsBlock
+                postsData={props.profileData}
                 addPost={props.addPost}
                 newPostChange={props.newPostChange}
             />
-            <ProfileFriendsBlock block_header="Friends" friendsData={props.profileData.friends}/>
+            <ProfileFriendsBlock block_header="Friends" friendsData={props.profileData.friends} />
             <StyledActiveFriendsBlock />
-            <ToTopLink top_block_anchor_id="profile-header"/>
+            <ToTopLink top_block_anchor_id="profile-header" />
         </StyledProfile>
     )
 }
