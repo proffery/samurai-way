@@ -9,14 +9,13 @@ import { Messages } from "./components/layout/pages/messages/Messages";
 import { Notifications } from "./components/layout/pages/notifications/Notifications";
 import { Settings } from "./components/layout/pages/settings/Settings";
 import { NotFound } from './components/layout/pages/notFound/NotFound';
-import { RootStateType } from './redux/state';
+import { ReducersActionsTypes, RootStateType } from './redux/state';
 import { useState } from 'react';
 import { theme } from './styles/Theme.styled';
 
 type AppType = {
   state: RootStateType
-  addPost: () => void
-  newPostChange: (postMessage: string) => void
+  dispatch: (action: ReducersActionsTypes) => void
 }
 
 function App(props: AppType) {
@@ -32,8 +31,7 @@ function App(props: AppType) {
           <Route path='/profile' render={() =>
             <Profile
               profileData={props.state.profilePage}
-              addPost={props.addPost}
-              newPostChange={props.newPostChange}
+              dispatch={props.dispatch}
             />}
           />
           <Route path='/messages' render={() => <Messages messagesData={props.state.messagesPage} />} />

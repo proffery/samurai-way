@@ -5,7 +5,7 @@ export const BlockSection = styled.section`
     display: flex;
     flex-direction: column;
     color: ${theme.color.text.primary_dark};
-    padding: 28px 35px;
+    padding: 25px 28px;
     height: fit-content;
     gap: 20px;
     position: relative;

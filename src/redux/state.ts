@@ -1,3 +1,4 @@
+import profileReducer, { ProfileReducerActionsType, addPostAC, postOnChangeAC, updateNewPostAC } from './profileReducer';
 import { v1 } from "uuid"
 
 export type PostStateType = {
@@ -66,13 +67,14 @@ export type RootStateType = {
     menu: MenuStateType
 }
 
+export type ReducersActionsTypes = ProfileReducerActionsType
+export type ReducersStateType = ProfilePageStateType
 
 export type StoreType = {
     _state: RootStateType
-    getState: () => RootStateType
     _callSubcriber: (_state: RootStateType) => void
-    addPost: () => void
-    newPostChange: (postMessage: string) => void
+    getState: () => RootStateType
+    dispatch: (action: ReducersActionsTypes) => void
     subscribe: (observer: () => void) => void
 }
 
@@ -287,28 +289,48 @@ export let store: StoreType = {
             ]
         }
     },
-    getState() {
-        return this._state
-    },
     _callSubcriber(_state: RootStateType) {
         console.log('State changed!');
     },
-    addPost() {
-        const newPost: PostStateType = {
-            id: v1(),
-            message: this._state.profilePage.newPostForm,
-            likeCount: 0,
-            commentsCount: 0
-        }
-        this._state.profilePage.posts.push(newPost)
-        this._state.profilePage.newPostForm = ''
-        this._callSubcriber(this._state)
-    },
-    newPostChange(postMessage: string) {
-        this._state.profilePage.newPostForm = postMessage
-        this._callSubcriber(this._state)
+    getState() {
+        return this._state
     },
     subscribe(observer: () => void) {
         this._callSubcriber = observer
+    },
+    dispatch(action) {
+        switch (action.type) {
+            case 'ADD-POST': {
+                this._state.profilePage = profileReducer(this._state.profilePage, addPostAC())
+                this._state.profilePage.newPostForm = ''
+                this._callSubcriber(this._state)
+                break
+            }
+            case 'UPDATE-POST': {
+                this._state.profilePage = profileReducer(this._state.profilePage, updateNewPostAC(action.payload.postId, action.payload.newPost))
+                this._callSubcriber(this._state)
+                break
+            }
+            case 'ON-CHANGE-POST': {
+                this._state.profilePage = profileReducer(this._state.profilePage, postOnChangeAC(action.payload.newPost))
+                this._callSubcriber(this._state)
+                break
+            }
+        }
     }
+    // addPost() {
+    //     const newPost: PostStateType = {
+    //         id: v1(),
+    //         message: this._state.profilePage.newPostForm,
+    //         likeCount: 0,
+    //         commentsCount: 0
+    //     }
+    //     this._state.profilePage.posts.push(newPost)
+    //     this._state.profilePage.newPostForm = ''
+    //     this._callSubcriber(this._state)
+    // },
+    // newPostChange(postMessage: string) {
+    //     this._state.profilePage.newPostForm = postMessage
+    //     this._callSubcriber(this._state)
+    // },
 }

@@ -37,8 +37,7 @@ export const Post: React.FC<PostPropsType> = (props) => {
 
             </Picture>
             <Message>
-                <AuthorName>Dmitry Shamko&nbsp;</AuthorName>
-                <span>{props.postData.message}</span>
+                <MessageText>{props.postData.message}</MessageText>
             </Message>
             <PostActivites>
                 <FlexWrapper align="center">
@@ -91,7 +90,13 @@ const AuthorAvatar = styled.img`
 `
 
 const AuthorName = styled.span`
+    white-space: nowrap;
     ${font({weight: 700, Fmin: 10, Fmax: 16})}
+    color: ${theme.color.text.primary_dark};
+`
+const MessageText = styled.span`
+    word-break: break-all;
+    ${font({ weight: 400, Fmin: 10, Fmax: 16 })}
     color: ${theme.color.text.primary_dark};
 `
 
@@ -113,6 +118,7 @@ const Picture = styled.div`
 
 const Message = styled.div`
     display: flex;
+    flex-wrap: wrap;
 `
 
 const PostActivites = styled.div`

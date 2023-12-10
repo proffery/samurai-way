@@ -4,28 +4,28 @@ import { Button } from "../../micro/button/Button"
 import { Field } from "../../micro/field/Field.styled"
 import { FlexWrapper } from "../../micro/FlexWrapper"
 import { Post } from "./post/Post"
-import { PostStateType, ProfilePageStateType } from "../../../redux/state"
+import { PostStateType, ProfilePageStateType, ReducersActionsTypes } from "../../../redux/state"
 import { BlockHeader } from "../BlockHeader.styled"
 import { BlockSection } from "../BlockSection.styled"
+import { addPostAC, postOnChangeAC } from "../../../redux/profileReducer"
 
 type PostsBlockPropsType = {
     className?: string
     postsData: ProfilePageStateType
-    addPost: () => void
-    newPostChange: (postMessage: string) => void
+    dispatch: (action: ReducersActionsTypes) => void
 }
 
 export const PostsBlock: React.FC<PostsBlockPropsType> = (props) => {
 
     const onChangeNewPostHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.newPostChange(e.currentTarget.value)
+        props.dispatch(postOnChangeAC(e.currentTarget.value))
     }
 
     const addPostHandler = (e: MouseEvent<HTMLButtonElement> | FormEvent<HTMLFormElement> | undefined) => {
         if (e) {
             e.preventDefault()
         }
-        props.addPost()
+        props.dispatch(addPostAC())
     }
 
     return (

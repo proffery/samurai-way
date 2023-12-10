@@ -11,8 +11,7 @@ const rerenderEntireTree = (state: RootStateType) => {
     <ThemeProvider theme={theme}>
       <App
         state={state}
-        addPost={store.addPost.bind(store)}
-        newPostChange={store.newPostChange.bind(store)}
+        dispatch={store.dispatch.bind(store)} 
       />
       <GlobalStyle />
     </ThemeProvider>,
