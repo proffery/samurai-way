@@ -1,18 +1,18 @@
-import React, { ChangeEvent, FormEvent, MouseEvent } from "react"
+import React, { ChangeEvent, FormEvent, MouseEvent, KeyboardEvent } from "react"
 import styled from "styled-components"
 import { Button } from "../../micro/button/Button"
 import { Field } from "../../micro/field/Field.styled"
 import { FlexWrapper } from "../../micro/FlexWrapper"
 import { Post } from "./post/Post"
-import { PostStateType, ProfilePageStateType, ReducersActionsTypes } from "../../../redux/state"
+import { PostStateType, ProfilePageStateType } from "../../../redux/state"
 import { BlockHeader } from "../BlockHeader.styled"
 import { BlockSection } from "../BlockSection.styled"
-import { addPostAC, postOnChangeAC } from "../../../redux/profileReducer"
+import { ProfileReducerActionsType, addPostAC, postOnChangeAC } from "../../../redux/profileReducer"
 
 type PostsBlockPropsType = {
     className?: string
     postsData: ProfilePageStateType
-    dispatch: (action: ReducersActionsTypes) => void
+    dispatch: (action: ProfileReducerActionsType) => void
 }
 
 export const PostsBlock: React.FC<PostsBlockPropsType> = (props) => {
@@ -20,8 +20,14 @@ export const PostsBlock: React.FC<PostsBlockPropsType> = (props) => {
     const onChangeNewPostHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         props.dispatch(postOnChangeAC(e.currentTarget.value))
     }
+    
+    const addPostOnCtrlEnterHandler = (e: KeyboardEvent<HTMLFormElement>) => {
+        if (e.key === 'Enter' && e.ctrlKey) {
+            props.dispatch(addPostAC())
+        }
+    }
 
-    const addPostHandler = (e: MouseEvent<HTMLButtonElement> | FormEvent<HTMLFormElement> | undefined) => {
+    const addPostHandler = (e: MouseEvent<HTMLButtonElement>) => {
         if (e) {
             e.preventDefault()
         }
@@ -31,7 +37,9 @@ export const PostsBlock: React.FC<PostsBlockPropsType> = (props) => {
     return (
         <BlockSection id="posts" className={props.className}>
             <BlockHeader>Posts</BlockHeader>
-            <Form onSubmit={addPostHandler}>
+            <Form
+                onKeyDown={addPostOnCtrlEnterHandler}
+            >
                 <Field
                     as={"textarea"}
                     aria-label="enter your post"

@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { theme } from "../../../styles/Theme.styled";
-import { ReactElement, MouseEvent, FormEvent } from "react";
+import { ReactElement, MouseEvent } from "react";
 import { font } from "../../../styles/Font";
 
 type ButtonPropsType = {
@@ -9,12 +9,12 @@ type ButtonPropsType = {
     className?: string
     name?: string | ReactElement
     title?: string
-    onClick: (e: MouseEvent<HTMLButtonElement> | FormEvent<HTMLFormElement> | undefined) => void
+    onClick: (e: MouseEvent<HTMLButtonElement>) => void
 }
 
 export const Button: React.FC<ButtonPropsType> = (props) => {
 
-    const onClickButtonHandler = (e: MouseEvent<HTMLButtonElement> | FormEvent<HTMLFormElement> | undefined) => {
+    const onClickButtonHandler = (e: MouseEvent<HTMLButtonElement>) => {
         props.onClick(e)
     }
 
