@@ -34,7 +34,12 @@ function App(props: AppType) {
               dispatch={props.dispatch}
             />}
           />
-          <Route path='/messages' render={() => <Messages messagesData={props.state.messagesPage} />} />
+          <Route path='/messages' render={() =>
+            <Messages
+              messagesData={props.state.messagesPage}
+              dispatch={props.dispatch}
+            />}
+          />
           <Route path='/notifications' component={Notifications} />
           <Route path='/settings' component={Settings} />
           <Route path='*' component={NotFound} />

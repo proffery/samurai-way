@@ -1,4 +1,5 @@
-import profileReducer, { ProfileReducerActionsType, addPostAC, postOnChangeAC, updateNewPostAC } from './profileReducer';
+import messagesReducer, { ADD_MESSAGE, MessagesReducerActionsType, ON_CHANGE_MESSAGE, UPDATE_MESSAGE, addMessageAC, messageOnChangeAC, updateMessageAC } from './messageReducer';
+import profileReducer, { ADD_POST, ON_CHANGE_POST, ProfileReducerActionsType, UPDATE_POST, addPostAC, postOnChangeAC, updatePostAC } from './profileReducer';
 import { v1 } from "uuid"
 
 export type PostStateType = {
@@ -9,12 +10,12 @@ export type PostStateType = {
 }
 
 export type MessageStateType = {
-    id: number
+    id: string
     message: string
 }
 
 export type DialogStateType = {
-    id: number
+    id: string
     name: string
     second_name: string
 }
@@ -50,6 +51,7 @@ export type ProfilePageStateType = {
 export type MessagesPageStateType = {
     messages: MessageStateType[]
     dialogs: DialogStateType[]
+    newMessageForm: string
 }
 
 export type FooterStateType = {
@@ -67,8 +69,8 @@ export type RootStateType = {
     menu: MenuStateType
 }
 
-export type ReducersActionsTypes = ProfileReducerActionsType
-export type ReducersStateType = ProfilePageStateType
+export type ReducersActionsTypes = ProfileReducerActionsType | MessagesReducerActionsType
+export type ReducersStateType = ProfilePageStateType | MessagesPageStateType
 
 export type StoreType = {
     _state: RootStateType
@@ -150,58 +152,59 @@ export let store: StoreType = {
         messagesPage: {
             messages: [
                 {
-                    id: 1,
+                    id: '1',
                     message: 'Hi'
                 },
                 {
-                    id: 2,
+                    id: '2',
                     message: 'How are you?'
                 },
                 {
-                    id: 3,
+                    id: '3',
                     message: 'Yo'
                 },
                 {
-                    id: 4,
+                    id: '4',
                     message: 'Samurai way!'
                 },
                 {
-                    id: 5,
+                    id: '5',
                     message: 'By-by!'
                 },
             ],
             dialogs: [
                 {
-                    id: 1,
+                    id: '1',
                     name: 'Dimych',
                     second_name: 'Incubator'
                 },
                 {
-                    id: 2,
+                    id: '2',
                     name: 'Anrew',
                     second_name: 'Incubator'
                 },
                 {
-                    id: 3,
+                    id: '3',
                     name: 'Sveta',
                     second_name: 'Incubator'
                 },
                 {
-                    id: 4,
+                    id: '4',
                     name: 'Sasha',
                     second_name: 'Incubator'
                 },
                 {
-                    id: 5,
+                    id: '5',
                     name: 'Viktor',
                     second_name: 'Incubator'
                 },
                 {
-                    id: 6,
+                    id: '6',
                     name: 'Dimych',
                     second_name: 'Incubator'
                 },
-            ]
+            ],
+            newMessageForm: ''
         },
         footer: {
             socialLinks: [
@@ -300,37 +303,38 @@ export let store: StoreType = {
     },
     dispatch(action) {
         switch (action.type) {
-            case 'ADD-POST': {
+            case ADD_POST: {
                 this._state.profilePage = profileReducer(this._state.profilePage, addPostAC())
                 this._state.profilePage.newPostForm = ''
                 this._callSubcriber(this._state)
                 break
             }
-            case 'UPDATE-POST': {
-                this._state.profilePage = profileReducer(this._state.profilePage, updateNewPostAC(action.payload.postId, action.payload.newPost))
+            case UPDATE_POST: {
+                this._state.profilePage = profileReducer(this._state.profilePage, updatePostAC(action.payload.postId, action.payload.newPost))
                 this._callSubcriber(this._state)
                 break
             }
-            case 'ON-CHANGE-POST': {
+            case ON_CHANGE_POST: {
                 this._state.profilePage = profileReducer(this._state.profilePage, postOnChangeAC(action.payload.newPost))
+                this._callSubcriber(this._state)
+                break
+            }
+            case ADD_MESSAGE: {
+                this._state.messagesPage = messagesReducer(this._state.messagesPage, addMessageAC())
+                this._state.messagesPage.newMessageForm = ''
+                this._callSubcriber(this._state)
+                break
+            }
+            case UPDATE_MESSAGE: {
+                this._state.messagesPage = messagesReducer(this._state.messagesPage, updateMessageAC(action.payload.messageId, action.payload.newMessage))
+                this._callSubcriber(this._state)
+                break
+            }
+            case ON_CHANGE_MESSAGE: {
+                this._state.messagesPage = messagesReducer(this._state.messagesPage, messageOnChangeAC(action.payload.newMessage))
                 this._callSubcriber(this._state)
                 break
             }
         }
     }
-    // addPost() {
-    //     const newPost: PostStateType = {
-    //         id: v1(),
-    //         message: this._state.profilePage.newPostForm,
-    //         likeCount: 0,
-    //         commentsCount: 0
-    //     }
-    //     this._state.profilePage.posts.push(newPost)
-    //     this._state.profilePage.newPostForm = ''
-    //     this._callSubcriber(this._state)
-    // },
-    // newPostChange(postMessage: string) {
-    //     this._state.profilePage.newPostForm = postMessage
-    //     this._callSubcriber(this._state)
-    // },
 }

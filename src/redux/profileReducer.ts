@@ -1,12 +1,15 @@
 import { v1 } from "uuid"
 import { PostStateType, ProfilePageStateType } from "./state"
 
-export type ProfileReducerActionsType = AddPostACType | UpdateNewPostACType | PostOnChangeACType
+export const ADD_POST = 'ADD-POST'
+export const UPDATE_POST = 'UPDATE-POST'
+export const ON_CHANGE_POST = 'ON-CHANGE-POST'
 
+export type ProfileReducerActionsType = AddPostACType | UpdateNewPostACType | PostOnChangeACType
 
 const profileReducer = (state: ProfilePageStateType, action: ProfileReducerActionsType): ProfilePageStateType => {
     switch (action.type) {
-        case 'ADD-POST': {
+        case ADD_POST: {
             const newPost: PostStateType = {
                 id: v1(),
                 message: state.newPostForm,
@@ -17,7 +20,7 @@ const profileReducer = (state: ProfilePageStateType, action: ProfileReducerActio
                 ...state, posts: [newPost, ...state.posts]
             }
         }
-        case 'UPDATE-POST': {
+        case UPDATE_POST: {
             return {
                 ...state, posts: state.posts.map(el => el.id === action.payload.postId
                     ? { ...el, message: action.payload.newPost }
@@ -25,7 +28,7 @@ const profileReducer = (state: ProfilePageStateType, action: ProfileReducerActio
                 )
             }
         }
-        case "ON-CHANGE-POST": {
+        case ON_CHANGE_POST: {
             return {
                 ...state, newPostForm: action.payload.newPost
             }
@@ -41,8 +44,8 @@ export const addPostAC = () => {
     } as const
 }
 
-type UpdateNewPostACType = ReturnType<typeof updateNewPostAC>
-export const updateNewPostAC = (postId: string, newPost: string) => {
+type UpdateNewPostACType = ReturnType<typeof updatePostAC>
+export const updatePostAC = (postId: string, newPost: string) => {
     return {
         type: 'UPDATE-POST',
         payload: {

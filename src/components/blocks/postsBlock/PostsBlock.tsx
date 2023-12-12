@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, MouseEvent, KeyboardEvent } from "react"
+import React, { ChangeEvent, MouseEvent, KeyboardEvent } from "react"
 import styled from "styled-components"
 import { Button } from "../../micro/button/Button"
 import { Field } from "../../micro/field/Field.styled"
@@ -20,7 +20,7 @@ export const PostsBlock: React.FC<PostsBlockPropsType> = (props) => {
     const onChangeNewPostHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         props.dispatch(postOnChangeAC(e.currentTarget.value))
     }
-    
+
     const addPostOnCtrlEnterHandler = (e: KeyboardEvent<HTMLFormElement>) => {
         if (e.key === 'Enter' && e.ctrlKey) {
             props.dispatch(addPostAC())
@@ -28,9 +28,7 @@ export const PostsBlock: React.FC<PostsBlockPropsType> = (props) => {
     }
 
     const addPostHandler = (e: MouseEvent<HTMLButtonElement>) => {
-        if (e) {
-            e.preventDefault()
-        }
+        e.preventDefault()
         props.dispatch(addPostAC())
     }
 
