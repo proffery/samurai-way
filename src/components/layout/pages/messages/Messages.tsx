@@ -1,10 +1,8 @@
 import styled from "styled-components"
 import { FriendsBlock } from "../../../blocks/friendsBlock/FriendsBlock"
 import { MessagesBlock } from "../../../blocks/messagesBlock/MessagesBlock"
-import { ToTopLink } from "../../../micro/toTopLink/ToTopLink"
 import { theme } from "../../../../styles/Theme.styled"
-import { MessagesPageStateType } from "../../../../redux/state"
-import { MessagesReducerActionsType } from "../../../../redux/messageReducer"
+import { MessagesPageStateType, MessagesReducerActionsType } from "../../../../redux/messagesReducer"
 
 type MessagesPropsType = {
     messagesData: MessagesPageStateType
@@ -19,7 +17,6 @@ export const Messages: React.FC<MessagesPropsType> = (props) => {
                 messagesData={props.messagesData}
                 dispatch={props.dispatch}
             />
-            <ToTopLink top_block_anchor_id="messages" />
         </StyledMessages>
     )
 }

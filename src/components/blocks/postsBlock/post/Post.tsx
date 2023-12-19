@@ -1,11 +1,11 @@
 import styled from "styled-components"
-import { PostStateType } from "../../../../redux/state"
 import { theme } from "../../../../styles/Theme.styled"
 import { Button } from "../../../micro/button/Button"
 import { FlexWrapper } from "../../../micro/FlexWrapper"
 import { font } from "../../../../styles/Font"
 import avatarImg from '../../../../assets/images/Author.webp'
 import { Icon } from "../../../micro/icon/Icon"
+import { PostStateType } from "../../../../redux/profileReducer"
 
 type PostPropsType = {
     postData: PostStateType

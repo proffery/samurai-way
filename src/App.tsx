@@ -9,13 +9,15 @@ import { Messages } from "./components/layout/pages/messages/Messages";
 import { Notifications } from "./components/layout/pages/notifications/Notifications";
 import { Settings } from "./components/layout/pages/settings/Settings";
 import { NotFound } from './components/layout/pages/notFound/NotFound';
-import { ReducersActionsTypes, RootStateType } from './redux/state';
 import { useState } from 'react';
 import { theme } from './styles/Theme.styled';
+import { AppRootStateType } from './redux/redux-store';
+import { ProfileReducerActionsType } from './redux/profileReducer';
+import { MessagesReducerActionsType } from './redux/messagesReducer';
 
 type AppType = {
-  state: RootStateType
-  dispatch: (action: ReducersActionsTypes) => void
+  state: AppRootStateType
+  dispatch: (action: ProfileReducerActionsType | MessagesReducerActionsType) => void
 }
 
 function App(props: AppType) {

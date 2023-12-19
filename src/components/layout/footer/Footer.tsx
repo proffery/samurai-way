@@ -6,7 +6,8 @@ import { Menu } from "../../../components/micro/menu/Menu"
 import { Link } from "../../../components/micro/link/Link.styled"
 import { Icon } from "../../../components/micro/icon/Icon"
 import { SocialMedeaLinks } from "./socialMedeaLinks/SocialMedeaLinks"
-import { FooterStateType, MenuStateType } from "../../../redux/state"
+import { MenuStateType } from "../../../redux/menuReducer"
+import { FooterStateType } from "../../../redux/footerReducer"
 
 type FooterPropsType = {
     menuData: MenuStateType

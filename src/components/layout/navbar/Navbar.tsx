@@ -2,11 +2,11 @@ import styled from "styled-components"
 import { Menu } from "../../../components/micro/menu/Menu"
 import { theme } from "../../../styles/Theme.styled"
 import { Logo } from "../../../components/micro/logo/Logo"
-import { MenuStateType } from "../../../redux/state"
 import { Button } from "../../../components/micro/button/Button"
 import { useEffect, useState } from "react"
 import React from "react"
 import { Icon } from "../../../components/micro/icon/Icon"
+import { MenuStateType } from "../../../redux/menuReducer"
 
 type NavbarPropsType = {
     menuData: MenuStateType

@@ -1,10 +1,11 @@
 import React from "react"
 import { BlockHeader } from "../BlockHeader.styled"
 import { BlockSection } from "../BlockSection.styled"
-import { DialogStateType, FriendStateType } from "../../../redux/state"
 import { Friend } from "./friend/Friend"
 import styled from "styled-components"
 import { theme } from "../../../styles/Theme.styled"
+import { FriendStateType } from "../../../redux/profileReducer"
+import { DialogStateType } from "../../../redux/messagesReducer"
 
 type FriendsBlockPropsType = {
     className?: string

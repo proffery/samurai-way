@@ -47,5 +47,5 @@ const StyledToTopLink = styled(Link)`
     padding: 5px;
     border-radius: 50%;
     transform: translate(-95%, -95%) rotate(90deg);
-    z-index: 1;
+    z-index: 99999;
 `

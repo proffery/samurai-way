@@ -3,11 +3,10 @@ import { ActiveFriendsBlock } from "../../../blocks/activeFriendsBlock/ActiveFri
 import { HeaderBlock } from "../../../blocks/headerBlock/HeaderBlock"
 import { FriendsBlock } from "../../../blocks/friendsBlock/FriendsBlock"
 import { PostsBlock } from "../../../blocks/postsBlock/PostsBlock"
-import { ProfilePageStateType, ReducersActionsTypes } from "../../../../redux/state"
 import styled from "styled-components"
 import { theme } from "../../../../styles/Theme.styled"
+import { ProfilePageStateType, ProfileReducerActionsType } from "../../../../redux/profileReducer"
 import { ToTopLink } from "../../../micro/toTopLink/ToTopLink"
-import { ProfileReducerActionsType } from "../../../../redux/profileReducer"
 
 type ProfilePropsType = {
     profileData: ProfilePageStateType

@@ -1,13 +1,12 @@
-import React, { ChangeEvent, MouseEvent, KeyboardEvent } from "react"
+import React, { ChangeEvent, MouseEvent, KeyboardEvent, useEffect, useRef } from "react"
 import { BlockHeader } from "../BlockHeader.styled"
 import { BlockSection } from "../BlockSection.styled"
-import { MessageStateType, MessagesPageStateType } from "../../../redux/state"
 import { Message } from "./message/Message"
 import styled from "styled-components"
 import { FlexWrapper } from "../../micro/FlexWrapper"
 import { Button } from "../../micro/button/Button"
 import { Field } from "../../micro/field/Field.styled"
-import { MessagesReducerActionsType, addMessageAC, messageOnChangeAC } from "../../../redux/messageReducer"
+import { MessageStateType, MessagesPageStateType, MessagesReducerActionsType, addMessageAC, messageOnChangeAC } from "../../../redux/messagesReducer"
 
 type MessagesBlockPropsType = {
     className?: string
@@ -21,14 +20,16 @@ export const MessagesBlock: React.FC<MessagesBlockPropsType> = (props) => {
         props.dispatch(messageOnChangeAC(e.currentTarget.value))
     }
 
-    const addMessageHandler = (e: MouseEvent<HTMLButtonElement>) => {
+    const addMessageOnClickHandler = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
         props.dispatch(addMessageAC())
+        props.dispatch(messageOnChangeAC(''))
     }
 
     const addMessageCtrlEnterHandler = (e: KeyboardEvent<HTMLFormElement>) => {
         if (e.key === 'Enter' && e.ctrlKey) {
             props.dispatch(addMessageAC())
+            props.dispatch(messageOnChangeAC(''))
         }
     }
 
@@ -51,7 +52,7 @@ export const MessagesBlock: React.FC<MessagesBlockPropsType> = (props) => {
                     <Button
                         type={'submit'}
                         button_style={'primary'}
-                        onClick={addMessageHandler}
+                        onClick={addMessageOnClickHandler}
                         name={'Send'}
                     />
                 </FlexWrapper>
@@ -75,15 +76,17 @@ type MessagesListPropsType = {
 }
 
 const MessagesList: React.FC<MessagesListPropsType> = (props) => {
+
     return (
         <StyledMessagesList>
             {props.messagesData.map(message =>
-                <Message key={message.id} messageData={message} />)}
+                <Message key={message.id} messageData={message} />
+            )}
         </StyledMessagesList>
     )
 }
 
 const StyledMessagesList = styled.div`
-    height: 100%;
     gap: 20px;
+    overflow-y: auto;
 `

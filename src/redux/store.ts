@@ -1,4 +1,4 @@
-import messagesReducer, { ADD_MESSAGE, MessagesReducerActionsType, ON_CHANGE_MESSAGE, UPDATE_MESSAGE, addMessageAC, messageOnChangeAC, updateMessageAC } from './messageReducer';
+import messagesReducer, { ADD_MESSAGE, MessagesReducerActionsType, ON_CHANGE_MESSAGE, UPDATE_MESSAGE, addMessageAC, messageOnChangeAC, updateMessageAC } from './messagesReducer';
 import profileReducer, { ADD_POST, ON_CHANGE_POST, ProfileReducerActionsType, UPDATE_POST, addPostAC, postOnChangeAC, updatePostAC } from './profileReducer';
 import { v1 } from "uuid"
 

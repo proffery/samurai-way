@@ -4,10 +4,9 @@ import { Button } from "../../micro/button/Button"
 import { Field } from "../../micro/field/Field.styled"
 import { FlexWrapper } from "../../micro/FlexWrapper"
 import { Post } from "./post/Post"
-import { PostStateType, ProfilePageStateType } from "../../../redux/state"
 import { BlockHeader } from "../BlockHeader.styled"
 import { BlockSection } from "../BlockSection.styled"
-import { ProfileReducerActionsType, addPostAC, postOnChangeAC } from "../../../redux/profileReducer"
+import { PostStateType, ProfilePageStateType, ProfileReducerActionsType, addPostAC, postOnChangeAC } from "../../../redux/profileReducer"
 
 type PostsBlockPropsType = {
     className?: string
@@ -24,12 +23,14 @@ export const PostsBlock: React.FC<PostsBlockPropsType> = (props) => {
     const addPostOnCtrlEnterHandler = (e: KeyboardEvent<HTMLFormElement>) => {
         if (e.key === 'Enter' && e.ctrlKey) {
             props.dispatch(addPostAC())
+            props.dispatch(postOnChangeAC(''))
         }
     }
 
-    const addPostHandler = (e: MouseEvent<HTMLButtonElement>) => {
+    const addPostOnClickHandler = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
         props.dispatch(addPostAC())
+        props.dispatch(postOnChangeAC(''))
     }
 
     return (
@@ -51,7 +52,7 @@ export const PostsBlock: React.FC<PostsBlockPropsType> = (props) => {
                         type={'submit'}
                         button_style={'primary'}
                         name={'Send'}
-                        onClick={addPostHandler}
+                        onClick={addPostOnClickHandler}
                     />
                 </FlexWrapper>
             </Form>
