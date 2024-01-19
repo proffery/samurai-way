@@ -80,7 +80,6 @@ type MessagesListPropsType = {
 }
 
 const MessagesList: React.FC<MessagesListPropsType> = (props) => {
-
     return (
         <StyledMessagesList>
             {props.messagesData.map(message =>

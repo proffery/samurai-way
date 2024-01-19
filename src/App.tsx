@@ -12,9 +12,7 @@ import { NotFound } from './components/layout/pages/notFound/NotFound';
 import { useState } from 'react';
 import { theme } from './styles/Theme.styled';
 import { AppRootStateType } from './redux/redux-store';
-import { ProfilePageStateType } from './redux/profileReducer';
-import { MessagesPageStateType } from './redux/messagesReducer';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { MenuStateType } from './redux/menuReducer';
 import { FooterStateType } from './redux/footerReducer';
 
@@ -22,12 +20,8 @@ import { FooterStateType } from './redux/footerReducer';
 function App() {
   const [navCollapsed, setNavCollapsed] = useState<boolean>(true)
 
-  const profilePageData = useSelector<AppRootStateType, ProfilePageStateType>(state => state.profilePage)
-  const messagesPageData = useSelector<AppRootStateType, MessagesPageStateType>(state => state.messagesPage)
   const menuData = useSelector<AppRootStateType, MenuStateType>(state => state.menu)
   const footerData = useSelector<AppRootStateType, FooterStateType>(state => state.footer)
-
-  const dispatch = useDispatch()
 
   return (
     <Router >
@@ -37,18 +31,8 @@ function App() {
         <Switch>
           <Route path='/' exact component={Home} />
           <Route path='/feed' component={Home} />
-          <Route path='/profile' render={() =>
-            <Profile
-              profileData={profilePageData}
-              dispatch={dispatch}
-            />}
-          />
-          <Route path='/messages' render={() =>
-            <Messages
-              messagesData={messagesPageData}
-              dispatch={dispatch}
-            />}
-          />
+          <Route path='/profile' render={() => <Profile />} />
+          <Route path='/messages' render={() => <Messages />} />
           <Route path='/notifications' component={Notifications} />
           <Route path='/settings' component={Settings} />
           <Route path='*' component={NotFound} />

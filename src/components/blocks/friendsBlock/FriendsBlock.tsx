@@ -7,16 +7,16 @@ import { theme } from "../../../styles/Theme.styled"
 import { FriendStateType } from "../../../redux/profileReducer"
 import { DialogStateType } from "../../../redux/messagesReducer"
 
+
 type FriendsBlockPropsType = {
     className?: string
-    block_header: string
-    friendsData: FriendStateType[] | DialogStateType[]
+    friendsData: FriendStateType[] 
 }
 
 export const FriendsBlock: React.FC<FriendsBlockPropsType> = (props) => {
     return (
         <BlockSection id="friends" className={props.className}>
-            <BlockHeader>{props.block_header}</BlockHeader>
+            <BlockHeader>Friends</BlockHeader>
             <FriendsList friendsData={props.friendsData}/>
         </BlockSection>
     )

@@ -1,32 +1,28 @@
+import { connect } from "react-redux"
 import {
-    ProfilePageStateType,
     ProfileReducerActionsType,
     addPostAC,
     postOnChangeAC
 } from "../../../redux/profileReducer"
 import { PostsBlock } from "./PostsBlock"
+import { AppRootStateType } from "../../../redux/redux-store"
 
-type PostsBlockPropsType = {
-    postsData: ProfilePageStateType
-    dispatch: (action: ProfileReducerActionsType) => void
+const mapStateToProps = (state: AppRootStateType) => {
+    return {
+        postsData: state.profilePage
+    }
 }
 
-export const PostsBlockContainer: React.FC<PostsBlockPropsType> = (props) => {
-
-    const onChangeNewPostHandler = (text: string) => {
-        props.dispatch(postOnChangeAC(text))
+const mapDispatchToProps = (dispatch: (action: ProfileReducerActionsType) => void) => {
+    return {
+        onChangeNewPostText: (text: string) => {
+            dispatch(postOnChangeAC(text))
+        },
+        addPost: () => {
+            dispatch(addPostAC())
+            dispatch(postOnChangeAC(''))
+        }
     }
-
-    const addPost = () => {
-        props.dispatch(addPostAC())
-        props.dispatch(postOnChangeAC(''))
-    }
-
-    return (
-        <PostsBlock
-            postsData={props.postsData}
-            onChangeNewPostText={onChangeNewPostHandler}
-            addPost={addPost}
-        />
-    )
 }
+
+export const PostsBlockContainer = connect(mapStateToProps, mapDispatchToProps)(PostsBlock)

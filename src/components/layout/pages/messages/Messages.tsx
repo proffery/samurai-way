@@ -1,25 +1,17 @@
 import styled from "styled-components"
-import { FriendsBlock } from "../../../blocks/friendsBlock/FriendsBlock"
 import { theme } from "../../../../styles/Theme.styled"
-import { MessagesPageStateType, MessagesReducerActionsType } from "../../../../redux/messagesReducer"
 import { MessagesBlockContainer } from "../../../blocks/messagesBlock/MessagesBlockContainer"
+import { FriendsBlockContainer } from "../../../blocks/friendsBlock/FriendsBlockContainer"
 
 type MessagesPropsType = {
-    messagesData: MessagesPageStateType
-    dispatch: (action: MessagesReducerActionsType) => void
+
 }
 
 export const Messages: React.FC<MessagesPropsType> = (props) => {
     return (
         <StyledMessages id="messages">
-            <MessagesFriendsBlock
-                block_header="Dialogs"
-                friendsData={props.messagesData.dialogs}
-            />
-            <MessagesBlockContainer
-                messagesData={props.messagesData}
-                dispatch={props.dispatch}
-            />
+            <MessagesFriendsBlock />
+            <MessagesBlockContainer />
         </StyledMessages>
     )
 }
@@ -31,7 +23,7 @@ const StyledMessages = styled.main`
     }
 `
 
-const MessagesFriendsBlock = styled(FriendsBlock)`
+const MessagesFriendsBlock = styled(FriendsBlockContainer)`
     width: 30%;
     @media ${theme.media.mobile} {
         width: 100%;

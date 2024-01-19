@@ -1,28 +1,27 @@
-import React from "react"
-import { MessagesPageStateType, MessagesReducerActionsType, addMessageAC, messageOnChangeAC } from "../../../redux/messagesReducer"
+import { connect } from "react-redux"
+import {
+    MessagesReducerActionsType,
+    addMessageAC, messageOnChangeAC
+} from "../../../redux/messagesReducer"
 import { MessagesBlock } from "./MessagesBlock"
+import { AppRootStateType } from "../../../redux/redux-store"
 
-type MessagesBlockContainerPropsType = {
-    messagesData: MessagesPageStateType
-    dispatch: (action: MessagesReducerActionsType) => void
+const mapStateToProps = (state: AppRootStateType) => {
+    return {
+        messagesData: state.messagesPage
+    }
 }
 
-export const MessagesBlockContainer: React.FC<MessagesBlockContainerPropsType> = (props) => {
-
-    const onChangeMessage = (text: string) => {
-        props.dispatch(messageOnChangeAC(text))
+const mapDispatchToProps = (dispatch: (action: MessagesReducerActionsType) => void) => {
+    return {
+        onChangeMessage: (text: string) => {
+            dispatch(messageOnChangeAC(text))
+        },
+        addMessage: () => {
+            dispatch(addMessageAC())
+            dispatch(messageOnChangeAC(''))
+        }
     }
-
-    const addMessage = () => {
-        props.dispatch(addMessageAC())
-        props.dispatch(messageOnChangeAC(''))
-    }
-
-    return (
-        <MessagesBlock
-            messagesData={props.messagesData}
-            onChangeMessage={onChangeMessage}
-            addMessage={addMessage}
-        />
-    )
 }
+
+export const MessagesBlockContainer = connect(mapStateToProps, mapDispatchToProps)(MessagesBlock) 
