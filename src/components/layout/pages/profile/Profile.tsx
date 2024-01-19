@@ -2,11 +2,14 @@ import { AboutBlock } from "../../../blocks/aboutBlock/AboutBlock"
 import { ActiveFriendsBlock } from "../../../blocks/activeFriendsBlock/ActiveFriendsBlock"
 import { HeaderBlock } from "../../../blocks/headerBlock/HeaderBlock"
 import { FriendsBlock } from "../../../blocks/friendsBlock/FriendsBlock"
-import { PostsBlock } from "../../../blocks/postsBlock/PostsBlock"
 import styled from "styled-components"
 import { theme } from "../../../../styles/Theme.styled"
-import { ProfilePageStateType, ProfileReducerActionsType } from "../../../../redux/profileReducer"
+import {
+    ProfilePageStateType,
+    ProfileReducerActionsType
+} from "../../../../redux/profileReducer"
 import { ToTopLink } from "../../../micro/toTopLink/ToTopLink"
+import { PostsBlockContainer } from "../../../blocks/postsBlock/PostsBlockContainer"
 
 type ProfilePropsType = {
     profileData: ProfilePageStateType
@@ -23,7 +26,10 @@ export const Profile: React.FC<ProfilePropsType> = (props) => {
                 postsData={props.profileData}
                 dispatch={props.dispatch}
             />
-            <ProfileFriendsBlock block_header="Friends" friendsData={props.profileData.friends} />
+            <ProfileFriendsBlock
+                block_header="Friends"
+                friendsData={props.profileData.friends}
+            />
             <StyledActiveFriendsBlock />
             <ToTopLink top_block_anchor_id="profile-header" />
         </StyledProfile>
@@ -56,7 +62,7 @@ const ProfileAboutBlock = styled(AboutBlock)`
     }
 `
 
-const ProfilePostsBlock = styled(PostsBlock)`
+const ProfilePostsBlock = styled(PostsBlockContainer)`
     grid-area: 2 / 2 / 4 / 3 ;
     @media ${theme.media.mobile} {
         grid-area: 3 / 1 / 5 / 2 ;

@@ -6,35 +6,33 @@ import { FlexWrapper } from "../../micro/FlexWrapper"
 import { Post } from "./post/Post"
 import { BlockHeader } from "../BlockHeader.styled"
 import { BlockSection } from "../BlockSection.styled"
-import { PostStateType, ProfilePageStateType, ProfileReducerActionsType, addPostAC, postOnChangeAC } from "../../../redux/profileReducer"
+import { PostStateType, ProfilePageStateType} from "../../../redux/profileReducer"
 
 type PostsBlockPropsType = {
-    className?: string
     postsData: ProfilePageStateType
-    dispatch: (action: ProfileReducerActionsType) => void
+    onChangeNewPostText: (text: string) => void
+    addPost: () => void
 }
 
 export const PostsBlock: React.FC<PostsBlockPropsType> = (props) => {
 
     const onChangeNewPostHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch(postOnChangeAC(e.currentTarget.value))
+        props.onChangeNewPostText(e.currentTarget.value)
     }
 
     const addPostOnCtrlEnterHandler = (e: KeyboardEvent<HTMLFormElement>) => {
         if (e.key === 'Enter' && e.ctrlKey) {
-            props.dispatch(addPostAC())
-            props.dispatch(postOnChangeAC(''))
+            props.addPost()
         }
     }
 
     const addPostOnClickHandler = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
-        props.dispatch(addPostAC())
-        props.dispatch(postOnChangeAC(''))
+        props.addPost()
     }
 
     return (
-        <BlockSection id="posts" className={props.className}>
+        <BlockSection id="posts" >
             <BlockHeader>Posts</BlockHeader>
             <Form
                 onKeyDown={addPostOnCtrlEnterHandler}

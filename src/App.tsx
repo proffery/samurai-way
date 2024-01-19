@@ -12,41 +12,48 @@ import { NotFound } from './components/layout/pages/notFound/NotFound';
 import { useState } from 'react';
 import { theme } from './styles/Theme.styled';
 import { AppRootStateType } from './redux/redux-store';
-import { ProfileReducerActionsType } from './redux/profileReducer';
-import { MessagesReducerActionsType } from './redux/messagesReducer';
+import { ProfilePageStateType } from './redux/profileReducer';
+import { MessagesPageStateType } from './redux/messagesReducer';
+import { useDispatch, useSelector } from 'react-redux';
+import { MenuStateType } from './redux/menuReducer';
+import { FooterStateType } from './redux/footerReducer';
 
-type AppType = {
-  state: AppRootStateType
-  dispatch: (action: ProfileReducerActionsType | MessagesReducerActionsType) => void
-}
 
-function App(props: AppType) {
+function App() {
   const [navCollapsed, setNavCollapsed] = useState<boolean>(true)
+
+  const profilePageData = useSelector<AppRootStateType, ProfilePageStateType>(state => state.profilePage)
+  const messagesPageData = useSelector<AppRootStateType, MessagesPageStateType>(state => state.messagesPage)
+  const menuData = useSelector<AppRootStateType, MenuStateType>(state => state.menu)
+  const footerData = useSelector<AppRootStateType, FooterStateType>(state => state.footer)
+
+  const dispatch = useDispatch()
+
   return (
     <Router >
       <Container collapsed={navCollapsed ? 'true' : 'false'}>
-        <Navbar menuData={props.state.menu} navcollapsed={navCollapsed} setNavCollapsed={setNavCollapsed} />
+        <Navbar menuData={menuData} navcollapsed={navCollapsed} setNavCollapsed={setNavCollapsed} />
         <Header />
         <Switch>
           <Route path='/' exact component={Home} />
           <Route path='/feed' component={Home} />
           <Route path='/profile' render={() =>
             <Profile
-              profileData={props.state.profilePage}
-              dispatch={props.dispatch}
+              profileData={profilePageData}
+              dispatch={dispatch}
             />}
           />
           <Route path='/messages' render={() =>
             <Messages
-              messagesData={props.state.messagesPage}
-              dispatch={props.dispatch}
+              messagesData={messagesPageData}
+              dispatch={dispatch}
             />}
           />
           <Route path='/notifications' component={Notifications} />
           <Route path='/settings' component={Settings} />
           <Route path='*' component={NotFound} />
         </Switch>
-        <Footer menuData={props.state.menu} footerData={props.state.footer} />
+        <Footer menuData={menuData} footerData={footerData} />
       </Container>
     </Router>
   )

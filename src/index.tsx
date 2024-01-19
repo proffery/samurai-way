@@ -4,19 +4,17 @@ import App from './App';
 import { GlobalStyle } from './styles/Global.styled';
 import { ThemeProvider } from 'styled-components';
 import { theme } from './styles/Theme.styled';
+import { Provider } from "react-redux";
 
-const rerenderEntireTree = (state: AppRootStateType) => {
+const rerenderEntireTree = () => {
   ReactDOM.render(
     <ThemeProvider theme={theme}>
-      <App
-        state={state}
-        dispatch={store.dispatch.bind(store)} 
-      />
+      <Provider store={store}>
+        <App />
+      </Provider>
       <GlobalStyle />
     </ThemeProvider>,
     document.getElementById('root'))
 }
 
-rerenderEntireTree(store.getState())
-
-store.subscribe(() => rerenderEntireTree(store.getState()))
+rerenderEntireTree()

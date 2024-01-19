@@ -1,4 +1,4 @@
-import React, { ChangeEvent, MouseEvent, KeyboardEvent, useEffect, useRef } from "react"
+import React, { ChangeEvent, MouseEvent, KeyboardEvent } from "react"
 import { BlockHeader } from "../BlockHeader.styled"
 import { BlockSection } from "../BlockSection.styled"
 import { Message } from "./message/Message"
@@ -6,35 +6,33 @@ import styled from "styled-components"
 import { FlexWrapper } from "../../micro/FlexWrapper"
 import { Button } from "../../micro/button/Button"
 import { Field } from "../../micro/field/Field.styled"
-import { MessageStateType, MessagesPageStateType, MessagesReducerActionsType, addMessageAC, messageOnChangeAC } from "../../../redux/messagesReducer"
+import { MessageStateType, MessagesPageStateType } from "../../../redux/messagesReducer"
 
 type MessagesBlockPropsType = {
-    className?: string
     messagesData: MessagesPageStateType
-    dispatch: (action: MessagesReducerActionsType) => void
+    onChangeMessage: (text: string) => void
+    addMessage: () => void
 }
 
 export const MessagesBlock: React.FC<MessagesBlockPropsType> = (props) => {
 
     const onChangeMessageHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch(messageOnChangeAC(e.currentTarget.value))
+        props.onChangeMessage(e.currentTarget.value)
     }
 
     const addMessageOnClickHandler = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
-        props.dispatch(addMessageAC())
-        props.dispatch(messageOnChangeAC(''))
+        props.addMessage()
     }
 
     const addMessageCtrlEnterHandler = (e: KeyboardEvent<HTMLFormElement>) => {
         if (e.key === 'Enter' && e.ctrlKey) {
-            props.dispatch(addMessageAC())
-            props.dispatch(messageOnChangeAC(''))
+            props.addMessage()
         }
     }
 
     return (
-        <BlockSection id="messages" className={props.className}>
+        <StyledMessagesBlock id="messages">
             <BlockHeader>Messages</BlockHeader>
             <MessagesList messagesData={props.messagesData.messages} />
             <Form
@@ -57,9 +55,15 @@ export const MessagesBlock: React.FC<MessagesBlockPropsType> = (props) => {
                     />
                 </FlexWrapper>
             </Form>
-        </BlockSection>
+        </StyledMessagesBlock>
     )
 }
+
+const StyledMessagesBlock = styled(BlockSection)`
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+`
 
 const Form = styled.form`
     display: flex;

@@ -1,8 +1,8 @@
 import styled from "styled-components"
 import { FriendsBlock } from "../../../blocks/friendsBlock/FriendsBlock"
-import { MessagesBlock } from "../../../blocks/messagesBlock/MessagesBlock"
 import { theme } from "../../../../styles/Theme.styled"
 import { MessagesPageStateType, MessagesReducerActionsType } from "../../../../redux/messagesReducer"
+import { MessagesBlockContainer } from "../../../blocks/messagesBlock/MessagesBlockContainer"
 
 type MessagesPropsType = {
     messagesData: MessagesPageStateType
@@ -12,8 +12,11 @@ type MessagesPropsType = {
 export const Messages: React.FC<MessagesPropsType> = (props) => {
     return (
         <StyledMessages id="messages">
-            <MessagesFriendsBlock block_header="Dialogs" friendsData={props.messagesData.dialogs} />
-            <StyledMessagesBlock
+            <MessagesFriendsBlock
+                block_header="Dialogs"
+                friendsData={props.messagesData.dialogs}
+            />
+            <MessagesBlockContainer
                 messagesData={props.messagesData}
                 dispatch={props.dispatch}
             />
@@ -34,10 +37,4 @@ const MessagesFriendsBlock = styled(FriendsBlock)`
         width: 100%;
         max-height: 30%;
     }
-`
-
-const StyledMessagesBlock = styled(MessagesBlock)`
-    width: 100%;
-    height: 100%;
-    overflow-y: scroll;
 `
