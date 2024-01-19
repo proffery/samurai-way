@@ -4,11 +4,12 @@ import { ReactElement, MouseEvent } from "react";
 import { font } from "../../../styles/Font";
 
 type ButtonPropsType = {
-    button_style: 'primary' | 'outlined' | 'link'
+    variant: 'primary' | 'outlined' | 'link'
     type?: 'button' | 'reset' | 'submit'
     className?: string
     name?: string | ReactElement
     title?: string
+    disabled?: boolean
     onClick: (e: MouseEvent<HTMLButtonElement>) => void
 }
 
@@ -20,17 +21,18 @@ export const Button: React.FC<ButtonPropsType> = (props) => {
 
     return (
         <StyledButton 
-            button_style={props.button_style} 
+            variant={props.variant} 
             onClick={onClickButtonHandler} 
             type={props.type || 'button'}
             className={props.className}
             title={props.title}
+            disabled={props.disabled || false}
         >{props.name || ''}</StyledButton>
     )
 }
 
 type StyledButtonPropsType = {
-    button_style: 'primary' | 'outlined' | 'link'
+    variant: 'primary' | 'outlined' | 'link'
 }
 
 const StyledButton = styled.button<StyledButtonPropsType>`
@@ -39,7 +41,11 @@ const StyledButton = styled.button<StyledButtonPropsType>`
     max-width: 172px;
     ${font({weight: 400, Fmin: 10, Fmax: 22})}
 
-    ${props => props.button_style === 'primary' && css<StyledButtonPropsType>`
+    ${props => props.disabled && css<StyledButtonPropsType>`
+        opacity: .5;
+    `}
+
+    ${props => props.variant === 'primary' && css<StyledButtonPropsType>`
         background-color: ${theme.color.background.second};
         color: ${theme.color.text.second};
         border-color: ${theme.color.background.second};
@@ -58,7 +64,7 @@ const StyledButton = styled.button<StyledButtonPropsType>`
         }
     `}
     
-    ${props => props.button_style === 'outlined' && css<StyledButtonPropsType>`
+    ${props => props.variant === 'outlined' && css<StyledButtonPropsType>`
         background-color: ${theme.color.background.primary};
         color: ${theme.color.text.primary};
         border-color: ${theme.color.background.second};
@@ -77,7 +83,7 @@ const StyledButton = styled.button<StyledButtonPropsType>`
         }
     `}
     
-    ${props => props.button_style === 'link' && css<StyledButtonPropsType>`
+    ${props => props.variant === 'link' && css<StyledButtonPropsType>`
         background-color: transparent;
         color: ${theme.color.text.primary};
         border: none;

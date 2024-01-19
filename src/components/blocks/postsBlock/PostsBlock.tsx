@@ -1,4 +1,4 @@
-import React, { ChangeEvent, MouseEvent, KeyboardEvent } from "react"
+import React, { ChangeEvent, MouseEvent, KeyboardEvent, useState } from "react"
 import styled from "styled-components"
 import { Button } from "../../micro/button/Button"
 import { Field } from "../../micro/field/Field.styled"
@@ -6,29 +6,44 @@ import { FlexWrapper } from "../../micro/FlexWrapper"
 import { Post } from "./post/Post"
 import { BlockHeader } from "../BlockHeader.styled"
 import { BlockSection } from "../BlockSection.styled"
-import { PostStateType, ProfilePageStateType} from "../../../redux/profileReducer"
+import { PostStateType } from "../../../redux/profileReducer"
 
 type PostsBlockPropsType = {
-    postsData: ProfilePageStateType
+    newPostForm: string
+    posts: PostStateType[]
     onChangeNewPostText: (text: string) => void
     addPost: () => void
 }
 
 export const PostsBlock: React.FC<PostsBlockPropsType> = (props) => {
-
+    
+    let [error, setError] = useState<string | null>('Enter your post')
+    
     const onChangeNewPostHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         props.onChangeNewPostText(e.currentTarget.value)
     }
-
+    
     const addPostOnCtrlEnterHandler = (e: KeyboardEvent<HTMLFormElement>) => {
+        if (error) setError(null)
         if (e.key === 'Enter' && e.ctrlKey) {
-            props.addPost()
+            addPost()
         }
     }
-
+    
     const addPostOnClickHandler = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
-        props.addPost()
+        if (error) 
+        setError(null)
+        addPost()
+    
+    }
+    
+    const addPost = () => {
+        if (props.newPostForm.trim() !== "") {
+            props.addPost()
+        } else {
+            setError('Enter your post');
+        }
     }
 
     return (
@@ -42,19 +57,20 @@ export const PostsBlock: React.FC<PostsBlockPropsType> = (props) => {
                     aria-label="enter your post"
                     placeholder="Enter your post"
                     bordered={'true'}
-                    value={props.postsData.newPostForm}
+                    value={props.newPostForm}
                     onChange={onChangeNewPostHandler}
                 />
                 <FlexWrapper>
                     <Button
                         type={'submit'}
-                        button_style={'primary'}
+                        variant={'primary'}
                         name={'Send'}
+                        disabled={!!error}
                         onClick={addPostOnClickHandler}
                     />
                 </FlexWrapper>
             </Form>
-            <PostsList postsData={props.postsData.posts} />
+            <PostsList postsData={props.posts} />
         </BlockSection>
     )
 }

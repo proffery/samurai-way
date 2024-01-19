@@ -1,4 +1,4 @@
-import React, { ChangeEvent, MouseEvent, KeyboardEvent } from "react"
+import React, { ChangeEvent, MouseEvent, KeyboardEvent, useState } from "react"
 import { BlockHeader } from "../BlockHeader.styled"
 import { BlockSection } from "../BlockSection.styled"
 import { Message } from "./message/Message"
@@ -16,18 +16,31 @@ type MessagesBlockPropsType = {
 
 export const MessagesBlock: React.FC<MessagesBlockPropsType> = (props) => {
 
+    let [error, setError] = useState<string | null>('Enter your message')
+
     const onChangeMessageHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         props.onChangeMessage(e.currentTarget.value)
     }
 
     const addMessageOnClickHandler = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
-        props.addMessage()
+        if (error) 
+        setError(null)
+        addMessage()
     }
 
     const addMessageCtrlEnterHandler = (e: KeyboardEvent<HTMLFormElement>) => {
+        if (error) setError(null)
         if (e.key === 'Enter' && e.ctrlKey) {
+            addMessage()
+        }
+    }
+
+    const addMessage = () => {
+        if (props.messagesData.newMessageForm.trim() !== "") {
             props.addMessage()
+        } else {
+            setError('Enter your message');
         }
     }
 
@@ -40,8 +53,8 @@ export const MessagesBlock: React.FC<MessagesBlockPropsType> = (props) => {
             >
                 <Field
                     as={"textarea"}
-                    aria-label="enter your post"
-                    placeholder="Enter your post"
+                    aria-label="enter your message"
+                    placeholder="Enter your message"
                     bordered={'true'}
                     value={props.messagesData.newMessageForm}
                     onChange={onChangeMessageHandler}
@@ -49,9 +62,10 @@ export const MessagesBlock: React.FC<MessagesBlockPropsType> = (props) => {
                 <FlexWrapper>
                     <Button
                         type={'submit'}
-                        button_style={'primary'}
+                        variant={'primary'}
                         onClick={addMessageOnClickHandler}
                         name={'Send'}
+                        disabled={!!error}
                     />
                 </FlexWrapper>
             </Form>

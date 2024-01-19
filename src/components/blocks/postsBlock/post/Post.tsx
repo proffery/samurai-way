@@ -31,7 +31,7 @@ export const Post: React.FC<PostPropsType> = (props) => {
                         <PostDate>15mins ago</PostDate>
                     </FlexWrapper>
                 </AuthorInfo>
-                <MoreButton button_style="link" name={'...'} onClick={moreButtonOnClickHandler} />
+                <MoreButton variant="link" name={'...'} onClick={moreButtonOnClickHandler} />
             </Author>
             <Picture>
 
@@ -43,14 +43,14 @@ export const Post: React.FC<PostPropsType> = (props) => {
                 <FlexWrapper align="center">
                     <Button onClick={likesButtonOnClickHandler} 
                         name={<Icon iconId="likes" viewBox="0 0 28 28" width="100%" height="100%" />} 
-                        button_style="link" 
+                        variant="link" 
                     />
                     <AuthorName>{props.postData.likeCount}</AuthorName>
                 </FlexWrapper>
                 <FlexWrapper align="center">
                     <Button onClick={commentsButtonOnClickHandler} 
                         name={<Icon iconId="comments" viewBox="0 0 28 28" width="100%" height="100%" />} 
-                        button_style="link" 
+                        variant="link" 
                     />
                     <AuthorName>{props.postData.commentsCount}</AuthorName>
                 </FlexWrapper>

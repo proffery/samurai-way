@@ -9,7 +9,8 @@ import { AppRootStateType } from "../../../redux/redux-store"
 
 const mapStateToProps = (state: AppRootStateType) => {
     return {
-        postsData: state.profilePage
+        posts: state.profilePage.posts,
+        newPostForm: state.profilePage.newPostForm
     }
 }
 

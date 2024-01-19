@@ -46,7 +46,7 @@ export const Navbar: React.FC<NavbarPropsType> = (props) => {
                     />
                 </>
             }
-            <CollapseButton button_style="primary" 
+            <CollapseButton variant="primary" 
                 onClick={navbarCollapseHandler} 
                 name={props.navcollapsed ? <Icon iconId="leftArrow" viewBox="-1 9 18 18"/> : <Icon iconId="rightArrow" viewBox="19 9 18 18"/>}
                 title={props.navcollapsed ? 'Close' : 'Open'}
