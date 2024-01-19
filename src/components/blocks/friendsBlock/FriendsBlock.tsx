@@ -36,12 +36,14 @@ const FriendsList: React.FC<FriendsListPropsType> = (props) => {
 
 const StyledFriendsList = styled.div`
     display: flex;
+    height: fit-content;
+    max-height: 50%;
     flex-direction: column;
     gap: 20px;
+    overflow-y: scroll;
     @media ${theme.media.mobile} {
         flex-direction: row;
         flex-wrap: wrap;
         width: 100%;
-        overflow-y: scroll;
     }
 `

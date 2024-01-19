@@ -16,28 +16,26 @@ type PostsBlockPropsType = {
 }
 
 export const PostsBlock: React.FC<PostsBlockPropsType> = (props) => {
-    
+
     let [error, setError] = useState<string | null>('Enter your post')
-    
+
     const onChangeNewPostHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         props.onChangeNewPostText(e.currentTarget.value)
     }
-    
+
     const addPostOnCtrlEnterHandler = (e: KeyboardEvent<HTMLFormElement>) => {
         if (error) setError(null)
         if (e.key === 'Enter' && e.ctrlKey) {
             addPost()
         }
     }
-    
+
     const addPostOnClickHandler = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
-        if (error) 
-        setError(null)
+        if (error) setError(null)
         addPost()
-    
     }
-    
+
     const addPost = () => {
         if (props.newPostForm.trim() !== "") {
             props.addPost()

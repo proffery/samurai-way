@@ -24,8 +24,7 @@ export const MessagesBlock: React.FC<MessagesBlockPropsType> = (props) => {
 
     const addMessageOnClickHandler = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
-        if (error) 
-        setError(null)
+        if (error) setError(null)
         addMessage()
     }
 

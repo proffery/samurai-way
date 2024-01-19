@@ -1,6 +1,8 @@
 import React from "react"
 import { BlockSection } from "../BlockSection.styled"
 import { BlockHeader } from "../BlockHeader.styled"
+import styled from "styled-components"
+import { theme } from "../../../styles/Theme.styled"
 
 type ActiveFriendsBlockPropsType = {
     className?: string
@@ -8,8 +10,20 @@ type ActiveFriendsBlockPropsType = {
 
 export const ActiveFriendsBlock: React.FC<ActiveFriendsBlockPropsType> = (props) => {
     return (
-        <BlockSection id="active-friends" className={props.className}>
+        <ActiveFriends id="active-friends" className={props.className}>
             <BlockHeader>Active</BlockHeader>
-        </BlockSection>
+        </ActiveFriends>
     )
 }
+
+const ActiveFriends = styled(BlockSection)`
+    display: flex;
+    min-height: 50%;
+    align-self: flex-end;
+    @media ${theme.media.mobile} {
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 100%;
+        overflow-y: scroll;
+    }
+`

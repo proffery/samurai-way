@@ -8,13 +8,12 @@ import { PostsBlockContainer } from "../../../blocks/postsBlock/PostsBlockContai
 import { FriendsBlockContainer } from "../../../blocks/friendsBlock/FriendsBlockContainer"
 
 type ProfilePropsType = {
-    
 }
 
 export const Profile: React.FC<ProfilePropsType> = (props) => {
 
     return (
-        <StyledProfile id="profile">
+        <StyledProfile id="profile" >
             <ProfileHeaderBlock />
             <ProfileAboutBlock />
             <ProfilePostsBlock />
@@ -29,10 +28,10 @@ const StyledProfile = styled.main`
     display: grid;
     overflow-y: auto;
     overflow-x: hidden;
-    grid-template-rows: auto 1fr 1fr;
+    grid-template-rows: auto 50vh 1fr;
     grid-template-columns: 1fr 3fr 1fr;
     @media ${theme.media.mobile} {
-        grid-template-rows: auto auto 40vh 40vh;
+        grid-template-rows: auto auto 30vh 30vh;
         grid-template-columns: 3fr 1.5fr;
     }
 `
@@ -60,7 +59,7 @@ const ProfilePostsBlock = styled(PostsBlockContainer)`
 
 const ProfileFriendsBlock = styled(FriendsBlockContainer)`
     grid-area: 2 / 3 / 3 / 4 ;
-    height: 100%;
+    height: fit-content;
     @media ${theme.media.mobile} {
         grid-area: 3 / 2 / 4 / 3 ;
     }
