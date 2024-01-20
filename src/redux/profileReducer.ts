@@ -13,7 +13,7 @@ export type PostStateType = {
     commentsCount: number
 }
 export type FriendStateType = {
-    id: number
+    id: string
     name: string
     second_name: string
 }
@@ -58,32 +58,32 @@ const initialState: ProfilePageStateType = {
     ],
     friends: [
         {
-            id: 1,
+            id: v1(),
             name: 'Dimych',
             second_name: 'Incubator'
         },
         {
-            id: 2,
+            id: v1(),
             name: 'Anrew',
             second_name: 'Incubator'
         },
         {
-            id: 3,
+            id: v1(),
             name: 'Sveta',
             second_name: 'Incubator'
         },
         {
-            id: 4,
+            id: v1(),
             name: 'Sasha',
             second_name: 'Incubator'
         },
         {
-            id: 5,
+            id: v1(),
             name: 'Viktor',
             second_name: 'Incubator'
         },
         {
-            id: 6,
+            id: v1(),
             name: 'Dimych',
             second_name: 'Incubator'
         },
@@ -124,14 +124,14 @@ const profileReducer = (state: ProfilePageStateType = initialState, action: Prof
 type AddPostACType = ReturnType<typeof addPostAC>
 export const addPostAC = () => {
     return {
-        type: 'ADD-POST',
+        type: ADD_POST,
     } as const
 }
 
 type UpdateNewPostACType = ReturnType<typeof updatePostAC>
 export const updatePostAC = (postId: string, newPost: string) => {
     return {
-        type: 'UPDATE-POST',
+        type: UPDATE_POST,
         payload: {
             newPost,
             postId
@@ -142,7 +142,7 @@ export const updatePostAC = (postId: string, newPost: string) => {
 type PostOnChangeACType = ReturnType<typeof postOnChangeAC>
 export const postOnChangeAC = (newPost: string) => {
     return {
-        type: 'ON-CHANGE-POST',
+        type: ON_CHANGE_POST,
         payload: {
             newPost
         }

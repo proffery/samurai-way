@@ -1,3 +1,4 @@
+import React from "react"
 import { AboutBlock } from "../../../blocks/aboutBlock/AboutBlock"
 import { ActiveFriendsBlock } from "../../../blocks/activeFriendsBlock/ActiveFriendsBlock"
 import { HeaderBlock } from "../../../blocks/headerBlock/HeaderBlock"

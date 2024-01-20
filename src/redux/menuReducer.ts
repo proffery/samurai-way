@@ -4,14 +4,14 @@ const initialState: MenuStateType = {
         {
             id: 1,
             name: "Home",
-            href: "/feed",
+            href: "/profile",
             icon_id: "home",
             viewBox: "-5 -5 30 30",
         },
         {
             id: 2,
-            name: "Profile",
-            href: "/profile",
+            name: "Users",
+            href: "/users",
             icon_id: "profile",
             viewBox: "-5 -5 30 30",
         },

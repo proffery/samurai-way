@@ -1,3 +1,4 @@
+import React from "react"
 import styled from "styled-components"
 import { theme } from "../../../../styles/Theme.styled"
 import { MessagesBlockContainer } from "../../../blocks/messagesBlock/MessagesBlockContainer"

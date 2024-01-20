@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { Footer } from "./components/layout/footer/Footer";
 import { Navbar } from "./components/layout/navbar/Navbar";
 import { Header } from "./components/layout/header/Header";
-import { Home } from "./components/layout/pages/home/Home";
+import { Users } from "./components/layout/pages/users/Users";
 import { Profile } from "./components/layout/pages/profile/Profile";
 import { Messages } from "./components/layout/pages/messages/Messages";
 import { Notifications } from "./components/layout/pages/notifications/Notifications";
@@ -29,9 +29,9 @@ function App() {
         <Navbar menuData={menuData} navcollapsed={navCollapsed} setNavCollapsed={setNavCollapsed} />
         <Header />
         <Switch>
-          <Route path='/' exact component={Home} />
-          <Route path='/feed' component={Home} />
+          <Route path='/' exact render={() => <Profile />} />
           <Route path='/profile' render={() => <Profile />} />
+          <Route path='/users' render={() => <Users />} />
           <Route path='/messages' render={() => <Messages />} />
           <Route path='/notifications' component={Notifications} />
           <Route path='/settings' component={Settings} />
