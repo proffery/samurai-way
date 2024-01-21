@@ -8,7 +8,7 @@ import { AppRootStateType } from "../../../redux/redux-store"
 
 const mapStateToProps = (state: AppRootStateType) => {
     return {
-        messagesData: state.messagesPage
+        messagesData: state.messages
     }
 }
 

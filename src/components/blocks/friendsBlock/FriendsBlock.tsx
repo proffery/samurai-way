@@ -4,7 +4,7 @@ import { BlockSection } from "../BlockSection.styled"
 import { Friend } from "./friend/Friend"
 import styled from "styled-components"
 import { theme } from "../../../styles/Theme.styled"
-import { FriendStateType } from "../../../redux/profileReducer"
+import { FriendStateType } from "../../../redux/postsReducer"
 import { DialogStateType } from "../../../redux/messagesReducer"
 
 

@@ -4,7 +4,7 @@ export const ADD_POST = 'ADD-POST'
 export const UPDATE_POST = 'UPDATE-POST'
 export const ON_CHANGE_POST = 'ON-CHANGE-POST'
 
-export type ProfileReducerActionsType = AddPostACType | UpdateNewPostACType | PostOnChangeACType
+export type PostsReducerActionsType = AddPostACType | UpdateNewPostACType | PostOnChangeACType
 
 export type PostStateType = {
     id: string
@@ -91,7 +91,7 @@ const initialState: ProfilePageStateType = {
     newPostForm: ''
 }
 
-const profileReducer = (state: ProfilePageStateType = initialState, action: ProfileReducerActionsType): ProfilePageStateType => {
+const postsReducer = (state: ProfilePageStateType = initialState, action: PostsReducerActionsType): ProfilePageStateType => {
     switch (action.type) {
         case ADD_POST: {
             const newPost: PostStateType = {
@@ -149,4 +149,4 @@ export const postOnChangeAC = (newPost: string) => {
     } as const
 }
 
-export default profileReducer
+export default postsReducer

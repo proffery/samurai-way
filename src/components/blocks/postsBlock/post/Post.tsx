@@ -5,7 +5,7 @@ import { FlexWrapper } from "../../../micro/FlexWrapper"
 import { font } from "../../../../styles/Font"
 import avatarImg from '../../../../assets/images/Author.webp'
 import { Icon } from "../../../micro/icon/Icon"
-import { PostStateType } from "../../../../redux/profileReducer"
+import { PostStateType } from "../../../../redux/postsReducer"
 
 type PostPropsType = {
     postData: PostStateType
@@ -87,6 +87,7 @@ const AuthorAvatar = styled.img`
    border-radius: 50%;
    width: 20%;
    max-width: 60px;
+   aspect-ratio: 1/1;
 `
 
 const AuthorName = styled.span`

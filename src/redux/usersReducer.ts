@@ -9,6 +9,7 @@ export type UsersReducerActionsType = FollowACType | UnfollowACType | SetUsersAC
 export type UserStateType = {
     id: string
     fullName: string
+    photoUrl: string
     status: string
     location: { city: string, country: string }
     isFollowed: boolean

@@ -1,12 +1,12 @@
 import { combineReducers, createStore } from "redux";
-import profileReducer from "./profileReducer";
+import postsReducer from "./postsReducer";
 import messagesReducer from "./messagesReducer";
 import menuReducer from "./menuReducer";
 import footerReducer from "./footerReducer";
 import usersReducer from "./usersReducer";
 const rootReducer = combineReducers({
-    profilePage: profileReducer,
-    messagesPage: messagesReducer,
+    posts: postsReducer,
+    messages: messagesReducer,
     users: usersReducer,
     menu: menuReducer,
     footer: footerReducer

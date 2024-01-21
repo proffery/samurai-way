@@ -6,7 +6,7 @@ import { FlexWrapper } from "../../micro/FlexWrapper"
 import { Post } from "./post/Post"
 import { BlockHeader } from "../BlockHeader.styled"
 import { BlockSection } from "../BlockSection.styled"
-import { PostStateType } from "../../../redux/profileReducer"
+import { PostStateType } from "../../../redux/postsReducer"
 
 type PostsBlockPropsType = {
     newPostForm: string
@@ -44,6 +44,14 @@ export const PostsBlock: React.FC<PostsBlockPropsType> = (props) => {
         }
     }
 
+    const postsList = () => {
+        return (
+            <>
+                {props.posts.map(post => <Post key={post.id} postData={post} />)}
+            </>
+        )
+    }
+
     return (
         <BlockSection id="posts" >
             <BlockHeader>Posts</BlockHeader>
@@ -68,7 +76,7 @@ export const PostsBlock: React.FC<PostsBlockPropsType> = (props) => {
                     />
                 </FlexWrapper>
             </Form>
-            <PostsList postsData={props.posts} />
+            {postsList()}
         </BlockSection>
     )
 }
@@ -81,14 +89,3 @@ const Form = styled.form`
         min-height: 70px;
     }
 `
-type PostsListPropsType = {
-    postsData: PostStateType[]
-}
-
-const PostsList: React.FC<PostsListPropsType> = (props) => {
-    return (
-        <>
-            {props.postsData.map(post => <Post key={post.id} postData={post} />)}
-        </>
-    )
-}

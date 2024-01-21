@@ -1,20 +1,20 @@
 import { connect } from "react-redux"
 import {
-    ProfileReducerActionsType,
+    PostsReducerActionsType,
     addPostAC,
     postOnChangeAC
-} from "../../../redux/profileReducer"
+} from "../../../redux/postsReducer"
 import { PostsBlock } from "./PostsBlock"
 import { AppRootStateType } from "../../../redux/redux-store"
 
 const mapStateToProps = (state: AppRootStateType) => {
     return {
-        posts: state.profilePage.posts,
-        newPostForm: state.profilePage.newPostForm
+        posts: state.posts.posts,
+        newPostForm: state.posts.newPostForm
     }
 }
 
-const mapDispatchToProps = (dispatch: (action: ProfileReducerActionsType) => void) => {
+const mapDispatchToProps = (dispatch: (action: PostsReducerActionsType) => void) => {
     return {
         onChangeNewPostText: (text: string) => {
             dispatch(postOnChangeAC(text))

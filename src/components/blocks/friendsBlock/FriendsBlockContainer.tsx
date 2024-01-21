@@ -5,7 +5,7 @@ import { FriendsBlock } from "./FriendsBlock";
 
 const mapStateToProps = (state: AppRootStateType) => {
     return {
-        friendsData: state.profilePage.friends
+        friendsData: state.posts.friends
     }
 }
 

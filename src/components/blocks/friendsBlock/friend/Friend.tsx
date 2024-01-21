@@ -3,7 +3,7 @@ import avatarImg from "../../../../assets/images/Author.webp"
 import { theme } from "../../../../styles/Theme.styled"
 import { font } from "../../../../styles/Font"
 import { NavLink } from "react-router-dom"
-import { FriendStateType } from "../../../../redux/profileReducer"
+import { FriendStateType } from "../../../../redux/postsReducer"
 import { DialogStateType } from "../../../../redux/messagesReducer"
 
 type FriendPropsType = {

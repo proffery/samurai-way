@@ -1,5 +1,5 @@
 import messagesReducer, { ADD_MESSAGE, MessagesReducerActionsType, ON_CHANGE_MESSAGE, UPDATE_MESSAGE, addMessageAC, messageOnChangeAC, updateMessageAC } from './messagesReducer';
-import profileReducer, { ADD_POST, ON_CHANGE_POST, ProfileReducerActionsType, UPDATE_POST, addPostAC, postOnChangeAC, updatePostAC } from './profileReducer';
+import postsReducer, { ADD_POST, ON_CHANGE_POST, PostsReducerActionsType, UPDATE_POST, addPostAC, postOnChangeAC, updatePostAC } from './postsReducer';
 import { v1 } from "uuid"
 
 export type PostStateType = {
@@ -69,7 +69,7 @@ export type RootStateType = {
     menu: MenuStateType
 }
 
-export type ReducersActionsTypes = ProfileReducerActionsType | MessagesReducerActionsType
+export type ReducersActionsTypes = PostsReducerActionsType | MessagesReducerActionsType
 export type ReducersStateType = ProfilePageStateType | MessagesPageStateType
 
 export type StoreType = {
@@ -304,18 +304,18 @@ export let store: StoreType = {
     dispatch(action) {
         switch (action.type) {
             case ADD_POST: {
-                this._state.profilePage = profileReducer(this._state.profilePage, addPostAC())
+                this._state.profilePage = postsReducer(this._state.profilePage, addPostAC())
                 this._state.profilePage.newPostForm = ''
                 this._callSubcriber(this._state)
                 break
             }
             case UPDATE_POST: {
-                this._state.profilePage = profileReducer(this._state.profilePage, updatePostAC(action.payload.postId, action.payload.newPost))
+                this._state.profilePage = postsReducer(this._state.profilePage, updatePostAC(action.payload.postId, action.payload.newPost))
                 this._callSubcriber(this._state)
                 break
             }
             case ON_CHANGE_POST: {
-                this._state.profilePage = profileReducer(this._state.profilePage, postOnChangeAC(action.payload.newPost))
+                this._state.profilePage = postsReducer(this._state.profilePage, postOnChangeAC(action.payload.newPost))
                 this._callSubcriber(this._state)
                 break
             }
