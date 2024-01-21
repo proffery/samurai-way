@@ -1,20 +1,18 @@
 import styled from "styled-components"
-import avatarImg from "../../../../assets/images/Author.webp"
 import { theme } from "../../../../styles/Theme.styled"
 import { font } from "../../../../styles/Font"
 import { NavLink } from "react-router-dom"
-import { FriendStateType } from "../../../../redux/postsReducer"
-import { DialogStateType } from "../../../../redux/messagesReducer"
+import { FriendStateType } from "../../../../redux/friendsReducer"
 
 type FriendPropsType = {
-    friendData: FriendStateType | DialogStateType
+    friendData: FriendStateType
 }
 
 export const Friend: React.FC<FriendPropsType> = (props) => {
     return (
         <StyledFriend >
             <NavLink to={"/profile/" + props.friendData.id}>
-                <Avatar src={avatarImg} />
+                <Avatar src={props.friendData.photoUrl} />
             </NavLink>
             <NavLink to={"/messages/" + props.friendData.id}>
                 <Name>{props.friendData.name}</Name>
@@ -32,10 +30,11 @@ const StyledFriend = styled.div`
 `
 
 const Avatar = styled.img`
-   border-radius: 50%;
-   width: 50%;
-   max-width: 40px;
-   min-width: 30px;
+   border-radius: 50% 50%;
+   width: 70%;
+   object-fit: cover;
+   aspect-ratio: 1/1;
+   max-width: 60px;
 `
 
 const Name = styled.span`

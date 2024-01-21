@@ -12,18 +12,13 @@ export type PostStateType = {
     likeCount: number
     commentsCount: number
 }
-export type FriendStateType = {
-    id: string
-    name: string
-    second_name: string
-}
-export type ProfilePageStateType = {
+
+export type PostsStateType = {
     posts: PostStateType[]
-    friends: FriendStateType[]
     newPostForm: string
 }
 
-const initialState: ProfilePageStateType = {
+const initialState: PostsStateType = {
     posts: [
         {
             id: v1(),
@@ -56,42 +51,11 @@ const initialState: ProfilePageStateType = {
             commentsCount: 0
         },
     ],
-    friends: [
-        {
-            id: v1(),
-            name: 'Dimych',
-            second_name: 'Incubator'
-        },
-        {
-            id: v1(),
-            name: 'Anrew',
-            second_name: 'Incubator'
-        },
-        {
-            id: v1(),
-            name: 'Sveta',
-            second_name: 'Incubator'
-        },
-        {
-            id: v1(),
-            name: 'Sasha',
-            second_name: 'Incubator'
-        },
-        {
-            id: v1(),
-            name: 'Viktor',
-            second_name: 'Incubator'
-        },
-        {
-            id: v1(),
-            name: 'Dimych',
-            second_name: 'Incubator'
-        },
-    ],
+    
     newPostForm: ''
 }
 
-const postsReducer = (state: ProfilePageStateType = initialState, action: PostsReducerActionsType): ProfilePageStateType => {
+const postsReducer = (state: PostsStateType = initialState, action: PostsReducerActionsType): PostsStateType => {
     switch (action.type) {
         case ADD_POST: {
             const newPost: PostStateType = {

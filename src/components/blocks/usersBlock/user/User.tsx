@@ -29,13 +29,13 @@ export const User: React.FC<UserPropsType> = (props) => {
                     <UserLocation>{props.user.location.city + ', ' + props.user.location.country + ' '}</UserLocation>
                 </StatusContainer>
             </UserInfo>
-            <FlexWrapper align="center">
+            <ButtonContainer align="center">
                 <Button
                     variant={props.user.isFollowed ? 'primary' : 'outlined'}
                     onClick={userOnClickFollowHandler}
                     name={props.user.isFollowed ? 'UNFOLLOW' : 'FOLLOW'}
                 />
-            </FlexWrapper>
+            </ButtonContainer>
         </StyledUser>
     )
 }
@@ -89,10 +89,16 @@ const UserStatus = styled.span`
 
 const UserLocation = styled.span`
     justify-self: flex-end;
-    width: 30%;
+    white-space: nowrap;
     ${font({weight: 300, Fmin: 10, Fmax: 12})}
 `
 
 const StatusContainer = styled(FlexWrapper)`
     width: 100%;
 `
+
+const ButtonContainer = styled(FlexWrapper)`
+    width: 25%;
+
+`
+

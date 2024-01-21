@@ -71,4 +71,5 @@ const StyledUsersBlock = styled(BlockSection)`
     min-width: 60%;
     max-height: 100vh;
     overflow-y: auto;
+    overflow-x: hidden;
 `
