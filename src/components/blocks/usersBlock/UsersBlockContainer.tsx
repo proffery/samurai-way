@@ -1,9 +1,8 @@
 
 import { connect } from "react-redux"
 import { UsersBlock } from "./UsersBlock"
-import { getUsersTC, UsersReducerThunksType, followUsersTC, unfollowUsersTC } from "../../../redux/usersReducer"
+import { getUsersTC, followUsersTC, unfollowUsersTC } from "../../../redux/usersReducer"
 import { AppRootStateType } from "../../../redux/redux-store"
-
 
 const mapStateToProps = (state: AppRootStateType) => {
     return {
@@ -11,7 +10,7 @@ const mapStateToProps = (state: AppRootStateType) => {
     }
 }
 
-const mapDispatchToProps = (dispatch: (dispatch: any) => void) => {
+const mapDispatchToProps = (dispatch: any) => {
     return {
         follow: (userId: number) => {
             dispatch(followUsersTC(userId))

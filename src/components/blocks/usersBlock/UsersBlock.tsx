@@ -5,7 +5,7 @@ import { BlockSection } from "../BlockSection.styled"
 import { User } from "./user/User"
 import styled from "styled-components"
 
-type UsersBlockPropsType = {
+export type UsersBlockPropsType = {
     users: UserStateType[]
     follow: (userId: number) => void
     unfollow: (userId: number) => void

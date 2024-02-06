@@ -5,8 +5,9 @@ import { UserStateType } from "./usersReducer"
 
 export const SET_FRIENDS = 'SET-FRIENDS'
 
-export type FriendsReducerActionsType = SetFriendsACType
-export type FriendsReducerThunksType = GetFriendsTCType
+export type FriendsReducerActionsType = ReturnType<typeof setFriendsAC>
+export type FriendsReducerThunksType = typeof getFriendsTC
+export type FriendsReducerThunksReturnType = ReturnType<typeof getFriendsTC> 
 
 const initialState: UserStateType[] = []
 
@@ -14,29 +15,24 @@ const friendsReducer = (state: UserStateType[] = initialState, action: FriendsRe
     switch (action.type) {
         case SET_FRIENDS:
             return [...action.payload.friends]
-        default: return state
+        default:
+            return state
     }
 }
 
-type SetFriendsACType = ReturnType<typeof setFriendsAC>
-export const setFriendsAC = (friends: UserStateType[]) => {
-    return {
-        type: SET_FRIENDS,
-        payload: {
-            friends
-        }
-    } as const
-}
-
-type GetFriendsTCType = ReturnType<typeof getFriendsTC>
-export const getFriendsTC = () => {
-    return (dispatch: Dispatch) => {
-        socialNetworkAPI.getFriends()
-            .then(res => {
-                const friends = res.data.items
-                dispatch(setFriendsAC(friends))
-            })
+export const setFriendsAC = (friends: UserStateType[]) => ({
+    type: SET_FRIENDS,
+    payload: {
+        friends
     }
+}) as const
+
+export const getFriendsTC = () => (dispatch: Dispatch<FriendsReducerActionsType>) => {
+    socialNetworkAPI.getFriends()
+        .then(res => {
+            const friends = res.data.items
+            dispatch(setFriendsAC(friends))
+        })
 }
 
 export default friendsReducer
