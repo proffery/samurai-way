@@ -4,16 +4,17 @@ import { Button } from "../../../micro/button/Button"
 import { theme } from "../../../../styles/Theme.styled"
 import { font } from "../../../../styles/Font"
 import { FlexWrapper } from "../../../micro/FlexWrapper"
+import emtyAvatar from '../../../../assets/images/NoAvatar.jpeg'
 
 type UserPropsType = {
     user: UserStateType
-    follow: (userId: string) => void
-    unfollow: (userId: string) => void
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
 }
 
 export const User: React.FC<UserPropsType> = (props) => {
     const userOnClickFollowHandler = () => {
-        return props.user.isFollowed
+        return props.user.followed
             ? props.unfollow(props.user.id)
             : props.follow(props.user.id)
     }
@@ -21,19 +22,19 @@ export const User: React.FC<UserPropsType> = (props) => {
         <StyledUser>
             <UserInfo>
                 <FlexWrapper direction="column" gap="5px">
-                    <UserAvatar src={props.user.photoUrl} />
-                    <UserName>{props.user.fullName + ' '}</UserName>
+                    <UserAvatar src={props.user.photos.small ? props.user.photos.small : emtyAvatar} />
+                    <UserName>{props.user.name + ' '}</UserName>
                 </FlexWrapper>
                 <StatusContainer gap="5px" wrap="wrap" align="center" justify="space-between">
-                    <UserStatus>{props.user.status + ' '}</UserStatus>
-                    <UserLocation>{props.user.location.city + ', ' + props.user.location.country + ' '}</UserLocation>
+                    {props.user.status && <UserStatus>{props.user.status + ' '}</UserStatus>}
+                    {/* <UserLocation>{props.user.location.city + ', ' + props.user.location.country + ' '}</UserLocation> */}
                 </StatusContainer>
             </UserInfo>
             <ButtonContainer align="center">
                 <Button
-                    variant={props.user.isFollowed ? 'primary' : 'outlined'}
+                    variant={props.user.followed ? 'primary' : 'outlined'}
                     onClick={userOnClickFollowHandler}
-                    name={props.user.isFollowed ? 'UNFOLLOW' : 'FOLLOW'}
+                    name={props.user.followed ? 'UNFOLLOW' : 'FOLLOW'}
                 />
             </ButtonContainer>
         </StyledUser>
@@ -68,10 +69,11 @@ const UserInfo = styled.div`
 
 const UserAvatar = styled.img`
    border-radius: 50% 50%;
-   width: 100%;
    object-fit: cover;
    aspect-ratio: 1/1;
-   max-width: 60px;
+   width: 60px;
+   background-color: ${theme.color.background.primary};;
+   border: 1px solid ${theme.color.text.placeholder};
 `
 
 const UserName = styled.span`
@@ -87,11 +89,11 @@ const UserStatus = styled.span`
     color: ${theme.color.text.primary_dark};
 `
 
-const UserLocation = styled.span`
-    justify-self: flex-end;
-    white-space: nowrap;
-    ${font({weight: 300, Fmin: 10, Fmax: 12})}
-`
+// const UserLocation = styled.span`
+//     justify-self: flex-end;
+//     white-space: nowrap;
+//     ${font({weight: 300, Fmin: 10, Fmax: 12})}
+// `
 
 const StatusContainer = styled(FlexWrapper)`
     width: 100%;
@@ -99,6 +101,5 @@ const StatusContainer = styled(FlexWrapper)`
 
 const ButtonContainer = styled(FlexWrapper)`
     width: 25%;
-
 `
 

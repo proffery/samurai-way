@@ -1,50 +1,29 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { BlockHeader } from "../BlockHeader.styled"
 import { BlockSection } from "../BlockSection.styled"
 import { Friend } from "./friend/Friend"
 import styled from "styled-components"
 import { theme } from "../../../styles/Theme.styled"
-import { FriendStateType } from "../../../redux/friendsReducer"
-import { v1 } from "uuid"
+import { UserStateType } from "../../../redux/usersReducer"
 
 
 type FriendsBlockPropsType = {
     className?: string
-    friendsData: FriendStateType[]
-    setFriends: (friends: FriendStateType[]) => void
+    friends: UserStateType[]
+    getFriends: () => void
 }
 
 export const FriendsBlock: React.FC<FriendsBlockPropsType> = (props) => {
 
-    if (props.friendsData.length === 0) {
-        props.setFriends([
-            {
-                id: v1(),
-                name: 'Dimych',
-                second_name: 'Incubator',
-                photoUrl: 'https://ict2go.ru/uploads/media/speakers_lid_image/0001/29/thumb_28624_speakers_lid_image_big.jpeg',
-            },
-            {
-                id: v1(),
-                name: 'Sveta',
-                second_name: 'Incubator',
-                photoUrl: 'https://i.ytimg.com/vi/QxlejW_wtJY/maxresdefault.jpg',
-            },
-            {
-                id: v1(),
-                name: 'Viktor',
-                second_name: 'Incubator',
-                photoUrl: 'https://i.ytimg.com/vi/esQARNPC3vY/sddefault.jpg'
-            }
-        ])
-    }
-
-
+    useEffect(() => {
+        props.getFriends()
+    }, [])
+    
     const friendsList = () => {
         return (
             <>
                 <StyledFriendsList>
-                    {props.friendsData.map(friend => <Friend key={friend.id} friendData={friend} />)}
+                    {props.friends.map(friend => <Friend key={friend.id} friend={friend} />)}
                 </StyledFriendsList>
             </>
         )
@@ -58,7 +37,7 @@ export const FriendsBlock: React.FC<FriendsBlockPropsType> = (props) => {
     )
 }
 const StyledFriends = styled(BlockSection)`
-min-width: 10vw;
+min-width: 12vw;
     @media ${theme.media.mobile} {
         width: 100%;
         max-height: 30%;
@@ -73,8 +52,8 @@ const StyledFriendsList = styled.div`
     gap: 20px;
     overflow-y: scroll;
     @media ${theme.media.mobile} {
+        width: 100%;
         flex-direction: row;
         flex-wrap: wrap;
-        width: 100%;
     }
 `

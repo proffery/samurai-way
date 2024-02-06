@@ -62,6 +62,7 @@ const StyledFooter = styled.footer`
     padding: 50px;
     gap: 20px;
     background-color: ${theme.color.background.primary};
+    z-index: 1;
     @media ${theme.media.mobile} {
         padding: 25px;
     }

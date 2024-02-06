@@ -1,16 +1,23 @@
+import { Dispatch } from "redux"
+import { socialNetworkAPI } from "../api/social-network-api"
+
 export const FOLLOW = 'FOLLOW'
 export const UNFOLLOW = 'UNFOLLOW'
 export const SET_USERS = 'SET-USERS'
 
 export type UsersReducerActionsType = FollowACType | UnfollowACType | SetUsersACType
+export type UsersReducerThunksType = GetUsersTCType | FollowUsersTCType | UnfollowUsersTCType
 
 export type UserStateType = {
-    id: string
-    fullName: string
-    photoUrl: string
+    id: number
+    followed: boolean
+    name: string
+    photos: {
+        small: string,
+        large: string
+    }
     status: string
-    location: { city: string, country: string }
-    isFollowed: boolean
+    uniqueUrlName: string
 }
 
 const initialState: UserStateType[] = []
@@ -19,16 +26,16 @@ const usersReducer = (state: UserStateType[] = initialState, action: UsersReduce
     switch (action.type) {
         case FOLLOW:
             return state.map(user => user.id === action.payload.userId
-                ? { ...user, isFollowed: true }
+                ? { ...user, followed: true }
                 : user
             )
         case UNFOLLOW:
             return state.map(user => user.id === action.payload.userId
-                ? { ...user, isFollowed: false }
+                ? { ...user, followed: false }
                 : user
             )
-        case SET_USERS: 
-        return [...state, ...action.payload.users]
+        case SET_USERS:
+            return [...action.payload.users]
         default:
             return state
     }
@@ -36,7 +43,7 @@ const usersReducer = (state: UserStateType[] = initialState, action: UsersReduce
 
 
 type FollowACType = ReturnType<typeof followAC>
-export const followAC = (userId: string) => {
+export const followAC = (userId: number) => {
     return {
         type: FOLLOW,
         payload: {
@@ -46,7 +53,7 @@ export const followAC = (userId: string) => {
 }
 
 type UnfollowACType = ReturnType<typeof unfollowAC>
-export const unfollowAC = (userId: string) => {
+export const unfollowAC = (userId: number) => {
     return {
         type: UNFOLLOW,
         payload: {
@@ -63,6 +70,48 @@ export const setUsersAC = (users: UserStateType[]) => {
             users
         }
     } as const
+}
+
+
+type GetUsersTCType = ReturnType<typeof getUsersTC>
+export const getUsersTC = () => {
+    return (dispatch: Dispatch) => {
+        socialNetworkAPI.getUsers()
+            .then(res => {
+                const users = res.data.items
+                dispatch(setUsersAC(users))
+            })
+    }
+}
+
+type FollowUsersTCType = ReturnType<typeof followUsersTC>
+export const followUsersTC = (userId: number) => {
+    return (dispatch: Dispatch) => {
+        socialNetworkAPI.followUser(userId)
+            .then(res => {
+                if (res.data.resultCode === 0) {
+                    dispatch(followAC(userId))
+                }
+                else {
+                    console.warn(res.data.messages)
+                }
+            })
+    }
+}
+
+type UnfollowUsersTCType = ReturnType<typeof unfollowUsersTC>
+export const unfollowUsersTC = (userId: number) => {
+    return (dispatch: Dispatch) => {
+        socialNetworkAPI.unfollowUser(userId)
+            .then(res => {
+                if (res.data.resultCode === 0) {
+                    dispatch(unfollowAC(userId))
+                }
+                else {
+                    console.warn(res.data.messages)
+                }
+            })
+    }
 }
 
 export default usersReducer
