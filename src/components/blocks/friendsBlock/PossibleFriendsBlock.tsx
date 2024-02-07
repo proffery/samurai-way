@@ -8,20 +8,20 @@ import { UserStateType } from "../../../redux/usersReducer"
 
 type FriendsBlockPropsType = {
     className?: string
-    friends: UserStateType[]
-    getFriends: () => void
+    possibleFriends: UserStateType[]
+    getPossibleFriends: () => void
 }
 
-export const FriendsBlock: React.FC<FriendsBlockPropsType> = (props) => {
+export const PossibleFriendsBlock: React.FC<FriendsBlockPropsType> = (props) => {
     useEffect(() => {
-        props.getFriends()
+        props.getPossibleFriends()
     }, [])
 
-    const friendsList = () => {
+    const possibleFriendsList = () => {
         return (
             <>
                 <StyledFriendsList>
-                    {props.friends.map(friend => <Friend key={friend.id} friend={friend} />)}
+                    {props.possibleFriends.map(friend => <Friend key={friend.id} friend={friend} />)}
                 </StyledFriendsList>
             </>
         )
@@ -29,13 +29,13 @@ export const FriendsBlock: React.FC<FriendsBlockPropsType> = (props) => {
 
     return (
         <StyledFriends
-            id={'friends'}
+            id={'possibleFriends'}
             className={props.className}
         >
             <BlockHeader>
-                {'Friends'}
+                {'Possible friends'}
             </BlockHeader>
-            {friendsList()}
+            {possibleFriendsList()}
         </StyledFriends>
     )
 }
@@ -48,8 +48,8 @@ width: fit-content;
 
 const StyledFriendsList = styled.div`
     display: flex;
-    max-height: 50vh;
     height: fit-content;
+    max-height: 50vh;
     flex-direction: column;
     gap: 20px;
     overflow-y: scroll;

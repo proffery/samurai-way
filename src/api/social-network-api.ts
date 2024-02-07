@@ -32,8 +32,9 @@ export const socialNetworkAPI = {
         return instance.delete<ResponseType>(`/follow/${userId}`)
     },
     getFriends() {
-        return instance.get<GetUsersResponseType>('/users',
-            { friend: true }
-        )
+        return instance.get<GetUsersResponseType>('/users?friend=true')
+    },
+    getPossibleFriends() {
+        return instance.get<GetUsersResponseType>('/users?friend=false')
     },
 }

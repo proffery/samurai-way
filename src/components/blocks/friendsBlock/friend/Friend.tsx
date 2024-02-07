@@ -12,9 +12,9 @@ type FriendPropsType = {
 export const Friend: React.FC<FriendPropsType> = (props) => {
     return (
         <StyledFriend >
-            <NavLink to={"/profile/" + props.friend.id}>
+            <StyledNavLink to={"/profile/" + props.friend.id}>
                 <Avatar src={props.friend.photos.small ? props.friend.photos.small : emtyAvatar} />
-            </NavLink>
+            </StyledNavLink>
             <NavLink to={"/messages/" + props.friend.id}>
                 <Name>{props.friend.name}</Name>
             </NavLink>
@@ -39,19 +39,28 @@ const StyledFriend = styled.div`
     }
 `
 
+const StyledNavLink = styled(NavLink)`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40%;
+`
+
 const Avatar = styled.img`
    border-radius: 50% 50%;
-   object-fit: cover;
+   object-fit: fill;
    aspect-ratio: 1/1;
-   width: 60px;
+   max-width: 80px;
+   width: 100%;
+   min-width: 60px;
    background-color: ${theme.color.background.primary};
    border: 1px solid ${theme.color.text.placeholder};
 `
 
 const Name = styled.span`
-    display: flex;
     width: 60%;
     ${font({ weight: 400, Fmin: 10, Fmax: 14 })}
     color: ${theme.color.text.primary_dark};
     word-wrap: break-word;
+    overflow: hidden;
 `

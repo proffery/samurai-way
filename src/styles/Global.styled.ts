@@ -22,7 +22,7 @@ export const GlobalStyle = createGlobalStyle`
     
     body {
         margin: 0 auto;
-        height: 100vh;
+        min-height: 100vh;
         background-color: white;
         ${font({weight: 400, Fmin: 10, Fmax: 22})}
         font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Oxygen',
@@ -42,6 +42,7 @@ export const GlobalStyle = createGlobalStyle`
         gap: 32px;
         background-color: ${theme.color.background.primary};
         scroll-behavior: smooth;
+        overflow-y: auto;
         @media ${theme.media.mobile} {
             padding: 0 20px;
             gap: 20px;
@@ -61,7 +62,8 @@ export const GlobalStyle = createGlobalStyle`
     ////////////////SCROLLBAR///////////////
     /* width */
     ::-webkit-scrollbar {
-        width: 2px;
+        width: 3px;
+        border: 1px solid transparent;
     }
 
     /* Track */
@@ -71,6 +73,6 @@ export const GlobalStyle = createGlobalStyle`
     
     /* Handle */
     ::-webkit-scrollbar-thumb {
-        background: ${theme.color.background.second}; 
+        background: ${theme.color.text.placeholder}; 
     }
 `

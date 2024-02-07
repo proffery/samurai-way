@@ -4,7 +4,6 @@ import { FriendsBlock } from "./FriendsBlock";
 import { getFriendsTC } from "../../../redux/friendsReducer";
 import { UserStateType } from "../../../redux/usersReducer";
 
-
 type MapStatePropsType = {
     friends: UserStateType[]
 }
@@ -12,7 +11,7 @@ type MapStatePropsType = {
 
 const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
     return {
-        friends: state.friends
+        friends: state.friends,
     }
 }
 

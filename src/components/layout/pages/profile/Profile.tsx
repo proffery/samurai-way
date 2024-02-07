@@ -1,12 +1,12 @@
 import React from "react"
 import { AboutBlock } from "../../../blocks/aboutBlock/AboutBlock"
-import { ActiveFriendsBlock } from "../../../blocks/activeFriendsBlock/ActiveFriendsBlock"
 import { HeaderBlock } from "../../../blocks/headerBlock/HeaderBlock"
 import styled from "styled-components"
 import { theme } from "../../../../styles/Theme.styled"
 import { ToTopLink } from "../../../micro/toTopLink/ToTopLink"
 import { PostsBlockContainer } from "../../../blocks/postsBlock/PostsBlockContainer"
 import { FriendsBlockContainer } from "../../../blocks/friendsBlock/FriendsBlockContainer"
+import { PossibleFriendsBlockContainer } from "../../../blocks/friendsBlock/PossibleFriendsBlockContainer"
 
 type ProfilePropsType = {
 }
@@ -19,7 +19,7 @@ export const Profile: React.FC<ProfilePropsType> = (props) => {
             <ProfileAboutBlock />
             <ProfilePostsBlock />
             <ProfileFriendsBlock />
-            <StyledActiveFriendsBlock />
+            <ProfilePossibleFriendsBlock />
             <ToTopLink top_block_anchor_id="profile-header" />
         </StyledProfile>
     )
@@ -60,15 +60,16 @@ const ProfilePostsBlock = styled(PostsBlockContainer)`
 
 const ProfileFriendsBlock = styled(FriendsBlockContainer)`
     grid-area: 2 / 3 / 3 / 4 ;
-    height: fit-content;
     @media ${theme.media.mobile} {
         grid-area: 3 / 2 / 4 / 3 ;
     }
 `
 
-const StyledActiveFriendsBlock = styled(ActiveFriendsBlock)`
+const ProfilePossibleFriendsBlock = styled(PossibleFriendsBlockContainer)`
     grid-area: 3 / 3 / 4 / 4 ;
+    margin-top: 112px;
     @media ${theme.media.mobile} {
         grid-area: 4 / 2 / 5 / 3 ;
+        margin-top: 282px;
     }
 `

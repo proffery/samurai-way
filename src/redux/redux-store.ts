@@ -6,10 +6,12 @@ import footerReducer from "./footerReducer";
 import usersReducer from "./usersReducer";
 import friendsReducer from "./friendsReducer";
 import thunk from "redux-thunk";
+import possibleFriendsReducer from "./possibleFriendsReducer";
 const rootReducer = combineReducers({
     posts: postsReducer,
     messages: messagesReducer,
     friends: friendsReducer,
+    possibleFriends: possibleFriendsReducer,
     users: usersReducer,
     menu: menuReducer,
     footer: footerReducer

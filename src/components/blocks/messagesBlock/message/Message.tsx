@@ -38,7 +38,7 @@ const StyledMessage = styled.div`
 
 const Avatar = styled.img`
    border-radius: 50%;
-   width: 60%;
+   width: 100%;
    max-width: 50px;
 `
 
