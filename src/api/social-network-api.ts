@@ -1,5 +1,4 @@
 import axios from "axios";
-import { UserStateType } from "../redux/usersReducer";
 
 const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.0',
@@ -8,6 +7,18 @@ const instance = axios.create({
         'API-KEY': '5bb84785-0aba-4f56-a56a-3dbda6de189f',
     }
 })
+
+export type UserStateType = {
+    id: number
+    followed: boolean
+    name: string
+    photos: {
+        small: string,
+        large: string
+    }
+    status: string
+    uniqueUrlName: string
+}
 
 type GetUsersResponseType = {
     items: UserStateType[]
@@ -22,8 +33,8 @@ export type ResponseType<D = {}> = {
 }
 
 export const socialNetworkAPI = {
-    getUsers() {
-        return instance.get<GetUsersResponseType>('/users')
+    getUsers(pageNumber: number, usersOnPage: number) {
+        return instance.get<GetUsersResponseType>(`/users?page=${pageNumber}&count=${usersOnPage}`)
     },
     followUser(userId: number) {
         return instance.post<ResponseType>(`/follow/${userId}`)

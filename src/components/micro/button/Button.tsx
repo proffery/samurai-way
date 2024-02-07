@@ -20,9 +20,9 @@ export const Button: React.FC<ButtonPropsType> = (props) => {
     }
 
     return (
-        <StyledButton 
-            variant={props.variant} 
-            onClick={onClickButtonHandler} 
+        <StyledButton
+            variant={props.variant}
+            onClick={onClickButtonHandler}
             type={props.type || 'button'}
             className={props.className}
             title={props.title}
@@ -39,10 +39,11 @@ const StyledButton = styled.button<StyledButtonPropsType>`
     cursor: pointer;
     white-space: nowrap;
     max-width: 172px;
-    ${font({weight: 400, Fmin: 10, Fmax: 22})}
+    ${font({ weight: 400, Fmin: 10, Fmax: 22 })}
 
     ${props => props.disabled && css<StyledButtonPropsType>`
         opacity: .5;
+        cursor: default;
     `}
 
     ${props => props.variant === 'primary' && css<StyledButtonPropsType>`

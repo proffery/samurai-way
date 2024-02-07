@@ -6,7 +6,10 @@ import { AppRootStateType } from "../../../redux/redux-store"
 
 const mapStateToProps = (state: AppRootStateType) => {
     return {
-        users: state.users
+        users: state.users.users,
+        totalUsersCount: state.users.totalUsersCount,
+        usersOnPage: state.users.usersOnPage,
+        currentPage: state.users.currentPage
     }
 }
 
@@ -18,8 +21,8 @@ const mapDispatchToProps = (dispatch: any) => {
         unfollow: (userId: number) => {
             dispatch(unfollowUsersTC(userId))
         },
-        getUsers: () => {
-            dispatch(getUsersTC())
+        getUsers: (currentPage: number, usersOnPage: number) => {
+            dispatch(getUsersTC(currentPage, usersOnPage))
         }
     }
 }

@@ -1,13 +1,9 @@
 import { Dispatch } from 'redux';
-import { socialNetworkAPI } from '../api/social-network-api';
-import { UserStateType } from "./usersReducer"
-
+import { UserStateType, socialNetworkAPI } from '../api/social-network-api';
 
 export const SET_FRIENDS = 'SET-FRIENDS'
 
 export type FriendsReducerActionsType = ReturnType<typeof setFriendsAC>
-export type FriendsReducerThunksType = typeof getFriendsTC
-export type FriendsReducerThunksReturnType = ReturnType<typeof getFriendsTC> 
 
 const initialState: UserStateType[] = []
 

@@ -2,8 +2,8 @@ import styled from "styled-components"
 import { theme } from "../../../../styles/Theme.styled"
 import { font } from "../../../../styles/Font"
 import { NavLink } from "react-router-dom"
-import { UserStateType } from "../../../../redux/usersReducer"
 import emtyAvatar from '../../../../assets/images/NoAvatar.jpeg'
+import { UserStateType } from "../../../../api/social-network-api"
 
 type FriendPropsType = {
     friend: UserStateType

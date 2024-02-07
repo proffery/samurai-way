@@ -30,7 +30,7 @@ export const Message: React.FC<MessagePropsType> = (props) => {
 const StyledMessage = styled.div`
     display: flex;
     gap: 10px;
-    padding: 10px;
+    padding: 15px;
     ${font({ weight: 300, Fmin: 10, Fmax: 16 })}
     border-bottom: 1px solid;
     border-color: ${theme.color.background.primary};
@@ -44,6 +44,7 @@ const Avatar = styled.img`
 
 const MessageText = styled.div`
     display: flex;
+    align-self: center;
     width: 100%;
 `
 
