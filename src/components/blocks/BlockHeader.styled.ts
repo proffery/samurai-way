@@ -3,6 +3,7 @@ import { theme } from "../../styles/Theme.styled";
 import styled from "styled-components";
 
 export const BlockHeader = styled.h2`
+    display: flex;
     position: relative;
     word-wrap: break-word;
     padding-bottom: 28px;

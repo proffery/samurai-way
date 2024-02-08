@@ -1,12 +1,12 @@
 import { Dispatch } from "redux"
 import { UserStateType, socialNetworkAPI } from "../api/social-network-api"
 
-export const FOLLOW = 'FOLLOW'
-export const UNFOLLOW = 'UNFOLLOW'
-export const SET_USERS = 'SET-USERS'
-export const SET_USERS_ON_PAGE = 'SET-USERS-ON-PAGE'
-export const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE'
-export const SET_TOTAL_USERS_COUNT = 'SET-TOTAL-USERS-COUNT'
+const FOLLOW = 'FOLLOW'
+const UNFOLLOW = 'UNFOLLOW'
+const SET_USERS = 'SET-USERS'
+const SET_USERS_ON_PAGE = 'SET-USERS-ON-PAGE'
+const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE'
+const SET_TOTAL_USERS_COUNT = 'SET-TOTAL-USERS-COUNT'
 
 export type UsersReducerActionsType =
     | ReturnType<typeof followAC>
@@ -16,7 +16,7 @@ export type UsersReducerActionsType =
     | ReturnType<typeof setUsersOnPageAC>
     | ReturnType<typeof setTotalUsersCountAC>
 
-type UsersStateType = {
+export type UsersStateType = {
     users: UserStateType[]
     usersOnPage: number
     totalUsersCount: number
@@ -26,7 +26,7 @@ type UsersStateType = {
 const initialState: UsersStateType = {
     users: [],
     usersOnPage: 15,
-    totalUsersCount: 20,
+    totalUsersCount: 0,
     currentPage: 1
 }
 

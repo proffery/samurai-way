@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React from "react"
 import { BlockHeader } from "../BlockHeader.styled"
 import { BlockSection } from "../BlockSection.styled"
 import { Friend } from "./friend/Friend"
@@ -10,13 +10,10 @@ import { UserStateType } from "../../../api/social-network-api"
 type FriendsBlockPropsType = {
     className?: string
     friends: UserStateType[]
-    getFriends: () => void
+    blockHeaderName: string
 }
 
 export const FriendsBlock: React.FC<FriendsBlockPropsType> = (props) => {
-    useEffect(() => {
-        props.getFriends()
-    }, [])
 
     const friendsList = () => {
         return (
@@ -30,11 +27,11 @@ export const FriendsBlock: React.FC<FriendsBlockPropsType> = (props) => {
 
     return (
         <StyledFriends
-            id={'friends'}
+            id={props.blockHeaderName.toLowerCase().replaceAll(' ','-')}
             className={props.className}
         >
             <BlockHeader>
-                {'Friends'}
+                {props.blockHeaderName}
             </BlockHeader>
             {friendsList()}
         </StyledFriends>
@@ -49,7 +46,10 @@ width: fit-content;
 
 const StyledFriendsList = styled.div`
     display: flex;
+    align-items: center;
+    justify-content: center;
     max-height: 50vh;
+    width: 100%;
     height: fit-content;
     flex-direction: column;
     gap: 20px;

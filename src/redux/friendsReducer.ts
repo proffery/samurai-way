@@ -1,16 +1,35 @@
 import { Dispatch } from 'redux';
 import { UserStateType, socialNetworkAPI } from '../api/social-network-api';
+import { UsersStateType } from './usersReducer';
 
-export const SET_FRIENDS = 'SET-FRIENDS'
+const SET_FRIENDS = 'SET-FRIENDS'
+const SET_FRIENDS_ON_PAGE = 'SET-FRIENDS-ON-PAGE'
+const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE'
+const SET_TOTAL_FRIENDS_COUNT = 'SET-TOTAL-FRIENDS-COUNT'
 
-export type FriendsReducerActionsType = ReturnType<typeof setFriendsAC>
+export type FriendsReducerActionsType =
+    | ReturnType<typeof setFriendsAC>
+    | ReturnType<typeof setCurrentPageAC>
+    | ReturnType<typeof setFriendsOnPageAC>
+    | ReturnType<typeof setTotalFriendsCountAC>
 
-const initialState: UserStateType[] = []
+const initialState: UsersStateType = {
+    users: [],
+    usersOnPage: 5,
+    totalUsersCount: 0,
+    currentPage: 1
+}
 
-const friendsReducer = (state: UserStateType[] = initialState, action: FriendsReducerActionsType): UserStateType[] => {
+const friendsReducer = (state: UsersStateType = initialState, action: FriendsReducerActionsType): UsersStateType => {
     switch (action.type) {
         case SET_FRIENDS:
-            return [...action.payload.friends]
+            return { ...state, users: [...action.payload.friends] }
+        case SET_CURRENT_PAGE:
+            return { ...state, currentPage: action.payload.currentPage }
+        case SET_FRIENDS_ON_PAGE:
+            return { ...state, usersOnPage: action.payload.usersOnPage }
+        case SET_TOTAL_FRIENDS_COUNT:
+            return { ...state, totalUsersCount: action.payload.totalUsersCount }
         default:
             return state
     }
@@ -23,11 +42,34 @@ export const setFriendsAC = (friends: UserStateType[]) => ({
     }
 }) as const
 
-export const getFriendsTC = () => (dispatch: Dispatch<FriendsReducerActionsType>) => {
-    socialNetworkAPI.getFriends()
+export const setCurrentPageAC = (currentPage: number) => ({
+    type: SET_CURRENT_PAGE,
+    payload: {
+        currentPage
+    }
+}) as const
+
+export const setFriendsOnPageAC = (usersOnPage: number) => ({
+    type: SET_FRIENDS_ON_PAGE,
+    payload: {
+        usersOnPage
+    }
+}) as const
+
+export const setTotalFriendsCountAC = (totalUsersCount: number) => ({
+    type: SET_TOTAL_FRIENDS_COUNT,
+    payload: {
+        totalUsersCount
+    }
+}) as const
+
+export const getFriendsTC = (pageNumber: number, usersOnPage: number) => (dispatch: Dispatch<FriendsReducerActionsType>) => {
+    socialNetworkAPI.getFriends(pageNumber, usersOnPage)
         .then(res => {
-            const friends = res.data.items
-            dispatch(setFriendsAC(friends))
+            dispatch(setTotalFriendsCountAC(res.data.totalCount))
+            dispatch(setCurrentPageAC(pageNumber))
+            dispatch(setFriendsOnPageAC(usersOnPage))
+            dispatch(setFriendsAC(res.data.items))
         })
 }
 

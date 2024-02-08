@@ -84,7 +84,7 @@ const AuthorInfo = styled.div`
 `
 
 const AuthorAvatar = styled.img`
-   border-radius: 50%;
+   border-radius: 50% 50%;
    width: 20%;
    max-width: 60px;
    aspect-ratio: 1/1;

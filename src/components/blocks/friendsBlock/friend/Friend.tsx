@@ -43,18 +43,21 @@ const StyledNavLink = styled(NavLink)`
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40%;
+    width: 90%;
 `
 
 const Avatar = styled.img`
    border-radius: 50% 50%;
    object-fit: fill;
    aspect-ratio: 1/1;
-   max-width: 80px;
+   max-width: 60px;
    width: 100%;
-   min-width: 60px;
    background-color: ${theme.color.background.primary};
    border: 1px solid ${theme.color.text.placeholder};
+   @media ${theme.media.mobile} {
+        width: 40%;
+        min-width: 40px;
+    }
 `
 
 const Name = styled.span`
