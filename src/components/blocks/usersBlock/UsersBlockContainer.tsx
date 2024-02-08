@@ -3,6 +3,43 @@ import { connect } from "react-redux"
 import { UsersBlock } from "./UsersBlock"
 import { getUsersTC, followUsersTC, unfollowUsersTC } from "../../../redux/usersReducer"
 import { AppRootStateType } from "../../../redux/redux-store"
+import { UserStateType } from "../../../api/social-network-api"
+import { useEffect } from "react"
+
+type UsersBlockAPIPropsType = {
+    users: UserStateType[]
+    totalUsersCount: number
+    usersOnPage: number
+    currentPage: number
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
+    getUsers: (currentPage: number, usersOnPage: number) => void
+}
+
+export const UsersBlockAPI: React.FC<UsersBlockAPIPropsType> = (props) => {
+    useEffect(() => {
+        props.getUsers(props.currentPage, props.usersOnPage)
+    }, [])
+
+    const pagesCount = Math.ceil(props.totalUsersCount / props.usersOnPage)
+    const pagesArray = Array.from({ length: pagesCount }, (_, i) => i + 1)
+
+    const onPageChangeHandler = (pageNumber: number) => {
+        props.getUsers(pageNumber, props.usersOnPage)
+    }
+
+    return (
+        <UsersBlock
+            users={props.users}
+            currentPage={props.currentPage}
+            follow={props.follow}
+            unfollow={props.unfollow}
+            getUsers={props.getUsers}
+            onPageChangeHandler={onPageChangeHandler}
+            pagesArray={pagesArray}
+        />
+    )
+}
 
 const mapStateToProps = (state: AppRootStateType) => {
     return {
@@ -27,4 +64,4 @@ const mapDispatchToProps = (dispatch: any) => {
     }
 }
 
-export const UsersBlockContainer = connect(mapStateToProps, mapDispatchToProps)(UsersBlock)
+export const UsersBlockContainer = connect(mapStateToProps, mapDispatchToProps)(UsersBlockAPI)

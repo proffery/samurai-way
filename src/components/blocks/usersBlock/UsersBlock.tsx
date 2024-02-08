@@ -1,4 +1,3 @@
-import { useEffect } from "react"
 import { BlockHeader } from "../BlockHeader.styled"
 import { BlockSection } from "../BlockSection.styled"
 import { User } from "./user/User"
@@ -9,26 +8,15 @@ import { Button } from "../../micro/button/Button"
 
 export type UsersBlockPropsType = {
     users: UserStateType[]
-    totalUsersCount: number
-    usersOnPage: number
     currentPage: number
+    pagesArray: number[]
     follow: (userId: number) => void
     unfollow: (userId: number) => void
     getUsers: (currentPage: number, usersOnPage: number) => void
+    onPageChangeHandler: (pageNumber: number) => void
 }
 
 export const UsersBlock: React.FC<UsersBlockPropsType> = (props) => {
-
-    useEffect(() => {
-        props.getUsers(props.currentPage, props.usersOnPage)
-    }, [])
-
-    const pagesCount = Math.ceil(props.totalUsersCount / props.usersOnPage)
-    const pagesArray = Array.from({ length: pagesCount }, (_, i) => i + 1)
-
-    const onPageChangeHandler = (pageNumber: number) => {
-        props.getUsers(pageNumber, props.usersOnPage)
-    }
 
     const usersList = () => {
         return (
@@ -50,11 +38,11 @@ export const UsersBlock: React.FC<UsersBlockPropsType> = (props) => {
             <BlockHeader>Users</BlockHeader>
             {usersList()}
             <FlexWrapper justify="center" gap="10px" wrap="wrap">
-                {pagesArray.length > 1 && pagesArray.map(el =>
+                {props.pagesArray.length > 1 && props.pagesArray.map(el =>
                     <Button
                         variant={props.currentPage !== el ? 'outlined' : 'primary'}
                         disabled={props.currentPage !== el ? false : true}
-                        onClick={() => {onPageChangeHandler(el)}}
+                        onClick={() => {props.onPageChangeHandler(el)}}
                         name={el.toString()}
                     />
                 )}
@@ -66,7 +54,7 @@ export const UsersBlock: React.FC<UsersBlockPropsType> = (props) => {
 const StyledUsersBlock = styled(BlockSection)`
     display: flex;
     width: 85%;
-    min-width: 60%;
+    min-width: 70%;
     max-height: 100vh;
     overflow-y: auto;
     overflow-x: hidden;

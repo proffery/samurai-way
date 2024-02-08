@@ -17,17 +17,15 @@ export const FriendsBlock: React.FC<FriendsBlockPropsType> = (props) => {
 
     const friendsList = () => {
         return (
-            <>
-                <StyledFriendsList>
-                    {props.friends.map(friend => <Friend key={friend.id} friend={friend} />)}
-                </StyledFriendsList>
-            </>
+            <StyledFriendsList>
+                {props.friends.map(friend => <Friend key={friend.id} friend={friend} />)}
+            </StyledFriendsList>
         )
     }
 
     return (
         <StyledFriends
-            id={props.blockHeaderName.toLowerCase().replaceAll(' ','-')}
+            id={props.blockHeaderName.toLowerCase().replaceAll(' ', '-')}
             className={props.className}
         >
             <BlockHeader>
@@ -38,17 +36,13 @@ export const FriendsBlock: React.FC<FriendsBlockPropsType> = (props) => {
     )
 }
 const StyledFriends = styled(BlockSection)`
-width: fit-content;
-    @media ${theme.media.mobile} {
-        width: 100%;
-    }
+    width: 100%;
 `
 
 const StyledFriendsList = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    max-height: 50vh;
     width: 100%;
     height: fit-content;
     flex-direction: column;

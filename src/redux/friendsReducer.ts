@@ -15,7 +15,7 @@ export type FriendsReducerActionsType =
 
 const initialState: UsersStateType = {
     users: [],
-    usersOnPage: 5,
+    usersOnPage: 4,
     totalUsersCount: 0,
     currentPage: 1
 }
