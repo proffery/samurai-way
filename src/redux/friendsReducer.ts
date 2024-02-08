@@ -4,7 +4,7 @@ import { UsersStateType } from './usersReducer';
 
 const SET_FRIENDS = 'SET-FRIENDS'
 const SET_FRIENDS_ON_PAGE = 'SET-FRIENDS-ON-PAGE'
-const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE'
+const SET_CURRENT_FRIENDS_PAGE = 'SET-CURRENT-FRIENDS--PAGE'
 const SET_TOTAL_FRIENDS_COUNT = 'SET-TOTAL-FRIENDS-COUNT'
 
 export type FriendsReducerActionsType =
@@ -24,7 +24,7 @@ const friendsReducer = (state: UsersStateType = initialState, action: FriendsRed
     switch (action.type) {
         case SET_FRIENDS:
             return { ...state, users: [...action.payload.friends] }
-        case SET_CURRENT_PAGE:
+        case SET_CURRENT_FRIENDS_PAGE:
             return { ...state, currentPage: action.payload.currentPage }
         case SET_FRIENDS_ON_PAGE:
             return { ...state, usersOnPage: action.payload.usersOnPage }
@@ -43,7 +43,7 @@ export const setFriendsAC = (friends: UserStateType[]) => ({
 }) as const
 
 export const setCurrentPageAC = (currentPage: number) => ({
-    type: SET_CURRENT_PAGE,
+    type: SET_CURRENT_FRIENDS_PAGE,
     payload: {
         currentPage
     }

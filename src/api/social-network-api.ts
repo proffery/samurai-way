@@ -42,10 +42,10 @@ export const socialNetworkAPI = {
     unfollowUser(userId: number) {
         return instance.delete<ResponseType>(`/follow/${userId}`)
     },
-    getFriends(pageNumber: number, usersOnPage: number) {
-        return instance.get<GetUsersResponseType>(`/users?page=${pageNumber}&count=${usersOnPage}&friend=true`)
+    getFriends(pageNumber: number, friendsOnPage: number) {
+        return instance.get<GetUsersResponseType>(`/users?page=${pageNumber}&count=${friendsOnPage}&friend=true`)
     },
-    getPossibleFriends() {
-        return instance.get<GetUsersResponseType>('/users?friend=false')
+    getPossibleFriends(pageNumber: number, possibleFriendsOnPage: number) {
+        return instance.get<GetUsersResponseType>(`/users?page=${pageNumber}&count=${possibleFriendsOnPage}&friend=false`)
     },
 }
