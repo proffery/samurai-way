@@ -1,42 +1,76 @@
 
 import { connect } from "react-redux"
 import { UsersBlock } from "./UsersBlock"
-import { getUsersTC, followUsersTC, unfollowUsersTC } from "../../../redux/usersReducer"
+import { getAllUsersTC, followUsersTC, unfollowUsersTC, getFollowedUsersTC, getUnfollowedUsersTC, UsersFilterType, changeUsersFilterAC } from "../../../redux/usersReducer"
 import { AppRootStateType } from "../../../redux/redux-store"
 import { UserStateType } from "../../../api/social-network-api"
 import { useEffect } from "react"
 
 type UsersBlockAPIPropsType = {
     users: UserStateType[]
+    usersFilter: UsersFilterType
     totalUsersCount: number
     usersOnPage: number
     currentPage: number
     follow: (userId: number) => void
     unfollow: (userId: number) => void
-    getUsers: (currentPage: number, usersOnPage: number) => void
+    getAllUsers: (currentPage: number, usersOnPage: number) => void
+    getFollowedUsers: (currentPage: number, usersOnPage: number) => void
+    getUnfollowedUsers: (currentPage: number, usersOnPage: number) => void
+    changeUsersFilter: (filter: UsersFilterType) => void
 }
 
 export const UsersBlockAPI: React.FC<UsersBlockAPIPropsType> = (props) => {
-    useEffect(() => {
-        props.getUsers(props.currentPage, props.usersOnPage)
-    }, [])
 
-    const pagesCount = Math.ceil(props.totalUsersCount / props.usersOnPage)
-    const pagesCountArray = Array.from({ length: pagesCount }, (_, i) => i + 1)
+    useEffect(() => {
+        switch (props.usersFilter) {
+            case "all":
+                props.getAllUsers(1, props.usersOnPage)
+                break
+            case "followed":
+                props.getFollowedUsers(1, props.usersOnPage)
+                break
+            case "unfollowed":
+                props.getUnfollowedUsers(1, props.usersOnPage)
+                break
+            default:
+                props.getAllUsers(1, props.usersOnPage)
+        }
+
+    }, [props.usersFilter])
+
+    const filterChangeHandler = (filter: UsersFilterType) => {
+        props.changeUsersFilter(filter)
+    }
 
     const onPageChangeHandler = (pageNumber: number) => {
-        props.getUsers(pageNumber, props.usersOnPage)
+        switch (props.usersFilter) {
+            case "all":
+                props.getAllUsers(pageNumber, props.usersOnPage)
+                break
+            case "followed":
+                props.getFollowedUsers(pageNumber, props.usersOnPage)
+                break
+            case "unfollowed":
+                props.getUnfollowedUsers(pageNumber, props.usersOnPage)
+                break
+            default:
+                props.getAllUsers(pageNumber, props.usersOnPage)
+        }
     }
 
     return (
         <UsersBlock
             users={props.users}
+            usersFilter={props.usersFilter}
             currentPage={props.currentPage}
+            totalUsersCount={props.totalUsersCount}
+            usersOnPage={props.usersOnPage}
             follow={props.follow}
             unfollow={props.unfollow}
-            getUsers={props.getUsers}
+            getAllUsers={props.getAllUsers}
             onPageChangeHandler={onPageChangeHandler}
-            pagesCountArray={pagesCountArray}
+            filterChangeHandler={filterChangeHandler}
         />
     )
 }
@@ -46,7 +80,8 @@ const mapStateToProps = (state: AppRootStateType) => {
         users: state.users.users,
         totalUsersCount: state.users.totalUsersCount,
         usersOnPage: state.users.usersOnPage,
-        currentPage: state.users.currentPage
+        currentPage: state.users.currentPage,
+        usersFilter: state.users.usersFilter
     }
 }
 
@@ -58,8 +93,17 @@ const mapDispatchToProps = (dispatch: any) => {
         unfollow: (userId: number) => {
             dispatch(unfollowUsersTC(userId))
         },
-        getUsers: (currentPage: number, usersOnPage: number) => {
-            dispatch(getUsersTC(currentPage, usersOnPage))
+        getAllUsers: (currentPage: number, usersOnPage: number) => {
+            dispatch(getAllUsersTC(currentPage, usersOnPage))
+        },
+        getFollowedUsers: (currentPage: number, usersOnPage: number) => {
+            dispatch(getFollowedUsersTC(currentPage, usersOnPage))
+        },
+        getUnfollowedUsers: (currentPage: number, usersOnPage: number) => {
+            dispatch(getUnfollowedUsersTC(currentPage, usersOnPage))
+        },
+        changeUsersFilter: (filter: UsersFilterType) => {
+            dispatch(changeUsersFilterAC(filter))
         }
     }
 }

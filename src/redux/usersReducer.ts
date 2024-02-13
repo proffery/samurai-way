@@ -7,6 +7,7 @@ const SET_USERS = 'SET-USERS'
 const SET_USERS_ON_PAGE = 'SET-USERS-ON-PAGE'
 const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE'
 const SET_TOTAL_USERS_COUNT = 'SET-TOTAL-USERS-COUNT'
+const CHANGE_USERS_FILTER = 'CHANGE-USERS-FILTER'
 
 export type UsersReducerActionsType =
     | ReturnType<typeof followAC>
@@ -15,19 +16,24 @@ export type UsersReducerActionsType =
     | ReturnType<typeof setCurrentPageAC>
     | ReturnType<typeof setUsersOnPageAC>
     | ReturnType<typeof setTotalUsersCountAC>
+    | ReturnType<typeof changeUsersFilterAC>
 
 export type UsersStateType = {
     users: UserStateType[]
     usersOnPage: number
     totalUsersCount: number
     currentPage: number
+    usersFilter: UsersFilterType
 }
+
+export type UsersFilterType = 'all' | 'followed' | 'unfollowed'
 
 const initialState: UsersStateType = {
     users: [],
     usersOnPage: 15,
     totalUsersCount: 0,
-    currentPage: 1
+    currentPage: 1,
+    usersFilter: 'all'
 }
 
 const usersReducer = (state: UsersStateType = initialState, action: UsersReducerActionsType): UsersStateType => {
@@ -52,6 +58,8 @@ const usersReducer = (state: UsersStateType = initialState, action: UsersReducer
             return { ...state, usersOnPage: action.payload.usersOnPage }
         case SET_TOTAL_USERS_COUNT:
             return { ...state, totalUsersCount: action.payload.totalUsersCount }
+        case CHANGE_USERS_FILTER:
+            return {...state, usersFilter: action.payload.usersFilter}
         default:
             return state
     }
@@ -99,8 +107,35 @@ export const setTotalUsersCountAC = (totalUsersCount: number) => ({
     }
 }) as const
 
-export const getUsersTC = (pageNumber: number, usersOnPage: number) => (dispatch: Dispatch<UsersReducerActionsType>) => {
+export const changeUsersFilterAC = (usersFilter: UsersFilterType) => ({
+    type: CHANGE_USERS_FILTER,
+    payload: {
+        usersFilter
+    }
+}) as const
+
+export const getAllUsersTC = (pageNumber: number, usersOnPage: number) => (dispatch: Dispatch<UsersReducerActionsType>) => {
     socialNetworkAPI.getUsers(pageNumber, usersOnPage)
+        .then(res => {
+            dispatch(setTotalUsersCountAC(res.data.totalCount))
+            dispatch(setCurrentPageAC(pageNumber))
+            dispatch(setUsersOnPageAC(usersOnPage))
+            dispatch(setUsersAC(res.data.items))
+        })
+}
+
+export const getFollowedUsersTC = (pageNumber: number, usersOnPage: number) => (dispatch: Dispatch<UsersReducerActionsType>) => {
+    socialNetworkAPI.getFriends(pageNumber, usersOnPage)
+        .then(res => {
+            dispatch(setTotalUsersCountAC(res.data.totalCount))
+            dispatch(setCurrentPageAC(pageNumber))
+            dispatch(setUsersOnPageAC(usersOnPage))
+            dispatch(setUsersAC(res.data.items))
+        })
+}
+
+export const getUnfollowedUsersTC = (pageNumber: number, usersOnPage: number) => (dispatch: Dispatch<UsersReducerActionsType>) => {
+    socialNetworkAPI.getPossibleFriends(pageNumber, usersOnPage)
         .then(res => {
             dispatch(setTotalUsersCountAC(res.data.totalCount))
             dispatch(setCurrentPageAC(pageNumber))

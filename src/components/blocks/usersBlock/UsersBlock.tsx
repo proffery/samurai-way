@@ -4,16 +4,22 @@ import { User } from "./user/User"
 import styled from "styled-components"
 import { UserStateType } from "../../../api/social-network-api"
 import { FlexWrapper } from "../../micro/FlexWrapper"
-import { UserPagination } from "./UserPagination"
+import { UsersPagination } from "./UsersPagination"
+import { Button } from "../../micro/button/Button"
+import { UsersFilterType } from "../../../redux/usersReducer"
+
 
 export type UsersBlockPropsType = {
     users: UserStateType[]
+    usersFilter: UsersFilterType
     currentPage: number
-    pagesCountArray: number[]
+    usersOnPage: number
+    totalUsersCount: number
     follow: (userId: number) => void
     unfollow: (userId: number) => void
-    getUsers: (currentPage: number, usersOnPage: number) => void
+    getAllUsers: (currentPage: number, usersOnPage: number) => void
     onPageChangeHandler: (pageNumber: number) => void
+    filterChangeHandler: (filter: UsersFilterType) => void
 }
 
 export const UsersBlock: React.FC<UsersBlockPropsType> = (props) => {
@@ -34,14 +40,43 @@ export const UsersBlock: React.FC<UsersBlockPropsType> = (props) => {
         )
     }
 
+    const onAllFilterChangeHandler = () => {
+        props.filterChangeHandler("all")
+    }
+    const onFriendsFilterChangeHandler = () => {
+        props.filterChangeHandler("followed")
+    }
+    const onPossibleFilterChangeHandler = () => {
+        props.filterChangeHandler("unfollowed")
+    }
+
     return (
         <StyledUsersBlock id="all-users">
             <BlockHeader>Users</BlockHeader>
+            <FlexWrapper justify="center" gap="20px">
+                <Button name={'All'}
+                    variant={'link'}
+                    isActive={props.usersFilter === 'all'}
+                    onClick={onAllFilterChangeHandler}
+                />
+                <Button name={'Followed'}
+                    variant={'link'}
+                    isActive={props.usersFilter === 'followed'}
+                    onClick={onFriendsFilterChangeHandler}
+                />
+                <Button name={'Unfollowed'}
+                    variant={'link'}
+                    isActive={props.usersFilter === 'unfollowed'}
+                    onClick={onPossibleFilterChangeHandler}
+                />
+            </FlexWrapper>
             {usersList()}
             <FlexWrapper justify="center" gap="10px" wrap="wrap">
-                <UserPagination
-                    pagesCountArray={props.pagesCountArray}
+                <UsersPagination
+                    totalUsersCount={props.totalUsersCount}
+                    usersOnPage={props.usersOnPage}
                     currentPage={props.currentPage}
+                    usersFilter={props.usersFilter}
                     onPageChangeHandler={props.onPageChangeHandler}
                 />
             </FlexWrapper>

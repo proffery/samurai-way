@@ -17,7 +17,8 @@ const initialState: UsersStateType = {
     users: [],
     usersOnPage: 4,
     totalUsersCount: 0,
-    currentPage: 1
+    currentPage: 1,
+    usersFilter: 'all'
 }
 
 const friendsReducer = (state: UsersStateType = initialState, action: FriendsReducerActionsType): UsersStateType => {
