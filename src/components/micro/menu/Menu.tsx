@@ -3,13 +3,13 @@ import styled, { css } from "styled-components"
 import { Icon } from "../icon/Icon"
 import { theme } from "../../../styles/Theme.styled"
 import { NavLink } from "react-router-dom"
-import { MenuItemStateType } from "../../../redux/menuReducer"
+import { IconLinksStateType } from "../../../redux/appReducer"
 
 type MenuPropsType = {
     type: 'primary' | 'secondary'
     direction: 'row' | 'column'
     icons?: boolean
-    menuItems: MenuItemStateType[]
+    menuItems: IconLinksStateType[]
 }
 
 export const Menu: React.FC<MenuPropsType> = (props) => {

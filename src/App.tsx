@@ -13,20 +13,23 @@ import { useState } from 'react';
 import { theme } from './styles/Theme.styled';
 import { AppRootStateType } from './redux/redux-store';
 import { useSelector } from 'react-redux';
-import { MenuStateType } from './redux/menuReducer';
-import { FooterStateType } from './redux/footerReducer';
+import { IconLinksStateType, RequestStatusType } from './redux/appReducer';
+import { LineLoader } from './components/micro/loaders/LineLoader';
+
 
 
 function App() {
   const [navCollapsed, setNavCollapsed] = useState<boolean>(true)
 
-  const menuData = useSelector<AppRootStateType, MenuStateType>(state => state.menu)
-  const footerData = useSelector<AppRootStateType, FooterStateType>(state => state.footer)
+  const menuData = useSelector<AppRootStateType, IconLinksStateType[]>(state => state.app.menuItems)
+  const footerData = useSelector<AppRootStateType, IconLinksStateType[]>(state => state.app.socialLinks)
+  const requestStatus = useSelector<AppRootStateType, RequestStatusType>(state => state.app.requestStatus)
 
   return (
     <Router >
       <Container collapsed={navCollapsed ? 'true' : 'false'}>
-        <Navbar menuData={menuData} navcollapsed={navCollapsed} setNavCollapsed={setNavCollapsed} />
+        <Navbar menuItems={menuData} navcollapsed={navCollapsed} setNavCollapsed={setNavCollapsed} />
+        {requestStatus === 'loading' && <LineLoader />}
         <Header />
         <Switch>
           <Route path='/' exact render={() => <Profile />} />

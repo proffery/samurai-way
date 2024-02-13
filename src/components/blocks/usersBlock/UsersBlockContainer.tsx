@@ -5,6 +5,7 @@ import { getAllUsersTC, followUsersTC, unfollowUsersTC, getFollowedUsersTC, getU
 import { AppRootStateType } from "../../../redux/redux-store"
 import { UserStateType } from "../../../api/social-network-api"
 import { useEffect } from "react"
+import { RequestStatusType } from "../../../redux/appReducer"
 
 type UsersBlockAPIPropsType = {
     users: UserStateType[]
@@ -12,6 +13,7 @@ type UsersBlockAPIPropsType = {
     totalUsersCount: number
     usersOnPage: number
     currentPage: number
+    appRequestStatus: RequestStatusType
     follow: (userId: number) => void
     unfollow: (userId: number) => void
     getAllUsers: (currentPage: number, usersOnPage: number) => void
@@ -66,6 +68,7 @@ export const UsersBlockAPI: React.FC<UsersBlockAPIPropsType> = (props) => {
             currentPage={props.currentPage}
             totalUsersCount={props.totalUsersCount}
             usersOnPage={props.usersOnPage}
+            appRequestStatus={props.appRequestStatus}
             follow={props.follow}
             unfollow={props.unfollow}
             getAllUsers={props.getAllUsers}
@@ -81,7 +84,8 @@ const mapStateToProps = (state: AppRootStateType) => {
         totalUsersCount: state.users.totalUsersCount,
         usersOnPage: state.users.usersOnPage,
         currentPage: state.users.currentPage,
-        usersFilter: state.users.usersFilter
+        usersFilter: state.users.usersFilter,
+        appRequestStatus: state.app.requestStatus
     }
 }
 

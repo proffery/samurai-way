@@ -5,9 +5,11 @@ import { font } from "../../../../styles/Font"
 import { FlexWrapper } from "../../../micro/FlexWrapper"
 import emtyAvatar from '../../../../assets/images/NoAvatar.jpeg'
 import { UserStateType } from "../../../../api/social-network-api"
+import { RequestStatusType } from "../../../../redux/appReducer"
 
 type UserPropsType = {
     user: UserStateType
+    appRequestStatus: RequestStatusType
     follow: (userId: number) => void
     unfollow: (userId: number) => void
 }
@@ -35,6 +37,7 @@ export const User: React.FC<UserPropsType> = (props) => {
                     variant={props.user.followed ? 'primary' : 'outlined'}
                     onClick={userOnClickFollowHandler}
                     name={props.user.followed ? 'UNFOLLOW' : 'FOLLOW'}
+                    disabled={props.appRequestStatus === 'loading'}
                 />
             </ButtonContainer>
         </StyledUser>

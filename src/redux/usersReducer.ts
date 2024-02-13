@@ -1,5 +1,6 @@
 import { Dispatch } from "redux"
 import { UserStateType, socialNetworkAPI } from "../api/social-network-api"
+import { SetAppRequestStatusActionsType, setAppRequestStatusAC } from "./appReducer"
 
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
@@ -17,6 +18,7 @@ export type UsersReducerActionsType =
     | ReturnType<typeof setUsersOnPageAC>
     | ReturnType<typeof setTotalUsersCountAC>
     | ReturnType<typeof changeUsersFilterAC>
+    | SetAppRequestStatusActionsType
 
 export type UsersStateType = {
     users: UserStateType[]
@@ -115,40 +117,48 @@ export const changeUsersFilterAC = (usersFilter: UsersFilterType) => ({
 }) as const
 
 export const getAllUsersTC = (pageNumber: number, usersOnPage: number) => (dispatch: Dispatch<UsersReducerActionsType>) => {
+        dispatch(setAppRequestStatusAC('loading'))
     socialNetworkAPI.getUsers(pageNumber, usersOnPage)
         .then(res => {
             dispatch(setTotalUsersCountAC(res.data.totalCount))
             dispatch(setCurrentPageAC(pageNumber))
             dispatch(setUsersOnPageAC(usersOnPage))
             dispatch(setUsersAC(res.data.items))
+            dispatch(setAppRequestStatusAC('succeeded'))
         })
 }
 
 export const getFollowedUsersTC = (pageNumber: number, usersOnPage: number) => (dispatch: Dispatch<UsersReducerActionsType>) => {
+    dispatch(setAppRequestStatusAC('loading'))
     socialNetworkAPI.getFriends(pageNumber, usersOnPage)
         .then(res => {
             dispatch(setTotalUsersCountAC(res.data.totalCount))
             dispatch(setCurrentPageAC(pageNumber))
             dispatch(setUsersOnPageAC(usersOnPage))
             dispatch(setUsersAC(res.data.items))
+            dispatch(setAppRequestStatusAC('succeeded'))
         })
 }
 
 export const getUnfollowedUsersTC = (pageNumber: number, usersOnPage: number) => (dispatch: Dispatch<UsersReducerActionsType>) => {
+    dispatch(setAppRequestStatusAC('loading'))
     socialNetworkAPI.getPossibleFriends(pageNumber, usersOnPage)
         .then(res => {
             dispatch(setTotalUsersCountAC(res.data.totalCount))
             dispatch(setCurrentPageAC(pageNumber))
             dispatch(setUsersOnPageAC(usersOnPage))
             dispatch(setUsersAC(res.data.items))
+            dispatch(setAppRequestStatusAC('succeeded'))
         })
 }
 
 export const followUsersTC = (userId: number) => (dispatch: Dispatch<UsersReducerActionsType>) => {
+    dispatch(setAppRequestStatusAC('loading'))
     socialNetworkAPI.followUser(userId)
         .then(res => {
             if (res.data.resultCode === 0) {
                 dispatch(followAC(userId))
+                dispatch(setAppRequestStatusAC('succeeded'))
             }
             else {
                 console.warn(res.data.messages)
@@ -157,10 +167,12 @@ export const followUsersTC = (userId: number) => (dispatch: Dispatch<UsersReduce
 }
 
 export const unfollowUsersTC = (userId: number) => (dispatch: Dispatch<UsersReducerActionsType>) => {
+    dispatch(setAppRequestStatusAC('loading'))
     socialNetworkAPI.unfollowUser(userId)
         .then(res => {
             if (res.data.resultCode === 0) {
                 dispatch(unfollowAC(userId))
+                dispatch(setAppRequestStatusAC('succeeded'))
             }
             else {
                 console.warn(res.data.messages)

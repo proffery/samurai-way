@@ -2,10 +2,10 @@ import styled from "styled-components"
 import { Icon } from "../../../../components/micro/icon/Icon"
 import { Link } from "../../../../components/micro/link/Link.styled"
 import { theme } from "../../../../styles/Theme.styled"
-import { SocialLinkStateType } from "../../../../redux/footerReducer"
+import { IconLinksStateType } from "../../../../redux/appReducer"
 
 type SocialMedeaLinksPropsType = {
-    socialLinks: SocialLinkStateType[]
+    socialLinks: IconLinksStateType[]
 }
 
 export const SocialMedeaLinks:React.FC<SocialMedeaLinksPropsType> = (props) => {

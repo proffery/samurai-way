@@ -1,6 +1,6 @@
 import { Dispatch } from 'redux';
 import { UserStateType, socialNetworkAPI } from '../api/social-network-api';
-import { UsersStateType } from './usersReducer';
+import { SetAppRequestStatusActionsType, setAppRequestStatusAC } from './appReducer';
 
 const SET_FRIENDS = 'SET-FRIENDS'
 const SET_FRIENDS_ON_PAGE = 'SET-FRIENDS-ON-PAGE'
@@ -12,16 +12,23 @@ export type FriendsReducerActionsType =
     | ReturnType<typeof setCurrentPageAC>
     | ReturnType<typeof setFriendsOnPageAC>
     | ReturnType<typeof setTotalFriendsCountAC>
+    | SetAppRequestStatusActionsType
 
-const initialState: UsersStateType = {
+export type FriendsType = {
+    users: UserStateType[],
+    usersOnPage: number,
+    totalUsersCount: number,
+    currentPage: number,
+}
+
+const initialState: FriendsType = {
     users: [],
     usersOnPage: 4,
     totalUsersCount: 0,
     currentPage: 1,
-    usersFilter: 'all'
 }
 
-const friendsReducer = (state: UsersStateType = initialState, action: FriendsReducerActionsType): UsersStateType => {
+const friendsReducer = (state: FriendsType = initialState, action: FriendsReducerActionsType): FriendsType => {
     switch (action.type) {
         case SET_FRIENDS:
             return { ...state, users: [...action.payload.friends] }
@@ -65,12 +72,14 @@ export const setTotalFriendsCountAC = (totalUsersCount: number) => ({
 }) as const
 
 export const getFriendsTC = (pageNumber: number, usersOnPage: number) => (dispatch: Dispatch<FriendsReducerActionsType>) => {
+    dispatch(setAppRequestStatusAC('loading'))
     socialNetworkAPI.getFriends(pageNumber, usersOnPage)
         .then(res => {
             dispatch(setTotalFriendsCountAC(res.data.totalCount))
             dispatch(setCurrentPageAC(pageNumber))
             dispatch(setFriendsOnPageAC(usersOnPage))
             dispatch(setFriendsAC(res.data.items))
+            dispatch(setAppRequestStatusAC('succeeded'))
         })
 }
 

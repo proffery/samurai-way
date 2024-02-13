@@ -7,6 +7,7 @@ import { FlexWrapper } from "../../micro/FlexWrapper"
 import { UsersPagination } from "./UsersPagination"
 import { Button } from "../../micro/button/Button"
 import { UsersFilterType } from "../../../redux/usersReducer"
+import { RequestStatusType } from "../../../redux/appReducer"
 
 
 export type UsersBlockPropsType = {
@@ -15,6 +16,7 @@ export type UsersBlockPropsType = {
     currentPage: number
     usersOnPage: number
     totalUsersCount: number
+    appRequestStatus: RequestStatusType
     follow: (userId: number) => void
     unfollow: (userId: number) => void
     getAllUsers: (currentPage: number, usersOnPage: number) => void
@@ -31,9 +33,10 @@ export const UsersBlock: React.FC<UsersBlockPropsType> = (props) => {
                 {props.users.map(user =>
                     <User
                         key={user.id}
+                        user={user}
+                        appRequestStatus={props.appRequestStatus}
                         follow={props.follow}
                         unfollow={props.unfollow}
-                        user={user}
                     />
                 )}
             </>
@@ -57,16 +60,19 @@ export const UsersBlock: React.FC<UsersBlockPropsType> = (props) => {
                 <Button name={'All'}
                     variant={'link'}
                     isActive={props.usersFilter === 'all'}
+                    disabled={props.appRequestStatus === 'loading'}
                     onClick={onAllFilterChangeHandler}
                 />
                 <Button name={'Followed'}
                     variant={'link'}
                     isActive={props.usersFilter === 'followed'}
+                    disabled={props.appRequestStatus === 'loading'}
                     onClick={onFriendsFilterChangeHandler}
                 />
                 <Button name={'Unfollowed'}
                     variant={'link'}
                     isActive={props.usersFilter === 'unfollowed'}
+                    disabled={props.appRequestStatus === 'loading'}
                     onClick={onPossibleFilterChangeHandler}
                 />
             </FlexWrapper>
@@ -77,6 +83,7 @@ export const UsersBlock: React.FC<UsersBlockPropsType> = (props) => {
                     usersOnPage={props.usersOnPage}
                     currentPage={props.currentPage}
                     usersFilter={props.usersFilter}
+                    appRequestStatus={props.appRequestStatus}
                     onPageChangeHandler={props.onPageChangeHandler}
                 />
             </FlexWrapper>

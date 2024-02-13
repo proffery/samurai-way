@@ -6,10 +6,10 @@ import { Button } from "../../../components/micro/button/Button"
 import { useEffect, useState } from "react"
 import React from "react"
 import { Icon } from "../../../components/micro/icon/Icon"
-import { MenuStateType } from "../../../redux/menuReducer"
+import { IconLinksStateType } from "../../../redux/appReducer"
 
 type NavbarPropsType = {
-    menuData: MenuStateType
+    menuItems: IconLinksStateType[]
     navcollapsed: boolean
     setNavCollapsed: (value: boolean) => void
 }
@@ -42,7 +42,7 @@ export const Navbar: React.FC<NavbarPropsType> = (props) => {
                     <Menu type={'secondary'} 
                         icons={true} 
                         direction={'column'} 
-                        menuItems={props.menuData.menuItems}
+                        menuItems={props.menuItems}
                     />
                 </>
             }

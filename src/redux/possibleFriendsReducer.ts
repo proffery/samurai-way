@@ -1,6 +1,7 @@
 import { Dispatch } from 'redux';
 import { UserStateType, socialNetworkAPI } from '../api/social-network-api';
-import { UsersStateType } from './usersReducer';
+import { FriendsType } from './friendsReducer';
+import { SetAppRequestStatusActionsType, setAppRequestStatusAC } from './appReducer';
 
 const SET_POSSIBLE_FRIENDS = 'SET-POSSIBLE-FRIENDS'
 const SET_POSSIBLE_FRIENDS_ON_PAGE = 'SET-POSSIBLE-FRIENDS-ON-PAGE'
@@ -12,16 +13,16 @@ export type FriendsReducerActionsType =
     | ReturnType<typeof setPossibleFriendsCurrentPageAC>
     | ReturnType<typeof setPossibleFriendsOnPageAC>
     | ReturnType<typeof setTotalPossibleFriendsCountAC>
+    | SetAppRequestStatusActionsType
 
-const initialState: UsersStateType = {
+const initialState: FriendsType = {
     users: [],
     usersOnPage: 5,
     totalUsersCount: 0,
     currentPage: 1,
-    usersFilter: 'all'
 }
 
-const possibleFriendsReducer = (state: UsersStateType = initialState, action: FriendsReducerActionsType): UsersStateType => {
+const possibleFriendsReducer = (state: FriendsType = initialState, action: FriendsReducerActionsType): FriendsType => {
     switch (action.type) {
         case SET_POSSIBLE_FRIENDS:
             return { ...state, users: [...action.payload.possibleFriends] }
@@ -65,12 +66,14 @@ export const setTotalPossibleFriendsCountAC = (totalPossibleFriendsCount: number
 }) as const
 
 export const getPossibleFriendsTC = (pageNumber: number, possibleFriendsOnPage: number) => (dispatch: Dispatch<FriendsReducerActionsType>) => {
+    dispatch(setAppRequestStatusAC('loading'))
     socialNetworkAPI.getPossibleFriends(pageNumber, possibleFriendsOnPage)
         .then(res => {
             dispatch(setTotalPossibleFriendsCountAC(res.data.totalCount))
             dispatch(setPossibleFriendsCurrentPageAC(pageNumber))
             dispatch(setPossibleFriendsOnPageAC(possibleFriendsOnPage))
             dispatch(setPossibleFriendsAC(res.data.items))
+            dispatch(setAppRequestStatusAC('succeeded'))
         })
 }
 export default possibleFriendsReducer

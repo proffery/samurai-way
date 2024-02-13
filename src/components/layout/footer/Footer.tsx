@@ -6,12 +6,11 @@ import { Menu } from "../../../components/micro/menu/Menu"
 import { Link } from "../../../components/micro/link/Link.styled"
 import { Icon } from "../../../components/micro/icon/Icon"
 import { SocialMedeaLinks } from "./socialMedeaLinks/SocialMedeaLinks"
-import { MenuStateType } from "../../../redux/menuReducer"
-import { FooterStateType } from "../../../redux/footerReducer"
+import { IconLinksStateType } from "../../../redux/appReducer"
 
 type FooterPropsType = {
-    menuData: MenuStateType
-    footerData: FooterStateType
+    menuData: IconLinksStateType[]
+    footerData: IconLinksStateType[]
 }
 
 export const Footer:React.FC<FooterPropsType> = (props) => {
@@ -37,7 +36,7 @@ export const Footer:React.FC<FooterPropsType> = (props) => {
                         </IconWrapper>
                     </FlexWrapper>
                     <FlexWrapper>
-                        <SocialMedeaLinks socialLinks={props.footerData.socialLinks} />
+                        <SocialMedeaLinks socialLinks={props.footerData} />
                     </FlexWrapper>
                 </ContactsHalf>
             </TopWrapper>
@@ -45,7 +44,7 @@ export const Footer:React.FC<FooterPropsType> = (props) => {
                 <Menu type="primary" 
                     direction="row" 
                     icons={false} 
-                    menuItems={props.menuData.menuItems}
+                    menuItems={props.menuData}
                 />
                 <Copyright><span>Copyright © 2023&nbsp;</span><Link link_style="primary">Dmitry Shamko</Link></Copyright>
             </BottomWrapper>

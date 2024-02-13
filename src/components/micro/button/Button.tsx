@@ -28,14 +28,14 @@ export const Button: React.FC<ButtonPropsType> = (props) => {
             className={props.className}
             title={props.title}
             disabled={props.disabled || false}
-            active={props.isActive || false}
+            active={props.isActive?.toString() || 'false'}
         >{props.name || ''}</StyledButton>
     )
 }
 
 type StyledButtonPropsType = {
     variant: 'primary' | 'outlined' | 'link'
-    active?: boolean
+    active?: string
 }
 
 const StyledButton = styled.button<StyledButtonPropsType>`
@@ -47,11 +47,14 @@ const StyledButton = styled.button<StyledButtonPropsType>`
     ${props => props.disabled && css<StyledButtonPropsType>`
         opacity: .3;
         cursor: default;
+        &:hover {
+            
+        }
     `}
     
-    ${props => props.active && css<StyledButtonPropsType>`
-    ${font({ weight: 700, Fmin: 10, Fmax: 22 })}
-    `}
+    ${props => props.active === "true" ? `
+        ${font({ weight: 700, Fmin: 10, Fmax: 22 })}
+    `: undefined}
 
     ${props => props.variant === 'primary' && css<StyledButtonPropsType>`
         background-color: ${theme.color.background.second};
@@ -65,7 +68,7 @@ const StyledButton = styled.button<StyledButtonPropsType>`
             border-radius: 8px ;
             padding: 8px 16px;
         }
-        &:hover {
+        &:active {
             background-color: ${theme.color.background.primary};
             color: ${theme.color.text.primary};
             border-color: ${theme.color.background.second};
@@ -84,7 +87,7 @@ const StyledButton = styled.button<StyledButtonPropsType>`
             border-radius: 8px ;
             padding: 8px 16px;
         }
-        &:hover {
+        &:active {
             background-color: ${theme.color.background.second};
             color: ${theme.color.text.second};
             border-color: ${theme.color.background.second};
@@ -96,7 +99,7 @@ const StyledButton = styled.button<StyledButtonPropsType>`
         color: ${theme.color.text.primary};
         border: none;
         opacity: .7;
-        &:hover {
+        &:active {
             opacity: 1;
         }
     `}
