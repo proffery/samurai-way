@@ -22,7 +22,7 @@ export const UsersBlockAPI: React.FC<UsersBlockAPIPropsType> = (props) => {
     }, [])
 
     const pagesCount = Math.ceil(props.totalUsersCount / props.usersOnPage)
-    const pagesArray = Array.from({ length: pagesCount }, (_, i) => i + 1)
+    const pagesCountArray = Array.from({ length: pagesCount }, (_, i) => i + 1)
 
     const onPageChangeHandler = (pageNumber: number) => {
         props.getUsers(pageNumber, props.usersOnPage)
@@ -36,7 +36,7 @@ export const UsersBlockAPI: React.FC<UsersBlockAPIPropsType> = (props) => {
             unfollow={props.unfollow}
             getUsers={props.getUsers}
             onPageChangeHandler={onPageChangeHandler}
-            pagesArray={pagesArray}
+            pagesCountArray={pagesCountArray}
         />
     )
 }

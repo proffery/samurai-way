@@ -4,12 +4,12 @@ import { User } from "./user/User"
 import styled from "styled-components"
 import { UserStateType } from "../../../api/social-network-api"
 import { FlexWrapper } from "../../micro/FlexWrapper"
-import { Button } from "../../micro/button/Button"
+import { UserPagination } from "./UserPagination"
 
 export type UsersBlockPropsType = {
     users: UserStateType[]
     currentPage: number
-    pagesArray: number[]
+    pagesCountArray: number[]
     follow: (userId: number) => void
     unfollow: (userId: number) => void
     getUsers: (currentPage: number, usersOnPage: number) => void
@@ -17,6 +17,7 @@ export type UsersBlockPropsType = {
 }
 
 export const UsersBlock: React.FC<UsersBlockPropsType> = (props) => {
+
 
     const usersList = () => {
         return (
@@ -38,14 +39,11 @@ export const UsersBlock: React.FC<UsersBlockPropsType> = (props) => {
             <BlockHeader>Users</BlockHeader>
             {usersList()}
             <FlexWrapper justify="center" gap="10px" wrap="wrap">
-                {props.pagesArray.length > 1 && props.pagesArray.map(el =>
-                    <Button
-                        variant={props.currentPage !== el ? 'outlined' : 'primary'}
-                        disabled={props.currentPage !== el ? false : true}
-                        onClick={() => {props.onPageChangeHandler(el)}}
-                        name={el.toString()}
-                    />
-                )}
+                <UserPagination
+                    pagesCountArray={props.pagesCountArray}
+                    currentPage={props.currentPage}
+                    onPageChangeHandler={props.onPageChangeHandler}
+                />
             </FlexWrapper>
         </StyledUsersBlock>
     )
@@ -54,7 +52,7 @@ export const UsersBlock: React.FC<UsersBlockPropsType> = (props) => {
 const StyledUsersBlock = styled(BlockSection)`
     display: flex;
     width: 85%;
-    min-width: 70%;
+    min-width: 75%;
     max-height: 100vh;
     overflow-y: auto;
     overflow-x: hidden;

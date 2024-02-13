@@ -15,7 +15,6 @@ type MessagesBlockPropsType = {
 }
 
 export const MessagesBlock: React.FC<MessagesBlockPropsType> = (props) => {
-
     let [error, setError] = useState<string | null>('Enter your message')
 
     const onChangeMessageHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -74,7 +73,7 @@ export const MessagesBlock: React.FC<MessagesBlockPropsType> = (props) => {
 
 const StyledMessagesBlock = styled(BlockSection)`
     width: 100%;
-    min-width: 70%;
+    min-width: 75%;
     height: 100%;
     min-height: 50%;
     overflow-y: scroll;
