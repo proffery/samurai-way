@@ -4,12 +4,12 @@ import { BlockSection } from "../BlockSection.styled"
 import { Friend } from "./friend/Friend"
 import styled from "styled-components"
 import { theme } from "../../../styles/Theme.styled"
-import { UserStateType } from "../../../api/social-network-api"
+import { UserResponseType } from "../../../api/social-network-api"
 
 
 type FriendsBlockPropsType = {
     className?: string
-    friends: UserStateType[]
+    friends: UserResponseType[]
     blockHeaderName: string
 }
 

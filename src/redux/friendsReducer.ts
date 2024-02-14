@@ -1,5 +1,5 @@
 import { Dispatch } from 'redux';
-import { UserStateType, socialNetworkAPI } from '../api/social-network-api';
+import { UserResponseType, socialNetworkAPI } from '../api/social-network-api';
 import { SetAppRequestStatusActionsType, setAppRequestStatusAC } from './appReducer';
 
 const SET_FRIENDS = 'SET-FRIENDS'
@@ -15,7 +15,7 @@ export type FriendsReducerActionsType =
     | SetAppRequestStatusActionsType
 
 export type FriendsType = {
-    users: UserStateType[],
+    users: UserResponseType[],
     usersOnPage: number,
     totalUsersCount: number,
     currentPage: number,
@@ -43,7 +43,7 @@ const friendsReducer = (state: FriendsType = initialState, action: FriendsReduce
     }
 }
 
-export const setFriendsAC = (friends: UserStateType[]) => ({
+export const setFriendsAC = (friends: UserResponseType[]) => ({
     type: SET_FRIENDS,
     payload: {
         friends

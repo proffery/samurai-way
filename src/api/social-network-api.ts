@@ -8,7 +8,7 @@ const instance = axios.create({
     }
 })
 
-export type UserStateType = {
+export type UserResponseType = {
     id: number
     followed: boolean
     name: string
@@ -21,7 +21,7 @@ export type UserStateType = {
 }
 
 type GetUsersResponseType = {
-    items: UserStateType[]
+    items: UserResponseType[]
     error: number
     totalCount: number
 }

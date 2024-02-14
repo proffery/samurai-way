@@ -1,6 +1,6 @@
 import { Dispatch } from "redux"
-import { UserStateType, socialNetworkAPI } from "../api/social-network-api"
-import { SetAppRequestStatusActionsType, setAppRequestStatusAC } from "./appReducer"
+import { UserResponseType as UserResponseType, socialNetworkAPI } from "../api/social-network-api"
+import { RequestStatusType, SetAppRequestStatusActionsType, setAppRequestStatusAC } from "./appReducer"
 
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
@@ -9,6 +9,7 @@ const SET_USERS_ON_PAGE = 'SET-USERS-ON-PAGE'
 const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE'
 const SET_TOTAL_USERS_COUNT = 'SET-TOTAL-USERS-COUNT'
 const CHANGE_USERS_FILTER = 'CHANGE-USERS-FILTER'
+const CHANGE_USER_REQUEST_STATUS = 'CHANGE-USER-REQUEST-STATUS'
 
 export type UsersReducerActionsType =
     | ReturnType<typeof followAC>
@@ -18,7 +19,12 @@ export type UsersReducerActionsType =
     | ReturnType<typeof setUsersOnPageAC>
     | ReturnType<typeof setTotalUsersCountAC>
     | ReturnType<typeof changeUsersFilterAC>
+    | ReturnType<typeof changeUsersRequestStatusAC>
     | SetAppRequestStatusActionsType
+
+export interface UserStateType extends UserResponseType {
+    requestStatus: RequestStatusType
+}
 
 export type UsersStateType = {
     users: UserStateType[]
@@ -53,7 +59,7 @@ const usersReducer = (state: UsersStateType = initialState, action: UsersReducer
                     : user)
             }
         case SET_USERS:
-            return { ...state, users: [...action.payload.users] }
+            return { ...state, users: action.payload.users.map(user => ({ ...user, requestStatus: 'idle' })) }
         case SET_CURRENT_PAGE:
             return { ...state, currentPage: action.payload.currentPage }
         case SET_USERS_ON_PAGE:
@@ -61,7 +67,13 @@ const usersReducer = (state: UsersStateType = initialState, action: UsersReducer
         case SET_TOTAL_USERS_COUNT:
             return { ...state, totalUsersCount: action.payload.totalUsersCount }
         case CHANGE_USERS_FILTER:
-            return {...state, usersFilter: action.payload.usersFilter}
+            return { ...state, usersFilter: action.payload.usersFilter }
+        case CHANGE_USER_REQUEST_STATUS:
+            return {
+                ...state, users: state.users.map(user => user.id === action.payload.userId
+                    ? { ...user, requestStatus: action.payload.requestStatus }
+                    : user)
+            }
         default:
             return state
     }
@@ -81,7 +93,7 @@ export const unfollowAC = (userId: number) => ({
     }
 }) as const
 
-export const setUsersAC = (users: UserStateType[]) => ({
+export const setUsersAC = (users: UserResponseType[]) => ({
     type: SET_USERS,
     payload: {
         users
@@ -116,8 +128,16 @@ export const changeUsersFilterAC = (usersFilter: UsersFilterType) => ({
     }
 }) as const
 
+export const changeUsersRequestStatusAC = (userId: number, requestStatus: RequestStatusType) => ({
+    type: CHANGE_USER_REQUEST_STATUS,
+    payload: {
+        userId,
+        requestStatus
+    }
+}) as const
+
 export const getAllUsersTC = (pageNumber: number, usersOnPage: number) => (dispatch: Dispatch<UsersReducerActionsType>) => {
-        dispatch(setAppRequestStatusAC('loading'))
+    dispatch(setAppRequestStatusAC('loading'))
     socialNetworkAPI.getUsers(pageNumber, usersOnPage)
         .then(res => {
             dispatch(setTotalUsersCountAC(res.data.totalCount))
@@ -153,11 +173,13 @@ export const getUnfollowedUsersTC = (pageNumber: number, usersOnPage: number) =>
 }
 
 export const followUsersTC = (userId: number) => (dispatch: Dispatch<UsersReducerActionsType>) => {
+    dispatch(changeUsersRequestStatusAC(userId, 'loading'))
     dispatch(setAppRequestStatusAC('loading'))
     socialNetworkAPI.followUser(userId)
         .then(res => {
             if (res.data.resultCode === 0) {
                 dispatch(followAC(userId))
+                dispatch(changeUsersRequestStatusAC(userId, 'succeeded'))
                 dispatch(setAppRequestStatusAC('succeeded'))
             }
             else {
@@ -167,11 +189,13 @@ export const followUsersTC = (userId: number) => (dispatch: Dispatch<UsersReduce
 }
 
 export const unfollowUsersTC = (userId: number) => (dispatch: Dispatch<UsersReducerActionsType>) => {
+    dispatch(changeUsersRequestStatusAC(userId, 'loading'))
     dispatch(setAppRequestStatusAC('loading'))
     socialNetworkAPI.unfollowUser(userId)
         .then(res => {
             if (res.data.resultCode === 0) {
                 dispatch(unfollowAC(userId))
+                dispatch(changeUsersRequestStatusAC(userId, 'succeeded'))
                 dispatch(setAppRequestStatusAC('succeeded'))
             }
             else {

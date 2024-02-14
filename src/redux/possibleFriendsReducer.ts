@@ -1,5 +1,5 @@
 import { Dispatch } from 'redux';
-import { UserStateType, socialNetworkAPI } from '../api/social-network-api';
+import { UserResponseType, socialNetworkAPI } from '../api/social-network-api';
 import { FriendsType } from './friendsReducer';
 import { SetAppRequestStatusActionsType, setAppRequestStatusAC } from './appReducer';
 
@@ -37,7 +37,7 @@ const possibleFriendsReducer = (state: FriendsType = initialState, action: Frien
     }
 }
 
-export const setPossibleFriendsAC = (possibleFriends: UserStateType[]) => ({
+export const setPossibleFriendsAC = (possibleFriends: UserResponseType[]) => ({
     type: SET_POSSIBLE_FRIENDS,
     payload: {
         possibleFriends

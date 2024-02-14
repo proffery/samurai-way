@@ -2,11 +2,11 @@ import { BlockHeader } from "../BlockHeader.styled"
 import { BlockSection } from "../BlockSection.styled"
 import { User } from "./user/User"
 import styled from "styled-components"
-import { UserStateType } from "../../../api/social-network-api"
+import { UserResponseType } from "../../../api/social-network-api"
 import { FlexWrapper } from "../../micro/FlexWrapper"
 import { UsersPagination } from "./UsersPagination"
 import { Button } from "../../micro/button/Button"
-import { UsersFilterType } from "../../../redux/usersReducer"
+import { UserStateType, UsersFilterType } from "../../../redux/usersReducer"
 import { RequestStatusType } from "../../../redux/appReducer"
 
 
@@ -34,7 +34,6 @@ export const UsersBlock: React.FC<UsersBlockPropsType> = (props) => {
                     <User
                         key={user.id}
                         user={user}
-                        appRequestStatus={props.appRequestStatus}
                         follow={props.follow}
                         unfollow={props.unfollow}
                     />

@@ -1,9 +1,8 @@
 
 import { connect } from "react-redux"
 import { UsersBlock } from "./UsersBlock"
-import { getAllUsersTC, followUsersTC, unfollowUsersTC, getFollowedUsersTC, getUnfollowedUsersTC, UsersFilterType, changeUsersFilterAC } from "../../../redux/usersReducer"
+import { getAllUsersTC, followUsersTC, unfollowUsersTC, getFollowedUsersTC, getUnfollowedUsersTC, UsersFilterType, changeUsersFilterAC, UsersStateType, UserStateType } from "../../../redux/usersReducer"
 import { AppRootStateType } from "../../../redux/redux-store"
-import { UserStateType } from "../../../api/social-network-api"
 import { useEffect } from "react"
 import { RequestStatusType } from "../../../redux/appReducer"
 

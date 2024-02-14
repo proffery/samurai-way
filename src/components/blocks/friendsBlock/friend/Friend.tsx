@@ -3,10 +3,10 @@ import { theme } from "../../../../styles/Theme.styled"
 import { font } from "../../../../styles/Font"
 import { NavLink } from "react-router-dom"
 import emtyAvatar from '../../../../assets/images/NoAvatar.jpeg'
-import { UserStateType } from "../../../../api/social-network-api"
+import { UserResponseType } from "../../../../api/social-network-api"
 
 type FriendPropsType = {
-    friend: UserStateType
+    friend: UserResponseType
 }
 
 export const Friend: React.FC<FriendPropsType> = (props) => {

@@ -2,13 +2,13 @@ import { connect } from "react-redux";
 import { AppRootStateType } from "../../../redux/redux-store";
 import { FriendsBlock } from "./FriendsBlock";
 import { getFriendsTC } from "../../../redux/friendsReducer";
-import { UserStateType } from "../../../api/social-network-api";
+import { UserResponseType } from "../../../api/social-network-api";
 import { useEffect } from "react";
 
 
 type FriendsBlockAPIPropsType = {
     className?: string
-    friends: UserStateType[]
+    friends: UserResponseType[]
     totalFriendsCount: number
     friendsOnPage: number
     currentPage: number
@@ -42,7 +42,7 @@ export const FriendsBlockAPI: React.FC<FriendsBlockAPIPropsType> = (props) => {
 
 type MapStatePropsType = {
     className?: string
-    friends: UserStateType[]
+    friends: UserResponseType[]
     totalFriendsCount: number
     friendsOnPage: number
     currentPage: number
