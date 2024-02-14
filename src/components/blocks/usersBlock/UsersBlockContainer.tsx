@@ -1,7 +1,10 @@
 
 import { connect } from "react-redux"
 import { UsersBlock } from "./UsersBlock"
-import { getAllUsersTC, followUsersTC, unfollowUsersTC, getFollowedUsersTC, getUnfollowedUsersTC, UsersFilterType, changeUsersFilterAC, UsersStateType, UserStateType } from "../../../redux/usersReducer"
+import {
+    getAllUsersTC, followUsersTC, unfollowUsersTC, getFollowedUsersTC,
+    getUnfollowedUsersTC, UsersFilterType, changeUsersFilterAC, UserStateType
+} from "../../../redux/usersReducer"
 import { AppRootStateType } from "../../../redux/redux-store"
 import { useEffect } from "react"
 import { RequestStatusType } from "../../../redux/appReducer"
@@ -88,27 +91,11 @@ const mapStateToProps = (state: AppRootStateType) => {
     }
 }
 
-const mapDispatchToProps = (dispatch: any) => {
-    return {
-        follow: (userId: number) => {
-            dispatch(followUsersTC(userId))
-        },
-        unfollow: (userId: number) => {
-            dispatch(unfollowUsersTC(userId))
-        },
-        getAllUsers: (currentPage: number, usersOnPage: number) => {
-            dispatch(getAllUsersTC(currentPage, usersOnPage))
-        },
-        getFollowedUsers: (currentPage: number, usersOnPage: number) => {
-            dispatch(getFollowedUsersTC(currentPage, usersOnPage))
-        },
-        getUnfollowedUsers: (currentPage: number, usersOnPage: number) => {
-            dispatch(getUnfollowedUsersTC(currentPage, usersOnPage))
-        },
-        changeUsersFilter: (filter: UsersFilterType) => {
-            dispatch(changeUsersFilterAC(filter))
-        }
-    }
-}
-
-export const UsersBlockContainer = connect(mapStateToProps, mapDispatchToProps)(UsersBlockAPI)
+export const UsersBlockContainer = connect(mapStateToProps, {
+    follow: followUsersTC,
+    unfollow: unfollowUsersTC,
+    getAllUsers: getAllUsersTC,
+    getFollowedUsers: getFollowedUsersTC,
+    getUnfollowedUsers: getUnfollowedUsersTC,
+    changeUsersFilter: changeUsersFilterAC
+})(UsersBlockAPI)

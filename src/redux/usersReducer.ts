@@ -46,7 +46,7 @@ const initialState: UsersStateType = {
     usersFilter: 'all'
 }
 
-const usersReducer = (state: UsersStateType = initialState, action: UsersReducerActionsType): UsersStateType => {
+export const usersReducer = (state: UsersStateType = initialState, action: UsersReducerActionsType): UsersStateType => {
     switch (action.type) {
         case FOLLOW:
             return {
@@ -138,7 +138,7 @@ export const changeUsersRequestStatusAC = (userId: number, requestStatus: Reques
     }
 }) as const
 
-export const getAllUsersTC = (pageNumber: number, usersOnPage: number) => (dispatch: Dispatch<UsersReducerActionsType>) => {
+export const getAllUsersTC = (pageNumber: number, usersOnPage: number) => (dispatch: Dispatch) => {
     dispatch(setAppRequestStatusAC('loading'))
     socialNetworkAPI.getUsers(pageNumber, usersOnPage)
         .then(res => {
@@ -210,5 +210,3 @@ export const unfollowUsersTC = (userId: number) => (dispatch: Dispatch<UsersRedu
         })
         .catch(error => showGlobalAppStatus(dispatch, 'failed', error.message))
 }
-
-export default usersReducer

@@ -18,9 +18,9 @@ type FriendsBlockAPIPropsType = {
 
 export const FriendsBlockAPI: React.FC<FriendsBlockAPIPropsType> = (props) => {
     const pagesCount = Math.ceil(props.totalFriendsCount / props.friendsOnPage)
-    
+    const randomPage = getRandomPage(1, pagesCount)
+
     useEffect(() => {
-        const randomPage = getRandomPage(1, pagesCount)
         props.getFriends(randomPage, props.friendsOnPage)
     }, [pagesCount])
 
@@ -30,11 +30,15 @@ export const FriendsBlockAPI: React.FC<FriendsBlockAPIPropsType> = (props) => {
         return Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled)
     }
 
+    const refreshFriends = () => {
+        props.getFriends(randomPage, props.friendsOnPage)
+    }
     return (
         <FriendsBlock
             friends={props.friends}
             blockHeaderName={"Friends"}
             className={props.className}
+            refreshFriends={refreshFriends}
         />
     )
 }
@@ -57,12 +61,6 @@ const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
     }
 }
 
-const mapDispatchToProps = (dispatch: any) => {
-    return {
-        getFriends: (currentPage: number, friendsOnPage: number) => {
-            dispatch(getFriendsTC(currentPage, friendsOnPage))
-        }
-    }
-}
-
-export const FriendsBlockContainer = connect(mapStateToProps, mapDispatchToProps)(FriendsBlockAPI)
+export const FriendsBlockContainer = connect(mapStateToProps, {
+    getFriends: getFriendsTC
+})(FriendsBlockAPI)

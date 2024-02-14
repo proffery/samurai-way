@@ -67,9 +67,12 @@ const ProfileFriendsBlock = styled(FriendsBlockContainer)`
 
 const ProfilePossibleFriendsBlock = styled(PossibleFriendsBlockContainer)`
     grid-area: 3 / 3 / 4 / 4 ;
-    margin-top: 112px;
+    margin-top: 142px;
+    button {
+        margin-top: 0;
+    }
     @media ${theme.media.mobile} {
         grid-area: 4 / 2 / 5 / 3 ;
-        margin-top: 282px;
+        margin-top: 182px;
     }
 `

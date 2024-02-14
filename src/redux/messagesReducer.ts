@@ -1,3 +1,4 @@
+import { Dispatch } from "redux"
 import { v1 } from "uuid"
 
 export const ADD_MESSAGE = 'ADD-MESSAGE'
@@ -20,7 +21,7 @@ export type MessagesPageStateType = {
     dialogs: DialogStateType[]
     newMessageForm: string
 }
-const initialState:MessagesPageStateType = {
+const initialState: MessagesPageStateType = {
     messages: [
         {
             id: '1',
@@ -78,7 +79,7 @@ const initialState:MessagesPageStateType = {
     newMessageForm: ''
 }
 
-const messagesReducer = (state: MessagesPageStateType = initialState, action: MessagesReducerActionsType): MessagesPageStateType => {
+export const messagesReducer = (state: MessagesPageStateType = initialState, action: MessagesReducerActionsType): MessagesPageStateType => {
     switch (action.type) {
         case ADD_MESSAGE: {
             const newMessage: MessageStateType = {
@@ -134,4 +135,7 @@ export const messageOnChangeAC = (newMessage: string) => {
     } as const
 }
 
-export default messagesReducer
+export const addMessageTC = () => (dispatch: Dispatch) => {
+    dispatch(addMessageAC())
+    dispatch(messageOnChangeAC(''))
+}

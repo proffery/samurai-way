@@ -5,12 +5,15 @@ import { Friend } from "./friend/Friend"
 import styled from "styled-components"
 import { theme } from "../../../styles/Theme.styled"
 import { UserResponseType } from "../../../api/social-network-api"
+import { Button } from "../../micro/button/Button"
+import { Icon } from "../../micro/icon/Icon"
 
 
 type FriendsBlockPropsType = {
     className?: string
     friends: UserResponseType[]
     blockHeaderName: string
+    refreshFriends: () => void
 }
 
 export const FriendsBlock: React.FC<FriendsBlockPropsType> = (props) => {
@@ -32,6 +35,7 @@ export const FriendsBlock: React.FC<FriendsBlockPropsType> = (props) => {
                 {props.blockHeaderName}
             </BlockHeader>
             {friendsList()}
+            <Button onClick={props.refreshFriends} variant={'link'} name={<Icon iconId={'refresh'}/>} className={props.className}/>
         </StyledFriends>
     )
 }

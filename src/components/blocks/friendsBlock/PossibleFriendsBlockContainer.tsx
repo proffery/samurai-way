@@ -17,9 +17,9 @@ type PossibleFriendsBlockAPIPropsType = {
 
 export const PossibleFriendsBlockAPI: React.FC<PossibleFriendsBlockAPIPropsType> = (props) => {
     const pagesCount = Math.ceil(props.totalPossibleFriendsCount / props.possibleFriendsOnPage)
+    const randomPage = getRandomPage(1, pagesCount)
 
     useEffect(() => {
-        const randomPage = getRandomPage(1, pagesCount)
         props.getPossibleFriends(randomPage, props.possibleFriendsOnPage)
     }, [pagesCount])
 
@@ -28,12 +28,15 @@ export const PossibleFriendsBlockAPI: React.FC<PossibleFriendsBlockAPIPropsType>
         const maxFloored = Math.floor(max);
         return Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled)
     }
-
+    const refreshFriends = () => {
+        props.getPossibleFriends(randomPage, props.possibleFriendsOnPage)
+    }
     return (
         <FriendsBlock
             friends={props.possibleFriends}
             blockHeaderName={"Possible Friends"}
             className={props.className}
+            refreshFriends={refreshFriends}
         />
     )
 }
@@ -56,12 +59,6 @@ const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
     }
 }
 
-const mapDispatchToProps = (dispatch: any) => {
-    return {
-        getPossibleFriends: (currentPage: number, possibleFriendsOnPage: number) => {
-            dispatch(getPossibleFriendsTC(currentPage, possibleFriendsOnPage))
-        },
-    }
-}
-
-export const PossibleFriendsBlockContainer = connect(mapStateToProps, mapDispatchToProps)(PossibleFriendsBlockAPI)
+export const PossibleFriendsBlockContainer = connect(mapStateToProps, {
+    getPossibleFriends: getPossibleFriendsTC
+})(PossibleFriendsBlockAPI)

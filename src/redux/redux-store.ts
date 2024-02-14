@@ -1,11 +1,11 @@
 import { applyMiddleware, combineReducers, createStore } from "redux";
-import postsReducer from "./postsReducer";
-import messagesReducer from "./messagesReducer";
-import usersReducer from "./usersReducer";
-import friendsReducer from "./friendsReducer";
 import thunk from "redux-thunk";
-import possibleFriendsReducer from "./possibleFriendsReducer";
 import { appReducer } from "./appReducer";
+import { postsReducer } from "./postsReducer";
+import { usersReducer } from "./usersReducer";
+import { friendsReducer } from "./friendsReducer";
+import { possibleFriendsReducer } from "./possibleFriendsReducer";
+import { messagesReducer } from "./messagesReducer";
 const rootReducer = combineReducers({
     posts: postsReducer,
     messages: messagesReducer,

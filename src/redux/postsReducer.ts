@@ -1,3 +1,4 @@
+import { Dispatch } from "redux"
 import { v1 } from "uuid"
 
 export const ADD_POST = 'ADD-POST'
@@ -51,11 +52,11 @@ const initialState: PostsStateType = {
             commentsCount: 0
         },
     ],
-    
+
     newPostForm: ''
 }
 
-const postsReducer = (state: PostsStateType = initialState, action: PostsReducerActionsType): PostsStateType => {
+export const postsReducer = (state: PostsStateType = initialState, action: PostsReducerActionsType): PostsStateType => {
     switch (action.type) {
         case ADD_POST: {
             const newPost: PostStateType = {
@@ -113,4 +114,7 @@ export const postOnChangeAC = (newPost: string) => {
     } as const
 }
 
-export default postsReducer
+export const addPostTC = () => (dispatch: Dispatch) => {
+    dispatch(addPostAC())
+    dispatch(postOnChangeAC(''))
+}

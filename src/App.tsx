@@ -23,8 +23,15 @@ function App() {
   return (
     <Router >
       <Container collapsed={appData.navbarCollapsed.toString()}>
-        <AppGlobalConditionSwicher requestStatus={appData.requestStatus} alertMessage={appData.alertMessage} />
-        <Navbar menuItems={appData.menuItems} navbarCollapsed={appData.navbarCollapsed} dispatch={dispatch} />
+        <AppGlobalConditionSwicher
+          requestStatus={appData.requestStatus}
+          alertMessage={appData.alertMessage}
+        />
+        <Navbar
+          menuItems={appData.menuItems}
+          navbarCollapsed={appData.navbarCollapsed}
+          dispatch={dispatch}
+        />
         <Header />
         <Switch>
           <Route path='/' exact render={() => <Profile />} />
@@ -35,7 +42,10 @@ function App() {
           <Route path='/settings' component={Settings} />
           <Route path='*' component={NotFound} />
         </Switch>
-        <Footer menuData={appData.menuItems} footerData={appData.socialLinks} />
+        <Footer
+          menuData={appData.menuItems}
+          footerData={appData.socialLinks}
+        />
       </Container>
     </Router>
   )

@@ -18,12 +18,12 @@ export type FriendsReducerActionsType =
 
 const initialState: FriendsType = {
     users: [],
-    usersOnPage: 5,
+    usersOnPage: 4,
     totalUsersCount: 0,
     currentPage: 1,
 }
 
-const possibleFriendsReducer = (state: FriendsType = initialState, action: FriendsReducerActionsType): FriendsType => {
+export const possibleFriendsReducer = (state: FriendsType = initialState, action: FriendsReducerActionsType): FriendsType => {
     switch (action.type) {
         case SET_POSSIBLE_FRIENDS:
             return { ...state, users: [...action.payload.possibleFriends] }
@@ -78,4 +78,3 @@ export const getPossibleFriendsTC = (pageNumber: number, possibleFriendsOnPage: 
         })
         .catch(error => showGlobalAppStatus(dispatch, 'failed', error.message))
 }
-export default possibleFriendsReducer
