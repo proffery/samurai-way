@@ -2,7 +2,7 @@ import styled from "styled-components"
 import { theme } from "../../../../styles/Theme.styled"
 import { font } from "../../../../styles/Font"
 import avatarImg from '../../../../assets/images/Author.webp'
-import { FlexWrapper } from "../../../micro/FlexWrapper"
+import { FlexWrapper } from "../../../micro/FlexWrapper.styled"
 import { useEffect, useRef } from "react"
 import { MessageStateType } from "../../../../redux/messagesReducer"
 

@@ -2,7 +2,7 @@ import styled from "styled-components"
 import { Button } from "../../../micro/button/Button"
 import { theme } from "../../../../styles/Theme.styled"
 import { font } from "../../../../styles/Font"
-import { FlexWrapper } from "../../../micro/FlexWrapper"
+import { FlexWrapper } from "../../../micro/FlexWrapper.styled"
 import emtyAvatar from '../../../../assets/images/NoAvatar.jpeg'
 import { UserStateType } from "../../../../redux/usersReducer"
 

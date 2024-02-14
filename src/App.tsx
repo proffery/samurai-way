@@ -9,27 +9,22 @@ import { Messages } from "./components/layout/pages/messages/Messages";
 import { Notifications } from "./components/layout/pages/notifications/Notifications";
 import { Settings } from "./components/layout/pages/settings/Settings";
 import { NotFound } from './components/layout/pages/notFound/NotFound';
-import { useState } from 'react';
 import { theme } from './styles/Theme.styled';
 import { AppRootStateType } from './redux/redux-store';
-import { useSelector } from 'react-redux';
-import { IconLinksStateType, RequestStatusType } from './redux/appReducer';
-import { LineLoader } from './components/micro/loaders/LineLoader';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppStateType } from './redux/appReducer';
+import { AppGlobalConditionSwicher } from './components/micro/appGlobalConditions/AppGlobalConditionSwicher';
 
 
 
 function App() {
-  const [navCollapsed, setNavCollapsed] = useState<boolean>(true)
-
-  const menuData = useSelector<AppRootStateType, IconLinksStateType[]>(state => state.app.menuItems)
-  const footerData = useSelector<AppRootStateType, IconLinksStateType[]>(state => state.app.socialLinks)
-  const requestStatus = useSelector<AppRootStateType, RequestStatusType>(state => state.app.requestStatus)
-
+  const appData = useSelector<AppRootStateType, AppStateType>(state => state.app)
+  const dispatch = useDispatch()
   return (
     <Router >
-      <Container collapsed={navCollapsed ? 'true' : 'false'}>
-        <Navbar menuItems={menuData} navcollapsed={navCollapsed} setNavCollapsed={setNavCollapsed} />
-        {requestStatus === 'loading' && <LineLoader />}
+      <Container collapsed={appData.navbarCollapsed.toString()}>
+        <AppGlobalConditionSwicher requestStatus={appData.requestStatus} alertMessage={appData.alertMessage} />
+        <Navbar menuItems={appData.menuItems} navbarCollapsed={appData.navbarCollapsed} dispatch={dispatch} />
         <Header />
         <Switch>
           <Route path='/' exact render={() => <Profile />} />
@@ -40,7 +35,7 @@ function App() {
           <Route path='/settings' component={Settings} />
           <Route path='*' component={NotFound} />
         </Switch>
-        <Footer menuData={menuData} footerData={footerData} />
+        <Footer menuData={appData.menuItems} footerData={appData.socialLinks} />
       </Container>
     </Router>
   )
@@ -49,7 +44,7 @@ function App() {
 export default App;
 
 type ContainerPropsType = {
-  collapsed: "true" | "false"
+  collapsed: string
 }
 
 const Container = styled.div<ContainerPropsType>`
@@ -72,7 +67,7 @@ const Container = styled.div<ContainerPropsType>`
   footer {
     grid-area: 3 / 1 / 4 / 6 ;
   }
-  ${props => props.collapsed === "false" && css<ContainerPropsType>`
+  ${props => props.collapsed === 'false' ? css<ContainerPropsType>`
     grid-template-columns: 5px repeat(4, 1fr);
     main {
       grid-area: 2 / 1 / 3 / 6 ;
@@ -84,7 +79,7 @@ const Container = styled.div<ContainerPropsType>`
     header {
       grid-area: 1 / 1 / 2 / 6 ;
     }
-  `}
+  `: undefined}
   @media ${theme.media.mobile} {
     grid-template-rows: 80px 93vh 1fr;
   }

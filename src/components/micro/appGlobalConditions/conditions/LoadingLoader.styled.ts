@@ -1,7 +1,7 @@
-import { theme } from './../../../styles/Theme.styled';
+import { theme } from '../../../../styles/Theme.styled';
 import styled from "styled-components";
 
-export const LineLoader = styled.div`
+export const LoadingLoader = styled.div`
     width: 100%;
     height: 3px;
     position: fixed;

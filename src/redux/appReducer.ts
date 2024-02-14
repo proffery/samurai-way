@@ -1,4 +1,6 @@
-const APP_SET_REQUEST_STATUS = 'APP_SET_REQUEST_STATUS'
+const APP_SET_REQUEST_STATUS = 'APP-SET-REQUEST-STATUS'
+const APP_SET_ALERT_MSG = 'APP-SET-ALERT-MSG'
+const APP_SET_NAVBAR_COLLAPSED = 'APP-SET-NAVBAR-COLLAPSED'
 
 export type IconLinksStateType = {
     id: number
@@ -13,9 +15,14 @@ export type AppStateType = {
     socialLinks: IconLinksStateType[]
     menuItems: IconLinksStateType[]
     requestStatus: RequestStatusType
+    alertMessage: string
+    navbarCollapsed: boolean
 }
 
-type AppActionsType = SetAppRequestStatusActionsType
+type AppActionsType =
+    | SetAppRequestStatusActionType
+    | SetAlertMessageActionType
+    | SetNavbarCollapsedActionType
 
 const initialState: AppStateType = {
     socialLinks: [
@@ -99,22 +106,44 @@ const initialState: AppStateType = {
             viewBox: "-2 -2 30 30",
         }
     ],
-    requestStatus: 'idle'
+    requestStatus: 'idle',
+    alertMessage: '',
+    navbarCollapsed: true
 }
 
 export const appReducer = (state: AppStateType = initialState, action: AppActionsType): AppStateType => {
     switch (action.type) {
         case APP_SET_REQUEST_STATUS:
             return { ...state, requestStatus: action.payload.appRequestStatus }
+        case APP_SET_ALERT_MSG:
+            return { ...state, alertMessage: action.payload.alertMessage }
+        case APP_SET_NAVBAR_COLLAPSED:
+            return { ...state, navbarCollapsed: action.payload.navbarCollapsed }
         default:
             return state
     }
 }
 
-export type SetAppRequestStatusActionsType = ReturnType<typeof setAppRequestStatusAC>
+export type SetAppRequestStatusActionType = ReturnType<typeof setAppRequestStatusAC>
 export const setAppRequestStatusAC = (appRequestStatus: RequestStatusType) => (
     {
         type: APP_SET_REQUEST_STATUS,
         payload: { appRequestStatus }
+    } as const
+)
+
+export type SetAlertMessageActionType = ReturnType<typeof setAppAlertMessageAC>
+export const setAppAlertMessageAC = (alertMessage: string) => (
+    {
+        type: APP_SET_ALERT_MSG,
+        payload: { alertMessage }
+    } as const
+)
+
+export type SetNavbarCollapsedActionType = ReturnType<typeof setAppNavbarCollapsedAC>
+export const setAppNavbarCollapsedAC = (navbarCollapsed: boolean) => (
+    {
+        type: APP_SET_NAVBAR_COLLAPSED,
+        payload: { navbarCollapsed }
     } as const
 ) 

@@ -6,50 +6,53 @@ import { Button } from "../../../components/micro/button/Button"
 import { useEffect, useState } from "react"
 import React from "react"
 import { Icon } from "../../../components/micro/icon/Icon"
-import { IconLinksStateType } from "../../../redux/appReducer"
+import { IconLinksStateType, setAppNavbarCollapsedAC } from "../../../redux/appReducer"
+import { Dispatch } from "redux"
 
 type NavbarPropsType = {
     menuItems: IconLinksStateType[]
-    navcollapsed: boolean
-    setNavCollapsed: (value: boolean) => void
+    navbarCollapsed: boolean
+    dispatch: Dispatch
 }
 
 export const Navbar: React.FC<NavbarPropsType> = (props) => {
 
     const [width, setWidth] = useState(window.innerWidth);
     const breakpoint = 576;
-    
+
     useEffect(() => {
         const handleWindowResize = () => setWidth(window.innerWidth)
         window.addEventListener("resize", handleWindowResize);
-    
+
         return () => window.removeEventListener("resize", handleWindowResize);
     }, [])
 
     const navbarCollapseHandler = () => {
-        props.setNavCollapsed(!props.navcollapsed)
+        props.dispatch(setAppNavbarCollapsedAC(!props.navbarCollapsed))
     }
 
     useEffect(() => {
-        width < breakpoint ? props.setNavCollapsed(false) : props.setNavCollapsed(true)
-    },[width])
+        width < breakpoint
+            ? props.dispatch(setAppNavbarCollapsedAC(false))
+            : props.dispatch(setAppNavbarCollapsedAC(true))
+    }, [width])
 
     return (
         <StyledNavbar>
-            {props.navcollapsed && 
+            {props.navbarCollapsed &&
                 <>
-                    <Logo logo_style={'secondary'}/>
-                    <Menu type={'secondary'} 
-                        icons={true} 
-                        direction={'column'} 
+                    <Logo logo_style={'secondary'} />
+                    <Menu type={'secondary'}
+                        icons={true}
+                        direction={'column'}
                         menuItems={props.menuItems}
                     />
                 </>
             }
-            <CollapseButton variant="primary" 
-                onClick={navbarCollapseHandler} 
-                name={props.navcollapsed ? <Icon iconId="leftArrow" viewBox="-1 9 18 18"/> : <Icon iconId="rightArrow" viewBox="19 9 18 18"/>}
-                title={props.navcollapsed ? 'Close' : 'Open'}
+            <CollapseButton variant="primary"
+                onClick={navbarCollapseHandler}
+                name={props.navbarCollapsed ? <Icon iconId="leftArrow" viewBox="-1 9 18 18" /> : <Icon iconId="rightArrow" viewBox="19 9 18 18" />}
+                title={props.navbarCollapsed ? 'Close' : 'Open'}
             />
         </StyledNavbar>
     )

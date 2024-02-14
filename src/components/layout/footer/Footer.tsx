@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import { Logo } from "../../../components/micro/logo/Logo"
 import { theme } from "../../../styles/Theme.styled"
-import { FlexWrapper } from "../../../components/micro/FlexWrapper"
+import { FlexWrapper } from "../../micro/FlexWrapper.styled"
 import { Menu } from "../../../components/micro/menu/Menu"
 import { Link } from "../../../components/micro/link/Link.styled"
 import { Icon } from "../../../components/micro/icon/Icon"

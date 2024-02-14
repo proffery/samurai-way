@@ -1,6 +1,7 @@
 import { Dispatch } from "redux"
-import { UserResponseType as UserResponseType, socialNetworkAPI } from "../api/social-network-api"
-import { RequestStatusType, SetAppRequestStatusActionsType, setAppRequestStatusAC } from "./appReducer"
+import { UserResponseType, socialNetworkAPI } from "../api/social-network-api"
+import { RequestStatusType, SetAlertMessageActionType, SetAppRequestStatusActionType, setAppRequestStatusAC } from "./appReducer"
+import { showGlobalAppStatus } from "./utils/setGlobalAppStatus"
 
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
@@ -20,7 +21,8 @@ export type UsersReducerActionsType =
     | ReturnType<typeof setTotalUsersCountAC>
     | ReturnType<typeof changeUsersFilterAC>
     | ReturnType<typeof changeUsersRequestStatusAC>
-    | SetAppRequestStatusActionsType
+    | SetAppRequestStatusActionType
+    | SetAlertMessageActionType
 
 export interface UserStateType extends UserResponseType {
     requestStatus: RequestStatusType
@@ -146,6 +148,7 @@ export const getAllUsersTC = (pageNumber: number, usersOnPage: number) => (dispa
             dispatch(setUsersAC(res.data.items))
             dispatch(setAppRequestStatusAC('succeeded'))
         })
+        .catch(error => showGlobalAppStatus(dispatch, 'failed', error.message))
 }
 
 export const getFollowedUsersTC = (pageNumber: number, usersOnPage: number) => (dispatch: Dispatch<UsersReducerActionsType>) => {
@@ -158,6 +161,7 @@ export const getFollowedUsersTC = (pageNumber: number, usersOnPage: number) => (
             dispatch(setUsersAC(res.data.items))
             dispatch(setAppRequestStatusAC('succeeded'))
         })
+        .catch(error => showGlobalAppStatus(dispatch, 'failed', error.message))
 }
 
 export const getUnfollowedUsersTC = (pageNumber: number, usersOnPage: number) => (dispatch: Dispatch<UsersReducerActionsType>) => {
@@ -170,6 +174,7 @@ export const getUnfollowedUsersTC = (pageNumber: number, usersOnPage: number) =>
             dispatch(setUsersAC(res.data.items))
             dispatch(setAppRequestStatusAC('succeeded'))
         })
+        .catch(error => showGlobalAppStatus(dispatch, 'failed', error.message))
 }
 
 export const followUsersTC = (userId: number) => (dispatch: Dispatch<UsersReducerActionsType>) => {
@@ -180,12 +185,13 @@ export const followUsersTC = (userId: number) => (dispatch: Dispatch<UsersReduce
             if (res.data.resultCode === 0) {
                 dispatch(followAC(userId))
                 dispatch(changeUsersRequestStatusAC(userId, 'succeeded'))
-                dispatch(setAppRequestStatusAC('succeeded'))
+                showGlobalAppStatus(dispatch, 'succeeded', 'Followed!')
             }
             else {
-                console.warn(res.data.messages)
+                showGlobalAppStatus(dispatch, 'failed', res.data.messages[0])
             }
         })
+        .catch(error => showGlobalAppStatus(dispatch, 'failed', error.message))
 }
 
 export const unfollowUsersTC = (userId: number) => (dispatch: Dispatch<UsersReducerActionsType>) => {
@@ -196,12 +202,13 @@ export const unfollowUsersTC = (userId: number) => (dispatch: Dispatch<UsersRedu
             if (res.data.resultCode === 0) {
                 dispatch(unfollowAC(userId))
                 dispatch(changeUsersRequestStatusAC(userId, 'succeeded'))
-                dispatch(setAppRequestStatusAC('succeeded'))
+                showGlobalAppStatus(dispatch, 'succeeded', 'Unfollowed!')
             }
             else {
-                console.warn(res.data.messages)
+                showGlobalAppStatus(dispatch, 'failed', res.data.messages[0])
             }
         })
+        .catch(error => showGlobalAppStatus(dispatch, 'failed', error.message))
 }
 
 export default usersReducer
