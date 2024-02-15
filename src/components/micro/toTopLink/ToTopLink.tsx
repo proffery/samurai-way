@@ -26,7 +26,7 @@ export const ToTopLink: React.FC<ToTopLinkPropsType> = (props) => {
     return (
         scrolled ? 
             <StyledToTopLink 
-                link_style="buttonPrimary" 
+                variant="buttonPrimary" 
                 href={"#" + props.top_block_anchor_id} 
                 title="Go to top"
             ><Icon iconId="leftArrow" viewBox="-1 9 14 14"/>

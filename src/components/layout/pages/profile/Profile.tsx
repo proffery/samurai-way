@@ -23,7 +23,13 @@ export const Profile: React.FC<ProfilePropsType> = (props) => {
     
     return (
         <StyledProfile id="profile" >
-            <ProfileHeaderBlock />
+            <ProfileHeaderBlock
+                userId={props.profileData.userId}
+                aboutMe={props.profileData.aboutMe}
+                fullName={props.profileData.fullName}
+                photoLargeURL={props.profileData.photos.large}
+                photoSmallURL={props.profileData.photos.small}
+            />
             <ProfileAboutBlock />
             <ProfilePostsBlock
                 posts={props.posts}

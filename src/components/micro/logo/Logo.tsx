@@ -8,7 +8,7 @@ type LogoPropsType ={
 
 export const Logo = (props: LogoPropsType) => {
     return (
-        <LogoLink link_style={props.logo_style} href="/">
+        <LogoLink variant={props.logo_style} href="/">
             <span>Social</span>
             <span>Network</span>
         </LogoLink>

@@ -46,7 +46,7 @@ export const Footer:React.FC<FooterPropsType> = (props) => {
                     icons={false} 
                     menuItems={props.menuData}
                 />
-                <Copyright><span>Copyright © 2023&nbsp;</span><Link link_style="primary">Dmitry Shamko</Link></Copyright>
+                <Copyright><span>Copyright © 2023&nbsp;</span><Link variant="primary">Dmitry Shamko</Link></Copyright>
             </BottomWrapper>
         </StyledFooter>
     )

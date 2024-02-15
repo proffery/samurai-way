@@ -3,7 +3,7 @@ import { theme } from "../../../styles/Theme.styled"
 
 
 type LinkPropsType = {
-    link_style: 'primary' | 'secondary' | 'buttonPrimary' | 'buttonSecondary',
+    variant: 'primary' | 'secondary' | 'buttonPrimary' | 'buttonSecondary',
 }
 
 export const Link = styled.a<LinkPropsType>`
@@ -12,7 +12,7 @@ export const Link = styled.a<LinkPropsType>`
     display: flex;
     align-items: center;
 
-    ${props => props.link_style === 'buttonPrimary' && css<LinkPropsType>`
+    ${props => props.variant === 'buttonPrimary' && css<LinkPropsType>`
         background-color: ${theme.color.background.second};
         color: ${theme.color.text.second};
         border-color: ${theme.color.background.second};
@@ -24,14 +24,14 @@ export const Link = styled.a<LinkPropsType>`
             border-radius: 8px ;
             padding: 8px 16px;
         }
-        &:hover {
+        &:active {
             background-color: ${theme.color.background.primary};
             color: ${theme.color.text.primary};
             border-color: ${theme.color.background.second};
         }
     `}
     
-    ${props => props.link_style === 'buttonSecondary' && css<LinkPropsType>`
+    ${props => props.variant === 'buttonSecondary' && css<LinkPropsType>`
         background-color: transparent;
         color: ${theme.color.text.primary};
         border-color: ${theme.color.background.second};
@@ -43,23 +43,23 @@ export const Link = styled.a<LinkPropsType>`
             border-radius: 8px ;
             padding: 8px 16px;
         }
-        &:hover {
+        &:active {
             background-color: ${theme.color.background.second};
             color: ${theme.color.text.second};
             border-color: ${theme.color.background.second};
         }
     `}
     
-    ${props => props.link_style === 'primary' && css<LinkPropsType>`
+    ${props => props.variant === 'primary' && css<LinkPropsType>`
         background-color: transparent;
         color: ${theme.color.text.primary};
         opacity: .7;
-        &:hover {
+        &:active {
             opacity: 1;
         }
     `}
     
-    ${props => props.link_style === 'secondary' && css<LinkPropsType>`
+    ${props => props.variant === 'secondary' && css<LinkPropsType>`
         background-color: transparent;
         color: ${theme.color.text.second};
         opacity: .7;
