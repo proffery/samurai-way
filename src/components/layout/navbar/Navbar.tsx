@@ -65,6 +65,7 @@ const StyledNavbar = styled.nav`
     background-color: ${theme.color.background.menu};
     padding: 54px 32px;
     gap: 54px;
+    z-index: 1000;
     @media ${theme.media.mobile} {
         gap: 27px;
         padding: 27px 20px;

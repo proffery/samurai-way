@@ -32,6 +32,28 @@ export type ResponseType<D = {}> = {
     data: D
 }
 
+export type GetProfileResponseType = {
+    aboutMe: string
+    contacts: {
+        facebook: string
+        website: string
+        vk: string
+        twitter: string
+        instagram: string
+        youtube: string
+        github: string
+        mainLink: string
+    },
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    userId: number
+    photos: {
+        small: string
+        large: string
+    }
+}
+
 export const socialNetworkAPI = {
     getUsers(pageNumber: number, usersOnPage: number) {
         return instance.get<GetUsersResponseType>(`/users?page=${pageNumber}&count=${usersOnPage}`)
@@ -42,10 +64,10 @@ export const socialNetworkAPI = {
     unfollowUser(userId: number) {
         return instance.delete<ResponseType>(`/follow/${userId}`)
     },
-    getFriends(pageNumber: number, friendsOnPage: number) {
-        return instance.get<GetUsersResponseType>(`/users?page=${pageNumber}&count=${friendsOnPage}&friend=true`)
+    getSortedUsers(pageNumber: number, usersOnPage: number, isFriend: boolean) {
+        return instance.get<GetUsersResponseType>(`/users?page=${pageNumber}&count=${usersOnPage}&friend=${isFriend}`)
     },
-    getPossibleFriends(pageNumber: number, possibleFriendsOnPage: number) {
-        return instance.get<GetUsersResponseType>(`/users?page=${pageNumber}&count=${possibleFriendsOnPage}&friend=false`)
-    },
+    getProfile(userId: number) {
+        return instance.get<GetProfileResponseType>(`/profile/${userId}`)
+    }
 }

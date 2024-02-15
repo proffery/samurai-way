@@ -5,6 +5,7 @@ import { font } from "../../../../styles/Font"
 import { FlexWrapper } from "../../../micro/FlexWrapper.styled"
 import emtyAvatar from '../../../../assets/images/NoAvatar.jpeg'
 import { UserStateType } from "../../../../redux/usersReducer"
+import { NavLink } from "react-router-dom"
 
 type UserPropsType = {
     user: UserStateType
@@ -21,16 +22,16 @@ export const User: React.FC<UserPropsType> = (props) => {
     return (
         <StyledUser>
             <UserInfo>
-                <FlexWrapper direction="column" gap="5px">
+                <StyledNavLink to={"/profile/" + props.user.id}>
                     <UserAvatar src={props.user.photos.small ? props.user.photos.small : emtyAvatar} />
                     <UserName>{props.user.name + ' '}</UserName>
-                </FlexWrapper>
+                </StyledNavLink>
                 <StatusContainer gap="5px" wrap="wrap" align="center" justify="space-between">
                     {props.user.status && <UserStatus>{props.user.status + ' '}</UserStatus>}
                     {/* <UserLocation>{props.user.location.city + ', ' + props.user.location.country + ' '}</UserLocation> */}
                 </StatusContainer>
             </UserInfo>
-            <ButtonContainer align="center">
+            <ButtonContainer>
                 <Button
                     variant={props.user.followed ? 'primary' : 'outlined'}
                     onClick={userOnClickFollowHandler}
@@ -56,12 +57,15 @@ const StyledUser = styled.div`
         width: 100%;
         height: 1px;
         background-color: ${theme.color.background.primary};
-        top: 100%;
+        bottom: 0;
+    }
+    @media ${theme.media.mobile} {
+        align-items: flex-start;
     }
 `
 
 const UserInfo = styled.div`
-    width: 70%;
+    width: 65%;
     display: flex;
     align-items: center;
     color: ${theme.color.text.primary_dark};
@@ -72,9 +76,12 @@ const UserAvatar = styled.img`
    border-radius: 50% 50%;
    object-fit: cover;
    aspect-ratio: 1/1;
-   width: 60px;
-   background-color: ${theme.color.background.primary};;
+   max-width: 54px;
+   background-color: ${theme.color.background.primary};
    border: 1px solid ${theme.color.text.placeholder};
+   @media ${theme.media.mobile} {
+        max-width: 40px;
+    }
 `
 
 const UserName = styled.span`
@@ -101,6 +108,19 @@ const StatusContainer = styled(FlexWrapper)`
 `
 
 const ButtonContainer = styled(FlexWrapper)`
-    width: 25%;
+    min-width: fit-content;
+    width: 30%;
+    align-items: center;
 `
 
+const StyledNavLink = styled(NavLink)`
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+    width: 25%;
+    @media ${theme.media.mobile} {
+        width: 100%;
+    }
+`

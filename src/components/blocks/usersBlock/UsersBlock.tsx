@@ -8,6 +8,7 @@ import { UsersPagination } from "./UsersPagination"
 import { Button } from "../../micro/button/Button"
 import { UserStateType, UsersFilterType } from "../../../redux/usersReducer"
 import { RequestStatusType } from "../../../redux/appReducer"
+import { theme } from "../../../styles/Theme.styled"
 
 
 export type UsersBlockPropsType = {
@@ -92,10 +93,12 @@ export const UsersBlock: React.FC<UsersBlockPropsType> = (props) => {
 
 const StyledUsersBlock = styled(BlockSection)`
     display: flex;
-    width: 85%;
-    min-width: 75%;
-    max-height: 100vh;
+    width: 73%;
+    height: 132vh;
     overflow-y: auto;
     overflow-x: hidden;
     padding-bottom: 65px;
+    @media ${theme.media.mobile} {
+        width: 100%;
+    }
 `

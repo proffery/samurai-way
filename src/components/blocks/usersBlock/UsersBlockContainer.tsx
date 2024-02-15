@@ -24,7 +24,7 @@ type UsersBlockAPIPropsType = {
     changeUsersFilter: (filter: UsersFilterType) => void
 }
 
-export const UsersBlockAPI: React.FC<UsersBlockAPIPropsType> = (props) => {
+const UsersBlockAPI: React.FC<UsersBlockAPIPropsType> = (props) => {
 
     useEffect(() => {
         switch (props.usersFilter) {

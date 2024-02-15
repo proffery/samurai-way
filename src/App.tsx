@@ -4,7 +4,6 @@ import { Footer } from "./components/layout/footer/Footer";
 import { Navbar } from "./components/layout/navbar/Navbar";
 import { Header } from "./components/layout/header/Header";
 import { Users } from "./components/layout/pages/users/Users";
-import { Profile } from "./components/layout/pages/profile/Profile";
 import { Messages } from "./components/layout/pages/messages/Messages";
 import { Notifications } from "./components/layout/pages/notifications/Notifications";
 import { Settings } from "./components/layout/pages/settings/Settings";
@@ -14,6 +13,7 @@ import { AppRootStateType } from './redux/redux-store';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppStateType } from './redux/appReducer';
 import { AppGlobalConditionSwicher } from './components/micro/appGlobalConditions/AppGlobalConditionSwicher';
+import { ProfileContainer } from './components/layout/pages/profile/ProfileContainer';
 
 
 
@@ -34,8 +34,8 @@ function App() {
         />
         <Header />
         <Switch>
-          <Route path='/' exact render={() => <Profile />} />
-          <Route path='/profile' render={() => <Profile />} />
+          <Route path='/' exact render={() => <ProfileContainer />} />
+          <Route path='/profile' render={() => <ProfileContainer />} />
           <Route path='/users' render={() => <Users />} />
           <Route path='/messages' render={() => <Messages />} />
           <Route path='/notifications' component={Notifications} />

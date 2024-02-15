@@ -5,6 +5,7 @@ import styled from "styled-components"
 import { FlexWrapper } from "../../../micro/FlexWrapper.styled"
 import { PossibleFriendsBlockContainer } from "../../../blocks/friendsBlock/PossibleFriendsBlockContainer"
 import { ToTopLink } from "../../../micro/toTopLink/ToTopLink"
+import { theme } from "../../../../styles/Theme.styled"
 
 type UsersPropsType = {
 
@@ -14,10 +15,10 @@ export const Users: React.FC<UsersPropsType> = (props) => {
     return (
         <StyledUsers id="users">
             <UsersBlockContainer />
-            <FlexWrapper direction={'column'} gap="30px">
+            <OtherBlocks>
                 <FriendsBlockContainer />
                 <PossibleFriendsBlockContainer />
-            </FlexWrapper>
+            </OtherBlocks>
             <ToTopLink top_block_anchor_id="all-users"/>
         </StyledUsers>
     )
@@ -26,4 +27,15 @@ export const Users: React.FC<UsersPropsType> = (props) => {
 const StyledUsers = styled.main`
     display: flex;
     justify-content: space-between;
+    @media ${theme.media.mobile} {
+        flex-wrap: wrap;
+    }
+`
+const OtherBlocks = styled(FlexWrapper)`
+   flex-direction : column;
+   gap: 30px;
+   width: 23%;
+   @media ${theme.media.mobile} {
+        width: 100%;
+    }
 `

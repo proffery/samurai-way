@@ -7,6 +7,7 @@ import { theme } from "../../../styles/Theme.styled"
 import { UserResponseType } from "../../../api/social-network-api"
 import { Button } from "../../micro/button/Button"
 import { Icon } from "../../micro/icon/Icon"
+import { FlexWrapper } from "../../micro/FlexWrapper.styled"
 
 
 type FriendsBlockPropsType = {
@@ -35,7 +36,9 @@ export const FriendsBlock: React.FC<FriendsBlockPropsType> = (props) => {
                 {props.blockHeaderName}
             </BlockHeader>
             {friendsList()}
-            <Button onClick={props.refreshFriends} variant={'link'} name={<Icon iconId={'refresh'}/>} className={props.className}/>
+            <FlexWrapper justify={'center'}>
+                <Button onClick={props.refreshFriends} variant={'link'} name={<Icon iconId={'refresh'} />} className={props.className} />
+            </FlexWrapper>
         </StyledFriends>
     )
 }

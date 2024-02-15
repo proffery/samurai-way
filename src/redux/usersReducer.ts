@@ -153,7 +153,7 @@ export const getAllUsersTC = (pageNumber: number, usersOnPage: number) => (dispa
 
 export const getFollowedUsersTC = (pageNumber: number, usersOnPage: number) => (dispatch: Dispatch<UsersReducerActionsType>) => {
     dispatch(setAppRequestStatusAC('loading'))
-    socialNetworkAPI.getFriends(pageNumber, usersOnPage)
+    socialNetworkAPI.getSortedUsers(pageNumber, usersOnPage, true)
         .then(res => {
             dispatch(setTotalUsersCountAC(res.data.totalCount))
             dispatch(setCurrentPageAC(pageNumber))
@@ -166,7 +166,7 @@ export const getFollowedUsersTC = (pageNumber: number, usersOnPage: number) => (
 
 export const getUnfollowedUsersTC = (pageNumber: number, usersOnPage: number) => (dispatch: Dispatch<UsersReducerActionsType>) => {
     dispatch(setAppRequestStatusAC('loading'))
-    socialNetworkAPI.getPossibleFriends(pageNumber, usersOnPage)
+    socialNetworkAPI.getSortedUsers(pageNumber, usersOnPage, false)
         .then(res => {
             dispatch(setTotalUsersCountAC(res.data.totalCount))
             dispatch(setCurrentPageAC(pageNumber))

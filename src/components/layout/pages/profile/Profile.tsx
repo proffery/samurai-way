@@ -4,20 +4,33 @@ import { HeaderBlock } from "../../../blocks/headerBlock/HeaderBlock"
 import styled from "styled-components"
 import { theme } from "../../../../styles/Theme.styled"
 import { ToTopLink } from "../../../micro/toTopLink/ToTopLink"
-import { PostsBlockContainer } from "../../../blocks/postsBlock/PostsBlockContainer"
 import { FriendsBlockContainer } from "../../../blocks/friendsBlock/FriendsBlockContainer"
 import { PossibleFriendsBlockContainer } from "../../../blocks/friendsBlock/PossibleFriendsBlockContainer"
+import { PostsBlock } from "../../../blocks/postsBlock/PostsBlock"
+import { PostStateType } from "../../../../redux/profileReducer"
+import { GetProfileResponseType } from "../../../../api/social-network-api"
 
 type ProfilePropsType = {
+    posts: PostStateType[]
+    profileData: GetProfileResponseType
+    newPostForm: string
+    onChangeNewPostText: (text: string) => void
+    addPost: () => void
 }
 
 export const Profile: React.FC<ProfilePropsType> = (props) => {
-
+    console.log(props.profileData);
+    
     return (
         <StyledProfile id="profile" >
             <ProfileHeaderBlock />
             <ProfileAboutBlock />
-            <ProfilePostsBlock />
+            <ProfilePostsBlock
+                posts={props.posts}
+                newPostForm={props.newPostForm}
+                addPost={props.addPost}
+                onChangeNewPostText={props.onChangeNewPostText}
+            />
             <ProfileFriendsBlock />
             <ProfilePossibleFriendsBlock />
             <ToTopLink top_block_anchor_id="profile-header" />
@@ -51,7 +64,7 @@ const ProfileAboutBlock = styled(AboutBlock)`
     }
 `
 
-const ProfilePostsBlock = styled(PostsBlockContainer)`
+const ProfilePostsBlock = styled(PostsBlock)`
     grid-area: 2 / 2 / 4 / 3 ;
     @media ${theme.media.mobile} {
         grid-area: 3 / 1 / 5 / 2 ;

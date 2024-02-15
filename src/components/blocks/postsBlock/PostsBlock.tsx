@@ -6,7 +6,7 @@ import { FlexWrapper } from "../../micro/FlexWrapper.styled"
 import { Post } from "./post/Post"
 import { BlockHeader } from "../BlockHeader.styled"
 import { BlockSection } from "../BlockSection.styled"
-import { PostStateType } from "../../../redux/postsReducer"
+import { PostStateType } from "../../../redux/profileReducer"
 
 type PostsBlockPropsType = {
     newPostForm: string

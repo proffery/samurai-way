@@ -68,7 +68,7 @@ export const setTotalPossibleFriendsCountAC = (totalPossibleFriendsCount: number
 
 export const getPossibleFriendsTC = (pageNumber: number, possibleFriendsOnPage: number) => (dispatch: Dispatch<FriendsReducerActionsType>) => {
     dispatch(setAppRequestStatusAC('loading'))
-    socialNetworkAPI.getPossibleFriends(pageNumber, possibleFriendsOnPage)
+    socialNetworkAPI.getSortedUsers(pageNumber, possibleFriendsOnPage, false)
         .then(res => {
             dispatch(setTotalPossibleFriendsCountAC(res.data.totalCount))
             dispatch(setPossibleFriendsCurrentPageAC(pageNumber))
