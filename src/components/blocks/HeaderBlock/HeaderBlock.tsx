@@ -6,6 +6,7 @@ import { theme } from "../../../styles/Theme.styled"
 import { font } from "../../../styles/Font";
 import { NavLink } from "react-router-dom"
 import { RequestStatusType } from "../../../redux/appReducer"
+import noAvatar from '../../../assets/images/NoAvatar.jpeg'
 
 type HeaderBlockPropsType = {
     userId: number
@@ -28,8 +29,8 @@ export const HeaderBlock: React.FC<HeaderBlockPropsType> = (props) => {
     return (
         <StyledHeaderBlock id="profile-header" className={props.className}>
             <BackgroundConainer>
-                <BackgroundImage src={props.photoLargeURL} />
-                <AvatarImage src={props.photoSmallURL} />
+                <BackgroundImage src={props.photoLargeURL || noAvatar} />
+                <AvatarImage src={props.photoSmallURL || noAvatar} />
             </BackgroundConainer>
             <InfoConainer>
                 <TextContainer>

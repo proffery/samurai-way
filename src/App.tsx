@@ -34,8 +34,8 @@ function App() {
         />
         <Header />
         <Switch>
-          <Route path='/' exact component={ProfileContainer} />
-          <Route path='/profile/:userId' component={ProfileContainer} />
+          <Route path='/' exact render={() => <ProfileContainer />} />
+          <Route path='/profile/:userId?' render={() => <ProfileContainer />} />
           <Route path='/users' component={Users} />
           <Route path='/messages' component={Messages} />
           <Route path='/notifications' component={Notifications} />
