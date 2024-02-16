@@ -62,9 +62,8 @@ export const MessagesBlock: React.FC<MessagesBlockPropsType> = (props) => {
                         type={'submit'}
                         variant={'primary'}
                         onClick={addMessageOnClickHandler}
-                        name={'Send'}
                         disabled={!!error}
-                    />
+                    >{'Send'}</Button>
                 </FlexWrapper>
             </Form>
         </StyledMessagesBlock>

@@ -43,15 +43,15 @@ export const UsersPagination = (props: UserPaginationPropsType) => {
             ? setCurrentRange(pagesRange)
             : setCurrentRange(currentRange - 1);
     }
+
     return (
 
         <>
             {pagesRange > PAGES_COUNT &&
                 <Button variant={'link'}
-                    name={<Icon iconId="leftArrow" viewBox="-5 3 24 24" />}
                     disabled={props.appRequestStatus === 'loading'}
                     onClick={pagesRangeDec}
-                />
+                ><Icon iconId="leftArrow" viewBox="-5 3 24 24" /></Button>
             }
             {
                 pagesCountArray
@@ -61,18 +61,16 @@ export const UsersPagination = (props: UserPaginationPropsType) => {
                             key={el}
                             variant={'link'}
                             disabled={props.currentPage === el || props.appRequestStatus === 'loading'}
-                            name={el.toString()}
                             isActive={props.currentPage === el}
                             onClick={() => { props.onPageChangeHandler(el) }}
-                        />
+                        >{el.toString()}</Button>
                     )
             }
             {pagesRange > PAGES_COUNT &&
                 <Button variant={'link'}
-                    name={<Icon iconId="rightArrow" viewBox="15 3 24 24" />}
                     disabled={props.appRequestStatus === 'loading'}
                     onClick={pagesRangeInc}
-                />
+                ><Icon iconId="rightArrow" viewBox="15 3 24 24" /></Button>
             }
         </>
     )

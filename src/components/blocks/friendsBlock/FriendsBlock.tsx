@@ -37,7 +37,9 @@ export const FriendsBlock: React.FC<FriendsBlockPropsType> = (props) => {
             </BlockHeader>
             {friendsList()}
             <FlexWrapper justify={'center'}>
-                <Button onClick={props.refreshFriends} variant={'link'} name={<Icon iconId={'refresh'} />} className={props.className} />
+                <Button onClick={props.refreshFriends}
+                    variant={'link'}
+                    className={props.className} ><Icon iconId={'refresh'} /></Button>
             </FlexWrapper>
         </StyledFriends>
     )

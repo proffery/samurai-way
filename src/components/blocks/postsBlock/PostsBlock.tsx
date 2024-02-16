@@ -70,10 +70,9 @@ export const PostsBlock: React.FC<PostsBlockPropsType> = (props) => {
                     <Button
                         type={'submit'}
                         variant={'primary'}
-                        name={'Send'}
                         disabled={!!error}
                         onClick={addPostOnClickHandler}
-                    />
+                    >{'Send'}</Button>
                 </FlexWrapper>
             </Form>
             {postsList()}

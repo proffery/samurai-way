@@ -35,9 +35,8 @@ export const User: React.FC<UserPropsType> = (props) => {
                 <Button
                     variant={props.user.followed ? 'primary' : 'outlined'}
                     onClick={userOnClickFollowHandler}
-                    name={props.user.followed ? 'UNFOLLOW' : 'FOLLOW'}
                     disabled={props.user.requestStatus === 'loading'}
-                />
+                >{props.user.followed ? 'UNFOLLOW' : 'FOLLOW'}</Button>
             </ButtonContainer>
         </StyledUser>
     )

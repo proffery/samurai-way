@@ -25,7 +25,7 @@ export const Post: React.FC<PostPropsType> = (props) => {
         <StyledPost>
             <Author>
                 <AuthorInfo>
-                    <AuthorAvatar src={avatarImg}/>
+                    <AuthorAvatar src={avatarImg} />
                     <FlexWrapper direction="column">
                         <AuthorName>Dmitry Shamko</AuthorName>
                         <PostDate>15mins ago</PostDate>
@@ -41,17 +41,15 @@ export const Post: React.FC<PostPropsType> = (props) => {
             </Message>
             <PostActivites>
                 <FlexWrapper align="center">
-                    <Button onClick={likesButtonOnClickHandler} 
-                        name={<Icon iconId="likes" viewBox="0 0 28 28" width="100%" height="100%" />} 
-                        variant="link" 
-                    />
+                    <Button onClick={likesButtonOnClickHandler}
+                        variant="link"
+                    ><Icon iconId="likes" viewBox="0 0 28 28" width="100%" height="100%" /></Button>
                     <AuthorName>{props.postData.likeCount}</AuthorName>
                 </FlexWrapper>
                 <FlexWrapper align="center">
-                    <Button onClick={commentsButtonOnClickHandler} 
-                        name={<Icon iconId="comments" viewBox="0 0 28 28" width="100%" height="100%" />} 
-                        variant="link" 
-                    />
+                    <Button onClick={commentsButtonOnClickHandler}
+                        variant="link"
+                    ><Icon iconId="comments" viewBox="0 0 28 28" width="100%" height="100%" /></Button>
                     <AuthorName>{props.postData.commentsCount}</AuthorName>
                 </FlexWrapper>
             </PostActivites>
@@ -62,7 +60,7 @@ export const Post: React.FC<PostPropsType> = (props) => {
 const StyledPost = styled.div`
     display: flex;
     flex-direction: column;
-    ${font({weight: 300, Fmin: 10, Fmax: 16})}
+    ${font({ weight: 300, Fmin: 10, Fmax: 16 })}
     border-top: 1px solid;
     border-color: ${theme.color.background.primary};
     gap: 20px;
@@ -92,7 +90,7 @@ const AuthorAvatar = styled.img`
 
 const AuthorName = styled.span`
     white-space: nowrap;
-    ${font({weight: 700, Fmin: 10, Fmax: 16})}
+    ${font({ weight: 700, Fmin: 10, Fmax: 16 })}
     color: ${theme.color.text.primary_dark};
 `
 const MessageText = styled.span`
@@ -102,11 +100,11 @@ const MessageText = styled.span`
 `
 
 const PostDate = styled.span`
-    ${font({weight: 300, Fmin: 8, Fmax: 10})}
+    ${font({ weight: 300, Fmin: 8, Fmax: 10 })}
 `
 
 const MoreButton = styled(Button)`
-    ${font({weight: 800, Fmin: 10, Fmax: 16})}
+    ${font({ weight: 800, Fmin: 10, Fmax: 16 })}
     align-self: flex-start;
 `
 

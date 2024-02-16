@@ -1,37 +1,31 @@
 import styled, { css } from "styled-components";
 import { theme } from "../../../styles/Theme.styled";
-import { ReactElement, MouseEvent } from "react";
+import { MouseEvent } from "react";
 import { font } from "../../../styles/Font";
 
 type ButtonPropsType = {
     variant: 'primary' | 'outlined' | 'link'
-    type?: 'button' | 'reset' | 'submit'
     className?: string
-    name?: string | ReactElement
-    title?: string
-    disabled?: boolean
     isActive?: boolean
     onClick: (e: MouseEvent<HTMLButtonElement>) => void
 }
 
-export const Button: React.FC<ButtonPropsType> = (props) => {
+export const Button: React.FC<ButtonPropsType &
+    React.HTMLProps<HTMLButtonElement>> = (props) => {
 
-    const onClickButtonHandler = (e: MouseEvent<HTMLButtonElement>) => {
-        props.onClick(e)
+        const onClickButtonHandler = (e: MouseEvent<HTMLButtonElement>) => {
+            props.onClick(e)
+        }
+
+        return (
+            <StyledButton
+                variant={props.variant}
+                onClick={onClickButtonHandler}
+                className={props.className}
+                active={props.isActive?.toString() || 'false'}
+            >{props.children}</StyledButton>
+        )
     }
-
-    return (
-        <StyledButton
-            variant={props.variant}
-            onClick={onClickButtonHandler}
-            type={props.type || 'button'}
-            className={props.className}
-            title={props.title}
-            disabled={props.disabled || false}
-            active={props.isActive?.toString() || 'false'}
-        >{props.name || ''}</StyledButton>
-    )
-}
 
 type StyledButtonPropsType = {
     variant: 'primary' | 'outlined' | 'link'

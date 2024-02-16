@@ -43,9 +43,8 @@ export const HeaderBlock: React.FC<HeaderBlockPropsType> = (props) => {
                     ><Icon iconId={'messages'} viewBox="-2 -3 24 24" /></MessagesButton>
                     <Button variant={props.isFollow ? 'primary' : 'outlined'}
                         onClick={followOnClickHandler}
-                        name={props.isFollow ? 'Unfollow' : 'Follow'}
                         disabled={props.appRequestStatus === "loading"}
-                    />
+                    >{props.isFollow ? 'Unfollow' : 'Follow'}</Button>
                 </ButtonsContainer>
             </InfoConainer>
         </StyledHeaderBlock>

@@ -57,24 +57,24 @@ export const UsersBlock: React.FC<UsersBlockPropsType> = (props) => {
         <StyledUsersBlock id="all-users">
             <BlockHeader>Users</BlockHeader>
             <FlexWrapper justify="center" gap="20px">
-                <Button name={'All'}
+                <Button 
                     variant={'link'}
                     isActive={props.usersFilter === 'all'}
                     disabled={props.appRequestStatus === 'loading'}
                     onClick={onAllFilterChangeHandler}
-                />
-                <Button name={'Followed'}
+                >{'All'}</Button>
+                <Button 
                     variant={'link'}
                     isActive={props.usersFilter === 'followed'}
                     disabled={props.appRequestStatus === 'loading'}
                     onClick={onFriendsFilterChangeHandler}
-                />
-                <Button name={'Unfollowed'}
+                >{'Followed'}</Button>
+                <Button 
                     variant={'link'}
                     isActive={props.usersFilter === 'unfollowed'}
                     disabled={props.appRequestStatus === 'loading'}
                     onClick={onPossibleFilterChangeHandler}
-                />
+                >{'Unfollowed'}</Button>
             </FlexWrapper>
             {usersList()}
             <FlexWrapper justify="center" gap="10px" wrap="wrap">
