@@ -4,7 +4,7 @@ export const showGlobalAppStatus = (dispatch: any, status: RequestStatusType, al
     dispatch(setAppRequestStatusAC(status))
     dispatch(setAppAlertMessageAC(alertMessage))
     setTimeout(() => {
-        dispatch(setAppRequestStatusAC('idle'))
-        dispatch(setAppAlertMessageAC(''))
+        dispatch(setAppRequestStatusAC(null))
+        dispatch(setAppAlertMessageAC(null))
     }, 2000)
 }

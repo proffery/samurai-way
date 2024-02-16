@@ -7,19 +7,21 @@ import { ToTopLink } from "../../../micro/toTopLink/ToTopLink"
 import { FriendsBlockContainer } from "../../../blocks/friendsBlock/FriendsBlockContainer"
 import { PossibleFriendsBlockContainer } from "../../../blocks/friendsBlock/PossibleFriendsBlockContainer"
 import { PostsBlock } from "../../../blocks/postsBlock/PostsBlock"
-import { PostStateType } from "../../../../redux/profileReducer"
-import { GetProfileResponseType } from "../../../../api/social-network-api"
+import { PostStateType, ProfileDataType } from "../../../../redux/profileReducer"
+import { RequestStatusType } from "../../../../redux/appReducer"
 
 type ProfilePropsType = {
     posts: PostStateType[]
-    profileData: GetProfileResponseType
+    profileData: ProfileDataType
     newPostForm: string
+    appRequestStatus: RequestStatusType
     onChangeNewPostText: (text: string) => void
     addPost: () => void
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
 }
 
 export const Profile: React.FC<ProfilePropsType> = (props) => {
-    console.log(props.profileData);
     
     return (
         <StyledProfile id="profile" >
@@ -29,6 +31,10 @@ export const Profile: React.FC<ProfilePropsType> = (props) => {
                 fullName={props.profileData.fullName}
                 photoLargeURL={props.profileData.photos.large}
                 photoSmallURL={props.profileData.photos.small}
+                isFollow={props.profileData.isFollow}
+                appRequestStatus={props.appRequestStatus}
+                follow={props.follow}
+                unfollow={props.unfollow}
             />
             <ProfileAboutBlock />
             <ProfilePostsBlock

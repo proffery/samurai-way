@@ -5,6 +5,7 @@ import { Icon } from "../../micro/icon/Icon"
 import { theme } from "../../../styles/Theme.styled"
 import { font } from "../../../styles/Font";
 import { NavLink } from "react-router-dom"
+import { RequestStatusType } from "../../../redux/appReducer"
 
 type HeaderBlockPropsType = {
     userId: number
@@ -13,9 +14,17 @@ type HeaderBlockPropsType = {
     photoSmallURL: string
     fullName: string
     aboutMe: string
+    isFollow: boolean
+    appRequestStatus: RequestStatusType
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
 }
 
+
 export const HeaderBlock: React.FC<HeaderBlockPropsType> = (props) => {
+    const followOnClickHandler = () => {
+        props.isFollow ? props.unfollow(props.userId) : props.follow(props.userId)
+    }
     return (
         <StyledHeaderBlock id="profile-header" className={props.className}>
             <BackgroundConainer>
@@ -31,9 +40,10 @@ export const HeaderBlock: React.FC<HeaderBlockPropsType> = (props) => {
                     <MessagesButton
                         to={`/messages/${props.userId}`}
                     ><Icon iconId={'messages'} viewBox="-2 -3 24 24" /></MessagesButton>
-                    <Button variant={'primary'}
-                        name={'Follow'}
-                        onClick={() => { }}
+                    <Button variant={props.isFollow ? 'primary' : 'outlined'}
+                        onClick={followOnClickHandler}
+                        name={props.isFollow ? 'Unfollow' : 'Follow'}
+                        disabled={props.appRequestStatus === "loading"}
                     />
                 </ButtonsContainer>
             </InfoConainer>
@@ -60,7 +70,7 @@ const BackgroundImage = styled.img`
 `
 const AvatarImage = styled.img`
     position: absolute;
-    top: 50%;
+    top: 45%;
     left: 5%;
     width: 17%;
     border-radius: 50%;
@@ -68,18 +78,18 @@ const AvatarImage = styled.img`
 const InfoConainer = styled.div`
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
     height: 30%;
+    padding: 0 5%;
 `
 const TextContainer = styled.div`
     display: flex;
     flex-direction: column;
     color: ${theme.color.text.primary};
-    padding-left: 50px;
 `
 
 const Name = styled.span`
-    ${font({ weight: 700, Fmin: 20, Fmax: 30 })}
+    ${font({ weight: 700, Fmin: 16, Fmax: 30 })}
 `
 
 const About = styled.span`

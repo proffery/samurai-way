@@ -9,13 +9,13 @@ export type IconLinksStateType = {
     icon_id: string
     viewBox: string
 }
-export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
+export type RequestStatusType = null | 'loading' | 'succeeded' | 'failed'
 
 export type AppStateType = {
     socialLinks: IconLinksStateType[]
     menuItems: IconLinksStateType[]
     requestStatus: RequestStatusType
-    alertMessage: string
+    alertMessage: string | null
     navbarCollapsed: boolean
 }
 
@@ -106,8 +106,8 @@ const initialState: AppStateType = {
             viewBox: "-2 -2 30 30",
         }
     ],
-    requestStatus: 'idle',
-    alertMessage: '',
+    requestStatus: null,
+    alertMessage: null,
     navbarCollapsed: true
 }
 
@@ -133,7 +133,7 @@ export const setAppRequestStatusAC = (appRequestStatus: RequestStatusType) => (
 )
 
 export type SetAlertMessageActionType = ReturnType<typeof setAppAlertMessageAC>
-export const setAppAlertMessageAC = (alertMessage: string) => (
+export const setAppAlertMessageAC = (alertMessage: string | null) => (
     {
         type: APP_SET_ALERT_MSG,
         payload: { alertMessage }

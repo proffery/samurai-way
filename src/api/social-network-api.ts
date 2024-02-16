@@ -58,6 +58,9 @@ export const socialNetworkAPI = {
     getUsers(pageNumber: number, usersOnPage: number) {
         return instance.get<GetUsersResponseType>(`/users?page=${pageNumber}&count=${usersOnPage}`)
     },
+    isFollow(userId: number) {
+        return instance.get<boolean>(`/follow/${userId}`)
+    },
     followUser(userId: number) {
         return instance.post<ResponseType>(`/follow/${userId}`)
     },

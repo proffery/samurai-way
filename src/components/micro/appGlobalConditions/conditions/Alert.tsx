@@ -5,7 +5,7 @@ import { Icon } from "../../icon/Icon"
 
 type AlertPropsType = {
     requestStatus: RequestStatusType
-    alertMessage: string
+    alertMessage: string | null
 }
 
 export const Alert: React.FC<AlertPropsType> = (props) => {
@@ -21,7 +21,7 @@ export const Alert: React.FC<AlertPropsType> = (props) => {
         }
     }
 
-    return props.alertMessage.length > 0 ?
+    return props.alertMessage ?
         <AlertContainer request={props.requestStatus}>
             {iconSwitcher(props.requestStatus)}
             <Message>{props.alertMessage}</Message>
@@ -52,7 +52,7 @@ const AlertContainer = styled.div<StyledAlertPropsType>`
     ${props => props.request === 'succeeded' && css<StyledAlertPropsType>`
         background-color: ${theme.color.background.status_success};
     `}
-    ${props => (props.request === 'idle' || props.request === 'loading') && css<StyledAlertPropsType>`
+    ${props => (props.request === null || props.request === 'loading') && css<StyledAlertPropsType>`
         background-color: ${theme.color.background.status_info};
     `}
     @media ${theme.media.mobile} {
