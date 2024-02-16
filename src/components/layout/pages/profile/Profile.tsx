@@ -15,10 +15,10 @@ type ProfilePropsType = {
     profileData: ProfileDataType
     newPostForm: string
     appRequestStatus: RequestStatusType
-    onChangeNewPostText: (text: string) => void
     addPost: () => void
-    follow: (userId: number) => void
-    unfollow: (userId: number) => void
+    followProfile: (userId: number) => void
+    unfollowProfile: (userId: number) => void
+    postOnChangeAction: (newPost: string) => void
 }
 
 export const Profile: React.FC<ProfilePropsType> = (props) => {
@@ -33,15 +33,15 @@ export const Profile: React.FC<ProfilePropsType> = (props) => {
                 photoSmallURL={props.profileData.photos.small}
                 isFollow={props.profileData.isFollow}
                 appRequestStatus={props.appRequestStatus}
-                follow={props.follow}
-                unfollow={props.unfollow}
+                follow={props.followProfile}
+                unfollow={props.unfollowProfile}
             />
             <ProfileAboutBlock />
             <ProfilePostsBlock
                 posts={props.posts}
                 newPostForm={props.newPostForm}
                 addPost={props.addPost}
-                onChangeNewPostText={props.onChangeNewPostText}
+                onChangeNewPostText={props.postOnChangeAction}
             />
             <ProfileFriendsBlock />
             <ProfilePossibleFriendsBlock />

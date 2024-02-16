@@ -1,7 +1,7 @@
-import { AnyAction, Dispatch } from "redux"
 import { UserResponseType, socialNetworkAPI } from "../api/social-network-api"
 import { RequestStatusType, SetAlertMessageActionType, SetAppRequestStatusActionType, setAppRequestStatusAC } from "./appReducer"
 import { showGlobalAppStatus } from "./utils/setGlobalAppStatus"
+import { AppDispatchType } from "./redux-store"
 
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
@@ -86,64 +86,31 @@ export const usersReducer = (state: UsersStateType = initialState, action: Users
     }
 }
 
-export const followAC = (userId: number) => ({
-    type: FOLLOW,
-    payload: {
-        userId
-    }
-}) as const
+export const followAC = (userId: number) =>
+    ({ type: FOLLOW, payload: { userId } }) as const
 
-export const unfollowAC = (userId: number) => ({
-    type: UNFOLLOW,
-    payload: {
-        userId
-    }
-}) as const
+export const unfollowAC = (userId: number) =>
+    ({ type: UNFOLLOW, payload: { userId } }) as const
 
-export const setUsersAC = (users: UserResponseType[]) => ({
-    type: SET_USERS,
-    payload: {
-        users
-    }
-}) as const
+export const setUsersAC = (users: UserResponseType[]) =>
+    ({ type: SET_USERS, payload: { users } }) as const
 
-export const setCurrentPageAC = (currentPage: number) => ({
-    type: SET_CURRENT_PAGE,
-    payload: {
-        currentPage
-    }
-}) as const
+export const setCurrentPageAC = (currentPage: number) =>
+    ({ type: SET_CURRENT_PAGE, payload: { currentPage } }) as const
 
-export const setUsersOnPageAC = (usersOnPage: number) => ({
-    type: SET_USERS_ON_PAGE,
-    payload: {
-        usersOnPage
-    }
-}) as const
+export const setUsersOnPageAC = (usersOnPage: number) =>
+    ({ type: SET_USERS_ON_PAGE, payload: { usersOnPage } }) as const
 
-export const setTotalUsersCountAC = (totalUsersCount: number) => ({
-    type: SET_TOTAL_USERS_COUNT,
-    payload: {
-        totalUsersCount
-    }
-}) as const
+export const setTotalUsersCountAC = (totalUsersCount: number) =>
+    ({ type: SET_TOTAL_USERS_COUNT, payload: { totalUsersCount } }) as const
 
-export const changeUsersFilterAC = (usersFilter: UsersFilterType) => ({
-    type: CHANGE_USERS_FILTER,
-    payload: {
-        usersFilter
-    }
-}) as const
+export const changeUsersFilterAC = (usersFilter: UsersFilterType) =>
+    ({ type: CHANGE_USERS_FILTER, payload: { usersFilter } }) as const
 
-export const changeUsersRequestStatusAC = (userId: number, requestStatus: RequestStatusType) => ({
-    type: CHANGE_USER_REQUEST_STATUS,
-    payload: {
-        userId,
-        requestStatus
-    }
-}) as const
+export const changeUsersRequestStatusAC = (userId: number, requestStatus: RequestStatusType) =>
+    ({ type: CHANGE_USER_REQUEST_STATUS, payload: { userId, requestStatus } }) as const
 
-export const getAllUsersTC = (pageNumber: number, usersOnPage: number) => (dispatch: Dispatch) => {
+export const getAllUsersTC = (pageNumber: number, usersOnPage: number) => (dispatch: AppDispatchType) => {
     dispatch(setAppRequestStatusAC('loading'))
     socialNetworkAPI.getUsers(pageNumber, usersOnPage)
         .then(res => {
@@ -156,7 +123,7 @@ export const getAllUsersTC = (pageNumber: number, usersOnPage: number) => (dispa
         .catch(error => showGlobalAppStatus(dispatch, 'failed', error.message))
 }
 
-export const getFollowedUsersTC = (pageNumber: number, usersOnPage: number) => (dispatch: Dispatch) => {
+export const getFollowedUsersTC = (pageNumber: number, usersOnPage: number) => (dispatch: AppDispatchType) => {
     dispatch(setAppRequestStatusAC('loading'))
     socialNetworkAPI.getSortedUsers(pageNumber, usersOnPage, true)
         .then(res => {
@@ -169,7 +136,7 @@ export const getFollowedUsersTC = (pageNumber: number, usersOnPage: number) => (
         .catch(error => showGlobalAppStatus(dispatch, 'failed', error.message))
 }
 
-export const getUnfollowedUsersTC = (pageNumber: number, usersOnPage: number) => (dispatch: Dispatch) => {
+export const getUnfollowedUsersTC = (pageNumber: number, usersOnPage: number) => (dispatch: AppDispatchType) => {
     dispatch(setAppRequestStatusAC('loading'))
     socialNetworkAPI.getSortedUsers(pageNumber, usersOnPage, false)
         .then(res => {
@@ -182,7 +149,7 @@ export const getUnfollowedUsersTC = (pageNumber: number, usersOnPage: number) =>
         .catch(error => showGlobalAppStatus(dispatch, 'failed', error.message))
 }
 
-export const followUsersTC = (userId: number) => (dispatch: Dispatch) => {
+export const followUsersTC = (userId: number) => (dispatch: AppDispatchType) => {
     dispatch(changeUsersRequestStatusAC(userId, 'loading'))
     dispatch(setAppRequestStatusAC('loading'))
     socialNetworkAPI.followUser(userId)
@@ -199,7 +166,7 @@ export const followUsersTC = (userId: number) => (dispatch: Dispatch) => {
         .catch(error => showGlobalAppStatus(dispatch, 'failed', error.message))
 }
 
-export const unfollowUsersTC = (userId: number) => (dispatch: Dispatch) => {
+export const unfollowUsersTC = (userId: number) => (dispatch: AppDispatchType) => {
     dispatch(changeUsersRequestStatusAC(userId, 'loading'))
     dispatch(setAppRequestStatusAC('loading'))
     socialNetworkAPI.unfollowUser(userId)

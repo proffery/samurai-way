@@ -1,10 +1,9 @@
-import { AnyAction, Dispatch } from "redux"
 import { v1 } from "uuid"
 import { GetProfileResponseType, socialNetworkAPI } from "../api/social-network-api"
 import { AppDispatchType, AppRootStateType } from "./redux-store"
 import { SetAlertMessageActionType, SetAppRequestStatusActionType, setAppRequestStatusAC } from "./appReducer"
 import { showGlobalAppStatus } from "./utils/setGlobalAppStatus"
-import { FollowUserActionType, UnfollowUserActionType, followUsersTC } from "./usersReducer"
+import { FollowUserActionType, UnfollowUserActionType } from "./usersReducer"
 
 const ADD_POST = 'ADD-POST'
 const UPDATE_POST = 'UPDATE-POST'
@@ -13,11 +12,11 @@ const SET_PROFILE_DATA = 'SET-PROFILE-DATA'
 const CHANGE_FOLLOWED_STATUS = 'CHANGE-FOLLOWED-STATUS'
 
 export type ProfileReducerActionsType =
-    | ReturnType<typeof addPostAC>
-    | ReturnType<typeof updatePostAC>
-    | ReturnType<typeof postOnChangeAC>
-    | ReturnType<typeof setProfileDataAC>
-    | ReturnType<typeof changeFollowStatusAC>
+    | ReturnType<typeof addPostAction>
+    | ReturnType<typeof updatePostAction>
+    | ReturnType<typeof postOnChangeAction>
+    | ReturnType<typeof setProfileDataAction>
+    | ReturnType<typeof changeFollowStatusAction>
     | SetAppRequestStatusActionType
     | SetAlertMessageActionType
     | FollowUserActionType
@@ -89,7 +88,7 @@ export const profileReducer = (state: ProfileStateType = initialState, action: P
     }
 }
 
-export const addPostAC = (postMessage: string) => {
+export const addPostAction = (postMessage: string) => {
     const newPost: PostStateType = {
         id: v1(),
         message: postMessage,
@@ -99,48 +98,48 @@ export const addPostAC = (postMessage: string) => {
     return { type: ADD_POST, payload: { newPost } } as const
 }
 
-export const updatePostAC = (postId: string, newPost: string) => (
+export const updatePostAction = (postId: string, newPost: string) => (
     { type: UPDATE_POST, payload: { newPost, postId } }
 ) as const
 
-export const postOnChangeAC = (newPost: string) => (
+export const postOnChangeAction = (newPost: string) => (
     { type: ON_CHANGE_POST, payload: { newPost } }
 ) as const
 
-export const setProfileDataAC = (data: GetProfileResponseType) => (
+export const setProfileDataAction = (data: GetProfileResponseType) => (
     { type: SET_PROFILE_DATA, payload: { data } }
 ) as const
 
-export const changeFollowStatusAC = (isFollow: boolean) => (
+export const changeFollowStatusAction = (isFollow: boolean) => (
     { type: CHANGE_FOLLOWED_STATUS, payload: { isFollow } }
 ) as const
 
-export const addPostTC = () => (dispatch: Dispatch, getState: () => AppRootStateType) => {
+export const addPost = () => (dispatch: AppDispatchType, getState: () => AppRootStateType) => {
     const newPost = getState().profile.newPostForm
-    dispatch(addPostAC(newPost))
-    dispatch(postOnChangeAC(''))
+    dispatch(addPostAction(newPost))
+    dispatch(postOnChangeAction(''))
 }
 
-export const getProfileDataTC = (userId: number) => (dispatch: Dispatch) => {
+export const setProfileData = (userId: number) => (dispatch: AppDispatchType) => {
     dispatch(setAppRequestStatusAC('loading'))
     socialNetworkAPI.getProfile(userId)
         .then(res => {
-            dispatch(setProfileDataAC(res.data))
+            dispatch(setProfileDataAction(res.data))
             return socialNetworkAPI.isFollow(userId)
         })
         .then(res => {
-            dispatch(changeFollowStatusAC(res.data))
+            dispatch(changeFollowStatusAction(res.data))
             dispatch(setAppRequestStatusAC(null))
         })
         .catch(error => showGlobalAppStatus(dispatch, 'failed', error.message))
 }
 
-export const followFromProfile = (userId: number) => (dispatch: AppDispatchType) => {
+export const followProfile = (userId: number) => (dispatch: AppDispatchType) => {
     dispatch(setAppRequestStatusAC('loading'))
     socialNetworkAPI.followUser(userId)
         .then(res => {
             if (res.data.resultCode === 0) {
-                dispatch(changeFollowStatusAC(true))
+                dispatch(changeFollowStatusAction(true))
                 showGlobalAppStatus(dispatch, 'succeeded', 'Followed!')
             }
             else {
@@ -150,12 +149,12 @@ export const followFromProfile = (userId: number) => (dispatch: AppDispatchType)
         .catch(error => showGlobalAppStatus(dispatch, 'failed', error.message))
 }
 
-export const unfollowFromProfile = (userId: number) => (dispatch: AppDispatchType) => {
+export const unfollowProfile = (userId: number) => (dispatch: AppDispatchType) => {
     dispatch(setAppRequestStatusAC('loading'))
     socialNetworkAPI.unfollowUser(userId)
         .then(res => {
             if (res.data.resultCode === 0) {
-                dispatch(changeFollowStatusAC(false))
+                dispatch(changeFollowStatusAction(false))
                 showGlobalAppStatus(dispatch, 'succeeded', 'Unfollowed!')
             }
             else {

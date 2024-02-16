@@ -34,10 +34,10 @@ function App() {
         />
         <Header />
         <Switch>
-          <Route path='/' exact render={() => <ProfileContainer />} />
-          <Route path='/profile' render={() => <ProfileContainer />} />
-          <Route path='/users' render={() => <Users />} />
-          <Route path='/messages' render={() => <Messages />} />
+          <Route path='/' exact component={ProfileContainer} />
+          <Route path='/profile/:userId' component={ProfileContainer} />
+          <Route path='/users' component={Users} />
+          <Route path='/messages' component={Messages} />
           <Route path='/notifications' component={Notifications} />
           <Route path='/settings' component={Settings} />
           <Route path='*' component={NotFound} />
