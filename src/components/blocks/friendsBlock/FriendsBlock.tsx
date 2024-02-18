@@ -1,6 +1,6 @@
 import React from "react"
-import { BlockHeader } from "../BlockHeader.styled"
-import { BlockSection } from "../BlockSection.styled"
+import { BlockHeader } from "../../micro/BlockHeader.styled"
+import { BlockSection } from "../../micro/BlockSection.styled"
 import { Friend } from "./friend/Friend"
 import styled from "styled-components"
 import { theme } from "../../../styles/Theme.styled"
@@ -51,14 +51,12 @@ const StyledFriends = styled(BlockSection)`
 const StyledFriendsList = styled.div`
     display: flex;
     align-items: center;
-    justify-content: center;
     width: 100%;
-    height: fit-content;
+    justify-content: center;
     flex-direction: column;
-    gap: 20px;
-    overflow-y: scroll;
+    overflow-y: auto;
+    overflow-x: hidden;
     @media ${theme.media.mobile} {
-        width: 100%;
         flex-direction: row;
         flex-wrap: wrap;
     }

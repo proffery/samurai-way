@@ -6,7 +6,7 @@ import { theme } from "../../../styles/Theme.styled"
 import { font } from "../../../styles/Font";
 import { NavLink } from "react-router-dom"
 import { RequestStatusType } from "../../../redux/appReducer"
-import noAvatar from '../../../assets/images/NoAvatar.jpeg'
+import defaultAvatar from '../../../assets/images/avatar-default.svg'
 
 type HeaderBlockPropsType = {
     userId: number
@@ -29,8 +29,12 @@ export const HeaderBlock: React.FC<HeaderBlockPropsType> = (props) => {
     return (
         <StyledHeaderBlock id="profile-header" className={props.className}>
             <BackgroundConainer>
-                <BackgroundImage src={props.photoLargeURL || noAvatar} />
-                <AvatarImage src={props.photoSmallURL || noAvatar} />
+                {props.photoLargeURL
+                    ? <BackgroundImage src={props.photoLargeURL} />
+                    : <Icon iconId={'avatarDefault'} viewBox="0 0 1024 1024" height={'100%'} width={'100%'} />}
+                {props.photoSmallURL
+                    ? <AvatarImage src={props.photoSmallURL} />
+                    : <DefaultAvatar iconId={'avatarDefault'} viewBox="0 0 1024 1024" height={'100%'} width={'100%'} />}
             </BackgroundConainer>
             <InfoConainer>
                 <TextContainer>
@@ -40,7 +44,7 @@ export const HeaderBlock: React.FC<HeaderBlockPropsType> = (props) => {
                 <ButtonsContainer>
                     <MessagesButton
                         to={`/messages/${props.userId}`}
-                    ><Icon iconId={'messages'} viewBox="-2 -3 24 24" /></MessagesButton>
+                    ><Icon iconId={'messages'} viewBox="-2 -3 24 24" height={'50%'} width={'50%'} /></MessagesButton>
                     <Button variant={props.isFollow ? 'primary' : 'outlined'}
                         onClick={followOnClickHandler}
                         disabled={props.appRequestStatus === "loading"}
@@ -61,6 +65,7 @@ const BackgroundConainer = styled.div`
     position: relative;
     width: 100%;
     height: 70%;
+    color: ${theme.color.text.placeholder};
 `
 const BackgroundImage = styled.img`
     object-fit: cover;
@@ -74,7 +79,18 @@ const AvatarImage = styled.img`
     left: 5%;
     width: 17%;
     border-radius: 50%;
+    border: 1px solid ${theme.color.text.placeholder};
 `
+const DefaultAvatar = styled(Icon)`
+    position: absolute;
+    top: 45%;
+    left: 5%;
+    width: 17%;
+    height: auto;
+    border-radius: 50% 50%;
+    border: 1px solid ${theme.color.text.placeholder};
+`
+
 const InfoConainer = styled.div`
     display: flex;
     align-items: center;
@@ -101,6 +117,7 @@ const ButtonsContainer = styled.div`
     height: 40%;
     min-height: 30px;
     gap: 10px;
+    justify-content: end;
     button {
         display: flex;
         align-items: center;
@@ -118,10 +135,7 @@ const MessagesButton = styled(NavLink)`
     border-width: 1px;
     border-style: solid;
     border-color: ${theme.color.background.second};
-    svg {
-        height: 50%;
-        width: 50%;
-    }
+   
     &:active {
             background-color: ${theme.color.background.primary};
             color: ${theme.color.text.primary};

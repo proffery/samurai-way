@@ -4,8 +4,8 @@ import { Button } from "../../micro/button/Button"
 import { Field } from "../../micro/field/Field.styled"
 import { FlexWrapper } from "../../micro/FlexWrapper.styled"
 import { Post } from "./post/Post"
-import { BlockHeader } from "../BlockHeader.styled"
-import { BlockSection } from "../BlockSection.styled"
+import { BlockHeader } from "../../micro/BlockHeader.styled"
+import { BlockSection } from "../../micro/BlockSection.styled"
 import { PostStateType } from "../../../redux/profileReducer"
 
 type PostsBlockPropsType = {

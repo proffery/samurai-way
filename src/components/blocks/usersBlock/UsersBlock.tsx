@@ -1,5 +1,5 @@
-import { BlockHeader } from "../BlockHeader.styled"
-import { BlockSection } from "../BlockSection.styled"
+import { BlockHeader } from "../../micro/BlockHeader.styled"
+import { BlockSection } from "../../micro/BlockSection.styled"
 import { User } from "./user/User"
 import styled from "styled-components"
 import { UserResponseType } from "../../../api/social-network-api"

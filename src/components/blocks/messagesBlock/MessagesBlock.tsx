@@ -1,6 +1,6 @@
 import React, { ChangeEvent, MouseEvent, KeyboardEvent, useState } from "react"
-import { BlockHeader } from "../BlockHeader.styled"
-import { BlockSection } from "../BlockSection.styled"
+import { BlockHeader } from "../../micro/BlockHeader.styled"
+import { BlockSection } from "../../micro/BlockSection.styled"
 import { Message } from "./message/Message"
 import styled from "styled-components"
 import { FlexWrapper } from "../../micro/FlexWrapper.styled"

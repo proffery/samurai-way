@@ -6,6 +6,7 @@ export const BlockHeader = styled.h2`
     display: flex;
     position: relative;
     word-wrap: break-word;
+    overflow-wrap: anywhere;
     padding-bottom: 28px;
     color: ${theme.color.text.primary};
     ${font({weight: 700, Fmin: 14, Fmax: 26})}

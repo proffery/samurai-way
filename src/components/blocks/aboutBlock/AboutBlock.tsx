@@ -1,6 +1,6 @@
 import React from "react"
-import { BlockHeader } from "../BlockHeader.styled"
-import { BlockSection } from "../BlockSection.styled"
+import { BlockHeader } from "../../micro/BlockHeader.styled"
+import { BlockSection } from "../../micro/BlockSection.styled"
 
 type AboutBlockPropsType = {
     className?: string

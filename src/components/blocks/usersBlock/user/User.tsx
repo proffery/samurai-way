@@ -3,9 +3,10 @@ import { Button } from "../../../micro/button/Button"
 import { theme } from "../../../../styles/Theme.styled"
 import { font } from "../../../../styles/Font"
 import { FlexWrapper } from "../../../micro/FlexWrapper.styled"
-import emtyAvatar from '../../../../assets/images/NoAvatar.jpeg'
 import { UserStateType } from "../../../../redux/usersReducer"
 import { NavLink } from "react-router-dom"
+import { Icon } from "../../../micro/icon/Icon"
+import { MouseEvent } from "react"
 
 type UserPropsType = {
     user: UserStateType
@@ -14,19 +15,22 @@ type UserPropsType = {
 }
 
 export const User: React.FC<UserPropsType> = (props) => {
-    const userOnClickFollowHandler = () => {
+    const userOnClickFollowHandler = (e: MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault()
         return props.user.followed
             ? props.unfollow(props.user.id)
             : props.follow(props.user.id)
     }
     return (
-        <StyledUser>
-            <UserInfo>
-                <StyledNavLink to={"/profile/" + props.user.id}>
-                    <UserAvatar src={props.user.photos.small ? props.user.photos.small : emtyAvatar} />
+        <StyledUser to={"/profile/" + props.user.id}>
+            <UserInfo >
+                <AvatarContainer >
+                    {props.user.photos.small
+                        ? <UserAvatar src={props.user.photos.small} />
+                        : <DefaultAvatar iconId={'avatarDefault'} viewBox="0 0 1024 1024" height={'100%'} width={'100%'} />}
                     <UserName>{props.user.name + ' '}</UserName>
-                </StyledNavLink>
-                <StatusContainer gap="5px" wrap="wrap" align="center" justify="space-between">
+                </AvatarContainer>
+                <StatusContainer>
                     {props.user.status && <UserStatus>{props.user.status + ' '}</UserStatus>}
                     {/* <UserLocation>{props.user.location.city + ', ' + props.user.location.country + ' '}</UserLocation> */}
                 </StatusContainer>
@@ -42,9 +46,10 @@ export const User: React.FC<UserPropsType> = (props) => {
     )
 }
 
-const StyledUser = styled.div`
+const StyledUser = styled(NavLink)`
     display: flex;
     position: relative;
+    width: 100%;
     flex-wrap: wrap;
     justify-content: space-between;
     ${font({ weight: 300, Fmin: 10, Fmax: 16 })}
@@ -58,11 +63,12 @@ const StyledUser = styled.div`
         background-color: ${theme.color.background.primary};
         bottom: 0;
     }
-    @media ${theme.media.mobile} {
-        align-items: flex-start;
+    &:hover {
+        outline: 1px solid ${theme.color.background.primary};
+        background-color: ${theme.color.background.primary};
+        border-radius: 10px;
     }
 `
-
 const UserInfo = styled.div`
     width: 65%;
     display: flex;
@@ -70,55 +76,62 @@ const UserInfo = styled.div`
     color: ${theme.color.text.primary_dark};
     gap: 15px;
 `
-
 const UserAvatar = styled.img`
    border-radius: 50% 50%;
    object-fit: cover;
    aspect-ratio: 1/1;
-   max-width: 54px;
+   width: 54px;
    background-color: ${theme.color.background.primary};
    border: 1px solid ${theme.color.text.placeholder};
    @media ${theme.media.mobile} {
-        max-width: 40px;
+        width: 40px;
     }
 `
-
-const UserName = styled.span`
-    white-space: nowrap;
+const DefaultAvatar = styled(Icon)`
+    border-radius: 50% 50%;
+   object-fit: cover;
+   aspect-ratio: 1/1;
+   width: 54px;
+   background-color: ${theme.color.background.primary};
+   border: 1px solid ${theme.color.text.placeholder};
+   @media ${theme.media.mobile} {
+        width: 40px;
+    }
+`
+const UserName = styled.p`
+    text-align: center;
+    overflow-wrap: anywhere;
     ${font({ weight: 700, Fmin: 10, Fmax: 16 })}
     color: ${theme.color.text.primary_dark};
-    text-align: center;
 `
-
-const UserStatus = styled.span`
+const UserStatus = styled.p`
     text-align: start;
+    white-space: normal;
     ${font({ weight: 400, Fmin: 12, Fmax: 16 })}
     color: ${theme.color.text.primary_dark};
 `
-
 // const UserLocation = styled.span`
 //     justify-self: flex-end;
 //     white-space: nowrap;
 //     ${font({weight: 300, Fmin: 10, Fmax: 12})}
 // `
-
-const StatusContainer = styled(FlexWrapper)`
-    width: 100%;
+const StatusContainer = styled.div`
+    width: 70%;
 `
-
 const ButtonContainer = styled(FlexWrapper)`
-    min-width: fit-content;
     width: 30%;
     align-items: center;
+    justify-content: center;
 `
 
-const StyledNavLink = styled(NavLink)`
+const AvatarContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: 5px;
     align-items: center;
     justify-content: center;
     width: 25%;
+    color: ${theme.color.text.placeholder};
     @media ${theme.media.mobile} {
         width: 100%;
     }
