@@ -7,6 +7,7 @@ type ButtonPropsType = {
     variant: 'primary' | 'outlined' | 'link'
     className?: string
     isActive?: boolean
+    disabled?: boolean
     onClick: (e: MouseEvent<HTMLButtonElement>) => void
 }
 
@@ -23,6 +24,7 @@ export const Button: React.FC<ButtonPropsType &
                 onClick={onClickButtonHandler}
                 className={props.className}
                 active={props.isActive?.toString() || 'false'}
+                disabled={props.disabled || false}
             >{props.children}</StyledButton>
         )
     }
@@ -30,6 +32,7 @@ export const Button: React.FC<ButtonPropsType &
 type StyledButtonPropsType = {
     variant: 'primary' | 'outlined' | 'link'
     active?: string
+    disabled?: boolean
 }
 
 const StyledButton = styled.button<StyledButtonPropsType>`
@@ -37,14 +40,6 @@ const StyledButton = styled.button<StyledButtonPropsType>`
     white-space: nowrap;
     max-width: 172px;
     ${font({ weight: 400, Fmin: 10, Fmax: 22 })}
-
-    ${props => props.disabled && css<StyledButtonPropsType>`
-        opacity: .3;
-        cursor: default;
-        &:hover {
-            
-        }
-    `}
     
     ${props => props.active === "true" ? `
         ${font({ weight: 700, Fmin: 10, Fmax: 22 })}
@@ -97,4 +92,9 @@ const StyledButton = styled.button<StyledButtonPropsType>`
             opacity: 1;
         }
     `}
+    
+        &:disabled {
+        opacity: .3;
+        cursor: default;
+    }
 `
