@@ -84,7 +84,7 @@ const Container = styled.div<ContainerPropsType>`
     }
     nav {
       grid-area: 1 / 1 / 3 / 1 ;
-      padding: 7px;
+      padding: 5px;
     }
     header {
       grid-area: 1 / 1 / 2 / 6 ;

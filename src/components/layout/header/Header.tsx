@@ -14,10 +14,7 @@ export const Header = () => {
 const StyledHeader = styled.header`
     display: flex;
     background-color: ${theme.color.background.primary};
-    padding: 22px 32px;
-    @media ${theme.media.mobile} {
-        padding: 20px;
-    }
+    padding: min(30px, 2vw);
 `
 
 type StyledFieldPropsType = {
@@ -32,7 +29,7 @@ const StyledField = styled(Field)<StyledFieldPropsType>`
     background-position-x: 22px; 
     
     &::placeholder {
-    color: ${theme.color.text.primary_dark};
+        color: ${theme.color.text.primary_dark};
     }
 
 `

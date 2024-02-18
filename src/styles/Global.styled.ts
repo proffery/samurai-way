@@ -38,22 +38,13 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     main {
-        padding: 0 32px;
-        gap: 32px;
+        padding: 0 min(30px, 2vw);
+        gap: min(30px, 2vw);
         background-color: ${theme.color.background.primary};
         scroll-behavior: smooth;
         overflow-y: auto;
-        @media ${theme.media.mobile} {
-            padding: 0 20px;
-            gap: 20px;
-        }
     }
 
-    section {
-        display: flex;
-        border-radius: 10px;
-        background-color: ${theme.color.background.block};
-    }
 
     @media (prefers-reduced-motion: reduce) {
         animation: unset;

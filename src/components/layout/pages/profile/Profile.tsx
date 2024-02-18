@@ -36,7 +36,7 @@ export const Profile: React.FC<ProfilePropsType> = (props) => {
                 follow={props.followProfile}
                 unfollow={props.unfollowProfile}
             />
-            <ProfileAboutBlock />
+            <ProfileAboutBlock contacts={props.profileData.contacts}/>
             <ProfilePostsBlock
                 posts={props.posts}
                 newPostForm={props.newPostForm}

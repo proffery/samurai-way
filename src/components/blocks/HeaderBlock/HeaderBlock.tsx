@@ -6,7 +6,7 @@ import { theme } from "../../../styles/Theme.styled"
 import { font } from "../../../styles/Font";
 import { NavLink } from "react-router-dom"
 import { RequestStatusType } from "../../../redux/appReducer"
-import defaultAvatar from '../../../assets/images/avatar-default.svg'
+import { BlockSection } from "../../micro/BlockSection.styled"
 
 type HeaderBlockPropsType = {
     userId: number
@@ -55,10 +55,10 @@ export const HeaderBlock: React.FC<HeaderBlockPropsType> = (props) => {
     )
 }
 
-const StyledHeaderBlock = styled.section`
+const StyledHeaderBlock = styled(BlockSection)`
     aspect-ratio: 19 / 7;
-    display: flex;
     flex-direction: column;
+    padding: 0;
 `
 const BackgroundConainer = styled.div`
     display: flex;
@@ -66,10 +66,11 @@ const BackgroundConainer = styled.div`
     width: 100%;
     height: 70%;
     color: ${theme.color.text.placeholder};
-`
+    `
 const BackgroundImage = styled.img`
     object-fit: cover;
     object-position: center;
+    border-radius: 10px 10px 0 0;
     width: 100%;
     height: 100%;
 `
@@ -90,7 +91,6 @@ const DefaultAvatar = styled(Icon)`
     border-radius: 50% 50%;
     border: 1px solid ${theme.color.text.placeholder};
 `
-
 const InfoConainer = styled.div`
     display: flex;
     align-items: center;
@@ -103,15 +103,13 @@ const TextContainer = styled.div`
     flex-direction: column;
     color: ${theme.color.text.primary};
 `
-
 const Name = styled.span`
+    white-space: nowrap;
     ${font({ weight: 700, Fmin: 16, Fmax: 30 })}
 `
-
 const About = styled.span`
     ${font({ weight: 100, Fmin: 10, Fmax: 22 })}
 `
-
 const ButtonsContainer = styled.div`
     display: flex;
     height: 40%;
