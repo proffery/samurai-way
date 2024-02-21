@@ -33,8 +33,8 @@ const StyledUsers = styled.main`
 `
 const OtherBlocks = styled(FlexWrapper)`
    flex-direction : column;
-   gap: 30px;
-   width: 23%;
+   gap: min(30px, 2vw);
+   width: 24%;
    @media ${theme.media.mobile} {
         width: 100%;
     }

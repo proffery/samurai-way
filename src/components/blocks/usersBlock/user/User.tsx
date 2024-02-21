@@ -32,7 +32,6 @@ export const User: React.FC<UserPropsType> = (props) => {
                 </AvatarContainer>
                 <StatusContainer>
                     {props.user.status && <UserStatus>{props.user.status + ' '}</UserStatus>}
-                    {/* <UserLocation>{props.user.location.city + ', ' + props.user.location.country + ' '}</UserLocation> */}
                 </StatusContainer>
             </UserInfo>
             <ButtonContainer>
@@ -101,7 +100,7 @@ const DefaultAvatar = styled(Icon)`
 const UserName = styled.p`
     text-align: center;
     overflow-wrap: anywhere;
-    ${font({ weight: 700, Fmin: 10, Fmax: 16 })}
+    ${font({ weight: 600, Fmin: 10, Fmax: 16 })}
     color: ${theme.color.text.primary_dark};
 `
 const UserStatus = styled.p`
@@ -110,11 +109,6 @@ const UserStatus = styled.p`
     ${font({ weight: 400, Fmin: 12, Fmax: 16 })}
     color: ${theme.color.text.primary_dark};
 `
-// const UserLocation = styled.span`
-//     justify-self: flex-end;
-//     white-space: nowrap;
-//     ${font({weight: 300, Fmin: 10, Fmax: 12})}
-// `
 const StatusContainer = styled.div`
     width: 70%;
 `
@@ -123,7 +117,6 @@ const ButtonContainer = styled(FlexWrapper)`
     align-items: center;
     justify-content: center;
 `
-
 const AvatarContainer = styled.div`
     display: flex;
     flex-direction: column;

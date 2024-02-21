@@ -11,7 +11,7 @@ export const AppGlobalConditionSwicher: React.FC<AppGlobalConditionSwicherPropsT
 
     const conditionsSwitcher = (status: RequestStatusType) => {
         switch (status) {
-            case null:
+            case 'info':
                 return <Alert requestStatus={status} alertMessage={props.alertMessage} />
             case 'failed':
                 return <Alert requestStatus={status} alertMessage={props.alertMessage} />

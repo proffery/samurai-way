@@ -16,8 +16,10 @@ export const Alert: React.FC<AlertPropsType> = (props) => {
                 return <Icon iconId="error" />
             case 'succeeded':
                 return <Icon iconId="success" viewBox="0 0 1024 1024" />
-            default:
+            case 'info':
                 return <Icon iconId="info" />
+            default:
+                return 
         }
     }
 
@@ -52,7 +54,7 @@ const AlertContainer = styled.div<StyledAlertPropsType>`
     ${props => props.request === 'succeeded' && css<StyledAlertPropsType>`
         background-color: ${theme.color.background.status_success};
     `}
-    ${props => (props.request === null || props.request === 'loading') && css<StyledAlertPropsType>`
+    ${props => (props.request === 'info') && css<StyledAlertPropsType>`
         background-color: ${theme.color.background.status_info};
     `}
     @media ${theme.media.mobile} {

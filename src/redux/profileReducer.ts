@@ -2,7 +2,7 @@ import { v1 } from "uuid"
 import { GetProfileResponseType, socialNetworkAPI } from "../api/social-network-api"
 import { AppDispatchType, AppRootStateType } from "./redux-store"
 import { SetAlertMessageActionType, SetAppRequestStatusActionType, setAppRequestStatusAC } from "./appReducer"
-import { showGlobalAppStatus } from "./utils/setGlobalAppStatus"
+import { showGlobalAppStatus } from "./utils/showGlobalAppStatus"
 import { FollowUserActionType, UnfollowUserActionType } from "./usersReducer"
 
 const ADD_POST = 'ADD-POST'

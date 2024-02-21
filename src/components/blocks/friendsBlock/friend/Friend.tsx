@@ -6,18 +6,18 @@ import { UserResponseType } from "../../../../api/social-network-api"
 import { Icon } from "../../../micro/icon/Icon"
 
 type FriendPropsType = {
-    friend: UserResponseType
+    friendData: UserResponseType
 }
 
 export const Friend: React.FC<FriendPropsType> = (props) => {
     return (
-        <StyledFriend to={"/profile/" + props.friend.id} >
+        <StyledFriend to={"/profile/" + props.friendData.id} >
             <AvaterContainer>
-                {props.friend.photos.small
-                    ? <Avatar src={props.friend.photos.small} />
+                {props.friendData.photos.small
+                    ? <Avatar src={props.friendData.photos.small} />
                     : <DefaultAvatar iconId={'avatarDefault'} viewBox="0 0 1024 1024" height={'100%'} width={'100%'} />}
             </AvaterContainer>
-            <Name>{props.friend.name}</Name>
+            <Name>{props.friendData.name}</Name>
 
         </StyledFriend>
     )

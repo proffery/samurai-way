@@ -9,7 +9,7 @@ export type IconLinksStateType = {
     icon_id: string
     viewBox: string
 }
-export type RequestStatusType = null | 'loading' | 'succeeded' | 'failed'
+export type RequestStatusType = null | 'loading' | 'succeeded' | 'failed' | 'info'
 
 export type AppStateType = {
     socialLinks: IconLinksStateType[]

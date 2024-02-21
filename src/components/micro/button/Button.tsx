@@ -65,7 +65,7 @@ const StyledButton = styled.button<StyledButtonPropsType>`
     `}
     
     ${props => props.variant === 'outlined' && css<StyledButtonPropsType>`
-        background-color: ${theme.color.background.primary};
+        background-color: transparent;
         color: ${theme.color.text.primary};
         border-color: ${theme.color.background.second};
         border-radius: 10px;

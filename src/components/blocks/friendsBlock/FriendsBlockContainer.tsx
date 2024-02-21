@@ -41,7 +41,7 @@ export const FriendsBlockAPI: React.FC<FriendsBlockAPIPropsType> = (props) => {
             refreshFriends={refreshFriends}
         />
     )
-}
+}   
 
 
 type MapStatePropsType = {

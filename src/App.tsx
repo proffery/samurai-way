@@ -2,7 +2,6 @@ import styled, { css } from 'styled-components';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { Footer } from "./components/layout/footer/Footer";
 import { Navbar } from "./components/layout/navbar/Navbar";
-import { Header } from "./components/layout/header/Header";
 import { Users } from "./components/layout/pages/users/Users";
 import { Messages } from "./components/layout/pages/messages/Messages";
 import { Notifications } from "./components/layout/pages/notifications/Notifications";
@@ -14,6 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppStateType } from './redux/appReducer';
 import { AppGlobalConditionSwicher } from './components/micro/appGlobalConditions/AppGlobalConditionSwicher';
 import { ProfileContainer } from './components/layout/pages/profile/ProfileContainer';
+import { HeaderContainer } from './components/layout/header/HeaderContainer';
 
 
 
@@ -32,7 +32,7 @@ function App() {
           navbarCollapsed={appData.navbarCollapsed}
           dispatch={dispatch}
         />
-        <Header />
+        <HeaderContainer />
         <Switch>
           <Route path='/' exact render={() => <ProfileContainer />} />
           <Route path='/profile/:userId?' render={() => <ProfileContainer />} />

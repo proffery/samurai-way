@@ -1,7 +1,7 @@
 import { UserResponseType, socialNetworkAPI } from '../api/social-network-api';
 import { FriendsType } from './friendsReducer';
 import { SetAppRequestStatusActionType, setAppRequestStatusAC } from './appReducer';
-import { showGlobalAppStatus } from './utils/setGlobalAppStatus';
+import { showGlobalAppStatus } from './utils/showGlobalAppStatus';
 import { AppDispatchType } from './redux-store';
 
 const SET_POSSIBLE_FRIENDS = 'SET-POSSIBLE-FRIENDS'
@@ -59,7 +59,7 @@ export const getPossibleFriendsTC = (pageNumber: number, possibleFriendsOnPage: 
                 dispatch(setPossibleFriendsCurrentPageAC(pageNumber))
                 dispatch(setPossibleFriendsOnPageAC(possibleFriendsOnPage))
                 dispatch(setPossibleFriendsAC(res.data.items))
-                dispatch(setAppRequestStatusAC('succeeded'))
+                dispatch(setAppRequestStatusAC(null))
             })
             .catch(error => showGlobalAppStatus(dispatch, 'failed', error.message))
     }

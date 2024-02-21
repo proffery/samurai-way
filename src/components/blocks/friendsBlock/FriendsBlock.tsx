@@ -22,7 +22,7 @@ export const FriendsBlock: React.FC<FriendsBlockPropsType> = (props) => {
     const friendsList = () => {
         return (
             <StyledFriendsList>
-                {props.friends.map(friend => <Friend key={friend.id} friend={friend} />)}
+                {props.friends.map(friend => <Friend key={friend.id} friendData={friend} />)}
             </StyledFriendsList>
         )
     }

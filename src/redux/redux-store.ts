@@ -6,13 +6,15 @@ import { usersReducer } from "./usersReducer";
 import { friendsReducer } from "./friendsReducer";
 import { possibleFriendsReducer } from "./possibleFriendsReducer";
 import { messagesReducer } from "./messagesReducer";
+import { authReducer } from "./authReducer";
 const rootReducer = combineReducers({
     profile: profileReducer,
     messages: messagesReducer,
     friends: friendsReducer,
     possibleFriends: possibleFriendsReducer,
     users: usersReducer,
-    app: appReducer
+    app: appReducer,
+    auth: authReducer
 })
 export const store = createStore(rootReducer, applyMiddleware(thunk))
 export type AppRootStateType = ReturnType<typeof rootReducer>

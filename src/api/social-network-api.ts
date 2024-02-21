@@ -32,6 +32,7 @@ export type ResponseType<D = {}> = {
     data: D
 }
 
+
 export type GetProfileResponseContactsType = {
     facebook: string
     website: string
@@ -56,6 +57,12 @@ export type GetProfileResponseType = {
     }
 }
 
+export type GetMeDataType = {
+    id: number,
+    email: string,
+    login: string
+}
+
 export const socialNetworkAPI = {
     getUsers(pageNumber: number, usersOnPage: number) {
         return instance.get<GetUsersResponseType>(`/users?page=${pageNumber}&count=${usersOnPage}`)
@@ -74,5 +81,8 @@ export const socialNetworkAPI = {
     },
     getProfile(userId: number) {
         return instance.get<GetProfileResponseType>(`/profile/${userId}`)
+    },
+    getMe() {
+        return instance.get<ResponseType<GetMeDataType>>('/auth/me')
     }
 }
