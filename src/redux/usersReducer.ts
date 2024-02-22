@@ -1,5 +1,5 @@
 import { UserResponseType, socialNetworkAPI } from "../api/social-network-api"
-import { SetAlertMessageActionType, SetAppIsLoadingActionType, setAppAlertMessageAC, setAppIsLoading } from "./appReducer"
+import { AddAlertActionType, SetAppIsLoadingActionType, addAppAlert, setAppIsLoading } from "./appReducer"
 import { AppDispatchType } from "./redux-store"
 
 const FOLLOW = 'FOLLOW'
@@ -22,7 +22,7 @@ export type UsersReducerActionsType =
     | ReturnType<typeof changeUsersFilterAC>
     | ReturnType<typeof changeUsersIsLoading>
     | SetAppIsLoadingActionType
-    | SetAlertMessageActionType
+    | AddAlertActionType
 
 export type FollowUserActionType = ReturnType<typeof followAC>
 export type UnfollowUserActionType = ReturnType<typeof unfollowAC>
@@ -119,7 +119,7 @@ export const getAllUsersTC = (pageNumber: number, usersOnPage: number) => (dispa
             dispatch(setUsersAC(res.data.items))
         })
         .catch(error => {
-            dispatch(setAppAlertMessageAC(error.message))
+            dispatch(addAppAlert('failed', error.message))
         })
         .finally(() => dispatch(setAppIsLoading(false)))
 }
@@ -134,7 +134,7 @@ export const getFollowedUsersTC = (pageNumber: number, usersOnPage: number) => (
             dispatch(setUsersAC(res.data.items))
         })
         .catch(error => {
-            dispatch(setAppAlertMessageAC(error.message))
+            dispatch(addAppAlert('failed', error.message))
         })
         .finally(() => dispatch(setAppIsLoading(false)))
 }
@@ -149,7 +149,7 @@ export const getUnfollowedUsersTC = (pageNumber: number, usersOnPage: number) =>
             dispatch(setUsersAC(res.data.items))
         })
         .catch(error => {
-            dispatch(setAppAlertMessageAC(error.message))
+            dispatch(addAppAlert('failed', error.message))
         })
         .finally(() => dispatch(setAppIsLoading(false)))
 }
@@ -161,14 +161,14 @@ export const followUsersTC = (userId: number) => (dispatch: AppDispatchType) => 
         .then(res => {
             if (res.data.resultCode === 0) {
                 dispatch(followAC(userId))
-                dispatch(setAppAlertMessageAC('Followed!'))
+                dispatch(addAppAlert('succeeded', 'Followed!'))
             }
             else {
-                dispatch(setAppAlertMessageAC(res.data.messages[0]))
+                dispatch(addAppAlert('failed', res.data.messages[0]))
             }
         })
         .catch(error => {
-            dispatch(setAppAlertMessageAC(error.message))
+            dispatch(addAppAlert('failed', error.message))
         })
         .finally(() => {
             dispatch(setAppIsLoading(false))
@@ -183,14 +183,14 @@ export const unfollowUsersTC = (userId: number) => (dispatch: AppDispatchType) =
         .then(res => {
             if (res.data.resultCode === 0) {
                 dispatch(unfollowAC(userId))
-                dispatch(setAppAlertMessageAC('Unfollowed!'))
+                dispatch(addAppAlert('succeeded', 'Unfollowed!'))
             }
             else {
-                dispatch(setAppAlertMessageAC(res.data.messages[0]))
+                dispatch(addAppAlert('failed', res.data.messages[0]))
             }
         })
         .catch(error => {
-            dispatch(setAppAlertMessageAC(error.message))
+            dispatch(addAppAlert('failed', error.message))
         })
         .finally(() => {
             dispatch(setAppIsLoading(false))

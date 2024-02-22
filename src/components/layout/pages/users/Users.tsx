@@ -4,7 +4,7 @@ import { FriendsBlockContainer } from "../../../blocks/friendsBlock/FriendsBlock
 import styled from "styled-components"
 import { FlexWrapper } from "../../../micro/FlexWrapper.styled"
 import { PossibleFriendsBlockContainer } from "../../../blocks/friendsBlock/PossibleFriendsBlockContainer"
-import { ToTopLink } from "../../../micro/toTopLink/ToTopLink"
+import { ToTop } from "../../../micro/toTop/ToTop"
 import { theme } from "../../../../styles/Theme.styled"
 
 type UsersPropsType = {
@@ -19,7 +19,7 @@ export const Users: React.FC<UsersPropsType> = (props) => {
                 <FriendsBlockContainer />
                 <PossibleFriendsBlockContainer />
             </OtherBlocks>
-            <ToTopLink top_block_anchor_id="all-users"/>
+            <ToTop top_block_anchor_id="all-users"/>
         </StyledUsers>
     )
 }

@@ -1,7 +1,7 @@
 import { v1 } from "uuid"
 import { GetProfileResponseType, socialNetworkAPI } from "../api/social-network-api"
 import { AppDispatchType, AppRootStateType } from "./redux-store"
-import { SetAlertMessageActionType, SetAppIsLoadingActionType, setAppAlertMessageAC, setAppIsLoading } from "./appReducer"
+import { AddAlertActionType, SetAppIsLoadingActionType, addAppAlert, setAppIsLoading } from "./appReducer"
 import { FollowUserActionType, UnfollowUserActionType } from "./usersReducer"
 
 const ADD_POST = 'ADD-POST'
@@ -17,7 +17,7 @@ export type ProfileReducerActionsType =
     | ReturnType<typeof setProfileDataAction>
     | ReturnType<typeof changeFollowStatusAction>
     | SetAppIsLoadingActionType
-    | SetAlertMessageActionType
+    | AddAlertActionType
     | FollowUserActionType
     | UnfollowUserActionType
 
@@ -130,7 +130,7 @@ export const setProfileData = (userId: number) => (dispatch: AppDispatchType) =>
             dispatch(changeFollowStatusAction(res.data))
         })
         .catch(error => {
-            dispatch(setAppAlertMessageAC(error.message))
+            dispatch(addAppAlert('failed', error.message))
         })
         .finally(() => dispatch(setAppIsLoading(false)))
 }
@@ -141,14 +141,14 @@ export const followProfile = (userId: number) => (dispatch: AppDispatchType) => 
         .then(res => {
             if (res.data.resultCode === 0) {
                 dispatch(changeFollowStatusAction(true))
-                dispatch(setAppAlertMessageAC('Followed!'))
+                dispatch(addAppAlert('succeeded', 'Followed!'))
             }
             else {
-                dispatch(setAppAlertMessageAC(res.data.messages[0]))
+                dispatch(addAppAlert('failed', res.data.messages[0]))
             }
         })
         .catch(error => {
-            dispatch(setAppAlertMessageAC(error.message))
+            dispatch(addAppAlert('failed', error.message))
         })
         .finally(() => dispatch(setAppIsLoading(false)))
 }
@@ -159,14 +159,14 @@ export const unfollowProfile = (userId: number) => (dispatch: AppDispatchType) =
         .then(res => {
             if (res.data.resultCode === 0) {
                 dispatch(changeFollowStatusAction(false))
-                dispatch(setAppAlertMessageAC('Unfollowed!'))
+                dispatch(addAppAlert('succeeded', 'Unfollowed!'))
             }
             else {
-                dispatch(setAppAlertMessageAC(res.data.messages[0]))
+                dispatch(addAppAlert('failed', res.data.messages[0]))
             }
         })
         .catch(error => {
-            dispatch(setAppAlertMessageAC(error.message))
+            dispatch(addAppAlert('failed', error.message))
         })
         .finally(() => dispatch(setAppIsLoading(false)))
 }

@@ -7,12 +7,12 @@ import { useEffect, useState } from "react"
 import React from "react"
 import { Icon } from "../../../components/micro/icon/Icon"
 import { IconLinksStateType, setAppNavbarCollapsedAC } from "../../../redux/appReducer"
-import { Dispatch } from "redux"
+import { AppDispatchType } from "../../../redux/redux-store"
 
 type NavbarPropsType = {
     menuItems: IconLinksStateType[]
     navbarCollapsed: boolean
-    dispatch: Dispatch
+    dispatch: AppDispatchType
 }
 
 export const Navbar: React.FC<NavbarPropsType> = (props) => {

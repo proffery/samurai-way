@@ -1,5 +1,8 @@
+import { v1 } from "uuid"
+
 const APP_SET_IS_LOADING = 'APP-SET-IS_LOADING'
-const APP_SET_ALERT_MSG = 'APP-SET-ALERT-MSG'
+const APP_ADD_ALERT = 'APP-ADD-ALERT'
+const APP_REMOVE_ALERT = 'APP-REMOVE-ALERT'
 const APP_SET_NAVBAR_COLLAPSED = 'APP-SET-NAVBAR-COLLAPSED'
 
 export type IconLinksStateType = {
@@ -9,22 +12,30 @@ export type IconLinksStateType = {
     icon_id: string
     viewBox: string
 }
-export type RequestStatusType = null | 'succeeded' | 'failed' | 'info'
+export type AlertType = 'succeeded' | 'failed' | 'info'
+
+export type AlertObjectType = {
+    id: string
+    type: AlertType
+    message: string
+}
 
 export type AppStateType = {
     socialLinks: IconLinksStateType[]
     menuItems: IconLinksStateType[]
     isLoading: boolean
-    alertMessage: string | null
     navbarCollapsed: boolean
+    alerts: AlertObjectType[]
 }
-export type SetAlertMessageActionType = ReturnType<typeof setAppAlertMessageAC>
+export type AddAlertActionType = ReturnType<typeof addAppAlert>
+export type RemoveAlertActionType = ReturnType<typeof removeAlert>
 export type SetNavbarCollapsedActionType = ReturnType<typeof setAppNavbarCollapsedAC>
 export type SetAppIsLoadingActionType = ReturnType<typeof setAppIsLoading>
 
 type AppActionsType =
     | SetAppIsLoadingActionType
-    | SetAlertMessageActionType
+    | AddAlertActionType
+    | RemoveAlertActionType
     | SetNavbarCollapsedActionType
 
 const initialState: AppStateType = {
@@ -110,16 +121,18 @@ const initialState: AppStateType = {
         }
     ],
     isLoading: false,
-    alertMessage: null,
-    navbarCollapsed: true
+    navbarCollapsed: true,
+    alerts: []
 }
 
 export const appReducer = (state: AppStateType = initialState, action: AppActionsType): AppStateType => {
     switch (action.type) {
         case APP_SET_IS_LOADING:
             return { ...state, isLoading: action.payload.isLoading }
-        case APP_SET_ALERT_MSG:
-            return { ...state, alertMessage: action.payload.alertMessage }
+        case APP_ADD_ALERT:
+            return { ...state, alerts: [...state.alerts, action.payload.newAlert] }
+        case APP_REMOVE_ALERT:
+            return { ...state, alerts: state.alerts.filter(alert => alert.id !== action.payload.id) }
         case APP_SET_NAVBAR_COLLAPSED:
             return { ...state, navbarCollapsed: action.payload.navbarCollapsed }
         default:
@@ -130,8 +143,15 @@ export const appReducer = (state: AppStateType = initialState, action: AppAction
 export const setAppIsLoading = (isLoading: boolean) =>
     ({ type: APP_SET_IS_LOADING, payload: { isLoading } } as const)
 
-export const setAppAlertMessageAC = (alertMessage: string | null) =>
-    ({ type: APP_SET_ALERT_MSG, payload: { alertMessage } } as const)
-
+export const addAppAlert = (type: AlertType, message: string) => {
+    const newAlert: AlertObjectType = {
+        id: v1(),
+        message,
+        type
+    }
+    return { type: APP_ADD_ALERT, payload: { newAlert } } as const
+}
+export const removeAlert = (id: string) =>
+    ({ type: APP_REMOVE_ALERT, payload: { id } } as const)
 export const setAppNavbarCollapsedAC = (navbarCollapsed: boolean) =>
     ({ type: APP_SET_NAVBAR_COLLAPSED, payload: { navbarCollapsed } } as const) 

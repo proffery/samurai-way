@@ -13,7 +13,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppStateType } from './redux/appReducer';
 import { ProfileContainer } from './components/layout/pages/profile/ProfileContainer';
 import { HeaderContainer } from './components/layout/header/HeaderContainer';
-import { LoadingLoader } from './components/micro/appGlobalConditions/conditions/LoadingLoader.styled';
+import { LoadingLoader } from './components/micro/loaders/LoadingLoader.styled';
+import { AlertsContainer } from './components/micro/alerts/AlertsContainer';
 
 
 
@@ -24,6 +25,7 @@ function App() {
     <Router >
       <Container collapsed={appData.navbarCollapsed.toString()}>
         {appData.isLoading && <LoadingLoader />}
+        <AlertsContainer alerts={appData.alerts}  dispatch={dispatch}/>
         <Navbar
           menuItems={appData.menuItems}
           navbarCollapsed={appData.navbarCollapsed}

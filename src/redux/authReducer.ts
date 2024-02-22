@@ -1,5 +1,5 @@
 import { GetMeDataType, socialNetworkAPI } from '../api/social-network-api';
-import { SetAppIsLoadingActionType, setAppAlertMessageAC, setAppIsLoading } from './appReducer';
+import { SetAppIsLoadingActionType, addAppAlert, setAppIsLoading } from './appReducer';
 import { AppDispatchType } from './redux-store';
 
 const SET_AUTH_DATA = 'AUTH/SET-AUTH-DATA'
@@ -58,7 +58,7 @@ export const getAuthUserData = () =>
                 }
                 else {
                     dispatch(setIsLoggedInAC(false))
-                    dispatch(setAppAlertMessageAC(res.data.messages[0]))
+                    dispatch(addAppAlert('failed', res.data.messages[0]))
                 }
                 return socialNetworkAPI.getProfile(res.data.data.id)
             })
@@ -66,7 +66,7 @@ export const getAuthUserData = () =>
                 dispatch(setPhotoUrlAC(res.data.photos.small))
             })
             .catch(error => {
-                dispatch(setAppAlertMessageAC(error.message))
+                dispatch(addAppAlert('failed', error.message))
             })
             .finally(() => dispatch(setAppIsLoading(false)))
     }
@@ -79,11 +79,11 @@ export const logout = () => (dispatch: AppDispatchType) => {
                 dispatch(setIsLoggedInAC(false))
             }
             else {
-                dispatch(setAppAlertMessageAC(res.data.messages[0]))
+                dispatch(addAppAlert('failed', res.data.messages[0]))
             }
         })
         .catch(error => {
-            dispatch(setAppAlertMessageAC(error.message))
+            dispatch(addAppAlert('failed', error.message))
         })
         .finally(() => dispatch(setAppIsLoading(false)))
 }

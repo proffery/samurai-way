@@ -7,7 +7,7 @@ type ToTopLinkPropsType = {
     top_block_anchor_id: string
 }
 
-export const ToTopLink: React.FC<ToTopLinkPropsType> = (props) => {
+export const ToTop: React.FC<ToTopLinkPropsType> = (props) => {
     const [scrolled, setScrolled] = useState(false)
     useEffect(() => {
         const main = document.querySelector('main')

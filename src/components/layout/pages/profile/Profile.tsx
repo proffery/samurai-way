@@ -3,7 +3,7 @@ import { AboutBlock } from "../../../blocks/aboutBlock/AboutBlock"
 import { HeaderBlock } from "../../../blocks/headerBlock/HeaderBlock"
 import styled from "styled-components"
 import { theme } from "../../../../styles/Theme.styled"
-import { ToTopLink } from "../../../micro/toTopLink/ToTopLink"
+import { ToTop } from "../../../micro/toTop/ToTop"
 import { FriendsBlockContainer } from "../../../blocks/friendsBlock/FriendsBlockContainer"
 import { PossibleFriendsBlockContainer } from "../../../blocks/friendsBlock/PossibleFriendsBlockContainer"
 import { PostsBlock } from "../../../blocks/postsBlock/PostsBlock"
@@ -44,7 +44,7 @@ export const Profile: React.FC<ProfilePropsType> = (props) => {
             />
             <ProfileFriendsBlock />
             <ProfilePossibleFriendsBlock />
-            <ToTopLink top_block_anchor_id="profile-header" />
+            <ToTop top_block_anchor_id="profile-header" />
         </StyledProfile>
     )
 }

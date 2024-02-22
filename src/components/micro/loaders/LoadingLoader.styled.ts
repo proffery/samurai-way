@@ -1,4 +1,4 @@
-import { theme } from '../../../../styles/Theme.styled';
+import { theme } from '../../../styles/Theme.styled';
 import styled from "styled-components";
 
 export const LoadingLoader = styled.div`

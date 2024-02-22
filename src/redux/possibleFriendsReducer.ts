@@ -1,6 +1,6 @@
 import { UserResponseType, socialNetworkAPI } from '../api/social-network-api';
 import { FriendsType } from './friendsReducer';
-import { SetAppIsLoadingActionType, setAppAlertMessageAC, setAppIsLoading } from './appReducer';
+import { SetAppIsLoadingActionType, addAppAlert, setAppIsLoading } from './appReducer';
 import { AppDispatchType } from './redux-store';
 
 const SET_POSSIBLE_FRIENDS = 'SET-POSSIBLE-FRIENDS'
@@ -60,7 +60,7 @@ export const getPossibleFriendsTC = (pageNumber: number, possibleFriendsOnPage: 
                 dispatch(setPossibleFriendsAC(res.data.items))
             })
             .catch(error => {
-                dispatch(setAppAlertMessageAC(error.message))
+                dispatch(addAppAlert('failed', error.message))
             })
             .finally(() => dispatch(setAppIsLoading(false)))
     }

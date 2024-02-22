@@ -1,32 +1,31 @@
 import styled, { css } from "styled-components"
-import { RequestStatusType, setAppAlertMessageAC, setAppIsLoading } from "../../../../redux/appReducer"
-import { theme } from "../../../../styles/Theme.styled"
-import { Icon } from "../../icon/Icon"
+import { AlertType } from "../../../redux/appReducer"
+import { theme } from "../../../styles/Theme.styled"
+import { Icon } from "../icon/Icon"
 import { useEffect } from "react"
-import { useDispatch } from "react-redux"
+import { FlexWrapper } from "../FlexWrapper.styled"
 
 type AlertPropsType = {
-    requestStatus: RequestStatusType
-    alertMessage: string | null
+    alertType: AlertType
+    alertMessage: string
+    alertId: string
+    removeAlert: (id: string) => void
 }
 
+const REMOVE_ALERT_DELAY = 3000
 
 export const Alert: React.FC<AlertPropsType> = (props) => {
-    const dispatch = useDispatch()
 
-    // useEffect(() => {
-    //     dispatch(setAppIsLoading(props.requestStatus))
-    //     dispatch(setAppAlertMessageAC(props.alertMessage))
-    //     const timeout = setTimeout(() => {
-    //         dispatch(setAppIsLoading(null))
-    //         dispatch(setAppAlertMessageAC(null))
-    //     }, 2000)
-    //     return () => {
-    //         clearTimeout(timeout)
-    //     }
-    // }, [])
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            props.removeAlert(props.alertId)
+        }, REMOVE_ALERT_DELAY)
+        return () => {
+            clearTimeout(timeout)
+        }
+    }, [])
 
-    const iconSwitcher = (status: RequestStatusType) => {
+    const iconSwitcher = (status: AlertType) => {
         switch (status) {
             case 'failed':
                 return <Icon iconId="error" />
@@ -35,35 +34,38 @@ export const Alert: React.FC<AlertPropsType> = (props) => {
             case 'info':
                 return <Icon iconId="info" />
             default:
-                return
+                return null
         }
     }
 
-    return props.alertMessage ?
-        <AlertContainer request={props.requestStatus}>
-            {iconSwitcher(props.requestStatus)}
-            <Message>{props.alertMessage}</Message>
+    return (
+        <AlertContainer request={props.alertType}>
+            <FlexWrapper gap={"10px"} align={"center"}>
+                {iconSwitcher(props.alertType)}
+                <Message>{props.alertMessage}</Message>
+            </FlexWrapper>
+            <FlexWrapper align={"center"} onClick={() => props.removeAlert(props.alertId)}>
+                <Icon iconId={'cross'} />
+            </FlexWrapper>
         </AlertContainer>
-        : null
+    )
 }
 type StyledAlertPropsType = {
-    request: RequestStatusType
+    className?: string
+    request: AlertType
 }
 const AlertContainer = styled.div<StyledAlertPropsType>`
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 10px;
-    position: fixed;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
     color: #ffffff;
     border-radius: .5em;
     border: 1px solid;
     margin: 10px 0px;
     padding: 12px;
-    width: 400px;
-    z-index: 1000;
+    width: 100%;
+    
     ${props => props.request === 'failed' && css<StyledAlertPropsType>`
         background-color: ${theme.color.background.status_error};
     `}
@@ -74,7 +76,6 @@ const AlertContainer = styled.div<StyledAlertPropsType>`
         background-color: ${theme.color.background.status_info};
     `}
     @media ${theme.media.mobile} {
-        width: 200px;
         padding: 6px;
   }
 `
