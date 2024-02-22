@@ -7,7 +7,6 @@ import {
 } from "../../../redux/usersReducer"
 import { AppRootStateType } from "../../../redux/redux-store"
 import { useEffect } from "react"
-import { RequestStatusType } from "../../../redux/appReducer"
 
 type UsersBlockAPIPropsType = {
     users: UserStateType[]
@@ -15,7 +14,7 @@ type UsersBlockAPIPropsType = {
     totalUsersCount: number
     usersOnPage: number
     currentPage: number
-    appRequestStatus: RequestStatusType
+    appIsLoading: boolean
     follow: (userId: number) => void
     unfollow: (userId: number) => void
     getAllUsers: (currentPage: number, usersOnPage: number) => void
@@ -70,7 +69,7 @@ const UsersBlockAPI: React.FC<UsersBlockAPIPropsType> = (props) => {
             currentPage={props.currentPage}
             totalUsersCount={props.totalUsersCount}
             usersOnPage={props.usersOnPage}
-            appRequestStatus={props.appRequestStatus}
+            appIsLoading={props.appIsLoading}
             follow={props.follow}
             unfollow={props.unfollow}
             getAllUsers={props.getAllUsers}
@@ -87,7 +86,7 @@ const mapStateToProps = (state: AppRootStateType) => {
         usersOnPage: state.users.usersOnPage,
         currentPage: state.users.currentPage,
         usersFilter: state.users.usersFilter,
-        appRequestStatus: state.app.requestStatus
+        appIsLoading: state.app.isLoading
     }
 }
 

@@ -2,12 +2,10 @@ import { BlockHeader } from "../../micro/BlockHeader.styled"
 import { BlockSection } from "../../micro/BlockSection.styled"
 import { User } from "./user/User"
 import styled from "styled-components"
-import { UserResponseType } from "../../../api/social-network-api"
 import { FlexWrapper } from "../../micro/FlexWrapper.styled"
 import { UsersPagination } from "./UsersPagination"
 import { Button } from "../../micro/button/Button"
 import { UserStateType, UsersFilterType } from "../../../redux/usersReducer"
-import { RequestStatusType } from "../../../redux/appReducer"
 import { theme } from "../../../styles/Theme.styled"
 
 
@@ -17,7 +15,7 @@ export type UsersBlockPropsType = {
     currentPage: number
     usersOnPage: number
     totalUsersCount: number
-    appRequestStatus: RequestStatusType
+    appIsLoading: boolean
     follow: (userId: number) => void
     unfollow: (userId: number) => void
     getAllUsers: (currentPage: number, usersOnPage: number) => void
@@ -60,19 +58,19 @@ export const UsersBlock: React.FC<UsersBlockPropsType> = (props) => {
                 <Button 
                     variant={'link'}
                     isActive={props.usersFilter === 'all'}
-                    disabled={props.appRequestStatus === 'loading'}
+                    disabled={props.appIsLoading}
                     onClick={onAllFilterChangeHandler}
                 >{'All'}</Button>
                 <Button 
                     variant={'link'}
                     isActive={props.usersFilter === 'followed'}
-                    disabled={props.appRequestStatus === 'loading'}
+                    disabled={props.appIsLoading}
                     onClick={onFriendsFilterChangeHandler}
                 >{'Followed'}</Button>
                 <Button 
                     variant={'link'}
                     isActive={props.usersFilter === 'unfollowed'}
-                    disabled={props.appRequestStatus === 'loading'}
+                    disabled={props.appIsLoading}
                     onClick={onPossibleFilterChangeHandler}
                 >{'Unfollowed'}</Button>
             </FlexWrapper>
@@ -83,7 +81,7 @@ export const UsersBlock: React.FC<UsersBlockPropsType> = (props) => {
                     usersOnPage={props.usersOnPage}
                     currentPage={props.currentPage}
                     usersFilter={props.usersFilter}
-                    appRequestStatus={props.appRequestStatus}
+                    appIsLoading={props.appIsLoading}
                     onPageChangeHandler={props.onPageChangeHandler}
                 />
             </FlexWrapper>

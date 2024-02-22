@@ -1,8 +1,6 @@
 import { GetMeDataType, socialNetworkAPI } from '../api/social-network-api';
-import { SetAppRequestStatusActionType, setAppRequestStatusAC } from './appReducer';
-import { showGlobalAppStatus } from './utils/showGlobalAppStatus';
+import { SetAppIsLoadingActionType, setAppAlertMessageAC, setAppIsLoading } from './appReducer';
 import { AppDispatchType } from './redux-store';
-import { Dispatch } from 'redux';
 
 const SET_AUTH_DATA = 'AUTH/SET-AUTH-DATA'
 const SET_IS_LOGGED_IN = 'AUTH/SET-IS-LOGGED-IN'
@@ -12,7 +10,7 @@ export type AuthReducerActionsType =
     | ReturnType<typeof setAuthUserDataAC>
     | ReturnType<typeof setIsLoggedInAC>
     | ReturnType<typeof setPhotoUrlAC>
-    | SetAppRequestStatusActionType
+    | SetAppIsLoadingActionType
 
 export interface AuthReducerType extends GetMeDataType {
     isLoggedIn: boolean
@@ -51,7 +49,7 @@ export const setPhotoUrlAC = (photoUrl: string) =>
 
 export const getAuthUserData = () =>
     (dispatch: AppDispatchType) => {
-        dispatch(setAppRequestStatusAC('loading'))
+        dispatch(setAppIsLoading(true))
         socialNetworkAPI.getMe()
             .then(res => {
                 if (res.data.resultCode === 0) {
@@ -60,27 +58,32 @@ export const getAuthUserData = () =>
                 }
                 else {
                     dispatch(setIsLoggedInAC(false))
-                    showGlobalAppStatus(dispatch, 'failed', res.data.messages[0])
+                    dispatch(setAppAlertMessageAC(res.data.messages[0]))
                 }
                 return socialNetworkAPI.getProfile(res.data.data.id)
             })
             .then(res => {
                 dispatch(setPhotoUrlAC(res.data.photos.small))
-                dispatch(setAppRequestStatusAC(null))
             })
-            .catch(error => showGlobalAppStatus(dispatch, 'failed', error.message))
+            .catch(error => {
+                dispatch(setAppAlertMessageAC(error.message))
+            })
+            .finally(() => dispatch(setAppIsLoading(false)))
     }
 
-export const logout = () => (dispatch : AppDispatchType) => {
-    dispatch(setAppRequestStatusAC('loading'))
+export const logout = () => (dispatch: AppDispatchType) => {
+    dispatch(setAppIsLoading(true))
     socialNetworkAPI.logout()
-    .then(res => {
-        if (res.data.resultCode === 0) {
-            dispatch(setIsLoggedInAC(false))
-            dispatch(setAppRequestStatusAC(null))
-        }
-        else {
-            showGlobalAppStatus(dispatch, 'failed', res.data.messages[0])
-        }
-    })
+        .then(res => {
+            if (res.data.resultCode === 0) {
+                dispatch(setIsLoggedInAC(false))
+            }
+            else {
+                dispatch(setAppAlertMessageAC(res.data.messages[0]))
+            }
+        })
+        .catch(error => {
+            dispatch(setAppAlertMessageAC(error.message))
+        })
+        .finally(() => dispatch(setAppIsLoading(false)))
 }

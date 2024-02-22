@@ -1,8 +1,7 @@
 import { v1 } from "uuid"
 import { GetProfileResponseType, socialNetworkAPI } from "../api/social-network-api"
 import { AppDispatchType, AppRootStateType } from "./redux-store"
-import { SetAlertMessageActionType, SetAppRequestStatusActionType, setAppRequestStatusAC } from "./appReducer"
-import { showGlobalAppStatus } from "./utils/showGlobalAppStatus"
+import { SetAlertMessageActionType, SetAppIsLoadingActionType, setAppAlertMessageAC, setAppIsLoading } from "./appReducer"
 import { FollowUserActionType, UnfollowUserActionType } from "./usersReducer"
 
 const ADD_POST = 'ADD-POST'
@@ -17,7 +16,7 @@ export type ProfileReducerActionsType =
     | ReturnType<typeof postOnChangeAction>
     | ReturnType<typeof setProfileDataAction>
     | ReturnType<typeof changeFollowStatusAction>
-    | SetAppRequestStatusActionType
+    | SetAppIsLoadingActionType
     | SetAlertMessageActionType
     | FollowUserActionType
     | UnfollowUserActionType
@@ -121,7 +120,7 @@ export const addPost = () => (dispatch: AppDispatchType, getState: () => AppRoot
 }
 
 export const setProfileData = (userId: number) => (dispatch: AppDispatchType) => {
-    dispatch(setAppRequestStatusAC('loading'))
+    dispatch(setAppIsLoading(true))
     socialNetworkAPI.getProfile(userId)
         .then(res => {
             dispatch(setProfileDataAction(res.data))
@@ -129,37 +128,45 @@ export const setProfileData = (userId: number) => (dispatch: AppDispatchType) =>
         })
         .then(res => {
             dispatch(changeFollowStatusAction(res.data))
-            dispatch(setAppRequestStatusAC(null))
         })
-        .catch(error => showGlobalAppStatus(dispatch, 'failed', error.message))
+        .catch(error => {
+            dispatch(setAppAlertMessageAC(error.message))
+        })
+        .finally(() => dispatch(setAppIsLoading(false)))
 }
 
 export const followProfile = (userId: number) => (dispatch: AppDispatchType) => {
-    dispatch(setAppRequestStatusAC('loading'))
+    dispatch(setAppIsLoading(true))
     socialNetworkAPI.followUser(userId)
         .then(res => {
             if (res.data.resultCode === 0) {
                 dispatch(changeFollowStatusAction(true))
-                showGlobalAppStatus(dispatch, 'succeeded', 'Followed!')
+                dispatch(setAppAlertMessageAC('Followed!'))
             }
             else {
-                showGlobalAppStatus(dispatch, 'failed', res.data.messages[0])
+                dispatch(setAppAlertMessageAC(res.data.messages[0]))
             }
         })
-        .catch(error => showGlobalAppStatus(dispatch, 'failed', error.message))
+        .catch(error => {
+            dispatch(setAppAlertMessageAC(error.message))
+        })
+        .finally(() => dispatch(setAppIsLoading(false)))
 }
 
 export const unfollowProfile = (userId: number) => (dispatch: AppDispatchType) => {
-    dispatch(setAppRequestStatusAC('loading'))
+    dispatch(setAppIsLoading(true))
     socialNetworkAPI.unfollowUser(userId)
         .then(res => {
             if (res.data.resultCode === 0) {
                 dispatch(changeFollowStatusAction(false))
-                showGlobalAppStatus(dispatch, 'succeeded', 'Unfollowed!')
+                dispatch(setAppAlertMessageAC('Unfollowed!'))
             }
             else {
-                showGlobalAppStatus(dispatch, 'failed', res.data.messages[0])
+                dispatch(setAppAlertMessageAC(res.data.messages[0]))
             }
         })
-        .catch(error => showGlobalAppStatus(dispatch, 'failed', error.message))
+        .catch(error => {
+            dispatch(setAppAlertMessageAC(error.message))
+        })
+        .finally(() => dispatch(setAppIsLoading(false)))
 }

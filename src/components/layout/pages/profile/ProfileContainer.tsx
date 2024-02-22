@@ -4,13 +4,12 @@ import { AppRootStateType } from "../../../../redux/redux-store"
 import { Profile } from "./Profile"
 import { useEffect } from "react"
 import { RouteComponentProps, withRouter } from "react-router-dom"
-import { RequestStatusType } from "../../../../redux/appReducer"
 
 type ConnectPropsType = {
     posts: PostStateType[]
     profileData: ProfileDataType
     newPostForm: string
-    appRequestStatus: RequestStatusType
+    appIsLoading: boolean
     addPost: () => void
     followProfile: (userId: number) => void
     unfollowProfile: (userId: number) => void
@@ -29,7 +28,7 @@ const ProfileAPI: React.FC<ProfileAPIPropsType> = (props) => {
     }, [props.match.params.userId])
 
     return <Profile addPost={props.addPost}
-        appRequestStatus={props.appRequestStatus}
+        appIsLoading={props.appIsLoading}
         followProfile={props.followProfile}
         profileData={props.profileData}
         newPostForm={props.newPostForm}
@@ -44,7 +43,7 @@ const mapStateToProps = (state: AppRootStateType) => {
         posts: state.profile.posts,
         profileData: state.profile.data,
         newPostForm: state.profile.newPostForm,
-        appRequestStatus: state.app.requestStatus
+        appIsLoading: state.app.isLoading
     }
 }
 

@@ -1,4 +1,4 @@
-const APP_SET_REQUEST_STATUS = 'APP-SET-REQUEST-STATUS'
+const APP_SET_IS_LOADING = 'APP-SET-IS_LOADING'
 const APP_SET_ALERT_MSG = 'APP-SET-ALERT-MSG'
 const APP_SET_NAVBAR_COLLAPSED = 'APP-SET-NAVBAR-COLLAPSED'
 
@@ -9,21 +9,21 @@ export type IconLinksStateType = {
     icon_id: string
     viewBox: string
 }
-export type RequestStatusType = null | 'loading' | 'succeeded' | 'failed' | 'info'
+export type RequestStatusType = null | 'succeeded' | 'failed' | 'info'
 
 export type AppStateType = {
     socialLinks: IconLinksStateType[]
     menuItems: IconLinksStateType[]
-    requestStatus: RequestStatusType
+    isLoading: boolean
     alertMessage: string | null
     navbarCollapsed: boolean
 }
 export type SetAlertMessageActionType = ReturnType<typeof setAppAlertMessageAC>
 export type SetNavbarCollapsedActionType = ReturnType<typeof setAppNavbarCollapsedAC>
-export type SetAppRequestStatusActionType = ReturnType<typeof setAppRequestStatusAC>
+export type SetAppIsLoadingActionType = ReturnType<typeof setAppIsLoading>
 
 type AppActionsType =
-    | SetAppRequestStatusActionType
+    | SetAppIsLoadingActionType
     | SetAlertMessageActionType
     | SetNavbarCollapsedActionType
 
@@ -109,15 +109,15 @@ const initialState: AppStateType = {
             viewBox: "-2 -2 30 30",
         }
     ],
-    requestStatus: null,
+    isLoading: false,
     alertMessage: null,
     navbarCollapsed: true
 }
 
 export const appReducer = (state: AppStateType = initialState, action: AppActionsType): AppStateType => {
     switch (action.type) {
-        case APP_SET_REQUEST_STATUS:
-            return { ...state, requestStatus: action.payload.appRequestStatus }
+        case APP_SET_IS_LOADING:
+            return { ...state, isLoading: action.payload.isLoading }
         case APP_SET_ALERT_MSG:
             return { ...state, alertMessage: action.payload.alertMessage }
         case APP_SET_NAVBAR_COLLAPSED:
@@ -127,8 +127,8 @@ export const appReducer = (state: AppStateType = initialState, action: AppAction
     }
 }
 
-export const setAppRequestStatusAC = (appRequestStatus: RequestStatusType) =>
-    ({ type: APP_SET_REQUEST_STATUS, payload: { appRequestStatus } } as const)
+export const setAppIsLoading = (isLoading: boolean) =>
+    ({ type: APP_SET_IS_LOADING, payload: { isLoading } } as const)
 
 export const setAppAlertMessageAC = (alertMessage: string | null) =>
     ({ type: APP_SET_ALERT_MSG, payload: { alertMessage } } as const)

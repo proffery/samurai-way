@@ -5,7 +5,6 @@ import search from "../../../assets/images/Search.svg"
 import { Logout } from "./Logout"
 
 type HeaderPropsType = {
-    className?: string
     email: string
     login: string
     isLoggedIn: boolean

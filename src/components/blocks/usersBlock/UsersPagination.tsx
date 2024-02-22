@@ -2,7 +2,6 @@ import { useEffect, useState } from "react"
 import { Button } from "../../micro/button/Button"
 import { Icon } from "../../micro/icon/Icon"
 import { UsersFilterType } from "../../../redux/usersReducer"
-import { RequestStatusType } from "../../../redux/appReducer"
 
 const PAGES_COUNT = 5
 
@@ -11,7 +10,7 @@ type UserPaginationPropsType = {
     usersOnPage: number
     totalUsersCount: number
     usersFilter: UsersFilterType
-    appRequestStatus: RequestStatusType
+    appIsLoading: boolean
     onPageChangeHandler: (pageNumber: number) => void
 }
 
@@ -49,7 +48,7 @@ export const UsersPagination = (props: UserPaginationPropsType) => {
         <>
             {pagesRange > PAGES_COUNT &&
                 <Button variant={'link'}
-                    disabled={props.appRequestStatus === 'loading'}
+                    disabled={props.appIsLoading}
                     onClick={pagesRangeDec}
                 ><Icon iconId="leftArrow" viewBox="-5 3 24 24" /></Button>
             }
@@ -60,7 +59,7 @@ export const UsersPagination = (props: UserPaginationPropsType) => {
                         <Button
                             key={el}
                             variant={'link'}
-                            disabled={props.currentPage === el || props.appRequestStatus === 'loading'}
+                            disabled={props.currentPage === el || props.appIsLoading}
                             isActive={props.currentPage === el}
                             onClick={() => { props.onPageChangeHandler(el) }}
                         >{el.toString()}</Button>
@@ -68,7 +67,7 @@ export const UsersPagination = (props: UserPaginationPropsType) => {
             }
             {pagesRange > PAGES_COUNT &&
                 <Button variant={'link'}
-                    disabled={props.appRequestStatus === 'loading'}
+                    disabled={props.appIsLoading}
                     onClick={pagesRangeInc}
                 ><Icon iconId="rightArrow" viewBox="15 3 24 24" /></Button>
             }

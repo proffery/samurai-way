@@ -1,7 +1,6 @@
 import { UserResponseType, socialNetworkAPI } from '../api/social-network-api';
 import { FriendsType } from './friendsReducer';
-import { SetAppRequestStatusActionType, setAppRequestStatusAC } from './appReducer';
-import { showGlobalAppStatus } from './utils/showGlobalAppStatus';
+import { SetAppIsLoadingActionType, setAppAlertMessageAC, setAppIsLoading } from './appReducer';
 import { AppDispatchType } from './redux-store';
 
 const SET_POSSIBLE_FRIENDS = 'SET-POSSIBLE-FRIENDS'
@@ -14,7 +13,7 @@ export type FriendsReducerActionsType =
     | ReturnType<typeof setPossibleFriendsCurrentPageAC>
     | ReturnType<typeof setPossibleFriendsOnPageAC>
     | ReturnType<typeof setTotalPossibleFriendsCountAC>
-    | SetAppRequestStatusActionType
+    | SetAppIsLoadingActionType
 
 const initialState: FriendsType = {
     users: [],
@@ -52,14 +51,16 @@ export const setTotalPossibleFriendsCountAC = (totalPossibleFriendsCount: number
 
 export const getPossibleFriendsTC = (pageNumber: number, possibleFriendsOnPage: number) =>
     (dispatch: AppDispatchType) => {
-        dispatch(setAppRequestStatusAC('loading'))
+        dispatch(setAppIsLoading(true))
         socialNetworkAPI.getSortedUsers(pageNumber, possibleFriendsOnPage, false)
             .then(res => {
                 dispatch(setTotalPossibleFriendsCountAC(res.data.totalCount))
                 dispatch(setPossibleFriendsCurrentPageAC(pageNumber))
                 dispatch(setPossibleFriendsOnPageAC(possibleFriendsOnPage))
                 dispatch(setPossibleFriendsAC(res.data.items))
-                dispatch(setAppRequestStatusAC(null))
             })
-            .catch(error => showGlobalAppStatus(dispatch, 'failed', error.message))
+            .catch(error => {
+                dispatch(setAppAlertMessageAC(error.message))
+            })
+            .finally(() => dispatch(setAppIsLoading(false)))
     }

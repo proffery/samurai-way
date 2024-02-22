@@ -1,6 +1,5 @@
 import { UserResponseType, socialNetworkAPI } from "../api/social-network-api"
-import { RequestStatusType, SetAlertMessageActionType, SetAppRequestStatusActionType, setAppRequestStatusAC } from "./appReducer"
-import { showGlobalAppStatus } from "./utils/showGlobalAppStatus"
+import { SetAlertMessageActionType, SetAppIsLoadingActionType, setAppAlertMessageAC, setAppIsLoading } from "./appReducer"
 import { AppDispatchType } from "./redux-store"
 
 const FOLLOW = 'FOLLOW'
@@ -10,7 +9,7 @@ const SET_USERS_ON_PAGE = 'SET-USERS-ON-PAGE'
 const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE'
 const SET_TOTAL_USERS_COUNT = 'SET-TOTAL-USERS-COUNT'
 const CHANGE_USERS_FILTER = 'CHANGE-USERS-FILTER'
-const CHANGE_USER_REQUEST_STATUS = 'CHANGE-USER-REQUEST-STATUS'
+const CHANGE_USER_IS_LOADING = 'CHANGE-USER-IS-LOADING'
 
 
 export type UsersReducerActionsType =
@@ -21,8 +20,8 @@ export type UsersReducerActionsType =
     | ReturnType<typeof setUsersOnPageAC>
     | ReturnType<typeof setTotalUsersCountAC>
     | ReturnType<typeof changeUsersFilterAC>
-    | ReturnType<typeof changeUsersRequestStatusAC>
-    | SetAppRequestStatusActionType
+    | ReturnType<typeof changeUsersIsLoading>
+    | SetAppIsLoadingActionType
     | SetAlertMessageActionType
 
 export type FollowUserActionType = ReturnType<typeof followAC>
@@ -30,7 +29,7 @@ export type UnfollowUserActionType = ReturnType<typeof unfollowAC>
 
 
 export interface UserStateType extends UserResponseType {
-    requestStatus: RequestStatusType
+    isLoading: boolean
 }
 
 export type UsersStateType = {
@@ -66,7 +65,7 @@ export const usersReducer = (state: UsersStateType = initialState, action: Users
                     : user)
             }
         case SET_USERS:
-            return { ...state, users: action.payload.users.map(user => ({ ...user, requestStatus: null })) }
+            return { ...state, users: action.payload.users.map(user => ({ ...user, isLoading: false })) }
         case SET_CURRENT_PAGE:
             return { ...state, currentPage: action.payload.currentPage }
         case SET_USERS_ON_PAGE:
@@ -75,10 +74,10 @@ export const usersReducer = (state: UsersStateType = initialState, action: Users
             return { ...state, totalUsersCount: action.payload.totalUsersCount }
         case CHANGE_USERS_FILTER:
             return { ...state, usersFilter: action.payload.usersFilter }
-        case CHANGE_USER_REQUEST_STATUS:
+        case CHANGE_USER_IS_LOADING:
             return {
                 ...state, users: state.users.map(user => user.id === action.payload.userId
-                    ? { ...user, requestStatus: action.payload.requestStatus }
+                    ? { ...user, isLoading: action.payload.isLoading }
                     : user)
             }
         default:
@@ -107,78 +106,94 @@ export const setTotalUsersCountAC = (totalUsersCount: number) =>
 export const changeUsersFilterAC = (usersFilter: UsersFilterType) =>
     ({ type: CHANGE_USERS_FILTER, payload: { usersFilter } }) as const
 
-export const changeUsersRequestStatusAC = (userId: number, requestStatus: RequestStatusType) =>
-    ({ type: CHANGE_USER_REQUEST_STATUS, payload: { userId, requestStatus } }) as const
+export const changeUsersIsLoading = (userId: number, isLoading: boolean) =>
+    ({ type: CHANGE_USER_IS_LOADING, payload: { userId, isLoading } }) as const
 
 export const getAllUsersTC = (pageNumber: number, usersOnPage: number) => (dispatch: AppDispatchType) => {
-    dispatch(setAppRequestStatusAC('loading'))
+    dispatch(setAppIsLoading(true))
     socialNetworkAPI.getUsers(pageNumber, usersOnPage)
         .then(res => {
             dispatch(setTotalUsersCountAC(res.data.totalCount))
             dispatch(setCurrentPageAC(pageNumber))
             dispatch(setUsersOnPageAC(usersOnPage))
             dispatch(setUsersAC(res.data.items))
-            dispatch(setAppRequestStatusAC(null))
         })
-        .catch(error => showGlobalAppStatus(dispatch, 'failed', error.message))
+        .catch(error => {
+            dispatch(setAppAlertMessageAC(error.message))
+        })
+        .finally(() => dispatch(setAppIsLoading(false)))
 }
 
 export const getFollowedUsersTC = (pageNumber: number, usersOnPage: number) => (dispatch: AppDispatchType) => {
-    dispatch(setAppRequestStatusAC('loading'))
+    dispatch(setAppIsLoading(true))
     socialNetworkAPI.getSortedUsers(pageNumber, usersOnPage, true)
         .then(res => {
             dispatch(setTotalUsersCountAC(res.data.totalCount))
             dispatch(setCurrentPageAC(pageNumber))
             dispatch(setUsersOnPageAC(usersOnPage))
             dispatch(setUsersAC(res.data.items))
-            dispatch(setAppRequestStatusAC(null))
         })
-        .catch(error => showGlobalAppStatus(dispatch, 'failed', error.message))
+        .catch(error => {
+            dispatch(setAppAlertMessageAC(error.message))
+        })
+        .finally(() => dispatch(setAppIsLoading(false)))
 }
 
 export const getUnfollowedUsersTC = (pageNumber: number, usersOnPage: number) => (dispatch: AppDispatchType) => {
-    dispatch(setAppRequestStatusAC('loading'))
+    dispatch(setAppIsLoading(true))
     socialNetworkAPI.getSortedUsers(pageNumber, usersOnPage, false)
         .then(res => {
             dispatch(setTotalUsersCountAC(res.data.totalCount))
             dispatch(setCurrentPageAC(pageNumber))
             dispatch(setUsersOnPageAC(usersOnPage))
             dispatch(setUsersAC(res.data.items))
-            dispatch(setAppRequestStatusAC(null))
         })
-        .catch(error => showGlobalAppStatus(dispatch, 'failed', error.message))
+        .catch(error => {
+            dispatch(setAppAlertMessageAC(error.message))
+        })
+        .finally(() => dispatch(setAppIsLoading(false)))
 }
 
 export const followUsersTC = (userId: number) => (dispatch: AppDispatchType) => {
-    dispatch(changeUsersRequestStatusAC(userId, 'loading'))
-    dispatch(setAppRequestStatusAC('loading'))
+    dispatch(changeUsersIsLoading(userId, true))
+    dispatch(setAppIsLoading(true))
     socialNetworkAPI.followUser(userId)
         .then(res => {
             if (res.data.resultCode === 0) {
                 dispatch(followAC(userId))
-                dispatch(changeUsersRequestStatusAC(userId, 'succeeded'))
-                showGlobalAppStatus(dispatch, 'succeeded', 'Followed!')
+                dispatch(setAppAlertMessageAC('Followed!'))
             }
             else {
-                showGlobalAppStatus(dispatch, 'failed', res.data.messages[0])
+                dispatch(setAppAlertMessageAC(res.data.messages[0]))
             }
         })
-        .catch(error => showGlobalAppStatus(dispatch, 'failed', error.message))
+        .catch(error => {
+            dispatch(setAppAlertMessageAC(error.message))
+        })
+        .finally(() => {
+            dispatch(setAppIsLoading(false))
+            dispatch(changeUsersIsLoading(userId, false))
+        })
 }
 
 export const unfollowUsersTC = (userId: number) => (dispatch: AppDispatchType) => {
-    dispatch(changeUsersRequestStatusAC(userId, 'loading'))
-    dispatch(setAppRequestStatusAC('loading'))
+    dispatch(changeUsersIsLoading(userId, true))
+    dispatch(setAppIsLoading(true))
     socialNetworkAPI.unfollowUser(userId)
         .then(res => {
             if (res.data.resultCode === 0) {
                 dispatch(unfollowAC(userId))
-                dispatch(changeUsersRequestStatusAC(userId, 'succeeded'))
-                showGlobalAppStatus(dispatch, 'succeeded', 'Unfollowed!')
+                dispatch(setAppAlertMessageAC('Unfollowed!'))
             }
             else {
-                showGlobalAppStatus(dispatch, 'failed', res.data.messages[0])
+                dispatch(setAppAlertMessageAC(res.data.messages[0]))
             }
         })
-        .catch(error => showGlobalAppStatus(dispatch, 'failed', error.message))
+        .catch(error => {
+            dispatch(setAppAlertMessageAC(error.message))
+        })
+        .finally(() => {
+            dispatch(setAppIsLoading(false))
+            dispatch(changeUsersIsLoading(userId, false))
+        })
 }

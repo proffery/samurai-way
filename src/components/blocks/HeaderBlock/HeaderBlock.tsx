@@ -5,7 +5,6 @@ import { Icon } from "../../micro/icon/Icon"
 import { theme } from "../../../styles/Theme.styled"
 import { font } from "../../../styles/Font";
 import { NavLink } from "react-router-dom"
-import { RequestStatusType } from "../../../redux/appReducer"
 import { BlockSection } from "../../micro/BlockSection.styled"
 
 type HeaderBlockPropsType = {
@@ -16,7 +15,7 @@ type HeaderBlockPropsType = {
     fullName: string
     aboutMe: string
     isFollow: boolean
-    appRequestStatus: RequestStatusType
+    appIsLoading: boolean
     follow: (userId: number) => void
     unfollow: (userId: number) => void
 }
@@ -47,7 +46,7 @@ export const HeaderBlock: React.FC<HeaderBlockPropsType> = (props) => {
                     ><Icon iconId={'messages'} viewBox="-2 -3 24 24" height={'50%'} width={'50%'} /></MessagesButton>
                     <Button variant={props.isFollow ? 'primary' : 'outlined'}
                         onClick={followOnClickHandler}
-                        disabled={props.appRequestStatus === "loading"}
+                        disabled={props.appIsLoading}
                     >{props.isFollow ? 'Unfollow' : 'Follow'}</Button>
                 </ButtonsContainer>
             </InfoConainer>

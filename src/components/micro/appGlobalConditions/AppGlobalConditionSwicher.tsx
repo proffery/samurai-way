@@ -17,8 +17,6 @@ export const AppGlobalConditionSwicher: React.FC<AppGlobalConditionSwicherPropsT
                 return <Alert requestStatus={status} alertMessage={props.alertMessage} />
             case 'succeeded':
                 return <Alert requestStatus={status} alertMessage={props.alertMessage} />
-            case 'loading':
-                return <LoadingLoader />
             default:
                 return null
         }

@@ -11,9 +11,9 @@ import { theme } from './styles/Theme.styled';
 import { AppRootStateType } from './redux/redux-store';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppStateType } from './redux/appReducer';
-import { AppGlobalConditionSwicher } from './components/micro/appGlobalConditions/AppGlobalConditionSwicher';
 import { ProfileContainer } from './components/layout/pages/profile/ProfileContainer';
 import { HeaderContainer } from './components/layout/header/HeaderContainer';
+import { LoadingLoader } from './components/micro/appGlobalConditions/conditions/LoadingLoader.styled';
 
 
 
@@ -23,10 +23,7 @@ function App() {
   return (
     <Router >
       <Container collapsed={appData.navbarCollapsed.toString()}>
-        <AppGlobalConditionSwicher
-          requestStatus={appData.requestStatus}
-          alertMessage={appData.alertMessage}
-        />
+        {appData.isLoading && <LoadingLoader />}
         <Navbar
           menuItems={appData.menuItems}
           navbarCollapsed={appData.navbarCollapsed}

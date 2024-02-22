@@ -1,14 +1,30 @@
 import styled, { css } from "styled-components"
-import { RequestStatusType } from "../../../../redux/appReducer"
+import { RequestStatusType, setAppAlertMessageAC, setAppIsLoading } from "../../../../redux/appReducer"
 import { theme } from "../../../../styles/Theme.styled"
 import { Icon } from "../../icon/Icon"
+import { useEffect } from "react"
+import { useDispatch } from "react-redux"
 
 type AlertPropsType = {
     requestStatus: RequestStatusType
     alertMessage: string | null
 }
 
+
 export const Alert: React.FC<AlertPropsType> = (props) => {
+    const dispatch = useDispatch()
+
+    // useEffect(() => {
+    //     dispatch(setAppIsLoading(props.requestStatus))
+    //     dispatch(setAppAlertMessageAC(props.alertMessage))
+    //     const timeout = setTimeout(() => {
+    //         dispatch(setAppIsLoading(null))
+    //         dispatch(setAppAlertMessageAC(null))
+    //     }, 2000)
+    //     return () => {
+    //         clearTimeout(timeout)
+    //     }
+    // }, [])
 
     const iconSwitcher = (status: RequestStatusType) => {
         switch (status) {
@@ -19,7 +35,7 @@ export const Alert: React.FC<AlertPropsType> = (props) => {
             case 'info':
                 return <Icon iconId="info" />
             default:
-                return 
+                return
         }
     }
 
