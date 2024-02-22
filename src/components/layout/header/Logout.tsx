@@ -9,6 +9,7 @@ type LogoutPropsType = {
     login: string
     email: string
     photoUrl: string
+    logout: () => void
 }
 
 export const Logout: React.FC<LogoutPropsType> = (props) => {
@@ -22,7 +23,7 @@ export const Logout: React.FC<LogoutPropsType> = (props) => {
                 {props.photoUrl
                     ? <Avatar src={props.photoUrl} />
                     : <DefaultAvatar iconId={'avatarDefault'} viewBox="0 0 1024 1024" />}
-                    <LogoutButton variant={'link'} onClick={() => { }}>Logout</LogoutButton>
+                    <LogoutButton variant={'link'} onClick={() => props.logout()}>Logout</LogoutButton>
             </AvatarContainer>
         </StyledLout>
     )

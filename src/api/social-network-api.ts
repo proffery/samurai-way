@@ -84,5 +84,8 @@ export const socialNetworkAPI = {
     },
     getMe() {
         return instance.get<ResponseType<GetMeDataType>>('/auth/me')
+    },
+    logout() {
+        return instance.delete<ResponseType>('/auth/login')
     }
 }

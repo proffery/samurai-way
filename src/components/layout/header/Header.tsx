@@ -5,18 +5,25 @@ import search from "../../../assets/images/Search.svg"
 import { Logout } from "./Logout"
 
 type HeaderPropsType = {
+    className?: string
     email: string
     login: string
     isLoggedIn: boolean
     photoUrl: string
+    logout: () => void
 }
 
 export const Header: React.FC<HeaderPropsType> = (props) => {
     return (
         <StyledHeader id="header">
             <StyledField search={search} bordered="false" placeholder={"Search"} />
-            {props.isLoggedIn && <Logout email={props.email} login={props.login} photoUrl={props.photoUrl} />}
-            
+            {props.isLoggedIn &&
+                <Logout
+                    email={props.email}
+                    login={props.login}
+                    photoUrl={props.photoUrl}
+                    logout={props.logout}
+                />}
         </StyledHeader>
     )
 }

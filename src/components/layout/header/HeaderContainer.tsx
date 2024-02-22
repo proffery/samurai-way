@@ -1,7 +1,7 @@
 import { connect } from "react-redux"
 import { Header } from "./Header"
 import { AppRootStateType } from "../../../redux/redux-store"
-import { setAuthUserData } from "../../../redux/authReducer"
+import { getAuthUserData, logout } from "../../../redux/authReducer"
 import { useEffect } from "react"
 
 type HeaderAPIPropsTtype = {
@@ -9,12 +9,13 @@ type HeaderAPIPropsTtype = {
     login: string
     isLoggedIn: boolean
     photoUrl: string
-    setAuthUserData: () => void
+    getAuthUserData: () => void
+    logout: () => void
 }
 
 export const HeaderAPI: React.FC<HeaderAPIPropsTtype> = (props) => {
     useEffect(() => {
-        props.setAuthUserData()
+        props.getAuthUserData()
     }, [])
     return (
         <Header
@@ -22,6 +23,7 @@ export const HeaderAPI: React.FC<HeaderAPIPropsTtype> = (props) => {
             login={props.login}
             isLoggedIn={props.isLoggedIn}
             photoUrl={props.photoUrl}
+            logout={props.logout}
         />
     )
 }
@@ -43,5 +45,5 @@ const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
 }
 
 export const HeaderContainer = connect(mapStateToProps, {
-    setAuthUserData
+    getAuthUserData, logout
 })(HeaderAPI)
