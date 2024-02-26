@@ -1,4 +1,5 @@
 import { v1 } from "uuid"
+import { AppDispatchType, AppRootStateType } from "./redux-store"
 
 const APP_SET_IS_LOADING = 'APP-SET-IS_LOADING'
 const APP_ADD_ALERT = 'APP-ADD-ALERT'
@@ -27,7 +28,7 @@ export type AppStateType = {
     navbarCollapsed: boolean
     alerts: AlertObjectType[]
 }
-export type AddAlertActionType = ReturnType<typeof addAppAlert>
+export type AddAlertActionType = ReturnType<typeof addAppAlert1>
 export type RemoveAlertActionType = ReturnType<typeof removeAlert>
 export type SetNavbarCollapsedActionType = ReturnType<typeof setAppNavbarCollapsed>
 export type SetAppIsLoadingActionType = ReturnType<typeof setAppIsLoading>
@@ -143,15 +144,23 @@ export const appReducer = (state: AppStateType = initialState, action: AppAction
 export const setAppIsLoading = (isLoading: boolean) =>
     ({ type: APP_SET_IS_LOADING, payload: { isLoading } } as const)
 
-export const addAppAlert = (type: AlertType, message: string) => {
-    const newAlert: AlertObjectType = {
-        id: v1(),
-        message,
-        type
-    }
+export const addAppAlert1 = (newAlert: AlertObjectType) => {
     return { type: APP_ADD_ALERT, payload: { newAlert } } as const
 }
 export const removeAlert = (id: string) =>
     ({ type: APP_REMOVE_ALERT, payload: { id } } as const)
 export const setAppNavbarCollapsed = (navbarCollapsed: boolean) =>
-    ({ type: APP_SET_NAVBAR_COLLAPSED, payload: { navbarCollapsed } } as const) 
+    ({ type: APP_SET_NAVBAR_COLLAPSED, payload: { navbarCollapsed } } as const)
+
+export const addAppAlert = (type: AlertType, message: string) =>
+    (dispatch: AppDispatchType, getState: () => AppRootStateType) => {
+        const alerts = getState().app.alerts
+        const alertDuplicat = alerts.find(alert => alert.message === message && alert.type === type)
+        if (alertDuplicat) return
+        const newAlert: AlertObjectType = {
+            id: v1(),
+            message,
+            type
+        }
+        dispatch(addAppAlert1(newAlert))
+    }

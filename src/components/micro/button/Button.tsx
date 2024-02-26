@@ -1,21 +1,21 @@
-import styled, { css } from "styled-components";
-import { theme } from "../../../styles/Theme.styled";
-import { MouseEvent } from "react";
-import { font } from "../../../styles/Font";
+import styled, { css } from "styled-components"
+import { theme } from "../../../styles/Theme.styled"
+import { font } from "../../../styles/Font"
+import { MouseEvent } from "react"
 
 type ButtonPropsType = {
     variant: 'primary' | 'outlined' | 'link'
     className?: string
     isActive?: boolean
     disabled?: boolean
-    onClick: (e: MouseEvent<HTMLButtonElement>) => void
+    onClick?: (e: MouseEvent<HTMLButtonElement> ) => void
 }
 
 export const Button: React.FC<ButtonPropsType &
     React.HTMLProps<HTMLButtonElement>> = (props) => {
 
         const onClickButtonHandler = (e: MouseEvent<HTMLButtonElement>) => {
-            props.onClick(e)
+            props.onClick && props.onClick(e)
         }
 
         return (

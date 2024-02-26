@@ -22,23 +22,24 @@ import { Login } from './components/layout/login/Login'
 function App() {
   const appData = useSelector<AppRootStateType, AppStateType>(state => state.app)
   const dispatch = useDispatch()
-  // if (true) {
-  //   return (
-  //     <Router>
-  //       <LoginContainer>
-  //         <Switch>
-  //           <Route exact path='/login' component={Login} />
-  //           <Route path='/404' component={NotFound} />
-  //           <Route path='*' render={() => <Redirect to={'/404'} />} />
-  //         </Switch>
-  //         <Footer
-  //           menuData={[]}
-  //           footerData={appData.socialLinks}
-  //         />
-  //       </LoginContainer>
-  //     </Router>
-  //   )
-  // }
+  if (true) {
+    return (
+      <Router>
+        <AlertsContainer alerts={appData.alerts} dispatch={dispatch} />
+        <LoginContainer>
+          <Switch>
+            <Route exact path='/login' render={() => <Login dispatch={dispatch}/>} />
+            <Route path='/404' component={NotFound} />
+            <Route path='*' render={() => <Redirect to={'/404'} />} />
+          </Switch>
+          <Footer
+            menuData={[]}
+            footerData={appData.socialLinks}
+          />
+        </LoginContainer>
+      </Router>
+    )
+  }
   return (
     <Router >
       <Container collapsed={appData.navbarCollapsed.toString()}>

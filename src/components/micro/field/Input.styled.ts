@@ -2,8 +2,9 @@ import styled from "styled-components"
 import { theme } from "../../../styles/Theme.styled"
 
 type InputPropsType = {
-    bordered?: 'true' | 'false'
     className?: string
+    bordered?: 'true' | 'false'
+    error?: 'true' | 'false'
 }
 
 export const Input = styled.input.attrs<InputPropsType>((props) => ({
@@ -18,6 +19,7 @@ export const Input = styled.input.attrs<InputPropsType>((props) => ({
     padding: min(10px, 1vw);
     &:focus-visible{
         outline: 1px solid ${theme.color.background.second};
+        outline: 2px solid ${props => props.error === 'true' ? theme.color.background.status_error : 'transparent'};
     }
     @media ${theme.media.mobile} {
         min-height: min(30px, 8vw);
