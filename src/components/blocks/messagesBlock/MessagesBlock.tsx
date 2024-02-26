@@ -5,7 +5,7 @@ import { Message } from "./message/Message"
 import styled from "styled-components"
 import { FlexWrapper } from "../../micro/FlexWrapper.styled"
 import { Button } from "../../micro/button/Button"
-import { Field } from "../../micro/field/Field.styled"
+import { Input } from "../../micro/field/Input.styled"
 import { MessageStateType, MessagesPageStateType } from "../../../redux/messagesReducer"
 
 type MessagesBlockPropsType = {
@@ -49,7 +49,7 @@ export const MessagesBlock: React.FC<MessagesBlockPropsType> = (props) => {
             <Form
                 onKeyDown={addMessageCtrlEnterHandler}
             >
-                <Field
+                <Input
                     as={"textarea"}
                     aria-label="enter your message"
                     placeholder="Enter your message"

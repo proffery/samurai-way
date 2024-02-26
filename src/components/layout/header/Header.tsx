@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import { theme } from "../../../styles/Theme.styled"
-import { Field } from "../../../components/micro/field/Field.styled"
+import { Input } from "../../micro/field/Input.styled"
 import search from "../../../assets/images/Search.svg"
 import { Logout } from "./Logout"
 
@@ -39,7 +39,7 @@ type StyledFieldPropsType = {
     search: string
 }
 
-const StyledField = styled(Field) <StyledFieldPropsType>`
+const StyledField = styled(Input) <StyledFieldPropsType>`
     padding-left: 40px;
     width: 100%;
     background-image: url(${props => props.search});

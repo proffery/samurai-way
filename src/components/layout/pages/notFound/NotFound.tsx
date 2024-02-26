@@ -5,6 +5,7 @@ import { FlexWrapper } from "../../../micro/FlexWrapper.styled"
 import { Button } from "../../../micro/button/Button"
 import { useHistory } from "react-router-dom"
 import React from "react"
+import {font} from '../../../../styles/Font'
 
 export const NotFound: React.FC = () => {
     const history = useHistory()
@@ -55,4 +56,5 @@ const TextWrapper = styled.div`
 const StyledText = styled.p`
     width: 50%;
     text-align: left;
+    ${font({weight: 400, Fmin: 10, Fmax: 16})}
 `

@@ -1,7 +1,7 @@
 import React, { ChangeEvent, MouseEvent, KeyboardEvent, useState } from "react"
 import styled from "styled-components"
 import { Button } from "../../micro/button/Button"
-import { Field } from "../../micro/field/Field.styled"
+import { Input } from "../../micro/field/Input.styled"
 import { FlexWrapper } from "../../micro/FlexWrapper.styled"
 import { Post } from "./post/Post"
 import { BlockHeader } from "../../micro/BlockHeader.styled"
@@ -58,7 +58,7 @@ export const PostsBlock: React.FC<PostsBlockPropsType> = (props) => {
             <Form
                 onKeyDown={addPostOnCtrlEnterHandler}
             >
-                <Field
+                <Input
                     as={"textarea"}
                     aria-label="enter your post"
                     placeholder="Enter your post"

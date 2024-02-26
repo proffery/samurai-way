@@ -15,12 +15,30 @@ import { ProfileContainer } from './components/layout/pages/profile/ProfileConta
 import { HeaderContainer } from './components/layout/header/HeaderContainer'
 import { LoadingLoader } from './components/micro/loaders/LoadingLoader.styled'
 import { AlertsContainer } from './components/micro/alerts/AlertsContainer'
+import { Login } from './components/layout/login/Login'
 
 
 
 function App() {
   const appData = useSelector<AppRootStateType, AppStateType>(state => state.app)
   const dispatch = useDispatch()
+  // if (true) {
+  //   return (
+  //     <Router>
+  //       <LoginContainer>
+  //         <Switch>
+  //           <Route exact path='/login' component={Login} />
+  //           <Route path='/404' component={NotFound} />
+  //           <Route path='*' render={() => <Redirect to={'/404'} />} />
+  //         </Switch>
+  //         <Footer
+  //           menuData={[]}
+  //           footerData={appData.socialLinks}
+  //         />
+  //       </LoginContainer>
+  //     </Router>
+  //   )
+  // }
   return (
     <Router >
       <Container collapsed={appData.navbarCollapsed.toString()}>
@@ -52,6 +70,7 @@ function App() {
 }
 
 export default App
+
 
 type ContainerPropsType = {
   collapsed: string
@@ -92,5 +111,15 @@ const Container = styled.div<ContainerPropsType>`
   `: undefined}
   @media ${theme.media.mobile} {
     grid-template-rows: 80px 93vh 1fr;
+  }
+`
+
+const LoginContainer = styled.div`
+  max-width: 1440px;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 0;
+  main {
+    height: 80vh;
   }
 `
