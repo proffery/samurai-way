@@ -6,7 +6,7 @@ import { Button } from "../../../components/micro/button/Button"
 import { useEffect, useState } from "react"
 import React from "react"
 import { Icon } from "../../../components/micro/icon/Icon"
-import { IconLinksStateType, setAppNavbarCollapsedAC } from "../../../redux/appReducer"
+import { IconLinksStateType, setAppNavbarCollapsed } from "../../../redux/appReducer"
 import { AppDispatchType } from "../../../redux/redux-store"
 
 type NavbarPropsType = {
@@ -28,13 +28,13 @@ export const Navbar: React.FC<NavbarPropsType> = (props) => {
     }, [])
 
     const navbarCollapseHandler = () => {
-        props.dispatch(setAppNavbarCollapsedAC(!props.navbarCollapsed))
+        props.dispatch(setAppNavbarCollapsed(!props.navbarCollapsed))
     }
 
     useEffect(() => {
         width < breakpoint
-            ? props.dispatch(setAppNavbarCollapsedAC(false))
-            : props.dispatch(setAppNavbarCollapsedAC(true))
+            ? props.dispatch(setAppNavbarCollapsed(false))
+            : props.dispatch(setAppNavbarCollapsed(true))
     }, [width])
 
     return (

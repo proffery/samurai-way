@@ -12,7 +12,7 @@ export const LoadingLoader = styled.div`
     border-radius: 20px;
     top: 0;
     left: 0;
-    z-index: 1000;
+    z-index: 99999;
     &::before {
         content: "";
         position: absolute;

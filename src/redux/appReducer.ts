@@ -29,7 +29,7 @@ export type AppStateType = {
 }
 export type AddAlertActionType = ReturnType<typeof addAppAlert>
 export type RemoveAlertActionType = ReturnType<typeof removeAlert>
-export type SetNavbarCollapsedActionType = ReturnType<typeof setAppNavbarCollapsedAC>
+export type SetNavbarCollapsedActionType = ReturnType<typeof setAppNavbarCollapsed>
 export type SetAppIsLoadingActionType = ReturnType<typeof setAppIsLoading>
 
 type AppActionsType =
@@ -153,5 +153,5 @@ export const addAppAlert = (type: AlertType, message: string) => {
 }
 export const removeAlert = (id: string) =>
     ({ type: APP_REMOVE_ALERT, payload: { id } } as const)
-export const setAppNavbarCollapsedAC = (navbarCollapsed: boolean) =>
+export const setAppNavbarCollapsed = (navbarCollapsed: boolean) =>
     ({ type: APP_SET_NAVBAR_COLLAPSED, payload: { navbarCollapsed } } as const) 

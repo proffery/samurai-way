@@ -3,12 +3,12 @@ import { AlertObjectType, removeAlert } from "../../../redux/appReducer"
 import { Alert } from "./Alert"
 import { AppDispatchType } from "../../../redux/redux-store"
 
-type AlertListPropsType = {
+type AlertsContainerPropsType = {
     alerts: AlertObjectType[]
     dispatch: AppDispatchType
 }
 
-export const AlertsContainer: React.FC<AlertListPropsType> = (props) => {
+export const AlertsContainer: React.FC<AlertsContainerPropsType> = (props) => {
     const removeAlertHandler = (alertId: string) => {
         props.dispatch(removeAlert(alertId))
     }

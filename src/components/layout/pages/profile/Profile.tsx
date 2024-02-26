@@ -23,7 +23,7 @@ type ProfilePropsType = {
 export const Profile: React.FC<ProfilePropsType> = (props) => {
 
     return (
-        <StyledProfile id="profile" >
+        <StyledProfile id='profile' >
             <ProfileHeaderBlock
                 userId={props.profileData.userId}
                 aboutMe={props.profileData.aboutMe}

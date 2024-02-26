@@ -1,20 +1,20 @@
-import styled, { css } from 'styled-components';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import { Footer } from "./components/layout/footer/Footer";
-import { Navbar } from "./components/layout/navbar/Navbar";
-import { Users } from "./components/layout/pages/users/Users";
-import { Messages } from "./components/layout/pages/messages/Messages";
-import { Notifications } from "./components/layout/pages/notifications/Notifications";
-import { Settings } from "./components/layout/pages/settings/Settings";
-import { NotFound } from './components/layout/pages/notFound/NotFound';
-import { theme } from './styles/Theme.styled';
-import { AppRootStateType } from './redux/redux-store';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppStateType } from './redux/appReducer';
-import { ProfileContainer } from './components/layout/pages/profile/ProfileContainer';
-import { HeaderContainer } from './components/layout/header/HeaderContainer';
-import { LoadingLoader } from './components/micro/loaders/LoadingLoader.styled';
-import { AlertsContainer } from './components/micro/alerts/AlertsContainer';
+import styled, { css } from 'styled-components'
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
+import { Footer } from "./components/layout/footer/Footer"
+import { Navbar } from "./components/layout/navbar/Navbar"
+import { Users } from "./components/layout/pages/users/Users"
+import { Messages } from "./components/layout/pages/messages/Messages"
+import { Notifications } from "./components/layout/pages/notifications/Notifications"
+import { Settings } from "./components/layout/pages/settings/Settings"
+import { NotFound } from './components/layout/pages/notFound/NotFound'
+import { theme } from './styles/Theme.styled'
+import { AppRootStateType } from './redux/redux-store'
+import { useDispatch, useSelector } from 'react-redux'
+import { AppStateType } from './redux/appReducer'
+import { ProfileContainer } from './components/layout/pages/profile/ProfileContainer'
+import { HeaderContainer } from './components/layout/header/HeaderContainer'
+import { LoadingLoader } from './components/micro/loaders/LoadingLoader.styled'
+import { AlertsContainer } from './components/micro/alerts/AlertsContainer'
 
 
 
@@ -25,7 +25,7 @@ function App() {
     <Router >
       <Container collapsed={appData.navbarCollapsed.toString()}>
         {appData.isLoading && <LoadingLoader />}
-        <AlertsContainer alerts={appData.alerts}  dispatch={dispatch}/>
+        <AlertsContainer alerts={appData.alerts} dispatch={dispatch} />
         <Navbar
           menuItems={appData.menuItems}
           navbarCollapsed={appData.navbarCollapsed}
@@ -39,7 +39,8 @@ function App() {
           <Route path='/messages' component={Messages} />
           <Route path='/notifications' component={Notifications} />
           <Route path='/settings' component={Settings} />
-          <Route path='*' component={NotFound} />
+          <Route path='/404' component={NotFound} />
+          <Route path='*' render={() => <Redirect to={'/404'} />} />
         </Switch>
         <Footer
           menuData={appData.menuItems}
@@ -50,7 +51,7 @@ function App() {
   )
 }
 
-export default App;
+export default App
 
 type ContainerPropsType = {
   collapsed: string
