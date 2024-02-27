@@ -5,16 +5,12 @@ import styled from "styled-components"
 import { FlexWrapper } from "../../micro/FlexWrapper.styled"
 import { UsersPagination } from "./UsersPagination"
 import { Button } from "../../micro/button/Button"
-import { UserStateType, UsersFilterType } from "../../../redux/usersReducer"
+import { UsersFilterType, UsersStateType } from "../../../redux/usersReducer"
 import { theme } from "../../../styles/Theme.styled"
 
 
 export type UsersBlockPropsType = {
-    users: UserStateType[]
-    usersFilter: UsersFilterType
-    currentPage: number
-    usersOnPage: number
-    totalUsersCount: number
+    usersData: UsersStateType
     appIsLoading: boolean
     follow: (userId: number) => void
     unfollow: (userId: number) => void
@@ -24,12 +20,11 @@ export type UsersBlockPropsType = {
 }
 
 export const UsersBlock: React.FC<UsersBlockPropsType> = (props) => {
-
-
+    const { usersFilter, totalUsersCount, usersOnPage, currentPage } = props.usersData
     const usersList = () => {
         return (
             <>
-                {props.users.map(user =>
+                {props.usersData.users.map(user =>
                     <User
                         key={user.id}
                         user={user}
@@ -55,21 +50,21 @@ export const UsersBlock: React.FC<UsersBlockPropsType> = (props) => {
         <StyledUsersBlock id="all-users">
             <BlockHeader>Users</BlockHeader>
             <FlexWrapper justify="center" gap="20px">
-                <Button 
+                <Button
                     variant={'link'}
-                    isActive={props.usersFilter === 'all'}
+                    isActive={usersFilter === 'all'}
                     disabled={props.appIsLoading}
                     onClick={onAllFilterChangeHandler}
                 >{'All'}</Button>
-                <Button 
+                <Button
                     variant={'link'}
-                    isActive={props.usersFilter === 'followed'}
+                    isActive={usersFilter === 'followed'}
                     disabled={props.appIsLoading}
                     onClick={onFriendsFilterChangeHandler}
                 >{'Followed'}</Button>
-                <Button 
+                <Button
                     variant={'link'}
-                    isActive={props.usersFilter === 'unfollowed'}
+                    isActive={usersFilter === 'unfollowed'}
                     disabled={props.appIsLoading}
                     onClick={onPossibleFilterChangeHandler}
                 >{'Unfollowed'}</Button>
@@ -77,10 +72,10 @@ export const UsersBlock: React.FC<UsersBlockPropsType> = (props) => {
             {usersList()}
             <FlexWrapper justify="center" gap="10px" wrap="wrap">
                 <UsersPagination
-                    totalUsersCount={props.totalUsersCount}
-                    usersOnPage={props.usersOnPage}
-                    currentPage={props.currentPage}
-                    usersFilter={props.usersFilter}
+                    totalUsersCount={totalUsersCount}
+                    usersOnPage={usersOnPage}
+                    currentPage={currentPage}
+                    usersFilter={usersFilter}
                     appIsLoading={props.appIsLoading}
                     onPageChangeHandler={props.onPageChangeHandler}
                 />

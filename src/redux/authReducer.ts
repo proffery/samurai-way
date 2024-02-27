@@ -2,29 +2,22 @@ import { GetMeDataType, LoginDataType, socialNetworkAPI } from '../api/social-ne
 import { SetAppIsLoadingActionType, addAppAlert, setAppIsLoading } from './appReducer'
 import { AppDispatchType } from './redux-store'
 
+//CONSTANTS
 const SET_AUTH_DATA = 'AUTH/SET-AUTH-DATA'
 const SET_IS_LOGGED_IN = 'AUTH/SET-IS-LOGGED-IN'
 const SET_PHOTO_URL = 'AUTH/SET-PHOTO-URL'
+export const CLEAN_REDUCER = 'AUTH/CLEAN-REDUCER'
 
-export type AuthReducerActionsType =
-    | ReturnType<typeof setAuthUserDataAC>
-    | ReturnType<typeof setIsLoggedInAC>
-    | ReturnType<typeof setPhotoUrlAC>
-    | SetAppIsLoadingActionType
-
-export interface AuthStateType extends GetMeDataType {
-    isLoggedIn: boolean
-    photoUrl: string
-}
-
+//INITIAL STATE
 const initialState: AuthStateType = {
-    id: 0,
+    id: 2,
     email: '',
     login: '',
     isLoggedIn: false,
     photoUrl: ''
 }
 
+//REDUCER
 export const authReducer = (state: AuthStateType = initialState, action: AuthReducerActionsType): AuthStateType => {
     switch (action.type) {
         case SET_AUTH_DATA:
@@ -33,58 +26,69 @@ export const authReducer = (state: AuthStateType = initialState, action: AuthRed
             return { ...state, isLoggedIn: action.payload.value }
         case SET_PHOTO_URL:
             return { ...state, photoUrl: action.payload.photoUrl }
+        case CLEAN_REDUCER:
+            return initialState
         default:
             return state
     }
 }
 
-export const setAuthUserDataAC = (data: GetMeDataType) =>
+//ACTIONS
+export type CleanReducerType = ReturnType<typeof cleanReducer>
+export const setAuthUserData = (data: GetMeDataType) =>
     ({ type: SET_AUTH_DATA, payload: { data } }) as const
-
-export const setIsLoggedInAC = (value: boolean) =>
+export const setIsLoggedIn = (value: boolean) =>
     ({ type: SET_IS_LOGGED_IN, payload: { value } }) as const
-
-export const setPhotoUrlAC = (photoUrl: string) =>
+export const setPhotoUrl = (photoUrl: string) =>
     ({ type: SET_PHOTO_URL, payload: { photoUrl } }) as const
+export const cleanReducer = () =>
+    ({ type: CLEAN_REDUCER }) as const
 
+//THUNKS
 export const initializeApp = () =>
     (dispatch: AppDispatchType) => {
         dispatch(setAppIsLoading(true))
         socialNetworkAPI.getMe()
             .then(res => {
                 if (res.data.resultCode === 0) {
-                    dispatch(setAuthUserDataAC(res.data.data))
-                    dispatch(setIsLoggedInAC(true))
+                    dispatch(setIsLoggedIn(true))
+                    dispatch(setAuthUserData(res.data.data))
                 }
-                else {
-                    dispatch(setIsLoggedInAC(false))
-                }
+                return socialNetworkAPI.getProfile(res.data.data.id)
+            })
+            .then(res => {
+                dispatch(setPhotoUrl(res.data.photos.small))
             })
             .catch(error => {
                 dispatch(addAppAlert('failed', error.message))
             })
             .finally(() => dispatch(setAppIsLoading(false)))
-            
-    }
 
-export const getPhotoUrl = (userId: number) => (dispatch: AppDispatchType) => {
-    dispatch(setAppIsLoading(true))
-    socialNetworkAPI.getProfile(userId)
-    .then(res => {
-        dispatch(setPhotoUrlAC(res.data.photos.small))
-    })
-    .catch(error => {
-        dispatch(addAppAlert('failed', error.message))
-    })
-    .finally(() => dispatch(setAppIsLoading(false)))
-}
+    }
 
 export const logOut = () => (dispatch: AppDispatchType) => {
     dispatch(setAppIsLoading(true))
     socialNetworkAPI.logout()
         .then(res => {
             if (res.data.resultCode === 0) {
-                dispatch(setIsLoggedInAC(false))
+                dispatch(setIsLoggedIn(false))
+                dispatch(cleanReducer())
+            }
+            else {
+                dispatch(addAppAlert('failed', res.data.messages[0]))
+            }
+        })
+        .catch(error => {
+            dispatch(addAppAlert('failed', error.message))
+        })
+        .finally(() => dispatch(setAppIsLoading(false)))
+}
+export const logIn = (loginData: LoginDataType) => (dispatch: AppDispatchType) => {
+    dispatch(setAppIsLoading(true))
+    socialNetworkAPI.login(loginData)
+        .then(res => {
+            if (res.data.resultCode === 0) {
+                dispatch(setIsLoggedIn(true))
             }
             else {
                 dispatch(addAppAlert('failed', res.data.messages[0]))
@@ -96,19 +100,14 @@ export const logOut = () => (dispatch: AppDispatchType) => {
         .finally(() => dispatch(setAppIsLoading(false)))
 }
 
-export const logIn = (loginData: LoginDataType) => (dispatch: AppDispatchType) => {
-    dispatch(setAppIsLoading(true))
-    socialNetworkAPI.login(loginData)
-        .then(res => {
-            if (res.data.resultCode === 0) {
-                dispatch(setIsLoggedInAC(true))
-            }
-            else {
-                dispatch(addAppAlert('failed', res.data.messages[0]))
-            }
-        })
-        .catch(error => {
-            dispatch(addAppAlert('failed', error.message))
-        })
-        .finally(() => dispatch(setAppIsLoading(false)))
+//TYPES
+export type AuthReducerActionsType =
+    | ReturnType<typeof setAuthUserData>
+    | ReturnType<typeof setIsLoggedIn>
+    | ReturnType<typeof setPhotoUrl>
+    | SetAppIsLoadingActionType
+    | CleanReducerType
+export interface AuthStateType extends GetMeDataType {
+    isLoggedIn: boolean
+    photoUrl: string
 }

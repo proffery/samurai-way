@@ -1,44 +1,14 @@
 import { v1 } from "uuid"
 import { AppDispatchType, AppRootStateType } from "./redux-store"
+import { CLEAN_REDUCER, CleanReducerType } from "./authReducer"
 
+//CONSTANTS
 const APP_SET_IS_LOADING = 'APP-SET-IS_LOADING'
 const APP_ADD_ALERT = 'APP-ADD-ALERT'
 const APP_REMOVE_ALERT = 'APP-REMOVE-ALERT'
 const APP_SET_NAVBAR_COLLAPSED = 'APP-SET-NAVBAR-COLLAPSED'
 
-export type IconLinksStateType = {
-    id: number
-    name: string
-    href: string
-    icon_id: string
-    viewBox: string
-}
-export type AlertType = 'succeeded' | 'failed' | 'info'
-
-export type AlertObjectType = {
-    id: string
-    type: AlertType
-    message: string
-}
-
-export type AppStateType = {
-    socialLinks: IconLinksStateType[]
-    menuItems: IconLinksStateType[]
-    isLoading: boolean
-    navbarCollapsed: boolean
-    alerts: AlertObjectType[]
-}
-export type AddAlertActionType = ReturnType<typeof addAppAlert1>
-export type RemoveAlertActionType = ReturnType<typeof removeAlert>
-export type SetNavbarCollapsedActionType = ReturnType<typeof setAppNavbarCollapsed>
-export type SetAppIsLoadingActionType = ReturnType<typeof setAppIsLoading>
-
-type AppActionsType =
-    | SetAppIsLoadingActionType
-    | AddAlertActionType
-    | RemoveAlertActionType
-    | SetNavbarCollapsedActionType
-
+//INITIAL STATE
 const initialState: AppStateType = {
     socialLinks: [
         {
@@ -126,6 +96,7 @@ const initialState: AppStateType = {
     alerts: []
 }
 
+//REDUCER
 export const appReducer = (state: AppStateType = initialState, action: AppActionsType): AppStateType => {
     switch (action.type) {
         case APP_SET_IS_LOADING:
@@ -136,22 +107,24 @@ export const appReducer = (state: AppStateType = initialState, action: AppAction
             return { ...state, alerts: state.alerts.filter(alert => alert.id !== action.payload.id) }
         case APP_SET_NAVBAR_COLLAPSED:
             return { ...state, navbarCollapsed: action.payload.navbarCollapsed }
+        case CLEAN_REDUCER:
+            return initialState
         default:
             return state
     }
 }
 
+//ACTIONS
 export const setAppIsLoading = (isLoading: boolean) =>
     ({ type: APP_SET_IS_LOADING, payload: { isLoading } } as const)
-
-export const addAppAlert1 = (newAlert: AlertObjectType) => {
-    return { type: APP_ADD_ALERT, payload: { newAlert } } as const
-}
+export const setAppAlert = (newAlert: AlertObjectType) =>
+    ({ type: APP_ADD_ALERT, payload: { newAlert } } as const)
 export const removeAlert = (id: string) =>
     ({ type: APP_REMOVE_ALERT, payload: { id } } as const)
 export const setAppNavbarCollapsed = (navbarCollapsed: boolean) =>
     ({ type: APP_SET_NAVBAR_COLLAPSED, payload: { navbarCollapsed } } as const)
 
+//THUNKS
 export const addAppAlert = (type: AlertType, message: string) =>
     (dispatch: AppDispatchType, getState: () => AppRootStateType) => {
         const alerts = getState().app.alerts
@@ -162,5 +135,37 @@ export const addAppAlert = (type: AlertType, message: string) =>
             message,
             type
         }
-        dispatch(addAppAlert1(newAlert))
+        dispatch(setAppAlert(newAlert))
     }
+
+//TYPES
+export type AddAlertActionType = ReturnType<typeof setAppAlert>
+export type RemoveAlertActionType = ReturnType<typeof removeAlert>
+export type SetNavbarCollapsedActionType = ReturnType<typeof setAppNavbarCollapsed>
+export type SetAppIsLoadingActionType = ReturnType<typeof setAppIsLoading>
+type AppActionsType =
+    | SetAppIsLoadingActionType
+    | AddAlertActionType
+    | RemoveAlertActionType
+    | SetNavbarCollapsedActionType
+    | CleanReducerType
+export type IconLinksStateType = {
+    id: number
+    name: string
+    href: string
+    icon_id: string
+    viewBox: string
+}
+export type AlertType = 'succeeded' | 'failed' | 'info'
+export type AlertObjectType = {
+    id: string
+    type: AlertType
+    message: string
+}
+export type AppStateType = {
+    socialLinks: IconLinksStateType[]
+    menuItems: IconLinksStateType[]
+    isLoading: boolean
+    navbarCollapsed: boolean
+    alerts: AlertObjectType[]
+}

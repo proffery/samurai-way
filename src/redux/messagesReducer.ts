@@ -1,26 +1,13 @@
-import { Dispatch } from "redux"
 import { v1 } from "uuid"
+import { CLEAN_REDUCER, CleanReducerType } from "./authReducer"
+import { AppDispatchType } from "./redux-store"
 
+//CONSTANTS
 export const ADD_MESSAGE = 'ADD-MESSAGE'
 export const UPDATE_MESSAGE = 'UPDATE-MESSAGE'
 export const ON_CHANGE_MESSAGE = 'ON-CHANGE-MESSAGE'
 
-export type MessagesReducerActionsType = AddMessageACType | UpdateMessageACType | MessageOnChangeACType
-
-export type MessageStateType = {
-    id: string
-    message: string
-}
-export type DialogStateType = {
-    id: string
-    name: string
-    second_name: string
-}
-export type MessagesPageStateType = {
-    messages: MessageStateType[]
-    dialogs: DialogStateType[]
-    newMessageForm: string
-}
+//INITIAL STATE
 const initialState: MessagesPageStateType = {
     messages: [
         {
@@ -79,63 +66,59 @@ const initialState: MessagesPageStateType = {
     newMessageForm: ''
 }
 
+//REDUCER
 export const messagesReducer = (state: MessagesPageStateType = initialState, action: MessagesReducerActionsType): MessagesPageStateType => {
     switch (action.type) {
-        case ADD_MESSAGE: {
+        case ADD_MESSAGE:
             const newMessage: MessageStateType = {
                 id: v1(),
                 message: state.newMessageForm,
             }
-            return {
-                ...state, messages: [...state.messages, newMessage]
-            }
-        }
-        case UPDATE_MESSAGE: {
+            return { ...state, messages: [...state.messages, newMessage] }
+        case UPDATE_MESSAGE:
             return {
                 ...state, messages: state.messages.map(el => el.id === action.payload.messageId
                     ? { ...el, message: action.payload.newMessage }
                     : el
                 )
             }
-        }
-        case ON_CHANGE_MESSAGE: {
-            return {
-                ...state, newMessageForm: action.payload.newMessage
-            }
-        }
+        case ON_CHANGE_MESSAGE:
+            return { ...state, newMessageForm: action.payload.newMessage }
+        case CLEAN_REDUCER:
+            return initialState
         default: return state
     }
 }
 
-type AddMessageACType = ReturnType<typeof addMessageAC>
-export const addMessageAC = () => {
-    return {
-        type: ADD_MESSAGE,
-    } as const
+//ACTIONS
+export const setMessage = () => ({ type: ADD_MESSAGE } as const)
+export const updateMessage = (messageId: string, newMessage: string) =>
+    ({ type: UPDATE_MESSAGE, payload: { newMessage, messageId } } as const)
+export const onChangeMessage = (newMessage: string) =>
+    ({ type: ON_CHANGE_MESSAGE, payload: { newMessage } } as const)
+export const addMessage = () => (dispatch: AppDispatchType) => {
+    dispatch(setMessage())
+    dispatch(onChangeMessage(''))
 }
 
-type UpdateMessageACType = ReturnType<typeof updateMessageAC>
-export const updateMessageAC = (messageId: string, newMessage: string) => {
-    return {
-        type: UPDATE_MESSAGE,
-        payload: {
-            newMessage,
-            messageId
-        }
-    } as const
-}
+//TYPES
+export type MessagesReducerActionsType =
+    | ReturnType<typeof setMessage>
+    | ReturnType<typeof updateMessage>
+    | ReturnType<typeof onChangeMessage>
+    | CleanReducerType
 
-type MessageOnChangeACType = ReturnType<typeof messageOnChangeAC>
-export const messageOnChangeAC = (newMessage: string) => {
-    return {
-        type: ON_CHANGE_MESSAGE,
-        payload: {
-            newMessage
-        }
-    } as const
+export type MessageStateType = {
+    id: string
+    message: string
 }
-
-export const addMessageTC = () => (dispatch: Dispatch) => {
-    dispatch(addMessageAC())
-    dispatch(messageOnChangeAC(''))
+export type DialogStateType = {
+    id: string
+    name: string
+    second_name: string
+}
+export type MessagesPageStateType = {
+    messages: MessageStateType[]
+    dialogs: DialogStateType[]
+    newMessageForm: string
 }

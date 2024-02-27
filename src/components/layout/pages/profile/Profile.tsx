@@ -17,7 +17,7 @@ type ProfilePropsType = {
     addPost: () => void
     followProfile: (userId: number) => void
     unfollowProfile: (userId: number) => void
-    postOnChangeAction: (newPost: string) => void
+    postOnChange: (newPost: string) => void
 }
 
 export const Profile: React.FC<ProfilePropsType> = (props) => {
@@ -35,7 +35,7 @@ export const Profile: React.FC<ProfilePropsType> = (props) => {
             <ProfilePostsBlock
                 profileData={props.profileData}
                 addPost={props.addPost}
-                onChangeNewPostText={props.postOnChangeAction}
+                onChangeNewPostText={props.postOnChange}
             />
             <ProfileFriendsBlock />
             <ProfilePossibleFriendsBlock />

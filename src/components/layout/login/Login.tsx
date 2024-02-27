@@ -53,8 +53,6 @@ export const Login: React.FC<LoginPagePropsType> = (props) => {
                 errors.password = 'Password must be longer than 3'
                 props.dispatch(addAppAlert('failed', errors.password))
             }
-            console.log(errors)
-
             return errors
         },
     })

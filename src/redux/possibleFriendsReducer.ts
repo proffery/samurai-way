@@ -1,20 +1,16 @@
-import { UserResponseType, socialNetworkAPI } from '../api/social-network-api';
-import { FriendsType } from './friendsReducer';
-import { SetAppIsLoadingActionType, addAppAlert, setAppIsLoading } from './appReducer';
-import { AppDispatchType } from './redux-store';
+import { UserResponseType, socialNetworkAPI } from '../api/social-network-api'
+import { FriendsType } from './friendsReducer'
+import { SetAppIsLoadingActionType, addAppAlert, setAppIsLoading } from './appReducer'
+import { AppDispatchType } from './redux-store'
+import { CLEAN_REDUCER, CleanReducerType } from './authReducer'
 
+//CONSTANTS
 const SET_POSSIBLE_FRIENDS = 'SET-POSSIBLE-FRIENDS'
 const SET_POSSIBLE_FRIENDS_ON_PAGE = 'SET-POSSIBLE-FRIENDS-ON-PAGE'
 const SET_POSSIBLE_FRIENDS_CURRENT_PAGE = 'SET-POSSIBLE-FRIENDS-CURRENT-PAGE'
 const SET_TOTAL_POSSIBLE_FRIENDS_COUNT = 'SET-TOTAL-POSSIBLE-FRIENDS-COUNT'
 
-export type FriendsReducerActionsType =
-    | ReturnType<typeof setPossibleFriendsAC>
-    | ReturnType<typeof setPossibleFriendsCurrentPageAC>
-    | ReturnType<typeof setPossibleFriendsOnPageAC>
-    | ReturnType<typeof setTotalPossibleFriendsCountAC>
-    | SetAppIsLoadingActionType
-
+//INITIAL STATE
 const initialState: FriendsType = {
     users: [],
     usersOnPage: 4,
@@ -22,6 +18,7 @@ const initialState: FriendsType = {
     currentPage: 1,
 }
 
+//REDUCER
 export const possibleFriendsReducer = (state: FriendsType = initialState, action: FriendsReducerActionsType): FriendsType => {
     switch (action.type) {
         case SET_POSSIBLE_FRIENDS:
@@ -32,35 +29,45 @@ export const possibleFriendsReducer = (state: FriendsType = initialState, action
             return { ...state, usersOnPage: action.payload.possibleFriendsOnPage }
         case SET_TOTAL_POSSIBLE_FRIENDS_COUNT:
             return { ...state, totalUsersCount: action.payload.totalPossibleFriendsCount }
+        case CLEAN_REDUCER:
+            return initialState
         default:
             return state
     }
 }
 
-export const setPossibleFriendsAC = (possibleFriends: UserResponseType[]) =>
+//ACTIONS
+export const setPossibleFriends = (possibleFriends: UserResponseType[]) =>
     ({ type: SET_POSSIBLE_FRIENDS, payload: { possibleFriends } }) as const
-
-export const setPossibleFriendsCurrentPageAC = (currentPage: number) =>
+export const setPossibleFriendsCurrentPage = (currentPage: number) =>
     ({ type: SET_POSSIBLE_FRIENDS_CURRENT_PAGE, payload: { currentPage } }) as const
-
-export const setPossibleFriendsOnPageAC = (possibleFriendsOnPage: number) =>
+export const setPossibleFriendsOnPage = (possibleFriendsOnPage: number) =>
     ({ type: SET_POSSIBLE_FRIENDS_ON_PAGE, payload: { possibleFriendsOnPage } }) as const
-
-export const setTotalPossibleFriendsCountAC = (totalPossibleFriendsCount: number) =>
+export const setTotalPossibleFriendsCount = (totalPossibleFriendsCount: number) =>
     ({ type: SET_TOTAL_POSSIBLE_FRIENDS_COUNT, payload: { totalPossibleFriendsCount } }) as const
 
-export const getPossibleFriendsTC = (pageNumber: number, possibleFriendsOnPage: number) =>
+//THUNKS
+export const getPossibleFriends = (pageNumber: number, possibleFriendsOnPage: number) =>
     (dispatch: AppDispatchType) => {
         dispatch(setAppIsLoading(true))
         socialNetworkAPI.getSortedUsers(pageNumber, possibleFriendsOnPage, false)
             .then(res => {
-                dispatch(setTotalPossibleFriendsCountAC(res.data.totalCount))
-                dispatch(setPossibleFriendsCurrentPageAC(pageNumber))
-                dispatch(setPossibleFriendsOnPageAC(possibleFriendsOnPage))
-                dispatch(setPossibleFriendsAC(res.data.items))
+                dispatch(setTotalPossibleFriendsCount(res.data.totalCount))
+                dispatch(setPossibleFriendsCurrentPage(pageNumber))
+                dispatch(setPossibleFriendsOnPage(possibleFriendsOnPage))
+                dispatch(setPossibleFriends(res.data.items))
             })
             .catch(error => {
                 dispatch(addAppAlert('failed', error.message))
             })
             .finally(() => dispatch(setAppIsLoading(false)))
     }
+
+//TYPES
+export type FriendsReducerActionsType =
+    | ReturnType<typeof setPossibleFriends>
+    | ReturnType<typeof setPossibleFriendsCurrentPage>
+    | ReturnType<typeof setPossibleFriendsOnPage>
+    | ReturnType<typeof setTotalPossibleFriendsCount>
+    | SetAppIsLoadingActionType
+    | CleanReducerType

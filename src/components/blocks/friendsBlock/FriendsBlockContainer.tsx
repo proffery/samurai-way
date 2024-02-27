@@ -1,9 +1,9 @@
-import { connect } from "react-redux";
-import { AppRootStateType } from "../../../redux/redux-store";
-import { FriendsBlock } from "./FriendsBlock";
-import { getFriendsTC } from "../../../redux/friendsReducer";
-import { UserResponseType } from "../../../api/social-network-api";
-import { useEffect } from "react";
+import { connect } from "react-redux"
+import { AppRootStateType } from "../../../redux/redux-store"
+import { FriendsBlock } from "./FriendsBlock"
+import { getFriends } from "../../../redux/friendsReducer"
+import { UserResponseType } from "../../../api/social-network-api"
+import { useEffect } from "react"
 
 
 type FriendsBlockAPIPropsType = {
@@ -25,8 +25,8 @@ export const FriendsBlockAPI: React.FC<FriendsBlockAPIPropsType> = (props) => {
     }, [pagesCount])
 
     function getRandomPage(min: number, max: number) {
-        const minCeiled = Math.ceil(min);
-        const maxFloored = Math.floor(max);
+        const minCeiled = Math.ceil(min)
+        const maxFloored = Math.floor(max)
         return Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled)
     }
 
@@ -41,7 +41,7 @@ export const FriendsBlockAPI: React.FC<FriendsBlockAPIPropsType> = (props) => {
             refreshFriends={refreshFriends}
         />
     )
-}   
+}
 
 
 type MapStatePropsType = {
@@ -61,6 +61,4 @@ const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
     }
 }
 
-export const FriendsBlockContainer = connect(mapStateToProps, {
-    getFriends: getFriendsTC
-})(FriendsBlockAPI)
+export const FriendsBlockContainer = connect(mapStateToProps, { getFriends })(FriendsBlockAPI)

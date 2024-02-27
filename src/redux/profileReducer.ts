@@ -3,7 +3,9 @@ import { GetProfileResponseType, socialNetworkAPI } from "../api/social-network-
 import { AppDispatchType, AppRootStateType } from "./redux-store"
 import { AddAlertActionType, SetAppIsLoadingActionType, addAppAlert, setAppIsLoading } from "./appReducer"
 import { FollowUserActionType, UnfollowUserActionType } from "./usersReducer"
+import { CLEAN_REDUCER, CleanReducerType } from "./authReducer"
 
+//CONSTANTS
 const ADD_POST = 'ADD-POST'
 const UPDATE_POST = 'UPDATE-POST'
 const ON_CHANGE_POST = 'ON-CHANGE-POST'
@@ -11,36 +13,7 @@ const SET_PROFILE_DATA = 'SET-PROFILE-DATA'
 const SET_FOLLOW_STATUS = 'SET-FOLLOW-STATUS'
 const SET_STATUS = 'SET-STATUS'
 
-export type ProfileReducerActionsType =
-    | ReturnType<typeof addPostAction>
-    | ReturnType<typeof updatePostAction>
-    | ReturnType<typeof postOnChangeAction>
-    | ReturnType<typeof setProfileDataAction>
-    | ReturnType<typeof setFollowStatusAction>
-    | ReturnType<typeof setStatusAction>
-    | SetAppIsLoadingActionType
-    | AddAlertActionType
-    | FollowUserActionType
-    | UnfollowUserActionType
-
-export type PostStateType = {
-    id: string
-    message: string
-    likeCount: number
-    commentsCount: number
-}
-
-export interface ProfileDataType extends GetProfileResponseType {
-    isFollow: boolean
-    status: string
-}
-
-export type ProfileStateType = {
-    posts: PostStateType[]
-    newPostForm: string
-    data: ProfileDataType
-}
-
+//INITIAL STATE
 const initialState: ProfileStateType = {
     posts: [],
     newPostForm: '',
@@ -69,6 +42,7 @@ const initialState: ProfileStateType = {
     }
 }
 
+//REDUCER
 export const profileReducer = (state: ProfileStateType = initialState, action: ProfileReducerActionsType): ProfileStateType => {
     switch (action.type) {
         case ADD_POST:
@@ -89,11 +63,14 @@ export const profileReducer = (state: ProfileStateType = initialState, action: P
             return { ...state, data: { ...state.data, isFollow: action.payload.isFollow } }
         case SET_STATUS:
             return { ...state, data: { ...state.data, status: action.payload.status } }
+        case CLEAN_REDUCER:
+            return initialState
         default: return state
     }
 }
 
-export const addPostAction = (postMessage: string) => {
+//ACTIONS
+export const setPost = (postMessage: string) => {
     const newPost: PostStateType = {
         id: v1(),
         message: postMessage,
@@ -102,55 +79,48 @@ export const addPostAction = (postMessage: string) => {
     }
     return { type: ADD_POST, payload: { newPost } } as const
 }
+export const updatePost = (postId: string, newPost: string) => (
+    { type: UPDATE_POST, payload: { newPost, postId } }) as const
+export const postOnChange = (newPost: string) => (
+    { type: ON_CHANGE_POST, payload: { newPost } }) as const
+export const setProfileData = (data: GetProfileResponseType) => (
+    { type: SET_PROFILE_DATA, payload: { data } }) as const
+export const setFollowStatus = (isFollow: boolean) => (
+    { type: SET_FOLLOW_STATUS, payload: { isFollow } }) as const
+export const setStatus = (status: string) => (
+    { type: SET_STATUS, payload: { status } }) as const
 
-export const updatePostAction = (postId: string, newPost: string) => (
-    { type: UPDATE_POST, payload: { newPost, postId } }
-) as const
-export const postOnChangeAction = (newPost: string) => (
-    { type: ON_CHANGE_POST, payload: { newPost } }
-) as const
-export const setProfileDataAction = (data: GetProfileResponseType) => (
-    { type: SET_PROFILE_DATA, payload: { data } }
-) as const
-export const setFollowStatusAction = (isFollow: boolean) => (
-    { type: SET_FOLLOW_STATUS, payload: { isFollow } }
-) as const
-export const setStatusAction = (status: string) => (
-    { type: SET_STATUS, payload: { status } }
-) as const
-
+//THUNKS
 export const addPost = () => (dispatch: AppDispatchType, getState: () => AppRootStateType) => {
     const newPost = getState().profile.newPostForm
-    dispatch(addPostAction(newPost))
-    dispatch(postOnChangeAction(''))
+    dispatch(setPost(newPost))
+    dispatch(postOnChange(''))
 }
-
-export const setProfileData = (userId: number) => (dispatch: AppDispatchType) => {
+export const getProfileData = (userId: number) => (dispatch: AppDispatchType) => {
     dispatch(setAppIsLoading(true))
     socialNetworkAPI.getProfile(userId)
         .then(res => {
-            dispatch(setProfileDataAction(res.data))
+            dispatch(setProfileData(res.data))
             return socialNetworkAPI.isFollow(userId)
         })
         .then(res => {
-            dispatch(setFollowStatusAction(res.data))
+            dispatch(setFollowStatus(res.data))
             return socialNetworkAPI.getProfileStatus(userId)
         })
         .then(res => {
-            dispatch(setStatusAction(res.data))
+            dispatch(setStatus(res.data))
         })
         .catch(error => {
             dispatch(addAppAlert('failed', error.message))
         })
         .finally(() => dispatch(setAppIsLoading(false)))
 }
-
 export const followProfile = (userId: number) => (dispatch: AppDispatchType) => {
     dispatch(setAppIsLoading(true))
     socialNetworkAPI.followUser(userId)
         .then(res => {
             if (res.data.resultCode === 0) {
-                dispatch(setFollowStatusAction(true))
+                dispatch(setFollowStatus(true))
                 dispatch(addAppAlert('succeeded', 'Followed!'))
             }
             else {
@@ -162,13 +132,12 @@ export const followProfile = (userId: number) => (dispatch: AppDispatchType) => 
         })
         .finally(() => dispatch(setAppIsLoading(false)))
 }
-
 export const unfollowProfile = (userId: number) => (dispatch: AppDispatchType) => {
     dispatch(setAppIsLoading(true))
     socialNetworkAPI.unfollowUser(userId)
         .then(res => {
             if (res.data.resultCode === 0) {
-                dispatch(setFollowStatusAction(false))
+                dispatch(setFollowStatus(false))
                 dispatch(addAppAlert('succeeded', 'Unfollowed!'))
             }
             else {
@@ -179,4 +148,34 @@ export const unfollowProfile = (userId: number) => (dispatch: AppDispatchType) =
             dispatch(addAppAlert('failed', error.message))
         })
         .finally(() => dispatch(setAppIsLoading(false)))
+}
+
+//TYPES
+export type ProfileReducerActionsType =
+    | ReturnType<typeof setPost>
+    | ReturnType<typeof updatePost>
+    | ReturnType<typeof postOnChange>
+    | ReturnType<typeof setProfileData>
+    | ReturnType<typeof setFollowStatus>
+    | ReturnType<typeof setStatus>
+    | SetAppIsLoadingActionType
+    | AddAlertActionType
+    | FollowUserActionType
+    | UnfollowUserActionType
+    | CleanReducerType
+
+export type PostStateType = {
+    id: string
+    message: string
+    likeCount: number
+    commentsCount: number
+}
+export interface ProfileDataType extends GetProfileResponseType {
+    isFollow: boolean
+    status: string
+}
+export type ProfileStateType = {
+    posts: PostStateType[]
+    newPostForm: string
+    data: ProfileDataType
 }

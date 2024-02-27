@@ -41,7 +41,7 @@ export const HeaderBlock: React.FC<HeaderBlockPropsType> = (props) => {
             <InfoConainer>
                 <TextContainer>
                     <Name>{fullName}</Name>
-                    <About>{status}</About>
+                    <Status>{status}</Status>
                 </TextContainer>
                 {authId !== userId ? <ButtonsContainer>
                     <MessagesButton
@@ -106,13 +106,16 @@ const TextContainer = styled.div`
     display: flex;
     flex-direction: column;
     color: ${theme.color.text.primary};
+    height: 90%;
 `
 const Name = styled.span`
     white-space: nowrap;
     ${font({ weight: 700, Fmin: 16, Fmax: 30 })}
 `
-const About = styled.span`
+const Status = styled.p`
     ${font({ weight: 100, Fmin: 10, Fmax: 22 })}
+    height: 100%;
+    overflow-y: auto;
 `
 const ButtonsContainer = styled.div`
     display: flex;

@@ -1,5 +1,5 @@
 import { connect } from "react-redux"
-import { addPost, followProfile, setProfileData, postOnChangeAction, unfollowProfile, PostStateType, ProfileDataType, ProfileStateType } from "../../../../redux/profileReducer"
+import { addPost, followProfile, getProfileData, postOnChange, unfollowProfile, ProfileStateType } from "../../../../redux/profileReducer"
 import { AppRootStateType } from "../../../../redux/redux-store"
 import { Profile } from "./Profile"
 import { useEffect } from "react"
@@ -13,8 +13,8 @@ type ConnectPropsType = {
     addPost: () => void
     followProfile: (userId: number) => void
     unfollowProfile: (userId: number) => void
-    postOnChangeAction: (newPost: string) => void
-    setProfileData: (iserId: number) => void
+    postOnChange: (newPost: string) => void
+    getProfileData: (iserId: number) => void
 }
 type PathParamType = {
     userId: string
@@ -24,7 +24,7 @@ type ProfileAPIPropsType = RouteComponentProps<PathParamType> & ConnectPropsType
 const ProfileAPI: React.FC<ProfileAPIPropsType> = (props) => {
 
     useEffect(() => {
-        props.setProfileData(Number(props.match.params.userId
+        props.getProfileData(Number(props.match.params.userId
             ? props.match.params.userId
             : props.authData.id
         ))
@@ -36,7 +36,7 @@ const ProfileAPI: React.FC<ProfileAPIPropsType> = (props) => {
         appIsLoading={props.appIsLoading}
         addPost={props.addPost}
         followProfile={props.followProfile}
-        postOnChangeAction={props.postOnChangeAction}
+        postOnChange={props.postOnChange}
         unfollowProfile={props.unfollowProfile}
     />
 }
@@ -50,7 +50,7 @@ const mapStateToProps = (state: AppRootStateType) => {
 }
 
 const mapDispatchToProps =
-    { postOnChangeAction, addPost, setProfileData, unfollowProfile, followProfile }
+    { postOnChange, addPost, getProfileData, unfollowProfile, followProfile }
 
 let WithUrlDataContainerComponent = withRouter(ProfileAPI)
 

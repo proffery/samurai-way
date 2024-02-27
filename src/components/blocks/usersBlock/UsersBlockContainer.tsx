@@ -2,21 +2,18 @@
 import { connect } from "react-redux"
 import { UsersBlock } from "./UsersBlock"
 import {
-    getAllUsersTC, followUsersTC, unfollowUsersTC, getFollowedUsersTC,
-    getUnfollowedUsersTC, UsersFilterType, changeUsersFilterAC, UserStateType
+    getAllUsers, followUser, unfollowUser, getFollowedUsers,
+    getUnfollowedUsers, UsersFilterType, changeUsersFilter,
+    UsersStateType
 } from "../../../redux/usersReducer"
 import { AppRootStateType } from "../../../redux/redux-store"
 import { useEffect } from "react"
 
 type UsersBlockAPIPropsType = {
-    users: UserStateType[]
-    usersFilter: UsersFilterType
-    totalUsersCount: number
-    usersOnPage: number
-    currentPage: number
+    usersData: UsersStateType
     appIsLoading: boolean
-    follow: (userId: number) => void
-    unfollow: (userId: number) => void
+    followUser: (userId: number) => void
+    unfollowUser: (userId: number) => void
     getAllUsers: (currentPage: number, usersOnPage: number) => void
     getFollowedUsers: (currentPage: number, usersOnPage: number) => void
     getUnfollowedUsers: (currentPage: number, usersOnPage: number) => void
@@ -24,54 +21,50 @@ type UsersBlockAPIPropsType = {
 }
 
 const UsersBlockAPI: React.FC<UsersBlockAPIPropsType> = (props) => {
-
+    const { usersFilter, usersOnPage } = props.usersData
     useEffect(() => {
-        switch (props.usersFilter) {
+        switch (usersFilter) {
             case "all":
-                props.getAllUsers(1, props.usersOnPage)
+                props.getAllUsers(1, usersOnPage)
                 break
             case "followed":
-                props.getFollowedUsers(1, props.usersOnPage)
+                props.getFollowedUsers(1, usersOnPage)
                 break
             case "unfollowed":
-                props.getUnfollowedUsers(1, props.usersOnPage)
+                props.getUnfollowedUsers(1, usersOnPage)
                 break
             default:
-                props.getAllUsers(1, props.usersOnPage)
+                props.getAllUsers(1, usersOnPage)
         }
 
-    }, [props.usersFilter])
+    }, [usersFilter])
 
     const filterChangeHandler = (filter: UsersFilterType) => {
         props.changeUsersFilter(filter)
     }
 
     const onPageChangeHandler = (pageNumber: number) => {
-        switch (props.usersFilter) {
+        switch (usersFilter) {
             case "all":
-                props.getAllUsers(pageNumber, props.usersOnPage)
+                props.getAllUsers(pageNumber, usersOnPage)
                 break
             case "followed":
-                props.getFollowedUsers(pageNumber, props.usersOnPage)
+                props.getFollowedUsers(pageNumber, usersOnPage)
                 break
             case "unfollowed":
-                props.getUnfollowedUsers(pageNumber, props.usersOnPage)
+                props.getUnfollowedUsers(pageNumber, usersOnPage)
                 break
             default:
-                props.getAllUsers(pageNumber, props.usersOnPage)
+                props.getAllUsers(pageNumber, usersOnPage)
         }
     }
 
     return (
         <UsersBlock
-            users={props.users}
-            usersFilter={props.usersFilter}
-            currentPage={props.currentPage}
-            totalUsersCount={props.totalUsersCount}
-            usersOnPage={props.usersOnPage}
+            usersData={props.usersData}
             appIsLoading={props.appIsLoading}
-            follow={props.follow}
-            unfollow={props.unfollow}
+            follow={props.followUser}
+            unfollow={props.unfollowUser}
             getAllUsers={props.getAllUsers}
             onPageChangeHandler={onPageChangeHandler}
             filterChangeHandler={filterChangeHandler}
@@ -81,20 +74,11 @@ const UsersBlockAPI: React.FC<UsersBlockAPIPropsType> = (props) => {
 
 const mapStateToProps = (state: AppRootStateType) => {
     return {
-        users: state.users.users,
-        totalUsersCount: state.users.totalUsersCount,
-        usersOnPage: state.users.usersOnPage,
-        currentPage: state.users.currentPage,
-        usersFilter: state.users.usersFilter,
+        usersData: state.users,
         appIsLoading: state.app.isLoading
     }
 }
 
 export const UsersBlockContainer = connect(mapStateToProps, {
-    follow: followUsersTC,
-    unfollow: unfollowUsersTC,
-    getAllUsers: getAllUsersTC,
-    getFollowedUsers: getFollowedUsersTC,
-    getUnfollowedUsers: getUnfollowedUsersTC,
-    changeUsersFilter: changeUsersFilterAC
+    followUser, unfollowUser, getAllUsers, getFollowedUsers, getUnfollowedUsers, changeUsersFilter
 })(UsersBlockAPI)
