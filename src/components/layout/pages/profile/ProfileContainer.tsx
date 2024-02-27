@@ -1,14 +1,14 @@
 import { connect } from "react-redux"
-import { addPost, followProfile, setProfileData, postOnChangeAction, unfollowProfile, PostStateType, ProfileDataType } from "../../../../redux/profileReducer"
+import { addPost, followProfile, setProfileData, postOnChangeAction, unfollowProfile, PostStateType, ProfileDataType, ProfileStateType } from "../../../../redux/profileReducer"
 import { AppRootStateType } from "../../../../redux/redux-store"
 import { Profile } from "./Profile"
 import { useEffect } from "react"
 import { RouteComponentProps, withRouter } from "react-router-dom"
+import { AuthStateType } from "../../../../redux/authReducer"
 
 type ConnectPropsType = {
-    posts: PostStateType[]
-    profileData: ProfileDataType
-    newPostForm: string
+    authData: AuthStateType
+    profileData: ProfileStateType
     appIsLoading: boolean
     addPost: () => void
     followProfile: (userId: number) => void
@@ -24,25 +24,27 @@ type ProfileAPIPropsType = RouteComponentProps<PathParamType> & ConnectPropsType
 const ProfileAPI: React.FC<ProfileAPIPropsType> = (props) => {
 
     useEffect(() => {
-        props.setProfileData(Number(props.match.params.userId) || 2)
+        props.setProfileData(Number(props.match.params.userId
+            ? props.match.params.userId
+            : props.authData.id
+        ))
     }, [props.match.params.userId])
 
-    return <Profile addPost={props.addPost}
-        appIsLoading={props.appIsLoading}
-        followProfile={props.followProfile}
+    return <Profile
+        authData={props.authData}
         profileData={props.profileData}
-        newPostForm={props.newPostForm}
+        appIsLoading={props.appIsLoading}
+        addPost={props.addPost}
+        followProfile={props.followProfile}
         postOnChangeAction={props.postOnChangeAction}
-        posts={props.posts}
         unfollowProfile={props.unfollowProfile}
     />
 }
 
 const mapStateToProps = (state: AppRootStateType) => {
     return {
-        posts: state.profile.posts,
-        profileData: state.profile.data,
-        newPostForm: state.profile.newPostForm,
+        authData: state.auth,
+        profileData: state.profile,
         appIsLoading: state.app.isLoading
     }
 }

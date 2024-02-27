@@ -1,21 +1,25 @@
 import { connect } from "react-redux"
 import { Header } from "./Header"
 import { AppRootStateType } from "../../../redux/redux-store"
-import { getAuthUserData, logout } from "../../../redux/authReducer"
+import { getPhotoUrl, logOut } from "../../../redux/authReducer"
 import { useEffect } from "react"
+import { useHistory } from "react-router-dom"
 
 type HeaderAPIPropsTtype = {
+    userId: number
     email: string,
     login: string
     isLoggedIn: boolean
     photoUrl: string
-    getAuthUserData: () => void
-    logout: () => void
+    getPhotoUrl: (userId: number) => void
+    logOut: () => void
 }
 
 export const HeaderAPI: React.FC<HeaderAPIPropsTtype> = (props) => {
+    const history = useHistory()
     useEffect(() => {
-        props.getAuthUserData()
+        props.isLoggedIn && props.getPhotoUrl(props.userId)
+        props.isLoggedIn && history.push("/")
     }, [])
     return (
         <Header
@@ -23,12 +27,13 @@ export const HeaderAPI: React.FC<HeaderAPIPropsTtype> = (props) => {
             login={props.login}
             isLoggedIn={props.isLoggedIn}
             photoUrl={props.photoUrl}
-            logout={props.logout}
+            logout={props.logOut}
         />
     )
 }
 
 type MapStatePropsType = {
+    userId: number
     email: string,
     login: string
     isLoggedIn: boolean
@@ -37,6 +42,7 @@ type MapStatePropsType = {
 
 const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
     return {
+        userId: state.auth.id,
         email: state.auth.email,
         login: state.auth.login,
         isLoggedIn: state.auth.isLoggedIn,
@@ -45,5 +51,5 @@ const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
 }
 
 export const HeaderContainer = connect(mapStateToProps, {
-    getAuthUserData, logout
+    getPhotoUrl, logOut
 })(HeaderAPI)

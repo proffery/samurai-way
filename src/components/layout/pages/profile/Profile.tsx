@@ -7,12 +7,12 @@ import { ToTop } from "../../../micro/toTop/ToTop"
 import { FriendsBlockContainer } from "../../../blocks/friendsBlock/FriendsBlockContainer"
 import { PossibleFriendsBlockContainer } from "../../../blocks/friendsBlock/PossibleFriendsBlockContainer"
 import { PostsBlock } from "../../../blocks/postsBlock/PostsBlock"
-import { PostStateType, ProfileDataType } from "../../../../redux/profileReducer"
+import { AuthStateType } from "../../../../redux/authReducer"
+import { ProfileStateType } from "../../../../redux/profileReducer"
 
 type ProfilePropsType = {
-    posts: PostStateType[]
-    profileData: ProfileDataType
-    newPostForm: string
+    authData: AuthStateType
+    profileData: ProfileStateType
     appIsLoading: boolean
     addPost: () => void
     followProfile: (userId: number) => void
@@ -25,20 +25,15 @@ export const Profile: React.FC<ProfilePropsType> = (props) => {
     return (
         <StyledProfile id='profile' >
             <ProfileHeaderBlock
-                userId={props.profileData.userId}
-                aboutMe={props.profileData.aboutMe}
-                fullName={props.profileData.fullName}
-                photoLargeURL={props.profileData.photos.large}
-                photoSmallURL={props.profileData.photos.small}
-                isFollow={props.profileData.isFollow}
+                authData={props.authData}
+                profileData={props.profileData}
                 appIsLoading={props.appIsLoading}
                 follow={props.followProfile}
                 unfollow={props.unfollowProfile}
             />
-            <ProfileAboutBlock contacts={props.profileData.contacts}/>
+            <ProfileAboutBlock profileAboutData={props.profileData.data}/>
             <ProfilePostsBlock
-                posts={props.posts}
-                newPostForm={props.newPostForm}
+                profileData={props.profileData}
                 addPost={props.addPost}
                 onChangeNewPostText={props.postOnChangeAction}
             />

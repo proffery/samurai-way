@@ -16,19 +16,30 @@ import { HeaderContainer } from './components/layout/header/HeaderContainer'
 import { LoadingLoader } from './components/micro/loaders/LoadingLoader.styled'
 import { AlertsContainer } from './components/micro/alerts/AlertsContainer'
 import { Login } from './components/layout/login/Login'
+import { AuthStateType, initializeApp } from './redux/authReducer'
+import { useEffect } from 'react'
 
 
 
 function App() {
   const appData = useSelector<AppRootStateType, AppStateType>(state => state.app)
+  const authData = useSelector<AppRootStateType, AuthStateType>(state => state.auth)
   const dispatch = useDispatch()
-  if (true) {
+
+  useEffect(() => {
+    if (!authData.isLoggedIn) dispatch(initializeApp())
+  }, [])
+
+  if (!authData.isLoggedIn) {
     return (
       <Router>
         <AlertsContainer alerts={appData.alerts} dispatch={dispatch} />
         <LoginContainer>
           <Switch>
-            <Route exact path='/login' render={() => <Login dispatch={dispatch}/>} />
+          <Route path='/' exact render={() => <Redirect to={'/login'} />} />
+            <Route path='/login' render={() =>
+              <Login dispatch={dispatch} isLoggedIn={authData.isLoggedIn} />}
+            />
             <Route path='/404' component={NotFound} />
             <Route path='*' render={() => <Redirect to={'/404'} />} />
           </Switch>
@@ -40,6 +51,7 @@ function App() {
       </Router>
     )
   }
+
   return (
     <Router >
       <Container collapsed={appData.navbarCollapsed.toString()}>

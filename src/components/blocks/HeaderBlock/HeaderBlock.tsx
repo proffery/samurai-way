@@ -3,52 +3,57 @@ import styled from "styled-components"
 import { Button } from "../../micro/button/Button"
 import { Icon } from "../../micro/icon/Icon"
 import { theme } from "../../../styles/Theme.styled"
-import { font } from "../../../styles/Font";
+import { font } from "../../../styles/Font"
 import { NavLink } from "react-router-dom"
 import { BlockSection } from "../../micro/BlockSection.styled"
+import { ProfileStateType } from "../../../redux/profileReducer"
+import { AuthStateType } from "../../../redux/authReducer"
 
 type HeaderBlockPropsType = {
-    userId: number
     className?: string
-    photoLargeURL: string
-    photoSmallURL: string
-    fullName: string
-    aboutMe: string
-    isFollow: boolean
+    authData: AuthStateType
+    profileData: ProfileStateType
     appIsLoading: boolean
     follow: (userId: number) => void
     unfollow: (userId: number) => void
 }
 
-
 export const HeaderBlock: React.FC<HeaderBlockPropsType> = (props) => {
+    const { isFollow, fullName, userId, status } = props.profileData.data
+    const { small, large } = props.profileData.data.photos
+    const { id: authId } = props.authData
+
     const followOnClickHandler = () => {
-        props.isFollow ? props.unfollow(props.userId) : props.follow(props.userId)
+        props.profileData.data.isFollow
+            ? props.unfollow(props.profileData.data.userId)
+            : props.follow(props.profileData.data.userId)
     }
     return (
         <StyledHeaderBlock id="profile-header" className={props.className}>
             <BackgroundConainer>
-                {props.photoLargeURL
-                    ? <BackgroundImage src={props.photoLargeURL} />
+                {large
+                    ? <BackgroundImage src={large} />
                     : <Icon iconId={'avatarDefault'} viewBox="0 0 1024 1024" height={'100%'} width={'100%'} />}
-                {props.photoSmallURL
-                    ? <AvatarImage src={props.photoSmallURL} />
+                {small
+                    ? <AvatarImage src={small} />
                     : <DefaultAvatar iconId={'avatarDefault'} viewBox="0 0 1024 1024" height={'100%'} width={'100%'} />}
             </BackgroundConainer>
             <InfoConainer>
                 <TextContainer>
-                    <Name>{props.fullName}</Name>
-                    <About>{props.aboutMe}</About>
+                    <Name>{fullName}</Name>
+                    <About>{status}</About>
                 </TextContainer>
-                <ButtonsContainer>
+                {authId !== userId ? <ButtonsContainer>
                     <MessagesButton
-                        to={`/messages/${props.userId}`}
+                        to={`/messages/${userId}`}
                     ><Icon iconId={'messages'} viewBox="-2 -3 24 24" height={'50%'} width={'50%'} /></MessagesButton>
-                    <Button variant={props.isFollow ? 'primary' : 'outlined'}
+                    <Button variant={isFollow ? 'primary' : 'outlined'}
                         onClick={followOnClickHandler}
                         disabled={props.appIsLoading}
-                    >{props.isFollow ? 'Unfollow' : 'Follow'}</Button>
+                    >{isFollow ? 'Unfollow' : 'Follow'}</Button>
                 </ButtonsContainer>
+                    : <div></div>
+                }
             </InfoConainer>
         </StyledHeaderBlock>
     )

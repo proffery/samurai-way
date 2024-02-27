@@ -8,14 +8,16 @@ const ADD_POST = 'ADD-POST'
 const UPDATE_POST = 'UPDATE-POST'
 const ON_CHANGE_POST = 'ON-CHANGE-POST'
 const SET_PROFILE_DATA = 'SET-PROFILE-DATA'
-const CHANGE_FOLLOWED_STATUS = 'CHANGE-FOLLOWED-STATUS'
+const SET_FOLLOW_STATUS = 'SET-FOLLOW-STATUS'
+const SET_STATUS = 'SET-STATUS'
 
 export type ProfileReducerActionsType =
     | ReturnType<typeof addPostAction>
     | ReturnType<typeof updatePostAction>
     | ReturnType<typeof postOnChangeAction>
     | ReturnType<typeof setProfileDataAction>
-    | ReturnType<typeof changeFollowStatusAction>
+    | ReturnType<typeof setFollowStatusAction>
+    | ReturnType<typeof setStatusAction>
     | SetAppIsLoadingActionType
     | AddAlertActionType
     | FollowUserActionType
@@ -30,6 +32,7 @@ export type PostStateType = {
 
 export interface ProfileDataType extends GetProfileResponseType {
     isFollow: boolean
+    status: string
 }
 
 export type ProfileStateType = {
@@ -61,7 +64,8 @@ const initialState: ProfileStateType = {
             small: '',
             large: '',
         },
-        isFollow: false
+        isFollow: false,
+        status: ''
     }
 }
 
@@ -80,9 +84,11 @@ export const profileReducer = (state: ProfileStateType = initialState, action: P
         case ON_CHANGE_POST:
             return { ...state, newPostForm: action.payload.newPost }
         case SET_PROFILE_DATA:
-            return { ...state, data: { ...action.payload.data, isFollow: false } }
-        case CHANGE_FOLLOWED_STATUS:
+            return { ...state, data: { ...action.payload.data, isFollow: false, status: '' } }
+        case SET_FOLLOW_STATUS:
             return { ...state, data: { ...state.data, isFollow: action.payload.isFollow } }
+        case SET_STATUS:
+            return { ...state, data: { ...state.data, status: action.payload.status } }
         default: return state
     }
 }
@@ -100,17 +106,17 @@ export const addPostAction = (postMessage: string) => {
 export const updatePostAction = (postId: string, newPost: string) => (
     { type: UPDATE_POST, payload: { newPost, postId } }
 ) as const
-
 export const postOnChangeAction = (newPost: string) => (
     { type: ON_CHANGE_POST, payload: { newPost } }
 ) as const
-
 export const setProfileDataAction = (data: GetProfileResponseType) => (
     { type: SET_PROFILE_DATA, payload: { data } }
 ) as const
-
-export const changeFollowStatusAction = (isFollow: boolean) => (
-    { type: CHANGE_FOLLOWED_STATUS, payload: { isFollow } }
+export const setFollowStatusAction = (isFollow: boolean) => (
+    { type: SET_FOLLOW_STATUS, payload: { isFollow } }
+) as const
+export const setStatusAction = (status: string) => (
+    { type: SET_STATUS, payload: { status } }
 ) as const
 
 export const addPost = () => (dispatch: AppDispatchType, getState: () => AppRootStateType) => {
@@ -127,7 +133,11 @@ export const setProfileData = (userId: number) => (dispatch: AppDispatchType) =>
             return socialNetworkAPI.isFollow(userId)
         })
         .then(res => {
-            dispatch(changeFollowStatusAction(res.data))
+            dispatch(setFollowStatusAction(res.data))
+            return socialNetworkAPI.getProfileStatus(userId)
+        })
+        .then(res => {
+            dispatch(setStatusAction(res.data))
         })
         .catch(error => {
             dispatch(addAppAlert('failed', error.message))
@@ -140,7 +150,7 @@ export const followProfile = (userId: number) => (dispatch: AppDispatchType) => 
     socialNetworkAPI.followUser(userId)
         .then(res => {
             if (res.data.resultCode === 0) {
-                dispatch(changeFollowStatusAction(true))
+                dispatch(setFollowStatusAction(true))
                 dispatch(addAppAlert('succeeded', 'Followed!'))
             }
             else {
@@ -158,7 +168,7 @@ export const unfollowProfile = (userId: number) => (dispatch: AppDispatchType) =
     socialNetworkAPI.unfollowUser(userId)
         .then(res => {
             if (res.data.resultCode === 0) {
-                dispatch(changeFollowStatusAction(false))
+                dispatch(setFollowStatusAction(false))
                 dispatch(addAppAlert('succeeded', 'Unfollowed!'))
             }
             else {

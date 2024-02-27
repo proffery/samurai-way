@@ -62,6 +62,11 @@ export type GetMeDataType = {
     email: string,
     login: string
 }
+export type LoginDataType = {
+    email: string
+    password: string
+    remember: boolean
+}
 
 export const socialNetworkAPI = {
     getUsers(pageNumber: number, usersOnPage: number) {
@@ -82,13 +87,16 @@ export const socialNetworkAPI = {
     getProfile(userId: number) {
         return instance.get<GetProfileResponseType>(`/profile/${userId}`)
     },
+    getProfileStatus(userId: number) {
+        return instance.get<string>(`/profile/status/${userId}`)
+    },
     getMe() {
         return instance.get<ResponseType<GetMeDataType>>('/auth/me')
     },
     logout() {
         return instance.delete<ResponseType>('/auth/login')
     },
-    login() {
-        return instance.post<ResponseType<{ userId: number }>>('/auth/login')
+    login(loginData: LoginDataType) {
+        return instance.post<ResponseType<{ userId: number }>>('/auth/login', loginData)
     }
 }

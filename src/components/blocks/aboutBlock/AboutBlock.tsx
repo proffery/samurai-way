@@ -4,16 +4,16 @@ import { BlockSection } from "../../micro/BlockSection.styled"
 import styled from "styled-components"
 import { theme } from "../../../styles/Theme.styled"
 import { Icon } from "../../micro/icon/Icon"
-import { GetProfileResponseContactsType } from "../../../api/social-network-api"
 import { font } from "../../../styles/Font"
+import { ProfileDataType } from "../../../redux/profileReducer"
 
 type AboutBlockPropsType = {
     className?: string
-    contacts: GetProfileResponseContactsType
+    profileAboutData: ProfileDataType
 }
 
 export const AboutBlock: React.FC<AboutBlockPropsType> = (props) => {
-    const { facebook, twitter, instagram, youtube, github, vk, website, mainLink } = props.contacts
+    const { facebook, twitter, instagram, youtube, github, vk, website, mainLink } = props.profileAboutData.contacts
 
     return (
         <About id="about" className={props.className}>

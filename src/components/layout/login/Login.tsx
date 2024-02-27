@@ -9,15 +9,25 @@ import { Button } from "../../micro/button/Button"
 import { useFormik } from "formik"
 import { AppDispatchType } from "../../../redux/redux-store"
 import { addAppAlert } from "../../../redux/appReducer"
+import { logIn } from "../../../redux/authReducer"
+import { useHistory } from "react-router-dom"
 
 type LoginPagePropsType = {
     dispatch: AppDispatchType
+    isLoggedIn: boolean
 }
 type FormikErrorType = {
     email?: string
     password?: string
 }
+
 export const Login: React.FC<LoginPagePropsType> = (props) => {
+    const history = useHistory()
+    
+    if (props.isLoggedIn) {
+        history.push("/")
+    }
+
     const formik = useFormik({
         initialValues: {
             email: 'free@samuraijs.com',
@@ -25,7 +35,7 @@ export const Login: React.FC<LoginPagePropsType> = (props) => {
             remember: false
         },
         onSubmit: (values) => {
-            alert(JSON.stringify(values, null, 2))
+            props.dispatch(logIn(values))
         },
         validate: (values) => {
             const errors: FormikErrorType = {}
@@ -48,6 +58,7 @@ export const Login: React.FC<LoginPagePropsType> = (props) => {
             return errors
         },
     })
+    
     return (
         <StyledLogin>
             <StyledSection id={'login'}>

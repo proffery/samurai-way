@@ -21,7 +21,7 @@ export const Header: React.FC<HeaderPropsType> = (props) => {
                     email={props.email}
                     login={props.login}
                     photoUrl={props.photoUrl}
-                    logout={props.logout}
+                    logOut={props.logout}
                 />}
         </StyledHeader>
     )

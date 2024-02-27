@@ -6,11 +6,10 @@ import { FlexWrapper } from "../../micro/FlexWrapper.styled"
 import { Post } from "./post/Post"
 import { BlockHeader } from "../../micro/BlockHeader.styled"
 import { BlockSection } from "../../micro/BlockSection.styled"
-import { PostStateType } from "../../../redux/profileReducer"
+import { ProfileStateType } from "../../../redux/profileReducer"
 
 type PostsBlockPropsType = {
-    newPostForm: string
-    posts: PostStateType[]
+    profileData: ProfileStateType
     onChangeNewPostText: (text: string) => void
     addPost: () => void
 }
@@ -37,7 +36,7 @@ export const PostsBlock: React.FC<PostsBlockPropsType> = (props) => {
     }
 
     const addPost = () => {
-        if (props.newPostForm.trim() !== "") {
+        if (props.profileData.newPostForm.trim() !== "") {
             props.addPost()
         } else {
             setError('Enter your post');
@@ -47,7 +46,7 @@ export const PostsBlock: React.FC<PostsBlockPropsType> = (props) => {
     const postsList = () => {
         return (
             <>
-                {props.posts.map(post => <Post key={post.id} postData={post} />)}
+                {props.profileData.posts.map(post => <Post key={post.id} postData={post} />)}
             </>
         )
     }
@@ -63,7 +62,7 @@ export const PostsBlock: React.FC<PostsBlockPropsType> = (props) => {
                     aria-label="enter your post"
                     placeholder="Enter your post"
                     bordered={'true'}
-                    value={props.newPostForm}
+                    value={props.profileData.newPostForm}
                     onChange={onChangeNewPostHandler}
                 />
                 <FlexWrapper>
