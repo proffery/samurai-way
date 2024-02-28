@@ -6,35 +6,34 @@ import { Button } from "../../../components/micro/button/Button"
 import { useEffect, useState } from "react"
 import React from "react"
 import { Icon } from "../../../components/micro/icon/Icon"
-import { IconLinksStateType, setAppNavbarCollapsed } from "../../../redux/appReducer"
-import { AppDispatchType } from "../../../redux/redux-store"
+import { IconLinksStateType } from "../../../redux/appReducer"
 
 type NavbarPropsType = {
     menuItems: IconLinksStateType[]
     navbarCollapsed: boolean
-    dispatch: AppDispatchType
+    setAppNavbarCollapsed: (value: boolean) => void
 }
 
 export const Navbar: React.FC<NavbarPropsType> = (props) => {
 
-    const [width, setWidth] = useState(window.innerWidth);
-    const breakpoint = 576;
+    const [width, setWidth] = useState(window.innerWidth)
+    const breakpoint = 576
 
     useEffect(() => {
         const handleWindowResize = () => setWidth(window.innerWidth)
-        window.addEventListener("resize", handleWindowResize);
+        window.addEventListener("resize", handleWindowResize)
 
-        return () => window.removeEventListener("resize", handleWindowResize);
+        return () => window.removeEventListener("resize", handleWindowResize)
     }, [])
 
     const navbarCollapseHandler = () => {
-        props.dispatch(setAppNavbarCollapsed(!props.navbarCollapsed))
+        props.setAppNavbarCollapsed(!props.navbarCollapsed)
     }
 
     useEffect(() => {
         width < breakpoint
-            ? props.dispatch(setAppNavbarCollapsed(false))
-            : props.dispatch(setAppNavbarCollapsed(true))
+            ? props.setAppNavbarCollapsed(false)
+            : props.setAppNavbarCollapsed(true)
     }, [width])
 
     return (

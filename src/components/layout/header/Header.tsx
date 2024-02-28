@@ -3,26 +3,24 @@ import { theme } from "../../../styles/Theme.styled"
 import { Input } from "../../micro/field/Input.styled"
 import search from "../../../assets/images/Search.svg"
 import { Logout } from "./Logout"
+import { AuthStateType } from "../../../redux/authReducer"
 
 type HeaderPropsType = {
-    email: string
-    login: string
-    isLoggedIn: boolean
-    photoUrl: string
-    logout: () => void
+    authData: AuthStateType
+    logOut: () => void
 }
 
 export const Header: React.FC<HeaderPropsType> = (props) => {
+    const { login, email, photoUrl } = props.authData
     return (
         <StyledHeader id="header">
             <StyledField search={search} bordered="false" placeholder={"Search"} />
-            {props.isLoggedIn &&
-                <Logout
-                    email={props.email}
-                    login={props.login}
-                    photoUrl={props.photoUrl}
-                    logOut={props.logout}
-                />}
+            <Logout
+                login={login}
+                email={email}
+                photoUrl={photoUrl}
+                logOut={props.logOut}
+            />
         </StyledHeader>
     )
 }

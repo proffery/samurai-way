@@ -1,95 +1,77 @@
 import styled, { css } from 'styled-components'
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
-import { Footer } from "./components/layout/footer/Footer"
-import { Navbar } from "./components/layout/navbar/Navbar"
+import { Route, Switch, Redirect } from 'react-router-dom'
 import { Users } from "./components/layout/pages/users/Users"
 import { Messages } from "./components/layout/pages/messages/Messages"
 import { Notifications } from "./components/layout/pages/notifications/Notifications"
 import { Settings } from "./components/layout/pages/settings/Settings"
 import { NotFound } from './components/layout/pages/notFound/NotFound'
 import { theme } from './styles/Theme.styled'
-import { AppRootStateType } from './redux/redux-store'
-import { useDispatch, useSelector } from 'react-redux'
-import { AppStateType } from './redux/appReducer'
 import { ProfileContainer } from './components/layout/pages/profile/ProfileContainer'
 import { HeaderContainer } from './components/layout/header/HeaderContainer'
 import { LoadingLoader } from './components/micro/loaders/LoadingLoader.styled'
-import { AlertsContainer } from './components/micro/alerts/AlertsContainer'
-import { Login } from './components/layout/login/Login'
-import { AuthStateType, initializeApp } from './redux/authReducer'
 import { useEffect } from 'react'
+import { LoginContainer } from './components/layout/login/LoginContainer'
+import { AlertsContainer } from './components/micro/alerts/AlertsContainer'
+import { NavbarContainer } from './components/layout/navbar/NavbarContainer'
+import { FooterContainer } from './components/layout/footer/FooterContainer'
 
 
-
-function App() {
-  const appData = useSelector<AppRootStateType, AppStateType>(state => state.app)
-  const authData = useSelector<AppRootStateType, AuthStateType>(state => state.auth)
-  const dispatch = useDispatch()
+type AppPropsType = {
+  isLoggedIn: boolean
+  navbarCollapsed: boolean
+  isLoading: boolean
+  initializeApp: () => void
+}
+function App(props: AppPropsType) {
+  const { isLoggedIn, navbarCollapsed, isLoading, initializeApp } = props
 
   useEffect(() => {
-    if (!authData.isLoggedIn) dispatch(initializeApp())
+    initializeApp()
   }, [])
 
-  if (!authData.isLoggedIn) {
+  if (!isLoggedIn) {
     return (
-      <Router>
-        <AlertsContainer alerts={appData.alerts} dispatch={dispatch} />
-        <LoginContainer>
-          <Switch>
+      <LoginWrapper>
+        {isLoading && <LoadingLoader />}
+        <AlertsContainer />
+        <Switch>
           <Route path='/' exact render={() => <Redirect to={'/login'} />} />
-            <Route path='/login' render={() =>
-              <Login dispatch={dispatch} isLoggedIn={authData.isLoggedIn} />}
-            />
-            <Route path='/404' component={NotFound} />
-            <Route path='*' render={() => <Redirect to={'/404'} />} />
-          </Switch>
-          <Footer
-            menuData={[]}
-            footerData={appData.socialLinks}
-          />
-        </LoginContainer>
-      </Router>
+          <Route path='/login' render={() => <LoginContainer />} />
+          <Route path='*' render={() => <Redirect to={'/login'} />} />
+        </Switch>
+        <FooterContainer />
+      </LoginWrapper>
     )
   }
 
   return (
-    <Router >
-      <Container collapsed={appData.navbarCollapsed.toString()}>
-        {appData.isLoading && <LoadingLoader />}
-        <AlertsContainer alerts={appData.alerts} dispatch={dispatch} />
-        <Navbar
-          menuItems={appData.menuItems}
-          navbarCollapsed={appData.navbarCollapsed}
-          dispatch={dispatch}
-        />
-        <HeaderContainer />
-        <Switch>
-          <Route path='/' exact render={() => <ProfileContainer />} />
-          <Route path='/profile/:userId?' render={() => <ProfileContainer />} />
-          <Route path='/users' component={Users} />
-          <Route path='/messages' component={Messages} />
-          <Route path='/notifications' component={Notifications} />
-          <Route path='/settings' component={Settings} />
-          <Route path='/404' component={NotFound} />
-          <Route path='*' render={() => <Redirect to={'/404'} />} />
-        </Switch>
-        <Footer
-          menuData={appData.menuItems}
-          footerData={appData.socialLinks}
-        />
-      </Container>
-    </Router>
+    <Wrapper collapsed={navbarCollapsed.toString()}>
+      {isLoading && <LoadingLoader />}
+      <AlertsContainer />
+      <NavbarContainer />
+      <HeaderContainer />
+      <Switch>
+        <Route path='/' exact render={() => <ProfileContainer />} />
+        <Route path='/profile/:userId?' render={() => <ProfileContainer />} />
+        <Route path='/users' component={Users} />
+        <Route path='/messages' component={Messages} />
+        <Route path='/notifications' component={Notifications} />
+        <Route path='/settings' component={Settings} />
+        <Route path='/404' component={NotFound} />
+        <Route path='/login' render={() => <Redirect to={'/'} />} />
+        <Route path='*' render={() => <Redirect to={'/404'} />} />
+      </Switch>
+      <FooterContainer />
+    </Wrapper>
   )
 }
 
 export default App
 
-
 type ContainerPropsType = {
   collapsed: string
 }
-
-const Container = styled.div<ContainerPropsType>`
+const Wrapper = styled.div<ContainerPropsType>`
   display: grid;
   grid-template-rows: 104px 93vh 1fr;
   grid-template-columns: repeat(5, 1fr);
@@ -126,8 +108,7 @@ const Container = styled.div<ContainerPropsType>`
     grid-template-rows: 80px 93vh 1fr;
   }
 `
-
-const LoginContainer = styled.div`
+const LoginWrapper = styled.div`
   max-width: 1440px;
   min-height: 100vh;
   margin: 0 auto;

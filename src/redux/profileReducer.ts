@@ -32,7 +32,7 @@ const initialState: ProfileStateType = {
         lookingForAJob: false,
         lookingForAJobDescription: '',
         fullName: '',
-        userId: 0,
+        userId: 2,
         photos: {
             small: '',
             large: '',

@@ -3,7 +3,6 @@ import { Button } from "../../micro/button/Button"
 import { theme } from "../../../styles/Theme.styled"
 import { Icon } from "../../micro/icon/Icon"
 import { font } from "../../../styles/Font"
-import { useHistory } from "react-router-dom"
 
 type LogoutPropsType = {
     className?: string
@@ -14,21 +13,21 @@ type LogoutPropsType = {
 }
 
 export const Logout: React.FC<LogoutPropsType> = (props) => {
-    const history = useHistory()
+    const { login, email, photoUrl } = props
+
     const logOutHandeler = () => {
         props.logOut()
-        history.push("/")
     }
 
     return (
         <StyledLout>
             <TextContainer>
-                <Name>{props.login}</Name>
-                <Email>{props.email}</Email>
+                <Name>{login}</Name>
+                <Email>{email}</Email>
             </TextContainer>
             <AvatarContainer>
-                {props.photoUrl
-                    ? <Avatar src={props.photoUrl} />
+                {photoUrl
+                    ? <Avatar src={photoUrl} />
                     : <DefaultAvatar iconId={'avatarDefault'} viewBox="0 0 1024 1024" />}
                 <LogoutButton variant={'link'} onClick={logOutHandeler}>Logout</LogoutButton>
             </AvatarContainer>

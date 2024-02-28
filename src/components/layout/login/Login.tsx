@@ -7,13 +7,12 @@ import { Input } from "../../micro/field/Input.styled"
 import { FlexWrapper } from "../../micro/FlexWrapper.styled"
 import { Button } from "../../micro/button/Button"
 import { useFormik } from "formik"
-import { AppDispatchType } from "../../../redux/redux-store"
-import { addAppAlert } from "../../../redux/appReducer"
-import { logIn } from "../../../redux/authReducer"
-import { useHistory } from "react-router-dom"
+import { AlertType, addAppAlert } from "../../../redux/appReducer"
+import { LoginDataType } from "../../../api/social-network-api"
 
 type LoginPagePropsType = {
-    dispatch: AppDispatchType
+    logIn: (loginData: LoginDataType) => void
+    addAppAlert: (type: AlertType, message: string) => void
     isLoggedIn: boolean
 }
 type FormikErrorType = {
@@ -22,12 +21,6 @@ type FormikErrorType = {
 }
 
 export const Login: React.FC<LoginPagePropsType> = (props) => {
-    const history = useHistory()
-    
-    if (props.isLoggedIn) {
-        history.push("/")
-    }
-
     const formik = useFormik({
         initialValues: {
             email: 'free@samuraijs.com',
@@ -35,28 +28,28 @@ export const Login: React.FC<LoginPagePropsType> = (props) => {
             remember: false
         },
         onSubmit: (values) => {
-            props.dispatch(logIn(values))
+            props.logIn(values)
         },
         validate: (values) => {
             const errors: FormikErrorType = {}
             if (!values.email) {
                 errors.email = 'Email required'
-                props.dispatch(addAppAlert('failed', errors.email))
+                addAppAlert('failed', errors.email)
             } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
                 errors.email = 'Invalid email address'
-                props.dispatch(addAppAlert('failed', errors.email))
+                addAppAlert('failed', errors.email)
             }
             else if (!values.password) {
                 errors.password = 'Password required'
-                props.dispatch(addAppAlert('failed', errors.password))
+               addAppAlert('failed', errors.password)
             } else if (values.password.length < 4) {
                 errors.password = 'Password must be longer than 3'
-                props.dispatch(addAppAlert('failed', errors.password))
+               addAppAlert('failed', errors.password)
             }
             return errors
         },
     })
-    
+
     return (
         <StyledLogin>
             <StyledSection id={'login'}>

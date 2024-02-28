@@ -1,35 +1,31 @@
-import styled from "styled-components"
+import { connect } from "react-redux"
+import { AppRootStateType } from "../../../redux/redux-store"
 import { AlertObjectType, removeAlert } from "../../../redux/appReducer"
-import { Alert } from "./Alert"
-import { AppDispatchType } from "../../../redux/redux-store"
+import { Alerts } from "./Alerts"
 
-type AlertsContainerPropsType = {
+type AlertsAPIPropsTtype = {
     alerts: AlertObjectType[]
-    dispatch: AppDispatchType
+    removeAlert: (alertId: string) => void
 }
 
-export const AlertsContainer: React.FC<AlertsContainerPropsType> = (props) => {
-    const removeAlertHandler = (alertId: string) => {
-        props.dispatch(removeAlert(alertId))
-    }
+export const AlertsAPI: React.FC<AlertsAPIPropsTtype> = (props) => {
+
     return (
-        <AlertContainer>
-            {props.alerts.map(alert =>
-                <Alert
-                    key={alert.id}
-                    alertId={alert.id}
-                    alertMessage={alert.message}
-                    alertType={alert.type}
-                    removeAlert={removeAlertHandler}
-                />)}
-        </AlertContainer>
+        <Alerts
+            alerts={props.alerts}
+            removeAlert={props.removeAlert}
+        />
     )
 }
 
-const AlertContainer = styled.div`
-    position: fixed;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 99999;
-`
+type MapStatePropsType = {
+    alerts: AlertObjectType[]
+}
+
+const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
+    return {
+        alerts: state.app.alerts
+    }
+}
+
+export const AlertsContainer = connect(mapStateToProps, { removeAlert })(AlertsAPI)

@@ -24,9 +24,7 @@ export const HeaderBlock: React.FC<HeaderBlockPropsType> = (props) => {
     const { id: authId } = props.authData
 
     const followOnClickHandler = () => {
-        props.profileData.data.isFollow
-            ? props.unfollow(props.profileData.data.userId)
-            : props.follow(props.profileData.data.userId)
+        isFollow ? props.unfollow(userId) : props.follow(userId)
     }
     return (
         <StyledHeaderBlock id="profile-header" className={props.className}>
