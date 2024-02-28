@@ -41,10 +41,10 @@ export const Login: React.FC<LoginPagePropsType> = (props) => {
             }
             else if (!values.password) {
                 errors.password = 'Password required'
-               addAppAlert('failed', errors.password)
+                addAppAlert('failed', errors.password)
             } else if (values.password.length < 4) {
                 errors.password = 'Password must be longer than 3'
-               addAppAlert('failed', errors.password)
+                addAppAlert('failed', errors.password)
             }
             return errors
         },
@@ -55,6 +55,16 @@ export const Login: React.FC<LoginPagePropsType> = (props) => {
             <StyledSection id={'login'}>
                 <BlockHeader>Log In</BlockHeader>
                 <StyledForm onSubmit={formik.handleSubmit}>
+                <Notification>
+                    <p>To log in get registered
+                        <a href={'https://social-network.samuraijs.com/'}
+                            target={'_blank'} rel="noreferrer"> here
+                        </a>
+                    </p>
+                    <p>or use common test account credentials:</p>
+                    <p>Email: free@samuraijs.com</p>
+                    <p>Password: free</p>
+                </Notification>
                     <FlexWrapper direction={'column'} gap={'min(10px, 1vw)'}>
                         <label htmlFor={'email'}>Email</label>
                         <Input bordered={'true'}
@@ -107,6 +117,10 @@ const StyledSection = styled(BlockSection)`
         height: 100%;
         width: 100%;
     }
+`
+const Notification = styled.p`
+    display: flex;
+    flex-direction: column;
 `
 const StyledForm = styled.form`
     display: flex;
