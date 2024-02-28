@@ -1,6 +1,5 @@
 import { GetMeDataType, LoginDataType, socialNetworkAPI } from '../api/social-network-api'
-import { SetAppIsLoadingActionType, addAppAlert, setAppIsLoading } from './appReducer'
-import { getProfileData } from './profileReducer'
+import { SetAppIsInitializedType, SetAppIsLoadingActionType, addAppAlert, setAppIsInitialized, setAppIsLoading } from './appReducer'
 import { AppDispatchType } from './redux-store'
 
 //CONSTANTS
@@ -57,13 +56,16 @@ export const initializeApp = () =>
                     dispatch(setIsLoggedIn(true))
                 }
                 else {
-                    dispatch(addAppAlert('failed', res.data.messages[0]))
+                    // dispatch(addAppAlert('failed', res.data.messages[0]))
                 }
             })
             .catch(error => {
                 dispatch(addAppAlert('failed', error.message))
             })
-            .finally(() => dispatch(setAppIsLoading(false)))
+            .finally(() => {
+                dispatch(setAppIsLoading(false))
+                dispatch(setAppIsInitialized(true))
+            })
 
     }
 
@@ -115,6 +117,7 @@ export type AuthReducerActionsType =
     | ReturnType<typeof setIsLoggedIn>
     | ReturnType<typeof setPhotoUrl>
     | SetAppIsLoadingActionType
+    | SetAppIsInitializedType
     | CleanReducerType
 export interface AuthStateType extends GetMeDataType {
     isLoggedIn: boolean

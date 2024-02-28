@@ -7,6 +7,7 @@ const APP_SET_IS_LOADING = 'APP-SET-IS_LOADING'
 const APP_ADD_ALERT = 'APP-ADD-ALERT'
 const APP_REMOVE_ALERT = 'APP-REMOVE-ALERT'
 const APP_SET_NAVBAR_COLLAPSED = 'APP-SET-NAVBAR-COLLAPSED'
+const APP_SET_IS_INITIALIZED = 'APP-SET-IS_INITIALIZED'
 
 //INITIAL STATE
 const initialState: AppStateType = {
@@ -93,7 +94,8 @@ const initialState: AppStateType = {
     ],
     isLoading: false,
     navbarCollapsed: true,
-    alerts: []
+    alerts: [],
+    isInitialized: false,
 }
 
 //REDUCER
@@ -107,8 +109,8 @@ export const appReducer = (state: AppStateType = initialState, action: AppAction
             return { ...state, alerts: state.alerts.filter(alert => alert.id !== action.payload.id) }
         case APP_SET_NAVBAR_COLLAPSED:
             return { ...state, navbarCollapsed: action.payload.navbarCollapsed }
-        case CLEAN_REDUCER:
-            return initialState
+        case APP_SET_IS_INITIALIZED:
+            return { ...state, isInitialized: action.payload.isInitialized }
         default:
             return state
     }
@@ -123,6 +125,8 @@ export const removeAlert = (id: string) =>
     ({ type: APP_REMOVE_ALERT, payload: { id } } as const)
 export const setAppNavbarCollapsed = (navbarCollapsed: boolean) =>
     ({ type: APP_SET_NAVBAR_COLLAPSED, payload: { navbarCollapsed } } as const)
+export const setAppIsInitialized = (isInitialized: boolean) =>
+    ({ type: APP_SET_IS_INITIALIZED, payload: { isInitialized } } as const)
 
 //THUNKS
 export const addAppAlert = (type: AlertType, message: string) =>
@@ -143,11 +147,13 @@ export type AddAlertActionType = ReturnType<typeof setAppAlert>
 export type RemoveAlertActionType = ReturnType<typeof removeAlert>
 export type SetNavbarCollapsedActionType = ReturnType<typeof setAppNavbarCollapsed>
 export type SetAppIsLoadingActionType = ReturnType<typeof setAppIsLoading>
+export type SetAppIsInitializedType = ReturnType<typeof setAppIsInitialized>
 type AppActionsType =
     | SetAppIsLoadingActionType
     | AddAlertActionType
     | RemoveAlertActionType
     | SetNavbarCollapsedActionType
+    | SetAppIsInitializedType
     | CleanReducerType
 export type IconLinksStateType = {
     id: number
@@ -168,4 +174,5 @@ export type AppStateType = {
     isLoading: boolean
     navbarCollapsed: boolean
     alerts: AlertObjectType[]
+    isInitialized: boolean
 }

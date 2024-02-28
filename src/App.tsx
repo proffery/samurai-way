@@ -14,16 +14,18 @@ import { LoginContainer } from './components/layout/login/LoginContainer'
 import { AlertsContainer } from './components/micro/alerts/AlertsContainer'
 import { NavbarContainer } from './components/layout/navbar/NavbarContainer'
 import { FooterContainer } from './components/layout/footer/FooterContainer'
+import { InitializationLoader } from './components/micro/loaders/IniatializationLoader'
 
 
 type AppPropsType = {
   isLoggedIn: boolean
   navbarCollapsed: boolean
   isLoading: boolean
+  isInitialized: boolean
   initializeApp: () => void
 }
 function App(props: AppPropsType) {
-  const { isLoggedIn, navbarCollapsed, isLoading, initializeApp } = props
+  const { isLoggedIn, navbarCollapsed, isLoading, isInitialized, initializeApp } = props
 
   useEffect(() => {
     initializeApp()
@@ -33,6 +35,7 @@ function App(props: AppPropsType) {
     return (
       <LoginWrapper>
         {isLoading && <LoadingLoader />}
+        {!isInitialized && <InitializationLoader/>}
         <AlertsContainer />
         <Switch>
           <Route path='/' exact render={() => <Redirect to={'/login'} />} />
@@ -47,6 +50,7 @@ function App(props: AppPropsType) {
   return (
     <Wrapper collapsed={navbarCollapsed.toString()}>
       {isLoading && <LoadingLoader />}
+      {!isInitialized && <InitializationLoader/>}
       <AlertsContainer />
       <NavbarContainer />
       <HeaderContainer />

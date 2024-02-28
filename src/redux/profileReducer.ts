@@ -96,25 +96,28 @@ export const addPost = () => (dispatch: AppDispatchType, getState: () => AppRoot
     dispatch(setPost(newPost))
     dispatch(postOnChange(''))
 }
-export const getProfileData = (userId: number) => (dispatch: AppDispatchType) => {
-    dispatch(setAppIsLoading(true))
-    socialNetworkAPI.getProfile(userId)
-        .then(res => {
-            dispatch(setProfileData(res.data))
-            return socialNetworkAPI.isFollow(userId)
-        })
-        .then(res => {
-            dispatch(setFollowStatus(res.data))
-            return socialNetworkAPI.getProfileStatus(userId)
-        })
-        .then(res => {
-            dispatch(setStatus(res.data))
-        })
-        .catch(error => {
-            dispatch(addAppAlert('failed', error.message))
-        })
-        .finally(() => dispatch(setAppIsLoading(false)))
-}
+export const getProfileData = (userId: number) =>
+    (dispatch: AppDispatchType, getState: () => AppRootStateType) => {
+        dispatch(setAppIsLoading(true))
+        socialNetworkAPI.getProfile(userId)
+            .then(res => {
+                dispatch(setProfileData(res.data))
+                if (res.data.userId !== getState().auth.id)
+                    return socialNetworkAPI.isFollow(userId)
+                else return { data: false }
+            })
+            .then(res => {
+                dispatch(setFollowStatus(res.data))
+                return socialNetworkAPI.getProfileStatus(userId)
+            })
+            .then(res => {
+                dispatch(setStatus(res.data))
+            })
+            .catch(error => {
+                dispatch(addAppAlert('failed', error.message))
+            })
+            .finally(() => dispatch(setAppIsLoading(false)))
+    }
 export const followProfile = (userId: number) => (dispatch: AppDispatchType) => {
     dispatch(setAppIsLoading(true))
     socialNetworkAPI.followUser(userId)

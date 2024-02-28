@@ -39,18 +39,23 @@ export const HeaderBlock: React.FC<HeaderBlockPropsType> = (props) => {
             <InfoConainer>
                 <TextContainer>
                     <Name>{fullName}</Name>
-                    <Status>{status}</Status>
+                    {status && <Status>{status}</Status>}
                 </TextContainer>
-                {authId !== userId ? <ButtonsContainer>
-                    <MessagesButton
-                        to={`/messages/${userId}`}
-                    ><Icon iconId={'messages'} viewBox="-2 -3 24 24" height={'50%'} width={'50%'} /></MessagesButton>
-                    <Button variant={isFollow ? 'primary' : 'outlined'}
-                        onClick={followOnClickHandler}
-                        disabled={props.appIsLoading}
-                    >{isFollow ? 'Unfollow' : 'Follow'}</Button>
-                </ButtonsContainer>
-                    : <div></div>
+                {authId !== userId ?
+                    <ButtonsContainer>
+                        <MessagesButton
+                            to={`/messages/${userId}`}
+                        ><Icon iconId={'messages'} viewBox="-2 -3 24 24" height={'50%'} width={'50%'} /></MessagesButton>
+                        <Button variant={isFollow ? 'primary' : 'outlined'}
+                            onClick={followOnClickHandler}
+                            disabled={props.appIsLoading}
+                        >{isFollow ? 'Unfollow' : 'Follow'}</Button>
+                    </ButtonsContainer> :
+                    <ButtonsContainer>
+                        <Button variant={'outlined'}
+                            disabled={props.appIsLoading}
+                        >Edit profile</Button>
+                    </ButtonsContainer>
                 }
             </InfoConainer>
         </StyledHeaderBlock>
@@ -102,6 +107,7 @@ const InfoConainer = styled.div`
 `
 const TextContainer = styled.div`
     display: flex;
+    justify-content: center;
     flex-direction: column;
     color: ${theme.color.text.primary};
     height: 90%;
