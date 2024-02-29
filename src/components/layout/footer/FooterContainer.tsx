@@ -2,6 +2,7 @@ import { connect } from "react-redux"
 import { AppRootStateType } from "../../../redux/redux-store"
 import { IconLinksStateType } from "../../../redux/appReducer"
 import { Footer } from "./Footer"
+import { compose } from "redux"
 
 type FooterAPIPropsTtype = {
     menuData: IconLinksStateType[]
@@ -12,7 +13,7 @@ type FooterAPIPropsTtype = {
 export const FooterAPI: React.FC<FooterAPIPropsTtype> = (props) => {
     return (
         <Footer
-            menuData={props.isLoggedIn?props.menuData:[]}
+            menuData={props.isLoggedIn ? props.menuData : []}
             footerData={props.footerData}
         />
     )
@@ -31,4 +32,6 @@ const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
     }
 }
 
-export const FooterContainer = connect(mapStateToProps)(FooterAPI)
+export const FooterContainer = compose(
+    connect(mapStateToProps)
+)(FooterAPI)

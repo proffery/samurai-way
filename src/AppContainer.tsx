@@ -3,6 +3,7 @@ import { connect } from "react-redux"
 import App from "./App"
 import { initializeApp } from "./redux/authReducer"
 import { AppRootStateType } from "./redux/redux-store"
+import { compose } from "redux"
 
 type AppAPIPropsTtype = {
     isLoggedIn: boolean
@@ -39,4 +40,7 @@ const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
     }
 }
 
-export const AppContainer = connect(mapStateToProps, { initializeApp })(AppAPI)
+export const AppContainer = compose(
+    connect(mapStateToProps, { initializeApp })
+)(AppAPI)
+

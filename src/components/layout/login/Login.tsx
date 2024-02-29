@@ -7,7 +7,7 @@ import { Input } from "../../micro/field/Input.styled"
 import { FlexWrapper } from "../../micro/FlexWrapper.styled"
 import { Button } from "../../micro/button/Button"
 import { useFormik } from "formik"
-import { AlertType, addAppAlert } from "../../../redux/appReducer"
+import { AlertType } from "../../../redux/appReducer"
 import { LoginDataType } from "../../../api/social-network-api"
 
 type LoginPagePropsType = {
@@ -34,17 +34,18 @@ export const Login: React.FC<LoginPagePropsType> = (props) => {
             const errors: FormikErrorType = {}
             if (!values.email) {
                 errors.email = 'Email required'
-                addAppAlert('failed', errors.email)
+                props.addAppAlert('failed', errors.email)
             } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
                 errors.email = 'Invalid email address'
-                addAppAlert('failed', errors.email)
+                props.addAppAlert('failed', errors.email)
             }
-            else if (!values.password) {
+            
+            if (!values.password) {
                 errors.password = 'Password required'
-                addAppAlert('failed', errors.password)
+                props.addAppAlert('failed', errors.password)
             } else if (values.password.length < 4) {
                 errors.password = 'Password must be longer than 3'
-                addAppAlert('failed', errors.password)
+                props.addAppAlert('failed', errors.password)
             }
             return errors
         },
@@ -55,16 +56,16 @@ export const Login: React.FC<LoginPagePropsType> = (props) => {
             <StyledSection id={'login'}>
                 <BlockHeader>Log In</BlockHeader>
                 <StyledForm onSubmit={formik.handleSubmit}>
-                <Notification>
-                    <p>To log in get registered
-                        <a href={'https://social-network.samuraijs.com/'}
-                            target={'_blank'} rel="noreferrer"> here
-                        </a>
-                    </p>
-                    <p>or use common test account credentials:</p>
-                    <p>Email: free@samuraijs.com</p>
-                    <p>Password: free</p>
-                </Notification>
+                    <Notification>
+                        <p>To log in get registered
+                            <a href={'https://social-network.samuraijs.com/'}
+                                target={'_blank'} rel="noreferrer"> here
+                            </a>
+                        </p>
+                        <p>or use common test account credentials:</p>
+                        <p>Email: free@samuraijs.com</p>
+                        <p>Password: free</p>
+                    </Notification>
                     <FlexWrapper direction={'column'} gap={'min(10px, 1vw)'}>
                         <label htmlFor={'email'}>Email</label>
                         <Input bordered={'true'}
@@ -118,7 +119,7 @@ const StyledSection = styled(BlockSection)`
         width: 100%;
     }
 `
-const Notification = styled.p`
+const Notification = styled.div`
     display: flex;
     flex-direction: column;
 `

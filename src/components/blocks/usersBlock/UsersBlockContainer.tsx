@@ -8,6 +8,7 @@ import {
 } from "../../../redux/usersReducer"
 import { AppRootStateType } from "../../../redux/redux-store"
 import { useEffect } from "react"
+import { compose } from "redux"
 
 type UsersBlockAPIPropsType = {
     usersData: UsersStateType
@@ -79,6 +80,8 @@ const mapStateToProps = (state: AppRootStateType) => {
     }
 }
 
-export const UsersBlockContainer = connect(mapStateToProps, {
-    followUser, unfollowUser, getAllUsers, getFollowedUsers, getUnfollowedUsers, changeUsersFilter
-})(UsersBlockAPI)
+export const UsersBlockContainer = compose(
+    connect(mapStateToProps, {
+        followUser, unfollowUser, getAllUsers, getFollowedUsers, getUnfollowedUsers, changeUsersFilter
+    })
+)(UsersBlockAPI)

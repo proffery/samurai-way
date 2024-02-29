@@ -4,7 +4,7 @@ import { FriendsBlock } from "./FriendsBlock"
 import { getFriends } from "../../../redux/friendsReducer"
 import { UserResponseType } from "../../../api/social-network-api"
 import { useEffect } from "react"
-
+import { compose } from "redux"
 
 type FriendsBlockAPIPropsType = {
     className?: string
@@ -33,6 +33,7 @@ export const FriendsBlockAPI: React.FC<FriendsBlockAPIPropsType> = (props) => {
     const refreshFriends = () => {
         props.getFriends(randomPage, props.friendsOnPage)
     }
+
     return (
         <FriendsBlock
             friends={props.friends}
@@ -61,4 +62,6 @@ const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
     }
 }
 
-export const FriendsBlockContainer = connect(mapStateToProps, { getFriends })(FriendsBlockAPI)
+export const FriendsBlockContainer = compose(
+    connect(mapStateToProps, { getFriends })
+)(FriendsBlockAPI)

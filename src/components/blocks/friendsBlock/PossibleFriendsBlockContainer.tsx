@@ -4,6 +4,7 @@ import { getPossibleFriends } from "../../../redux/possibleFriendsReducer"
 import { UserResponseType } from "../../../api/social-network-api"
 import { FriendsBlock } from "./FriendsBlock"
 import { useEffect } from "react"
+import { compose } from "redux"
 
 type PossibleFriendsBlockAPIPropsType = {
     className?: string
@@ -26,9 +27,11 @@ export const PossibleFriendsBlockAPI: React.FC<PossibleFriendsBlockAPIPropsType>
         const maxFloored = Math.floor(max)
         return Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled)
     }
+
     const refreshFriends = () => {
         props.getPossibleFriends(randomPage, props.possibleFriendsOnPage)
     }
+
     return (
         <FriendsBlock
             friends={props.possibleFriends}
@@ -38,6 +41,7 @@ export const PossibleFriendsBlockAPI: React.FC<PossibleFriendsBlockAPIPropsType>
         />
     )
 }
+
 type MapStatePropsType = {
     className?: string
     possibleFriends: UserResponseType[]
@@ -53,4 +57,7 @@ const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
         totalPossibleFriendsCount: state.possibleFriends.totalUsersCount
     }
 }
-export const PossibleFriendsBlockContainer = connect(mapStateToProps, { getPossibleFriends })(PossibleFriendsBlockAPI)
+
+export const PossibleFriendsBlockContainer = compose(
+    connect(mapStateToProps, { getPossibleFriends })
+)(PossibleFriendsBlockAPI)

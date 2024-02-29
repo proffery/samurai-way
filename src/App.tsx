@@ -6,7 +6,6 @@ import { Notifications } from "./components/layout/pages/notifications/Notificat
 import { Settings } from "./components/layout/pages/settings/Settings"
 import { NotFound } from './components/layout/pages/notFound/NotFound'
 import { theme } from './styles/Theme.styled'
-import { ProfileContainer } from './components/layout/pages/profile/ProfileContainer'
 import { HeaderContainer } from './components/layout/header/HeaderContainer'
 import { LoadingLoader } from './components/micro/loaders/LoadingLoader.styled'
 import { useEffect } from 'react'
@@ -15,6 +14,7 @@ import { AlertsContainer } from './components/micro/alerts/AlertsContainer'
 import { NavbarContainer } from './components/layout/navbar/NavbarContainer'
 import { FooterContainer } from './components/layout/footer/FooterContainer'
 import { InitializationLoader } from './components/micro/loaders/IniatializationLoader'
+import { ProfileContainer } from './components/layout/pages/profile/ProfileContainer'
 
 
 type AppPropsType = {

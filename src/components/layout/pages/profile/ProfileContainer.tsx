@@ -5,6 +5,7 @@ import { Profile } from "./Profile"
 import { useEffect } from "react"
 import { RouteComponentProps, withRouter } from "react-router-dom"
 import { AuthStateType } from "../../../../redux/authReducer"
+import { compose } from "redux"
 
 type ConnectPropsType = {
     authData: AuthStateType
@@ -49,9 +50,6 @@ const mapStateToProps = (state: AppRootStateType) => {
     }
 }
 
-const mapDispatchToProps =
-    { postOnChange, addPost, getProfileData, unfollowProfile, followProfile }
-
-let WithUrlDataContainerComponent = withRouter(ProfileAPI)
-
-export const ProfileContainer = connect(mapStateToProps, mapDispatchToProps)(WithUrlDataContainerComponent)
+export const ProfileContainer = compose(
+    connect(mapStateToProps, { postOnChange, addPost, getProfileData, unfollowProfile, followProfile }),
+)(withRouter(ProfileAPI))

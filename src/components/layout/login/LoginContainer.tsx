@@ -4,6 +4,7 @@ import { logIn } from "../../../redux/authReducer"
 import { LoginDataType } from "../../../api/social-network-api"
 import { AlertType, addAppAlert } from "../../../redux/appReducer"
 import { Login } from "./Login"
+import { compose } from "redux"
 
 type LoginAPIPropsTtype = {
     isLoggedIn: boolean
@@ -12,7 +13,6 @@ type LoginAPIPropsTtype = {
 }
 
 export const LoginAPI: React.FC<LoginAPIPropsTtype> = (props) => {
-
     return (
         <Login
             isLoggedIn={props.isLoggedIn}
@@ -32,4 +32,6 @@ const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
     }
 }
 
-export const LoginContainer = connect(mapStateToProps, { logIn, addAppAlert })(LoginAPI)
+export const LoginContainer = compose(
+    connect(mapStateToProps, { logIn, addAppAlert })
+)(LoginAPI)
