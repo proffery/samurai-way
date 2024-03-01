@@ -15,7 +15,7 @@ type EditableSpanPropsType = {
 }
 
 export const EditableSpan: React.FC<EditableSpanPropsType> = (props) => {
-    const { value, error, actualValue, emptyText, name, onChange, onSand} = props
+    const { value, error, actualValue, emptyText, name, onChange, onSand } = props
     const [editMode, setEditMode] = useState(false)
     const [localValue, setLocalValue] = useState(value)
 
@@ -63,7 +63,6 @@ const StyledInput = styled(Input)`
     font-size: inherit;
     font-weight: inherit;
     border-radius: 0;
-    padding: 0;
 `
 
 const StyledSpan = styled.p`
@@ -73,4 +72,5 @@ const StyledSpan = styled.p`
     overflow-x: auto;
     font-size: inherit;
     font-weight: inherit;
+    padding: min(10px, 1vw);
 `

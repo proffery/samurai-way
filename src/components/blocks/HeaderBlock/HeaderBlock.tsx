@@ -95,9 +95,6 @@ export const HeaderBlock: React.FC<HeaderBlockPropsType> = memo((props) => {
                         >{isFollow ? 'Unfollow' : 'Follow'}</Button>
                     </ButtonsContainer> :
                     <ButtonsContainer>
-                        <Button variant={'outlined'}
-                            disabled={props.appIsLoading}
-                        >Edit profile</Button>
                     </ButtonsContainer>
                 }
             </InfoConainer>
@@ -154,7 +151,7 @@ const TextContainer = styled.div`
     flex-direction: column;
     color: ${theme.color.text.primary};
     height: 90%;
-    width: 60%;
+    width: 100%;
     ${font({ weight: 100, Fmin: 10, Fmax: 22 })}
 `
 const Name = styled.span`
@@ -162,13 +159,12 @@ const Name = styled.span`
     ${font({ weight: 700, Fmin: 16, Fmax: 30 })}
 `
 const Status = styled.span`
-    overflow-y: auto;
+
 `
 
 const ButtonsContainer = styled.div`
     display: flex;
     height: 40%;
-    width: 35%;
     min-height: 30px;
     gap: 10px;
     justify-content: end;

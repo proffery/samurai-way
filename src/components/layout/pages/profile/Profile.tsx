@@ -36,7 +36,10 @@ export const Profile: React.FC<ProfilePropsType> = (props) => {
                 changeProfileStatus={props.changeProfileStatus}
                 addAppAlert={props.addAppAlert}
             />
-            <ProfileAboutBlock profileAboutData={props.profileData.data}/>
+            <ProfileAboutBlock
+                profileAboutData={props.profileData.data}
+                authData={props.authData}
+            />
             <ProfilePostsBlock
                 profileData={props.profileData}
                 addPost={props.addPost}
