@@ -9,6 +9,7 @@ import { PossibleFriendsBlockContainer } from "../../../blocks/friendsBlock/Poss
 import { PostsBlock } from "../../../blocks/postsBlock/PostsBlock"
 import { AuthStateType } from "../../../../redux/authReducer"
 import { ProfileStateType } from "../../../../redux/profileReducer"
+import { AlertType } from "../../../../redux/appReducer"
 
 type ProfilePropsType = {
     authData: AuthStateType
@@ -18,6 +19,8 @@ type ProfilePropsType = {
     followProfile: (userId: number) => void
     unfollowProfile: (userId: number) => void
     postOnChange: (newPost: string) => void
+    changeProfileStatus: (newStatus: string) => void
+    addAppAlert: (type: AlertType, message: string) => void
 }
 
 export const Profile: React.FC<ProfilePropsType> = (props) => {
@@ -30,6 +33,8 @@ export const Profile: React.FC<ProfilePropsType> = (props) => {
                 appIsLoading={props.appIsLoading}
                 follow={props.followProfile}
                 unfollow={props.unfollowProfile}
+                changeProfileStatus={props.changeProfileStatus}
+                addAppAlert={props.addAppAlert}
             />
             <ProfileAboutBlock profileAboutData={props.profileData.data}/>
             <ProfilePostsBlock

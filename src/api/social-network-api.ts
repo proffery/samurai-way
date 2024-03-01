@@ -98,5 +98,8 @@ export const socialNetworkAPI = {
     },
     login(loginData: LoginDataType) {
         return instance.post<ResponseType<{ userId: number }>>('/auth/login', loginData)
+    },
+    changeStatus(newStatus: string) {
+        return instance.put<ResponseType>('/profile/status', {status: newStatus})
     }
 }

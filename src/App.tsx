@@ -16,7 +16,6 @@ import { FooterContainer } from './components/layout/footer/FooterContainer'
 import { InitializationLoader } from './components/micro/loaders/IniatializationLoader'
 import { ProfileContainer } from './components/layout/pages/profile/ProfileContainer'
 
-
 type AppPropsType = {
   isLoggedIn: boolean
   navbarCollapsed: boolean

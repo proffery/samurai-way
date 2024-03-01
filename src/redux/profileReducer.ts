@@ -152,6 +152,26 @@ export const unfollowProfile = (userId: number) => (dispatch: AppDispatchType) =
         })
         .finally(() => dispatch(setAppIsLoading(false)))
 }
+export const changeProfileStatus = (newStatus: string) =>
+    (dispatch: AppDispatchType, getState: () => AppRootStateType) => {
+        if (newStatus !== getState().profile.data.status) {
+            dispatch(setAppIsLoading(true))
+            socialNetworkAPI.changeStatus(newStatus)
+                .then(res => {
+                    if (res.data.resultCode === 0) {
+                        dispatch(setStatus(newStatus))
+                        dispatch(addAppAlert('succeeded', 'Status changed!'))
+                    }
+                    else {
+                        dispatch(addAppAlert('failed', res.data.messages[0]))
+                    }
+                })
+                .catch(error => {
+                    dispatch(addAppAlert('failed', error.message))
+                })
+                .finally(() => dispatch(setAppIsLoading(false)))
+        }
+    }
 
 //TYPES
 export type ProfileReducerActionsType =
