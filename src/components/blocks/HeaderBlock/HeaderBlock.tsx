@@ -82,7 +82,7 @@ export const HeaderBlock: React.FC<HeaderBlockPropsType> = memo((props) => {
                                 error={!!formik.errors.formStatus ? 'true' : 'false'}
                             />
                         </form> :
-                        <Status>{status}</Status>}
+                        <span>{status}</span>}
                 </TextContainer>
                 {authId !== userId ?
                     <ButtonsContainer>
@@ -152,14 +152,10 @@ const TextContainer = styled.div`
     color: ${theme.color.text.primary};
     height: 90%;
     width: 100%;
-    ${font({ weight: 100, Fmin: 10, Fmax: 22 })}
 `
 const Name = styled.span`
     white-space: nowrap;
     ${font({ weight: 700, Fmin: 16, Fmax: 30 })}
-`
-const Status = styled.span`
-
 `
 
 const ButtonsContainer = styled.div`

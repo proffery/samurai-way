@@ -11,4 +11,5 @@ export const BlockSection = styled.section`
     height: fit-content;
     min-width: 150px;
     gap: min(30px, 2vw);
+    box-shadow: ${theme.shadow.block};
 `

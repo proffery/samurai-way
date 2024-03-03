@@ -13,25 +13,25 @@ type FooterPropsType = {
     footerData: IconLinksStateType[]
 }
 
-export const Footer:React.FC<FooterPropsType> = (props) => {
+export const Footer: React.FC<FooterPropsType> = (props) => {
     return (
         <StyledFooter>
             <TopWrapper align="start" direction="row" wrap="wrap" justify="space-between">
                 <ContactsHalf>
-                    <Logo logo_style="primary"/>
+                    <Logo variant="primary" type='text'/>
                 </ContactsHalf>
                 <ContactsHalf direction="column">
                     <IconWrapper align="center">
-                        <Icon iconId="location"/>
+                        <Icon iconId="location" />
                         <span>Belarus, Gomel</span>
                     </IconWrapper>
                     <FlexWrapper wrap="wrap" justify="space-between" gap="22px">
                         <IconWrapper align="center">
-                            <Icon iconId="phone"/>
+                            <Icon iconId="phone" />
                             <span>+375 25 6979075</span>
                         </IconWrapper>
                         <IconWrapper align="center">
-                            <Icon iconId="fax"/>
+                            <Icon iconId="fax" />
                             <span>proffery@gmail.com</span>
                         </IconWrapper>
                     </FlexWrapper>
@@ -41,9 +41,10 @@ export const Footer:React.FC<FooterPropsType> = (props) => {
                 </ContactsHalf>
             </TopWrapper>
             <BottomWrapper align="start" direction="row" wrap="wrap" justify="space-between">
-                <Menu type="primary" 
-                    direction="row" 
-                    icons={false} 
+                <Menu type="primary"
+                    direction="row"
+                    icons={false}
+                    name={true}
                     menuItems={props.menuData}
                 />
                 <Copyright><span>Copyright © 2023&nbsp;</span><Link variant="primary">Dmitry Shamko</Link></Copyright>

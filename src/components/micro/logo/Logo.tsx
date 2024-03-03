@@ -1,16 +1,22 @@
 import { Link } from "../../../components/micro/link/Link.styled"
 import { font } from '../../../styles/Font'
 import styled from "styled-components"
+import { Icon } from '../icon/Icon'
 
-type LogoPropsType ={
-    logo_style: 'primary' | 'secondary'
+type LogoPropsType = {
+    variant: 'primary' | 'secondary'
+    type: 'text' | 'logo'
 }
 
 export const Logo = (props: LogoPropsType) => {
     return (
-        <LogoLink variant={props.logo_style} href="/">
-            <span>Social</span>
-            <span>Network</span>
+        <LogoLink variant={props.variant} href="/">
+            {props.type === 'text' ?
+                <>
+                    <span>Social</span>
+                    <span>Network</span>
+                </>
+            : <Icon iconId={'logo'} viewBox='0 0 800 800'/>}
         </LogoLink>
     )
 }
@@ -19,5 +25,5 @@ const LogoLink = styled(Link)`
     flex-direction: column;
     align-items: start;
     opacity: 1;
-    ${font({family: 'Orbitron', weight: 700, Fmin: 18, Fmax: 30})}
+    ${font({ family: 'Orbitron', weight: 700, Fmin: 18, Fmax: 30 })}
 `

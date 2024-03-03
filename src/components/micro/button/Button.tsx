@@ -39,6 +39,10 @@ const StyledButton = styled.button<StyledButtonPropsType>`
     cursor: pointer;
     white-space: nowrap;
     max-width: 172px;
+    transition: all ease-in-out .2s;
+    &:hover {
+        background-image: ${theme.gradient.banner};
+    }
     ${font({ weight: 400, Fmin: 10, Fmax: 22 })}
     
     ${props => props.active === "true" ? `
@@ -92,7 +96,6 @@ const StyledButton = styled.button<StyledButtonPropsType>`
             opacity: 1;
         }
     `}
-    
         &:disabled {
         opacity: .3;
         cursor: default;

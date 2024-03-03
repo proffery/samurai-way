@@ -60,21 +60,21 @@ const StyledProfile = styled.main`
     grid-template-columns: 1fr 3fr 1fr;
     @media ${theme.media.mobile} {
         grid-template-rows: auto auto 30vh 30vh;
-        grid-template-columns: 3fr 1.5fr;
+        grid-template-columns: 3fr;
     }
 `
 
 const ProfileHeaderBlock = styled(HeaderBlock)`
     grid-area: 1 / 1 / 2 / 4 ;
     @media ${theme.media.mobile} {
-        grid-area: 1 / 1 / 2 / 3 ;
+        grid-area: 1 / 1 / 2 / 2 ;
     }
 `
 
 const ProfileAboutBlock = styled(AboutBlock)`
     grid-area: 2 / 1 / 4 / 2 ;
     @media ${theme.media.mobile} {
-        grid-area: 2 / 1 / 3 / 3 ;
+        grid-area: 2 / 1 / 3 / 2 ;
     }
 `
 
@@ -88,18 +88,13 @@ const ProfilePostsBlock = styled(PostsBlock)`
 const ProfileFriendsBlock = styled(FriendsBlockContainer)`
     grid-area: 2 / 3 / 3 / 4 ;
     @media ${theme.media.mobile} {
-        grid-area: 3 / 2 / 4 / 3 ;
+        display: none;
     }
 `
 
 const ProfilePossibleFriendsBlock = styled(PossibleFriendsBlockContainer)`
     grid-area: 3 / 3 / 4 / 4 ;
-    margin-top: 142px;
-    button {
-        margin-top: 0;
-    }
     @media ${theme.media.mobile} {
-        grid-area: 4 / 2 / 5 / 3 ;
-        margin-top: 182px;
+        display: none;
     }
 `

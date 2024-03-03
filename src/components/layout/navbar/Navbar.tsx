@@ -3,7 +3,7 @@ import { Menu } from "../../../components/micro/menu/Menu"
 import { theme } from "../../../styles/Theme.styled"
 import { Logo } from "../../../components/micro/logo/Logo"
 import { Button } from "../../../components/micro/button/Button"
-import { useEffect, useState } from "react"
+import { MouseEvent, useEffect, useState } from "react"
 import React from "react"
 import { Icon } from "../../../components/micro/icon/Icon"
 import { IconLinksStateType } from "../../../redux/appReducer"
@@ -26,7 +26,7 @@ export const Navbar: React.FC<NavbarPropsType> = (props) => {
         return () => window.removeEventListener("resize", handleWindowResize)
     }, [])
 
-    const navbarCollapseHandler = () => {
+    const navbarCollapseHandler = (e: MouseEvent<HTMLButtonElement>) => {
         props.setAppNavbarCollapsed(!props.navbarCollapsed)
     }
 
@@ -37,24 +37,16 @@ export const Navbar: React.FC<NavbarPropsType> = (props) => {
     }, [width])
 
     return (
-        <StyledNavbar>
-            {props.navbarCollapsed &&
-                <>
-                    <Logo logo_style={'secondary'} />
-                    <Menu type={'secondary'}
-                        icons={true}
-                        direction={'column'}
-                        menuItems={props.menuItems}
-                    />
-                </>
-            }
-            <CollapseButton variant="primary"
-                onClick={navbarCollapseHandler}
-                title={props.navbarCollapsed ? 'Close' : 'Open'}
-            >{props.navbarCollapsed
-                ? <Icon iconId="leftArrow" viewBox="-1 9 18 18" />
-                : <Icon iconId="rightArrow" viewBox="19 9 18 18" />}
-            </CollapseButton>
+        <StyledNavbar onClick={navbarCollapseHandler}>
+            <Logo variant={'secondary'}
+                type={props.navbarCollapsed ? 'text' : 'logo'}
+            />
+            <Menu type={'secondary'}
+                icons={true}
+                name={props.navbarCollapsed}
+                direction={'column'}
+                menuItems={props.menuItems}
+            />
         </StyledNavbar>
     )
 }
@@ -67,21 +59,13 @@ const StyledNavbar = styled.nav`
     padding: 54px 32px;
     gap: 54px;
     z-index: 1000;
-    @media ${theme.media.mobile} {
-        gap: 27px;
-        padding: 27px 20px;
+    transition: all ease-in-out .2s;
+    &:hover {
+        box-shadow: ${theme.shadow.navbar};
+        background-image: ${theme.gradient.banner};
     }
-`
-
-const CollapseButton = styled(Button)`
-    position: absolute;
-    box-shadow: ${theme.shadow.text};
-    height: 30px;
-    width: 30px;
-    top: 50%;
-    left: 100%;
-    padding: 5px;
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1;
+    @media ${theme.media.mobile} {
+        gap: 40px;
+        padding: 60px 20px;
+    }
 `

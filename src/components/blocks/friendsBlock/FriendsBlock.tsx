@@ -46,6 +46,7 @@ export const FriendsBlock: React.FC<FriendsBlockPropsType> = (props) => {
 }
 const StyledFriends = styled(BlockSection)`
     width: 100%;
+    display: flex;
 `
 
 const StyledFriendsList = styled.div`
@@ -55,9 +56,8 @@ const StyledFriendsList = styled.div`
     justify-content: center;
     flex-direction: column;
     overflow-y: auto;
-    overflow-x: hidden;
+    overflow-x: auto;
     @media ${theme.media.mobile} {
         flex-direction: row;
-        flex-wrap: wrap;
     }
 `

@@ -1,4 +1,5 @@
 import React from "react"
+import { MouseEvent } from "react"
 import styled, { css } from "styled-components"
 import { Icon } from "../icon/Icon"
 import { theme } from "../../../styles/Theme.styled"
@@ -9,23 +10,32 @@ type MenuPropsType = {
     type: 'primary' | 'secondary'
     direction: 'row' | 'column'
     icons?: boolean
+    name: boolean
     menuItems: IconLinksStateType[]
 }
 
 export const Menu: React.FC<MenuPropsType> = (props) => {
+    const onClickHandler = (e: MouseEvent) => {
+        e.stopPropagation()
+    }
     return (
         <StyledMenu direction={props.direction} type={props.type}>
             <ul role="menu" aria-label="menu">
                 {props.menuItems.map((item) => {
-                    return(
+                    return (
                         <li role="menuitem" key={item.id}>
-                            <StyledNavLink to={item.href} type={props.type} tabIndex={0}>
-                                {props.icons && 
+                            <StyledNavLink
+                                to={item.href}
+                                type={props.type}
+                                tabIndex={0}
+                                onClick={onClickHandler}
+                            >
+                                {props.icons &&
                                     <IconWrapper>
                                         <Icon iconId={item.icon_id} height="100%" width="100%" viewBox={item.viewBox} />
                                     </IconWrapper>
                                 }
-                                {item.name}
+                                {props.name && item.name}
                             </StyledNavLink>
                         </li>
                     )
@@ -58,7 +68,7 @@ const StyledMenu = styled.div<StyledMenuType>`
     }
 `
 
-const StyledNavLink = styled(NavLink)<StyledMenuType>`
+const StyledNavLink = styled(NavLink) <StyledMenuType>`
     display: flex;
     align-items: center;
     opacity: .7;

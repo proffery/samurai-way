@@ -82,6 +82,7 @@ const Wrapper = styled.div<ContainerPropsType>`
   height: 100%;
   margin: 0 auto;
   padding: 0;
+  transition: all ease-in-out .2s;
   main {
     grid-area: 2 / 2 / 3 / 6 ;
   }
@@ -98,13 +99,16 @@ const Wrapper = styled.div<ContainerPropsType>`
     grid-template-columns: 5px repeat(4, 1fr);
     main {
       grid-area: 2 / 1 / 3 / 6 ;
+      padding-left: 60px;
     }
     nav {
       grid-area: 1 / 1 / 3 / 1 ;
-      padding: 5px;
+      width: 45px;
+      padding: 60px 10px;
     }
     header {
       grid-area: 1 / 1 / 2 / 6 ;
+      padding-left: 60px;
     }
   `: undefined}
   @media ${theme.media.mobile} {

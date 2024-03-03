@@ -63,6 +63,7 @@ const StyledInput = styled(Input)`
     font-size: inherit;
     font-weight: inherit;
     border-radius: 0;
+    padding: min(10px, 1vw) 0;
 `
 
 const StyledSpan = styled.p`
@@ -72,5 +73,5 @@ const StyledSpan = styled.p`
     overflow-x: auto;
     font-size: inherit;
     font-weight: inherit;
-    padding: min(10px, 1vw);
+    padding: min(10px, 1vw) 0;
 `
