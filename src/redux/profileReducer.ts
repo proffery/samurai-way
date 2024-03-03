@@ -1,5 +1,5 @@
 import { v1 } from "uuid"
-import { GetProfileResponseType, socialNetworkAPI } from "../api/social-network-api"
+import { ChangeProfileDataType, GetProfileResponseType, socialNetworkAPI } from "../api/social-network-api"
 import { AppDispatchType, AppRootStateType } from "./redux-store"
 import { AddAlertActionType, SetAppIsLoadingActionType, addAppAlert, setAppIsLoading } from "./appReducer"
 import { FollowUserActionType, UnfollowUserActionType } from "./usersReducer"
@@ -18,7 +18,7 @@ const initialState: ProfileStateType = {
     posts: [],
     newPostForm: '',
     data: {
-        aboutMe: '',
+        aboutMe: 'Human',
         contacts: {
             facebook: '',
             website: '',
@@ -171,6 +171,36 @@ export const changeProfileStatus = (newStatus: string) =>
                 })
                 .finally(() => dispatch(setAppIsLoading(false)))
         }
+    }
+export const changeProfileData = (key: keyof ChangeProfileDataType, value: any) =>
+    (dispatch: AppDispatchType, getState: () => AppRootStateType) => {
+        const { aboutMe, contacts, fullName, lookingForAJob, lookingForAJobDescription } = getState().profile.data
+        const model: ChangeProfileDataType = {
+            aboutMe: aboutMe || 'no info',
+            contacts: contacts,
+            fullName: fullName,
+            lookingForAJob: lookingForAJob,
+            lookingForAJobDescription: lookingForAJobDescription || 'no info'
+        }
+        const newProfileData: ChangeProfileDataType = { ...model, [key]: value }
+        dispatch(setAppIsLoading(true))
+        socialNetworkAPI.changeProfile(newProfileData)
+            .then(res => {
+                if (res.data.resultCode === 0) {
+                    const aldProfileData = getState().profile.data
+                    const aldStatus = getState().profile.data.status
+                    dispatch(setProfileData({ ...aldProfileData, ...newProfileData }))
+                    dispatch(setStatus(aldStatus))
+                    dispatch(addAppAlert('succeeded', `${key} changed!`))
+                }
+                else {
+                    dispatch(addAppAlert('failed', res.data.messages[0]))
+                }
+            })
+            .catch(error => {
+                dispatch(addAppAlert('failed', error.message))
+            })
+            .finally(() => dispatch(setAppIsLoading(false)))
     }
 
 //TYPES

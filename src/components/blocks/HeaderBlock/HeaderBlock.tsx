@@ -31,7 +31,7 @@ export const HeaderBlock: React.FC<HeaderBlockPropsType> = memo((props) => {
     const { isFollow, fullName, userId, status } = props.profileData.data
     const { small, large } = props.profileData.data.photos
     const { id: authId } = props.authData
-    console.log('from props: ' + status)
+    const STATUS_MAX_LENGTH = 300
 
     const followOnClickHandler = () => {
         isFollow ? props.unfollow(userId) : props.follow(userId)
@@ -39,23 +39,21 @@ export const HeaderBlock: React.FC<HeaderBlockPropsType> = memo((props) => {
 
     const formik = useFormik({
         initialValues: {
-            formStatus: status
+            status: status
         },
         enableReinitialize: true,
         onSubmit: (values) => {
-            props.changeProfileStatus(values.formStatus)
+            props.changeProfileStatus(values.status)
         },
         validate: (values) => {
             const errors: FormikErrorType = {}
-            if (values.formStatus.length >= 299) {
-                errors.formStatus = 'Status must be less than 300 symbols'
+            if (values.status.length >= STATUS_MAX_LENGTH) {
+                errors.formStatus = `Status must be less than ${STATUS_MAX_LENGTH} symbols`
                 props.addAppAlert('failed', errors.formStatus)
             }
             return errors
         }
-
     })
-    console.log('from formik: ' + formik.initialValues.formStatus)
 
     return (
         <StyledHeaderBlock id="profile-header" className={props.className}>
@@ -74,12 +72,12 @@ export const HeaderBlock: React.FC<HeaderBlockPropsType> = memo((props) => {
                         <form onSubmit={formik.handleSubmit}>
                             <EditableSpan
                                 onSand={formik.handleSubmit}
-                                name={'formStatus'}
+                                name={'status'}
                                 emptyText={'No status...'}
-                                value={formik.values.formStatus}
+                                value={formik.values.status}
                                 actualValue={status}
                                 onChange={formik.handleChange}
-                                error={!!formik.errors.formStatus ? 'true' : 'false'}
+                                error={!!formik.errors.status ? 'true' : 'false'}
                             />
                         </form> :
                         <span>{status}</span>}

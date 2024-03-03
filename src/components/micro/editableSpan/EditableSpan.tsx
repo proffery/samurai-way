@@ -34,12 +34,12 @@ export const EditableSpan: React.FC<EditableSpanPropsType> = (props) => {
     }
     const activateViewModeonBlur = (e: React.ChangeEvent<any>) => {
         setEditMode(false)
-        error !== 'true' && onSand(e.currentTarget.value)
+        error !== 'true' && actualValue !== value && onSand(e.currentTarget.value)
     }
     const activateViewModeonEnter = (e: React.KeyboardEvent<any>) => {
         if (e.key === 'Enter') {
             setEditMode(false)
-            error !== 'true' && onSand(e.currentTarget.value)
+            error !== 'true' && actualValue !== value && onSand(e.currentTarget.value)
         }
     }
 
@@ -53,8 +53,9 @@ export const EditableSpan: React.FC<EditableSpanPropsType> = (props) => {
             onKeyPress={activateViewModeonEnter}
             error={error}
             name={name}
+            className={props.className}
         />
-        : <StyledSpan onClick={activateEditMode}>{localValue || emptyText}</StyledSpan>
+        : <StyledSpan className={props.className} onClick={activateEditMode}>{localValue || emptyText}</StyledSpan>
 }
 
 const StyledInput = styled(Input)`
@@ -69,8 +70,6 @@ const StyledInput = styled(Input)`
 const StyledSpan = styled.p`
     display: flex;
     width: 100%;
-    overflow-y: hidden;
-    overflow-x: auto;
     font-size: inherit;
     font-weight: inherit;
     padding: min(10px, 1vw) 0;

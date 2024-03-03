@@ -68,6 +68,14 @@ export type LoginDataType = {
     remember: boolean
 }
 
+export type ChangeProfileDataType = {
+    contacts: GetProfileResponseContactsType,
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    aboutMe: string
+}
+
 export const socialNetworkAPI = {
     getUsers(pageNumber: number, usersOnPage: number) {
         return instance.get<GetUsersResponseType>(`/users?page=${pageNumber}&count=${usersOnPage}`)
@@ -100,6 +108,9 @@ export const socialNetworkAPI = {
         return instance.post<ResponseType<{ userId: number }>>('/auth/login', loginData)
     },
     changeStatus(newStatus: string) {
-        return instance.put<ResponseType>('/profile/status', {status: newStatus})
+        return instance.put<ResponseType>('/profile/status', { status: newStatus })
+    },
+    changeProfile(newData: ChangeProfileDataType) {
+        return instance.put<ResponseType>('/profile', newData)
     }
 }

@@ -1,5 +1,5 @@
 import { connect } from "react-redux"
-import { addPost, followProfile, getProfileData, postOnChange, unfollowProfile, ProfileStateType, changeProfileStatus } from "../../../../redux/profileReducer"
+import { addPost, followProfile, getProfileData, postOnChange, unfollowProfile, ProfileStateType, changeProfileStatus, changeProfileData } from "../../../../redux/profileReducer"
 import { AppRootStateType } from "../../../../redux/redux-store"
 import { Profile } from "./Profile"
 import { useEffect } from "react"
@@ -7,6 +7,7 @@ import { RouteComponentProps, withRouter } from "react-router-dom"
 import { AuthStateType } from "../../../../redux/authReducer"
 import { compose } from "redux"
 import { AlertType, addAppAlert } from "../../../../redux/appReducer"
+import { ChangeProfileDataType } from '../../../../api/social-network-api'
 
 type ConnectPropsType = {
     authData: AuthStateType
@@ -19,6 +20,7 @@ type ConnectPropsType = {
     getProfileData: (iserId: number) => void
     changeProfileStatus: (newStatus: string) => void
     addAppAlert: (type: AlertType, message: string) => void
+    changeProfileData: (key: keyof ChangeProfileDataType, value: any) => void
 }
 type PathParamType = {
     userId: string
@@ -43,6 +45,7 @@ const ProfileAPI: React.FC<ProfileAPIPropsType> = (props) => {
         postOnChange={props.postOnChange}
         unfollowProfile={props.unfollowProfile}
         changeProfileStatus={props.changeProfileStatus}
+        changeProfileData={props.changeProfileData}
         addAppAlert={props.addAppAlert}
     />
 }
@@ -60,6 +63,6 @@ export const ProfileContainer = compose(
         {
             postOnChange, addPost, getProfileData,
             unfollowProfile, followProfile, changeProfileStatus,
-            addAppAlert
+            addAppAlert, changeProfileData
         })
 )(withRouter(ProfileAPI))

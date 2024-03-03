@@ -8,22 +8,170 @@ import { font } from "../../../styles/Font"
 import { ProfileDataType } from "../../../redux/profileReducer"
 import { AuthStateType } from "../../../redux/authReducer"
 import { EditableSpan } from "../../micro/editableSpan/EditableSpan"
+import { useFormik } from 'formik'
+import { AlertType } from '../../../redux/appReducer'
+import { ChangeProfileDataType } from '../../../api/social-network-api'
 
 type AboutBlockPropsType = {
     authData: AuthStateType
     className?: string
-    profileAboutData: ProfileDataType
+    profileData: ProfileDataType
+    addAppAlert: (type: AlertType, message: string) => void
+    changeProfileData: (key: keyof ChangeProfileDataType, value: any) => void
 }
-
+type FormikErrorType = {
+    facebook?: string
+    twitter?: string
+    instagram?: string
+    youtube?: string
+    github?: string
+    vk?: string
+    website?: string
+    mainLink?: string
+}
 export const AboutBlock: React.FC<AboutBlockPropsType> = (props) => {
-    const { facebook, twitter, instagram, youtube, github, vk, website, mainLink } = props.profileAboutData.contacts
-    const { userId } = props.profileAboutData
+    const { facebook, twitter, instagram, youtube, github, vk, website, mainLink } = props.profileData.contacts
+    const { userId } = props.profileData
     const { id: authId } = props.authData
-    
+    const CONTACTS_MAX_LENGTH = 40
+    const formik = useFormik({
+        initialValues: {
+            facebook: facebook || '',
+            twitter: twitter || '',
+            instagram: instagram || '',
+            youtube: youtube || '',
+            github: github || '',
+            vk: vk || '',
+            website: website || '',
+            mainLink: mainLink || ''
+        },
+        enableReinitialize: true,
+        onSubmit: (values) => {
+            props.changeProfileData('contacts', values)
+        },
+        validate: (values) => {
+            const errors: FormikErrorType = {}
+            if (values.facebook.length >= CONTACTS_MAX_LENGTH) {
+                errors.facebook = `Status must be less than ${CONTACTS_MAX_LENGTH} symbols`
+                props.addAppAlert('failed', errors.facebook)
+            }
+            if (values.facebook.length >= CONTACTS_MAX_LENGTH) {
+                errors.facebook = `Status must be less than ${CONTACTS_MAX_LENGTH} symbols`
+                props.addAppAlert('failed', errors.facebook)
+            }
+            if (values.facebook.length >= CONTACTS_MAX_LENGTH) {
+                errors.facebook = `Status must be less than ${CONTACTS_MAX_LENGTH} symbols`
+                props.addAppAlert('failed', errors.facebook)
+            }
+            if (values.facebook.length >= CONTACTS_MAX_LENGTH) {
+                errors.facebook = `Status must be less than ${CONTACTS_MAX_LENGTH} symbols`
+                props.addAppAlert('failed', errors.facebook)
+            }
+            if (values.facebook.length >= CONTACTS_MAX_LENGTH) {
+                errors.facebook = `Status must be less than ${CONTACTS_MAX_LENGTH} symbols`
+                props.addAppAlert('failed', errors.facebook)
+            }
+            if (values.facebook.length >= CONTACTS_MAX_LENGTH) {
+                errors.facebook = `Status must be less than ${CONTACTS_MAX_LENGTH} symbols`
+                props.addAppAlert('failed', errors.facebook)
+            }
+            if (values.facebook.length >= CONTACTS_MAX_LENGTH) {
+                errors.facebook = `Status must be less than ${CONTACTS_MAX_LENGTH} symbols`
+                props.addAppAlert('failed', errors.facebook)
+            }
+            return errors
+        }
+    })
+
     return (
         <About id="about" className={props.className}>
             <BlockHeader>About</BlockHeader>
-            {userId !== authId ?
+            {userId === authId ?
+                <CategoryWrapper>
+                    <form onSubmit={formik.handleSubmit}>
+                        <ContactCategory>
+                            <ContactIcon iconId="facebook" />
+                            <DescriptionEditable
+                                value={formik.values.facebook}
+                                actualValue={facebook}
+                                onSand={formik.handleSubmit}
+                                onChange={formik.handleChange}
+                                name={'facebook'}
+                            />
+                        </ContactCategory>
+                        <ContactCategory>
+                            <ContactIcon iconId="twitter" />
+                            <DescriptionEditable
+                                value={formik.values.twitter}
+                                actualValue={twitter}
+                                onSand={formik.handleSubmit}
+                                onChange={formik.handleChange}
+                                name={'twitter'}
+                            />
+                        </ContactCategory>
+                        <ContactCategory>
+                            <ContactIcon iconId="instagram" />
+                            <DescriptionEditable
+                                value={formik.values.instagram}
+                                actualValue={instagram}
+                                onSand={formik.handleSubmit}
+                                onChange={formik.handleChange}
+                                name={'instagram'}
+                            />
+                        </ContactCategory>
+                        <ContactCategory>
+                            <ContactIcon iconId="youtube" />
+                            <DescriptionEditable
+                                value={formik.values.youtube}
+                                actualValue={youtube}
+                                onSand={formik.handleSubmit}
+                                onChange={formik.handleChange}
+                                name={'youtube'}
+                            />
+                        </ContactCategory>
+                        <ContactCategory>
+                            <ContactIcon iconId="github" viewBox="-10 -10 150 150" />
+                            <DescriptionEditable
+                                value={formik.values.github}
+                                actualValue={github}
+                                onSand={formik.handleSubmit}
+                                onChange={formik.handleChange}
+                                name={'github'}
+                            />
+                        </ContactCategory>
+                        <ContactCategory>
+                            <ContactIcon iconId="vk" viewBox="-3 -3 40 40" />
+                            <DescriptionEditable
+                                value={formik.values.vk}
+                                actualValue={vk}
+                                onSand={formik.handleSubmit}
+                                onChange={formik.handleChange}
+                                name={'vk'}
+                            />
+                        </ContactCategory>
+                        <ContactCategory>
+                            <ContactIcon iconId="home" viewBox="-2 -2 24 24" />
+                            <DescriptionEditable
+                                value={formik.values.website}
+                                actualValue={website}
+                                onSand={formik.handleSubmit}
+                                onChange={formik.handleChange}
+                                name={'website'}
+                            />
+                        </ContactCategory>
+                        <ContactCategory>
+                            <ContactIcon iconId="linkedin" viewBox="0 2 24 24" />
+                            <DescriptionEditable
+                                value={formik.values.mainLink}
+                                actualValue={mainLink}
+                                onSand={formik.handleSubmit}
+                                onChange={formik.handleChange}
+                                name={'mainLink'}
+                            />
+                        </ContactCategory>
+                    </form>
+                </CategoryWrapper>
+                :
                 <CategoryWrapper>
                     {facebook &&
                         <ContactCategory>
@@ -76,83 +224,8 @@ export const AboutBlock: React.FC<AboutBlockPropsType> = (props) => {
                     {!facebook && !twitter && !instagram && !youtube && !github && !vk && !website && !mainLink &&
                         <Description>No info...</Description>
                     }
-                </CategoryWrapper> :
-                <CategoryWrapper>
-                    <form>
-                        <ContactCategory>
-                            <ContactIcon iconId="facebook" />
-                            <EditableSpan
-                                value={''}
-                                actualValue={''}
-                                onSand={() => { }}
-                                onChange={() => { }}
-                            />
-                        </ContactCategory>
-                        <ContactCategory>
-                            <ContactIcon iconId="twitter" />
-                            <EditableSpan
-                                value={''}
-                                actualValue={''}
-                                onSand={() => { }}
-                                onChange={() => { }}
-                            />
-                        </ContactCategory>
-                        <ContactCategory>
-                            <ContactIcon iconId="instagram" />
-                            <EditableSpan
-                                value={''}
-                                actualValue={''}
-                                onSand={() => { }}
-                                onChange={() => { }}
-                            />
-                        </ContactCategory>
-                        <ContactCategory>
-                            <ContactIcon iconId="youtube" />
-                            <EditableSpan
-                                value={''}
-                                actualValue={''}
-                                onSand={() => { }}
-                                onChange={() => { }}
-                            />
-                        </ContactCategory>
-                        <ContactCategory>
-                            <ContactIcon iconId="github" viewBox="-10 -10 150 150" />
-                            <EditableSpan
-                                value={''}
-                                actualValue={''}
-                                onSand={() => { }}
-                                onChange={() => { }}
-                            />
-                        </ContactCategory>
-                        <ContactCategory>
-                            <ContactIcon iconId="vk" viewBox="-3 -3 40 40" />
-                            <EditableSpan
-                                value={''}
-                                actualValue={''}
-                                onSand={() => { }}
-                                onChange={() => { }}
-                            />
-                        </ContactCategory>
-                        <ContactCategory>
-                            <ContactIcon iconId="home" viewBox="-2 -2 24 24" />
-                            <EditableSpan
-                                value={''}
-                                actualValue={''}
-                                onSand={() => { }}
-                                onChange={() => { }}
-                            />
-                        </ContactCategory>
-                        <ContactCategory>
-                            <ContactIcon iconId="linkedin" viewBox="0 2 24 24" />
-                            <EditableSpan
-                                value={''}
-                                actualValue={''}
-                                onSand={() => { }}
-                                onChange={() => { }}
-                            />
-                        </ContactCategory>
-                    </form>
                 </CategoryWrapper>
+
             }
         </About >
     )
@@ -170,8 +243,8 @@ const CategoryWrapper = styled.div`
     flex-direction: column;
     flex-wrap: wrap;
     gap: 5px;
-    @media ${theme.media.mobile} {
-        flex-direction: row;
+    form {
+        width: 100%;
     }
 `
 const ContactCategory = styled.div`
@@ -191,7 +264,6 @@ const ContactCategory = styled.div`
     }
     @media ${theme.media.mobile} {
         flex-direction: row;
-        width: 30%;
         &::after {
             position: absolute;
             content: '';
@@ -209,6 +281,12 @@ const ContactIcon = styled(Icon)`
     }
  `
 const Description = styled.span`
+    display: flex;
+    align-items: center;
+    width: 75%;
+    overflow-wrap: anywhere;
+ `
+ const DescriptionEditable = styled(EditableSpan)`
     display: flex;
     align-items: center;
     width: 75%;

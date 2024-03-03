@@ -10,6 +10,7 @@ import { PostsBlock } from "../../../blocks/postsBlock/PostsBlock"
 import { AuthStateType } from "../../../../redux/authReducer"
 import { ProfileStateType } from "../../../../redux/profileReducer"
 import { AlertType } from "../../../../redux/appReducer"
+import { ChangeProfileDataType } from '../../../../api/social-network-api'
 
 type ProfilePropsType = {
     authData: AuthStateType
@@ -20,6 +21,7 @@ type ProfilePropsType = {
     unfollowProfile: (userId: number) => void
     postOnChange: (newPost: string) => void
     changeProfileStatus: (newStatus: string) => void
+    changeProfileData: (key: keyof ChangeProfileDataType, value: any) => void
     addAppAlert: (type: AlertType, message: string) => void
 }
 
@@ -37,8 +39,10 @@ export const Profile: React.FC<ProfilePropsType> = (props) => {
                 addAppAlert={props.addAppAlert}
             />
             <ProfileAboutBlock
-                profileAboutData={props.profileData.data}
+                profileData={props.profileData.data}
                 authData={props.authData}
+                addAppAlert={props.addAppAlert}
+                changeProfileData={props.changeProfileData}
             />
             <ProfilePostsBlock
                 profileData={props.profileData}
