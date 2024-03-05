@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import { theme } from "../../../styles/Theme.styled"
-import { Input } from "../../micro/field/Input.styled"
+import { Input } from "../../micro/input/Input.styled"
 import search from "../../../assets/images/Search.svg"
 import { Logout } from "./Logout"
 import { AuthStateType } from "../../../redux/authReducer"

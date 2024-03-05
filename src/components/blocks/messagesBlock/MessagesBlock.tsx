@@ -5,7 +5,7 @@ import { Message } from "./message/Message"
 import styled from "styled-components"
 import { FlexWrapper } from "../../micro/FlexWrapper.styled"
 import { Button } from "../../micro/button/Button"
-import { Input } from "../../micro/field/Input.styled"
+import { Input } from "../../micro/input/Input.styled"
 import { MessageStateType, MessagesPageStateType } from "../../../redux/messagesReducer"
 
 type MessagesBlockPropsType = {
@@ -38,7 +38,7 @@ export const MessagesBlock: React.FC<MessagesBlockPropsType> = (props) => {
         if (props.messagesData.newMessageForm.trim() !== "") {
             props.addMessage()
         } else {
-            setError('Enter your message');
+            setError('Enter your message')
         }
     }
 

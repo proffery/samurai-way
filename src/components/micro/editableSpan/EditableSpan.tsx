@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Input } from '../field/Input.styled'
+import { Input } from '../input/Input.styled'
 import styled from 'styled-components'
 import { theme } from '../../../styles/Theme.styled'
 

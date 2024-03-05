@@ -1,7 +1,7 @@
 import React, { ChangeEvent, MouseEvent, KeyboardEvent, useState } from "react"
 import styled from "styled-components"
 import { Button } from "../../micro/button/Button"
-import { Input } from "../../micro/field/Input.styled"
+import { Input } from "../../micro/input/Input.styled"
 import { FlexWrapper } from "../../micro/FlexWrapper.styled"
 import { Post } from "./post/Post"
 import { BlockHeader } from "../../micro/BlockHeader.styled"
@@ -9,6 +9,7 @@ import { BlockSection } from "../../micro/BlockSection.styled"
 import { ProfileStateType } from "../../../redux/profileReducer"
 
 type PostsBlockPropsType = {
+    className?: string
     profileStateData: ProfileStateType
     onChangeNewPostText: (text: string) => void
     addPost: () => void
@@ -52,7 +53,7 @@ export const PostsBlock: React.FC<PostsBlockPropsType> = (props) => {
     }
 
     return (
-        <BlockSection id="posts" >
+        <StyledPosts id="posts" >
             <BlockHeader>Posts</BlockHeader>
             <Form
                 onKeyDown={addPostOnCtrlEnterHandler}
@@ -75,9 +76,15 @@ export const PostsBlock: React.FC<PostsBlockPropsType> = (props) => {
                 </FlexWrapper>
             </Form>
             {postsList()}
-        </BlockSection>
+        </StyledPosts>
     )
 }
+
+const StyledPosts = styled(BlockSection)`
+    display: flex;
+    width: 100%;
+    height: 100%;
+`
 
 const Form = styled.form`
     display: flex;

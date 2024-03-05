@@ -3,7 +3,7 @@ import { BlockSection } from "../../micro/BlockSection.styled"
 import styled from "styled-components"
 import { theme } from "../../../styles/Theme.styled"
 import { BlockHeader } from "../../micro/BlockHeader.styled"
-import { Input } from "../../micro/field/Input.styled"
+import { Input } from "../../micro/input/Input.styled"
 import { FlexWrapper } from "../../micro/FlexWrapper.styled"
 import { Button } from "../../micro/button/Button"
 import { useFormik } from "formik"
@@ -39,7 +39,7 @@ export const Login: React.FC<LoginPagePropsType> = (props) => {
                 errors.email = 'Invalid email address'
                 props.addAppAlert('failed', errors.email)
             }
-            
+
             if (!values.password) {
                 errors.password = 'Password required'
                 props.addAppAlert('failed', errors.password)

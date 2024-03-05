@@ -1,7 +1,7 @@
 import { useFormik } from 'formik'
 import React from "react"
 import styled from "styled-components"
-import { ChangeProfileDataType, GetProfileResponseContactsType } from '../../../api/social-network-api'
+import { GetProfileResponseContactsType } from '../../../api/social-network-api'
 import { AlertType } from '../../../redux/appReducer'
 import { AuthStateType } from "../../../redux/authReducer"
 import { ContactsIconsType, ProfileStateType } from "../../../redux/profileReducer"
@@ -17,18 +17,9 @@ type ContactsBlockPropsType = {
     className?: string
     profileStateData: ProfileStateType
     addAppAlert: (type: AlertType, message: string) => void
-    changeProfileData: (key: keyof ChangeProfileDataType, value: any) => void
+    changeProfileContacts: (contacts: GetProfileResponseContactsType) => void
 }
-type FormikErrorType = {
-    facebook?: string
-    twitter?: string
-    instagram?: string
-    youtube?: string
-    github?: string
-    vk?: string
-    website?: string
-    mainLink?: string
-}
+
 export const ContactsBlock: React.FC<ContactsBlockPropsType> = (props) => {
     const { id: authId } = props.authStateData
     const { userId } = props.profileStateData.data
@@ -41,7 +32,7 @@ export const ContactsBlock: React.FC<ContactsBlockPropsType> = (props) => {
                     contactsData={props.profileStateData.data.contacts}
                     contactsIcons={props.profileStateData.contactsIcons}
                     addAppAlert={props.addAppAlert}
-                    changeProfileData={props.changeProfileData}
+                    changeProfileContacts={props.changeProfileContacts}
                 />
                 :
                 <Contacts
@@ -58,7 +49,17 @@ type ContactsFormPropsType = {
     contactsData: GetProfileResponseContactsType
     contactsIcons: ContactsIconsType
     addAppAlert: (type: AlertType, message: string) => void
-    changeProfileData: (key: keyof ChangeProfileDataType, value: any) => void
+    changeProfileContacts: (contacts: GetProfileResponseContactsType) => void
+}
+type FormikErrorType = {
+    facebook?: string
+    twitter?: string
+    instagram?: string
+    youtube?: string
+    github?: string
+    vk?: string
+    website?: string
+    mainLink?: string
 }
 const ContactsForm: React.FC<ContactsFormPropsType> = (props) => {
     const { facebook, twitter, instagram, youtube, github, vk, website, mainLink } = props.contactsData
@@ -66,18 +67,18 @@ const ContactsForm: React.FC<ContactsFormPropsType> = (props) => {
     const CONTACTS_MAX_LENGTH = 40
     const formik = useFormik({
         initialValues: {
-            facebook: facebook,
-            twitter: twitter,
-            instagram: instagram,
-            youtube: youtube,
-            github: github,
-            vk: vk,
-            website: website,
-            mainLink: mainLink
+            facebook: facebook || '',
+            twitter: twitter || '',
+            instagram: instagram || '',
+            youtube: youtube || '',
+            github: github || '',
+            vk: vk || '',
+            website: website || '',
+            mainLink: mainLink || ''
         },
         enableReinitialize: true,
         onSubmit: (values) => {
-            props.changeProfileData('contacts', values)
+            props.changeProfileContacts(values)
         },
         validate: (values) => {
             const errors: FormikErrorType = {}

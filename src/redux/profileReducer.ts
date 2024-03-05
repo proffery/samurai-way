@@ -1,5 +1,5 @@
 import { v1 } from "uuid"
-import { ChangeProfileDataType, GetProfileResponseType, socialNetworkAPI } from "../api/social-network-api"
+import { ChangeProfileDataType, GetProfileResponseContactsType, GetProfileResponseType, socialNetworkAPI } from "../api/social-network-api"
 import { AppDispatchType, AppRootStateType } from "./redux-store"
 import { AddAlertActionType, SetAppIsLoadingActionType, addAppAlert, setAppIsLoading } from "./appReducer"
 import { FollowUserActionType, UnfollowUserActionType } from "./usersReducer"
@@ -92,7 +92,7 @@ const initialState = {
         },
         {
             id: 8,
-            name: "linkedin" as string,
+            name: "mainLink" as string,
             href: "#",
             icon_id: "linkedin",
             viewBox: "0 2 24 24",
@@ -230,9 +230,9 @@ export const changeProfileStatus = (newStatus: string) =>
                 .finally(() => dispatch(setAppIsLoading(false)))
         }
     }
-export const changeProfileData = (key: keyof ChangeProfileDataType, value: any) =>
+export const changeProfileContacts = (contacts: GetProfileResponseContactsType) =>
     (dispatch: AppDispatchType, getState: () => AppRootStateType) => {
-        const { aboutMe, contacts, fullName, lookingForAJob, lookingForAJobDescription } = getState().profile.data
+        const { aboutMe, fullName, lookingForAJob, lookingForAJobDescription } = getState().profile.data
         const model: ChangeProfileDataType = {
             aboutMe: aboutMe || 'no info',
             contacts: contacts,
@@ -240,16 +240,44 @@ export const changeProfileData = (key: keyof ChangeProfileDataType, value: any) 
             lookingForAJob: lookingForAJob,
             lookingForAJobDescription: lookingForAJobDescription || 'no info'
         }
-        const newProfileData: ChangeProfileDataType = { ...model, [key]: value }
         dispatch(setAppIsLoading(true))
-        socialNetworkAPI.changeProfile(newProfileData)
+        socialNetworkAPI.changeProfile(model)
             .then(res => {
                 if (res.data.resultCode === 0) {
-                    const aldProfileData = getState().profile.data
-                    const aldStatus = getState().profile.data.status
-                    dispatch(setProfileData({ ...aldProfileData, ...newProfileData }))
-                    dispatch(setStatus(aldStatus))
-                    dispatch(addAppAlert('succeeded', `${key} changed!`))
+                    const oldProfileData = getState().profile.data
+                    const oldStatus = getState().profile.data.status
+                    dispatch(setProfileData({ ...oldProfileData, ...model }))
+                    dispatch(setStatus(oldStatus))
+                    dispatch(addAppAlert('succeeded', 'Contacts are changed!'))
+                }
+                else {
+                    dispatch(addAppAlert('failed', res.data.messages[0]))
+                }
+            })
+            .catch(error => {
+                dispatch(addAppAlert('failed', error.message))
+            })
+            .finally(() => dispatch(setAppIsLoading(false)))
+    }
+export const changeProfileAbout = (about: AboutProfileType) =>
+    (dispatch: AppDispatchType, getState: () => AppRootStateType) => {
+        const { contacts } = getState().profile.data
+        const model: ChangeProfileDataType = {
+            aboutMe: about.aboutMe || 'no info',
+            contacts: contacts,
+            fullName: about.fullName,
+            lookingForAJob: about.lookingForAJob,
+            lookingForAJobDescription: about.lookingForAJobDescription || 'no info'
+        }
+        dispatch(setAppIsLoading(true))
+        socialNetworkAPI.changeProfile(model)
+            .then(res => {
+                if (res.data.resultCode === 0) {
+                    const oldProfileData = getState().profile.data
+                    const oldStatus = getState().profile.data.status
+                    dispatch(setProfileData({ ...oldProfileData, ...model }))
+                    dispatch(setStatus(oldStatus))
+                    dispatch(addAppAlert('succeeded', 'About is changed!'))
                 }
                 else {
                     dispatch(addAppAlert('failed', res.data.messages[0]))
@@ -285,7 +313,6 @@ export interface ProfileDataType extends GetProfileResponseType {
     isFollow: boolean
     status: string
 }
-
 export type ContactsIconsType = typeof initialState.contactsIcons
 export type ProfileStateType = {
     posts: PostStateType[]
@@ -293,3 +320,10 @@ export type ProfileStateType = {
     data: ProfileDataType
     contactsIcons: ContactsIconsType
 }
+
+export type AboutProfileType = {
+    aboutMe: string
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+} 

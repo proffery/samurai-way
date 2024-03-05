@@ -1,12 +1,9 @@
+import React, { MouseEvent, useEffect, useState } from "react"
 import styled from "styled-components"
-import { Menu } from "../../../components/micro/menu/Menu"
-import { theme } from "../../../styles/Theme.styled"
 import { Logo } from "../../../components/micro/logo/Logo"
-import { Button } from "../../../components/micro/button/Button"
-import { MouseEvent, useEffect, useState } from "react"
-import React from "react"
-import { Icon } from "../../../components/micro/icon/Icon"
+import { Menu } from "../../../components/micro/menu/Menu"
 import { IconLinksStateType } from "../../../redux/appReducer"
+import { theme } from "../../../styles/Theme.styled"
 
 type NavbarPropsType = {
     menuItems: IconLinksStateType[]
@@ -17,7 +14,7 @@ type NavbarPropsType = {
 export const Navbar: React.FC<NavbarPropsType> = (props) => {
 
     const [width, setWidth] = useState(window.innerWidth)
-    const breakpoint = 576
+    const breakpoint = 768
 
     useEffect(() => {
         const handleWindowResize = () => setWidth(window.innerWidth)

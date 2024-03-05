@@ -1,18 +1,20 @@
 import React from "react"
-import { ContactsBlock } from "../../../blocks/contactsBlock/ContactsBlock"
-import { HeaderBlock } from "../../../blocks/headerBlock/HeaderBlock"
 import styled from "styled-components"
+import { GetProfileResponseContactsType } from '../../../../api/social-network-api'
+import { AlertType } from "../../../../redux/appReducer"
+import { AuthStateType } from "../../../../redux/authReducer"
+import { AboutProfileType, ProfileStateType } from "../../../../redux/profileReducer"
 import { theme } from "../../../../styles/Theme.styled"
-import { ToTop } from "../../../micro/toTop/ToTop"
+import { AboutMeBlock } from '../../../blocks/aboutMeBlock/AboutMeBlock'
+import { ContactsBlock } from "../../../blocks/contactsBlock/ContactsBlock"
 import { FriendsBlockContainer } from "../../../blocks/friendsBlock/FriendsBlockContainer"
 import { PossibleFriendsBlockContainer } from "../../../blocks/friendsBlock/PossibleFriendsBlockContainer"
+import { HeaderBlock } from "../../../blocks/headerBlock/HeaderBlock"
 import { PostsBlock } from "../../../blocks/postsBlock/PostsBlock"
-import { AuthStateType } from "../../../../redux/authReducer"
-import { ProfileStateType } from "../../../../redux/profileReducer"
-import { AlertType } from "../../../../redux/appReducer"
-import { ChangeProfileDataType } from '../../../../api/social-network-api'
+import { ToTop } from "../../../micro/toTop/ToTop"
 
 type ProfilePropsType = {
+    className?: string
     authStateData: AuthStateType
     profileStateData: ProfileStateType
     appIsLoading: boolean
@@ -21,7 +23,8 @@ type ProfilePropsType = {
     unfollowProfile: (userId: number) => void
     postOnChange: (newPost: string) => void
     changeProfileStatus: (newStatus: string) => void
-    changeProfileData: (key: keyof ChangeProfileDataType, value: any) => void
+    changeProfileContacts: (contacts: GetProfileResponseContactsType) => void
+    changeProfileAbout: (about: AboutProfileType) => void
     addAppAlert: (type: AlertType, message: string) => void
 }
 
@@ -38,11 +41,17 @@ export const Profile: React.FC<ProfilePropsType> = (props) => {
                 changeProfileStatus={props.changeProfileStatus}
                 addAppAlert={props.addAppAlert}
             />
+            <ProfileAboutBlock
+                profileData={props.profileStateData.data}
+                authStateData={props.authStateData}
+                addAppAlert={props.addAppAlert}
+                changeProfileAbout={props.changeProfileAbout}
+            />
             <ProfileContactsBlock
                 profileStateData={props.profileStateData}
                 authStateData={props.authStateData}
                 addAppAlert={props.addAppAlert}
-                changeProfileData={props.changeProfileData}
+                changeProfileContacts={props.changeProfileContacts}
             />
             <ProfilePostsBlock
                 profileStateData={props.profileStateData}
@@ -64,38 +73,39 @@ const StyledProfile = styled.main`
     grid-template-columns: 1fr 3fr 1fr;
     @media ${theme.media.mobile} {
         grid-template-rows: auto auto 30vh 30vh;
-        grid-template-columns: 3fr;
+        grid-template-columns: 1fr 1fr;
     }
 `
-
 const ProfileHeaderBlock = styled(HeaderBlock)`
     grid-area: 1 / 1 / 2 / 4 ;
     @media ${theme.media.mobile} {
-        grid-area: 1 / 1 / 2 / 2 ;
+        grid-area: 1 / 1 / 2 / 3 ;
     }
 `
-
-const ProfileContactsBlock = styled(ContactsBlock)`
-    grid-area: 2 / 1 / 4 / 2 ;
+const ProfileAboutBlock = styled(AboutMeBlock)`
+    grid-area: 2 / 1 / 3 / 2 ;
     @media ${theme.media.mobile} {
         grid-area: 2 / 1 / 3 / 2 ;
     }
 `
-
+const ProfileContactsBlock = styled(ContactsBlock)`
+    grid-area: 3 / 1 / 4 / 2 ;
+    @media ${theme.media.mobile} {
+        grid-area: 2 / 2 / 3 / 3 ;
+    }
+`
 const ProfilePostsBlock = styled(PostsBlock)`
     grid-area: 2 / 2 / 4 / 3 ;
     @media ${theme.media.mobile} {
-        grid-area: 3 / 1 / 5 / 2 ;
+        grid-area: 3 / 1 / 5 / 3 ;
     }
 `
-
 const ProfileFriendsBlock = styled(FriendsBlockContainer)`
     grid-area: 2 / 3 / 3 / 4 ;
     @media ${theme.media.mobile} {
         display: none;
     }
 `
-
 const ProfilePossibleFriendsBlock = styled(PossibleFriendsBlockContainer)`
     grid-area: 3 / 3 / 4 / 4 ;
     @media ${theme.media.mobile} {

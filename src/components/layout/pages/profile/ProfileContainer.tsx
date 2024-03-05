@@ -1,13 +1,23 @@
+import { useEffect } from "react"
 import { connect } from "react-redux"
-import { addPost, followProfile, getProfileData, postOnChange, unfollowProfile, ProfileStateType, changeProfileStatus, changeProfileData } from "../../../../redux/profileReducer"
+import { RouteComponentProps, withRouter } from "react-router-dom"
+import { compose } from "redux"
+import { GetProfileResponseContactsType } from '../../../../api/social-network-api'
+import { AlertType, addAppAlert } from "../../../../redux/appReducer"
+import { AuthStateType } from "../../../../redux/authReducer"
+import {
+    AboutProfileType,
+    ProfileStateType,
+    addPost,
+    changeProfileAbout,
+    changeProfileContacts,
+    changeProfileStatus,
+    followProfile, getProfileData,
+    postOnChange,
+    unfollowProfile
+} from "../../../../redux/profileReducer"
 import { AppRootStateType } from "../../../../redux/redux-store"
 import { Profile } from "./Profile"
-import { useEffect } from "react"
-import { RouteComponentProps, withRouter } from "react-router-dom"
-import { AuthStateType } from "../../../../redux/authReducer"
-import { compose } from "redux"
-import { AlertType, addAppAlert } from "../../../../redux/appReducer"
-import { ChangeProfileDataType } from '../../../../api/social-network-api'
 
 type ConnectPropsType = {
     authData: AuthStateType
@@ -20,7 +30,8 @@ type ConnectPropsType = {
     getProfileData: (iserId: number) => void
     changeProfileStatus: (newStatus: string) => void
     addAppAlert: (type: AlertType, message: string) => void
-    changeProfileData: (key: keyof ChangeProfileDataType, value: any) => void
+    changeProfileContacts: (contacts: GetProfileResponseContactsType) => void
+    changeProfileAbout: (about: AboutProfileType) => void
 }
 type PathParamType = {
     userId: string
@@ -45,7 +56,8 @@ const ProfileAPI: React.FC<ProfileAPIPropsType> = (props) => {
         postOnChange={props.postOnChange}
         unfollowProfile={props.unfollowProfile}
         changeProfileStatus={props.changeProfileStatus}
-        changeProfileData={props.changeProfileData}
+        changeProfileContacts={props.changeProfileContacts}
+        changeProfileAbout={props.changeProfileAbout}
         addAppAlert={props.addAppAlert}
     />
 }
@@ -63,6 +75,6 @@ export const ProfileContainer = compose(
         {
             postOnChange, addPost, getProfileData,
             unfollowProfile, followProfile, changeProfileStatus,
-            addAppAlert, changeProfileData
+            addAppAlert, changeProfileContacts, changeProfileAbout
         })
 )(withRouter(ProfileAPI))
