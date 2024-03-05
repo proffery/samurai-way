@@ -8,74 +8,6 @@ const instance = axios.create({
     }
 })
 
-export type UserResponseType = {
-    id: number
-    followed: boolean
-    name: string
-    photos: {
-        small: string,
-        large: string
-    }
-    status: string
-    uniqueUrlName: string
-}
-
-type GetUsersResponseType = {
-    items: UserResponseType[]
-    error: number
-    totalCount: number
-}
-
-export type ResponseType<D = {}> = {
-    resultCode: number
-    messages: string[],
-    data: D
-}
-
-
-export type GetProfileResponseContactsType = {
-    facebook: string
-    website: string
-    vk: string
-    twitter: string
-    instagram: string
-    youtube: string
-    github: string
-    mainLink: string
-}
-
-export type GetProfileResponseType = {
-    aboutMe: string
-    contacts: GetProfileResponseContactsType,
-    lookingForAJob: boolean
-    lookingForAJobDescription: string
-    fullName: string
-    userId: number
-    photos: {
-        small: string
-        large: string
-    }
-}
-
-export type GetMeDataType = {
-    id: number,
-    email: string,
-    login: string
-}
-export type LoginDataType = {
-    email: string
-    password: string
-    remember: boolean
-}
-
-export type ChangeProfileDataType = {
-    contacts: GetProfileResponseContactsType,
-    lookingForAJob: boolean
-    lookingForAJobDescription: string
-    fullName: string
-    aboutMe: string
-}
-
 export const socialNetworkAPI = {
     getUsers(pageNumber: number, usersOnPage: number) {
         return instance.get<GetUsersResponseType>(`/users?page=${pageNumber}&count=${usersOnPage}`)
@@ -113,4 +45,66 @@ export const socialNetworkAPI = {
     changeProfile(newData: ChangeProfileDataType) {
         return instance.put<ResponseType>('/profile', newData)
     }
+}
+
+//TYPES
+export type UserResponseType = {
+    id: number
+    followed: boolean
+    name: string
+    photos: {
+        small: string,
+        large: string
+    }
+    status: string
+    uniqueUrlName: string
+}
+type GetUsersResponseType = {
+    items: UserResponseType[]
+    error: number
+    totalCount: number
+}
+export type ResponseType<D = {}> = {
+    resultCode: number
+    messages: string[],
+    data: D
+}
+export type GetProfileResponseContactsType = {
+    facebook: string
+    website: string
+    vk: string
+    twitter: string
+    instagram: string
+    youtube: string
+    github: string
+    mainLink: string
+}
+export type GetProfileResponseType = {
+    aboutMe: string
+    contacts: GetProfileResponseContactsType,
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    userId: number
+    photos: {
+        small: string
+        large: string
+    }
+}
+export type GetMeDataType = {
+    id: number,
+    email: string,
+    login: string
+}
+export type LoginDataType = {
+    email: string
+    password: string
+    remember: boolean
+}
+export type ChangeProfileDataType = {
+    contacts: GetProfileResponseContactsType,
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    aboutMe: string
 }

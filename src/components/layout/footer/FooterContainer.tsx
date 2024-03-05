@@ -6,7 +6,7 @@ import { compose } from "redux"
 
 type FooterAPIPropsTtype = {
     menuData: IconLinksStateType[]
-    footerData: IconLinksStateType[]
+    footerLinks: IconLinksStateType[]
     isLoggedIn: boolean
 }
 
@@ -14,20 +14,20 @@ export const FooterAPI: React.FC<FooterAPIPropsTtype> = (props) => {
     return (
         <Footer
             menuData={props.isLoggedIn ? props.menuData : []}
-            footerData={props.footerData}
+            footerLinks={props.footerLinks}
         />
     )
 }
 
 type MapStatePropsType = {
     menuData: IconLinksStateType[]
-    footerData: IconLinksStateType[]
+    footerLinks: IconLinksStateType[]
     isLoggedIn: boolean
 }
 const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
     return {
         menuData: state.app.menuItems,
-        footerData: state.app.socialLinks,
+        footerLinks: state.app.footerLinks,
         isLoggedIn: state.auth.isLoggedIn
     }
 }

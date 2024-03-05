@@ -37,8 +37,8 @@ const ProfileAPI: React.FC<ProfileAPIPropsType> = (props) => {
     }, [props.match.params.userId])
 
     return <Profile
-        authData={props.authData}
-        profileData={props.profileData}
+        authStateData={props.authData}
+        profileStateData={props.profileData}
         appIsLoading={props.appIsLoading}
         addPost={props.addPost}
         followProfile={props.followProfile}

@@ -14,7 +14,7 @@ const SET_FOLLOW_STATUS = 'SET-FOLLOW-STATUS'
 const SET_STATUS = 'SET-STATUS'
 
 //INITIAL STATE
-const initialState: ProfileStateType = {
+const initialState = {
     posts: [],
     newPostForm: '',
     data: {
@@ -38,8 +38,66 @@ const initialState: ProfileStateType = {
             large: '',
         },
         isFollow: false,
-        status: ''
-    }
+        status: '',
+    },
+    contactsIcons: [
+        {
+            id: 1,
+            name: "facebook" as string,
+            href: "#",
+            icon_id: "facebook",
+            viewBox: "0 0 24 24",
+        },
+        {
+            id: 2,
+            name: "twitter" as string,
+            href: "#",
+            icon_id: "twitter",
+            viewBox: "0 0 24 24",
+        },
+        {
+            id: 3,
+            name: "instagram" as string,
+            href: "#",
+            icon_id: "instagram",
+            viewBox: "0 0 24 24",
+        },
+        {
+            id: 4,
+            name: "youtube" as string,
+            href: "#",
+            icon_id: "youtube",
+            viewBox: "0 0 24 24",
+        },
+        {
+            id: 5,
+            name: "github" as string,
+            href: "#",
+            icon_id: "github",
+            viewBox: "-10 -10 150 150",
+        },
+        {
+            id: 6,
+            name: "vk" as string,
+            href: "#",
+            icon_id: "vk",
+            viewBox: "-3 -3 40 40",
+        },
+        {
+            id: 7,
+            name: "website" as string,
+            href: "#",
+            icon_id: "home",
+            viewBox: "-2 -2 24 24",
+        },
+        {
+            id: 8,
+            name: "linkedin" as string,
+            href: "#",
+            icon_id: "linkedin",
+            viewBox: "0 2 24 24",
+        }
+    ],
 }
 
 //REDUCER
@@ -227,8 +285,11 @@ export interface ProfileDataType extends GetProfileResponseType {
     isFollow: boolean
     status: string
 }
+
+export type ContactsIconsType = typeof initialState.contactsIcons
 export type ProfileStateType = {
     posts: PostStateType[]
     newPostForm: string
     data: ProfileDataType
+    contactsIcons: ContactsIconsType
 }

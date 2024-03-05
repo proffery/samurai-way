@@ -5,18 +5,18 @@ import { theme } from "../../../../styles/Theme.styled"
 import { IconLinksStateType } from "../../../../redux/appReducer"
 
 type SocialMedeaLinksPropsType = {
-    socialLinks: IconLinksStateType[]
+    footerLinks: IconLinksStateType[]
 }
 
-export const SocialMedeaLinks:React.FC<SocialMedeaLinksPropsType> = (props) => {
+export const SocialMedeaLinks: React.FC<SocialMedeaLinksPropsType> = (props) => {
     return (
         <LinksContainer>
-            {props.socialLinks.map(link => {
+            {props.footerLinks.map(link => {
                 return (
                     <Link key={link.id}
-                        href={link.href} 
-                        title={link.name} 
-                        aria-label={link.name + ' link'} 
+                        href={link.href}
+                        title={link.name}
+                        aria-label={link.name + ' link'}
                         variant="primary"
                     ><Icon iconId={link.icon_id} /></Link>
                 )

@@ -14,8 +14,8 @@ import { AlertType } from "../../../redux/appReducer"
 
 type HeaderBlockPropsType = {
     className?: string
-    authData: AuthStateType
-    profileData: ProfileStateType
+    authStateData: AuthStateType
+    profileStateData: ProfileStateType
     appIsLoading: boolean
     follow: (userId: number) => void
     unfollow: (userId: number) => void
@@ -28,9 +28,9 @@ type FormikErrorType = {
 }
 
 export const HeaderBlock: React.FC<HeaderBlockPropsType> = memo((props) => {
-    const { isFollow, fullName, userId, status } = props.profileData.data
-    const { small, large } = props.profileData.data.photos
-    const { id: authId } = props.authData
+    const { isFollow, fullName, userId, status } = props.profileStateData.data
+    const { small, large } = props.profileStateData.data.photos
+    const { id: authId } = props.authStateData
     const STATUS_MAX_LENGTH = 300
 
     const followOnClickHandler = () => {

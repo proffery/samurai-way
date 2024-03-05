@@ -1,6 +1,6 @@
 import { v1 } from "uuid"
+import { CleanReducerType } from "./authReducer"
 import { AppDispatchType, AppRootStateType } from "./redux-store"
-import { CLEAN_REDUCER, CleanReducerType } from "./authReducer"
 
 //CONSTANTS
 const APP_SET_IS_LOADING = 'APP-SET-IS_LOADING'
@@ -11,7 +11,7 @@ const APP_SET_IS_INITIALIZED = 'APP-SET-IS_INITIALIZED'
 
 //INITIAL STATE
 const initialState: AppStateType = {
-    socialLinks: [
+    footerLinks: [
         {
             id: 1,
             name: "Facebook",
@@ -169,7 +169,7 @@ export type AlertObjectType = {
     message: string
 }
 export type AppStateType = {
-    socialLinks: IconLinksStateType[]
+    footerLinks: IconLinksStateType[]
     menuItems: IconLinksStateType[]
     isLoading: boolean
     navbarCollapsed: boolean

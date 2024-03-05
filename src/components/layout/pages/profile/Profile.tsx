@@ -1,5 +1,5 @@
 import React from "react"
-import { AboutBlock } from "../../../blocks/aboutBlock/AboutBlock"
+import { ContactsBlock } from "../../../blocks/contactsBlock/ContactsBlock"
 import { HeaderBlock } from "../../../blocks/headerBlock/HeaderBlock"
 import styled from "styled-components"
 import { theme } from "../../../../styles/Theme.styled"
@@ -13,8 +13,8 @@ import { AlertType } from "../../../../redux/appReducer"
 import { ChangeProfileDataType } from '../../../../api/social-network-api'
 
 type ProfilePropsType = {
-    authData: AuthStateType
-    profileData: ProfileStateType
+    authStateData: AuthStateType
+    profileStateData: ProfileStateType
     appIsLoading: boolean
     addPost: () => void
     followProfile: (userId: number) => void
@@ -30,22 +30,22 @@ export const Profile: React.FC<ProfilePropsType> = (props) => {
     return (
         <StyledProfile id='profile' >
             <ProfileHeaderBlock
-                authData={props.authData}
-                profileData={props.profileData}
+                authStateData={props.authStateData}
+                profileStateData={props.profileStateData}
                 appIsLoading={props.appIsLoading}
                 follow={props.followProfile}
                 unfollow={props.unfollowProfile}
                 changeProfileStatus={props.changeProfileStatus}
                 addAppAlert={props.addAppAlert}
             />
-            <ProfileAboutBlock
-                profileData={props.profileData.data}
-                authData={props.authData}
+            <ProfileContactsBlock
+                profileStateData={props.profileStateData}
+                authStateData={props.authStateData}
                 addAppAlert={props.addAppAlert}
                 changeProfileData={props.changeProfileData}
             />
             <ProfilePostsBlock
-                profileData={props.profileData}
+                profileStateData={props.profileStateData}
                 addPost={props.addPost}
                 onChangeNewPostText={props.postOnChange}
             />
@@ -75,7 +75,7 @@ const ProfileHeaderBlock = styled(HeaderBlock)`
     }
 `
 
-const ProfileAboutBlock = styled(AboutBlock)`
+const ProfileContactsBlock = styled(ContactsBlock)`
     grid-area: 2 / 1 / 4 / 2 ;
     @media ${theme.media.mobile} {
         grid-area: 2 / 1 / 3 / 2 ;

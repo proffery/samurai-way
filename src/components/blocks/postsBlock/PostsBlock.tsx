@@ -9,7 +9,7 @@ import { BlockSection } from "../../micro/BlockSection.styled"
 import { ProfileStateType } from "../../../redux/profileReducer"
 
 type PostsBlockPropsType = {
-    profileData: ProfileStateType
+    profileStateData: ProfileStateType
     onChangeNewPostText: (text: string) => void
     addPost: () => void
 }
@@ -36,17 +36,17 @@ export const PostsBlock: React.FC<PostsBlockPropsType> = (props) => {
     }
 
     const addPost = () => {
-        if (props.profileData.newPostForm.trim() !== "") {
+        if (props.profileStateData.newPostForm.trim() !== "") {
             props.addPost()
         } else {
-            setError('Enter your post');
+            setError('Enter your post')
         }
     }
 
     const postsList = () => {
         return (
             <>
-                {props.profileData.posts.map(post => <Post key={post.id} postData={post} />)}
+                {props.profileStateData.posts.map(post => <Post key={post.id} postData={post} />)}
             </>
         )
     }
@@ -62,7 +62,7 @@ export const PostsBlock: React.FC<PostsBlockPropsType> = (props) => {
                     aria-label="enter your post"
                     placeholder="Enter your post"
                     bordered={'true'}
-                    value={props.profileData.newPostForm}
+                    value={props.profileStateData.newPostForm}
                     onChange={onChangeNewPostHandler}
                 />
                 <FlexWrapper>

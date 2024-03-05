@@ -10,7 +10,7 @@ import { IconLinksStateType } from "../../../redux/appReducer"
 
 type FooterPropsType = {
     menuData: IconLinksStateType[]
-    footerData: IconLinksStateType[]
+    footerLinks: IconLinksStateType[]
 }
 
 export const Footer: React.FC<FooterPropsType> = (props) => {
@@ -18,7 +18,7 @@ export const Footer: React.FC<FooterPropsType> = (props) => {
         <StyledFooter>
             <TopWrapper align="start" direction="row" wrap="wrap" justify="space-between">
                 <ContactsHalf>
-                    <Logo variant="primary" type='text'/>
+                    <Logo variant="primary" type='text' />
                 </ContactsHalf>
                 <ContactsHalf direction="column">
                     <IconWrapper align="center">
@@ -36,7 +36,7 @@ export const Footer: React.FC<FooterPropsType> = (props) => {
                         </IconWrapper>
                     </FlexWrapper>
                     <FlexWrapper>
-                        <SocialMedeaLinks socialLinks={props.footerData} />
+                        <SocialMedeaLinks footerLinks={props.footerLinks} />
                     </FlexWrapper>
                 </ContactsHalf>
             </TopWrapper>
