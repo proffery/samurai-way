@@ -176,6 +176,7 @@ const About: React.FC<AboutPropsType> = (props) => {
 
 const StyledAbout = styled(BlockSection)`
     width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     color: ${theme.color.text.primary};

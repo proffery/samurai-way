@@ -69,15 +69,15 @@ const StyledProfile = styled.main`
     display: grid;
     overflow-y: auto;
     overflow-x: hidden;
-    grid-template-rows: auto auto 1fr;
-    grid-template-columns: 1fr 3fr 1fr;
+    grid-template-rows: auto auto repeat(4, .5fr);
+    grid-template-columns: repeat(5, 1fr);
     @media ${theme.media.mobile} {
-        grid-template-rows: auto auto 30vh 30vh;
+        grid-template-rows: auto auto 1fr 1fr;
         grid-template-columns: 1fr 1fr;
     }
 `
 const ProfileHeaderBlock = styled(HeaderBlock)`
-    grid-area: 1 / 1 / 2 / 4 ;
+    grid-area: 1 / 1 / 2 / 6 ;
     @media ${theme.media.mobile} {
         grid-area: 1 / 1 / 2 / 3 ;
     }
@@ -95,19 +95,19 @@ const ProfileContactsBlock = styled(ContactsBlock)`
     }
 `
 const ProfilePostsBlock = styled(PostsBlock)`
-    grid-area: 2 / 2 / 4 / 3 ;
+    grid-area: 2 / 2 / 7 / 5 ;
     @media ${theme.media.mobile} {
-        grid-area: 3 / 1 / 5 / 3 ;
+        grid-area: 3 / 1 / 7 / 3 ;
     }
 `
 const ProfileFriendsBlock = styled(FriendsBlockContainer)`
-    grid-area: 2 / 3 / 3 / 4 ;
+    grid-area: 2 / 5 / 3 / 6 ;
     @media ${theme.media.mobile} {
         display: none;
     }
 `
 const ProfilePossibleFriendsBlock = styled(PossibleFriendsBlockContainer)`
-    grid-area: 3 / 3 / 4 / 4 ;
+    grid-area: 3 / 5 / 4 / 6 ;
     @media ${theme.media.mobile} {
         display: none;
     }

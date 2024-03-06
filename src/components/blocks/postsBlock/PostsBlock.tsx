@@ -53,7 +53,7 @@ export const PostsBlock: React.FC<PostsBlockPropsType> = (props) => {
     }
 
     return (
-        <StyledPosts id="posts" >
+        <StyledPosts id="posts" className={props.className} >
             <BlockHeader>Posts</BlockHeader>
             <Form
                 onKeyDown={addPostOnCtrlEnterHandler}
@@ -83,7 +83,7 @@ export const PostsBlock: React.FC<PostsBlockPropsType> = (props) => {
 const StyledPosts = styled(BlockSection)`
     display: flex;
     width: 100%;
-    height: 100%;
+    height: fit-content;
 `
 
 const Form = styled.form`
