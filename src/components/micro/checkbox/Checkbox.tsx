@@ -1,42 +1,42 @@
 import React from "react"
 import styled, { keyframes } from "styled-components"
+import { Input } from '../input/Input.styled'
 type CheckboxPropsType = {
-  disabled?: boolean
-  label: string
   id: string
-  name: string
-  checked?: boolean
-  value?: any
-  onChange?: any
-  onMouseUp?: any
+  label: string
+  onSand?: (e?: React.FormEvent<HTMLFormElement> | undefined) => void
 }
-export const Checkbox: React.FC<CheckboxPropsType> = ({
-  value,
-  checked,
-  onChange,
-  name,
-  id,
-  label,
-  disabled
-}) => {
-  return (
-    <Label htmlFor={id} >
-      {label}
-      <Input
-        id={id}
-        type="checkbox"
-        name={name}
-        value={value}
-        disabled={disabled}
-        checked={checked}
-        onChange={onChange}
-      />
-      <Indicator />
-    </Label>
-  )
-}
+export const Checkbox: React.FC<CheckboxPropsType &
+  React.HTMLProps<HTMLInputElement> & React.HTMLProps<HTMLLabelElement>> = ({
+    id,
+    label,
+    name,
+    disabled,
+    checked,
+    onChange,
+    onSand,
+  }) => {
+    const onClickHandler = (e: React.MouseEvent<any>) => {
+      onSand && onSand(e.currentTarget.value)
+    }
+    return (
+      <Label htmlFor={id} >
+        {label}
+        <StyledInput
+          id={id}
+          type="checkbox"
+          onChange={onChange}
+          onClick={onClickHandler}
+          name={name}
+          disabled={disabled}
+          checked={checked}
+        />
+        <Indicator />
+      </Label>
+    )
+  }
 
-const Input = styled.input`
+const StyledInput = styled(Input)`
   height: 0;
   width: 0;
   opacity: 0;
@@ -45,8 +45,9 @@ const Input = styled.input`
 
 const Label = styled.label`
   position: relative;
-  display: inline-block;
-  padding: 10px 10px 10px 34px;
+  display: flex;
+  align-items: center;
+  padding: 0px 0px 0px 34px;
 `
 
 const rotate = keyframes`
@@ -66,12 +67,12 @@ const Indicator = styled.div`
   background: #e6e6e6;
   position: absolute;
   top: 50%;
-  left: 3%;
+  left: 5%;
   transform: translateY(-50%);
   border: 1px solid #757575;
   border-radius: 0.2em;
 
-  ${Input}:not(:disabled):checked & {
+  ${StyledInput}:not(:disabled):checked & {
     background: #d1d1d1;
   }
 
@@ -85,7 +86,7 @@ const Indicator = styled.div`
     display: none;
   }
 
-  ${Input}:checked + &::after {
+  ${StyledInput}:checked + &::after {
     display: block;
     top: 0.1em;
     left: 0.35em;

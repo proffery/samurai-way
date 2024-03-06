@@ -69,7 +69,7 @@ const StyledProfile = styled.main`
     display: grid;
     overflow-y: auto;
     overflow-x: hidden;
-    grid-template-rows: auto 50vh 1fr;
+    grid-template-rows: auto auto 1fr;
     grid-template-columns: 1fr 3fr 1fr;
     @media ${theme.media.mobile} {
         grid-template-rows: auto auto 30vh 30vh;

@@ -104,12 +104,12 @@ const AboutForm: React.FC<AboutFormPropsType> = (props) => {
                 <ContactCategory>
                     <Checkbox label='Looking job'
                         id='lookingForAJob'
-                        checked={formik.values.lookingForAJob}
-                        onMouseUp={() => props.changeProfileAbout({ ...formik.values, lookingForAJob: !formik.values.lookingForAJob })}
+                        onSand={formik.handleSubmit}
+                        checked={lookingForAJob}
                         {...formik.getFieldProps('lookingForAJob')}
                     />
                 </ContactCategory>
-                {formik.values.lookingForAJob &&
+                {lookingForAJob &&
                     <ContactCategory>
                         <ContactIcon
                             iconId={'info'}
@@ -156,7 +156,6 @@ const About: React.FC<AboutPropsType> = (props) => {
                     <Checkbox label='Looking job'
                         id='lookingForAJob'
                         checked={lookingForAJob}
-                        name='lookingForAJob'
                     />
                 </ContactCategory>
             }
