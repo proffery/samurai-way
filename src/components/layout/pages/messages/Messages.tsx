@@ -19,6 +19,7 @@ export const Messages: React.FC<MessagesPropsType> = (props) => {
 
 const StyledMessages = styled.main`
     display: flex;
+    overflow-x: hidden;
     @media ${theme.media.mobile} {
         flex-direction: column;
     }

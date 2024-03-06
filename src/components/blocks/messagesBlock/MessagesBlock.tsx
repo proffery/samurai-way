@@ -73,7 +73,7 @@ export const MessagesBlock: React.FC<MessagesBlockPropsType> = (props) => {
 const StyledMessagesBlock = styled(BlockSection)`
     width: 100%;
     min-width: 75%;
-    height: 100%;
+    height: fit-content;
     min-height: 50%;
     overflow-y: scroll;
 `
