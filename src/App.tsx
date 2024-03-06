@@ -21,14 +21,9 @@ type AppPropsType = {
   navbarCollapsed: boolean
   isLoading: boolean
   isInitialized: boolean
-  initializeApp: () => void
 }
 function App(props: AppPropsType) {
-  const { isLoggedIn, navbarCollapsed, isLoading, isInitialized, initializeApp } = props
-
-  useEffect(() => {
-    initializeApp()
-  }, [])
+  const { isLoggedIn, navbarCollapsed, isLoading, isInitialized } = props
 
   if (!isLoggedIn) {
     return (

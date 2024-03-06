@@ -1,6 +1,7 @@
 import { v1 } from "uuid"
-import { CleanReducerType } from "./authReducer"
+import { CleanReducerType, getAuthPhoto, setAuthUserData, setIsLoggedIn } from "./authReducer"
 import { AppDispatchType, AppRootStateType } from "./redux-store"
+import { socialNetworkAPI } from '../api/social-network-api'
 
 //CONSTANTS
 const APP_SET_IS_LOADING = 'APP-SET-IS_LOADING'
@@ -129,6 +130,30 @@ export const setAppIsInitialized = (isInitialized: boolean) =>
     ({ type: APP_SET_IS_INITIALIZED, payload: { isInitialized } } as const)
 
 //THUNKS
+export const initializeApp = () =>
+    (dispatch: AppDispatchType) => {
+        dispatch(setAppIsLoading(true))
+        return socialNetworkAPI.getMe()
+            .then(res => {
+                if (res.data.resultCode === 0) {
+                    Promise.all([
+                        dispatch(setAuthUserData(res.data.data)),
+                        dispatch(setIsLoggedIn(true))])
+                }
+                else {
+                    // dispatch(addAppAlert('failed', res.data.messages[0]))
+                }
+            })
+            .catch(error => {
+                dispatch(addAppAlert('failed', error.message))
+            })
+            .finally(() => {
+                dispatch(setAppIsLoading(false))
+                dispatch(setAppIsInitialized(true))
+            })
+
+    }
+
 export const addAppAlert = (type: AlertType, message: string) =>
     (dispatch: AppDispatchType, getState: () => AppRootStateType) => {
         const alerts = getState().app.alerts

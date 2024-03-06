@@ -1,26 +1,27 @@
+import { useEffect } from 'react'
 import { connect } from "react-redux"
-
 import App from "./App"
-import { initializeApp } from "./redux/authReducer"
+import { initializeApp } from './redux/appReducer'
 import { AppRootStateType } from "./redux/redux-store"
-import { compose } from "redux"
 
 type AppAPIPropsTtype = {
     isLoggedIn: boolean
     navbarCollapsed: boolean
     isLoading: boolean
     isInitialized: boolean
-    initializeApp: () => void
+    initializeApp: () => Promise<void>
 }
 
-export const AppAPI: React.FC<AppAPIPropsTtype> = (props) => {
+export const AppAPI = (props: AppAPIPropsTtype) => {
+    useEffect(() => {
+        props.initializeApp()
+    }, [])
     return (
         <App
             isLoggedIn={props.isLoggedIn}
             navbarCollapsed={props.navbarCollapsed}
             isLoading={props.isLoading}
             isInitialized={props.isInitialized}
-            initializeApp={props.initializeApp}
         />
     )
 }
@@ -40,7 +41,5 @@ const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
     }
 }
 
-export const AppContainer = compose(
-    connect(mapStateToProps, { initializeApp })
-)(AppAPI)
+export const AppContainer = connect(mapStateToProps, { initializeApp })(AppAPI)
 

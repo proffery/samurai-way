@@ -1,5 +1,5 @@
 import { GetMeDataType, LoginDataType, socialNetworkAPI } from '../api/social-network-api'
-import { SetAppIsInitializedType, SetAppIsLoadingActionType, addAppAlert, setAppIsInitialized, setAppIsLoading } from './appReducer'
+import { SetAppIsInitializedType, SetAppIsLoadingActionType, addAppAlert, initializeApp, setAppIsLoading } from './appReducer'
 import { AppDispatchType } from './redux-store'
 
 //CONSTANTS
@@ -45,29 +45,6 @@ export const cleanReducer = () =>
     ({ type: CLEAN_REDUCER }) as const
 
 //THUNKS
-export const initializeApp = () =>
-    (dispatch: AppDispatchType) => {
-        dispatch(setAppIsLoading(true))
-        socialNetworkAPI.getMe()
-            .then(res => {
-                if (res.data.resultCode === 0) {
-                    dispatch(setAuthUserData(res.data.data))
-                    dispatch(getAuthPhoto(res.data.data.id))
-                    dispatch(setIsLoggedIn(true))
-                }
-                else {
-                    // dispatch(addAppAlert('failed', res.data.messages[0]))
-                }
-            })
-            .catch(error => {
-                dispatch(addAppAlert('failed', error.message))
-            })
-            .finally(() => {
-                dispatch(setAppIsLoading(false))
-                dispatch(setAppIsInitialized(true))
-            })
-
-    }
 
 export const getAuthPhoto = (authId: number) => (dispatch: AppDispatchType) => {
     return socialNetworkAPI.getProfile(authId)
@@ -78,7 +55,7 @@ export const getAuthPhoto = (authId: number) => (dispatch: AppDispatchType) => {
 
 export const logIn = (loginData: LoginDataType) => (dispatch: AppDispatchType) => {
     dispatch(setAppIsLoading(true))
-    socialNetworkAPI.login(loginData)
+    return socialNetworkAPI.login(loginData)
         .then(res => {
             if (res.data.resultCode === 0) {
                 dispatch(initializeApp())
