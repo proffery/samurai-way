@@ -9,6 +9,7 @@ import { Button } from "../../micro/button/Button"
 import { useFormik } from "formik"
 import { AlertType } from "../../../redux/appReducer"
 import { LoginDataType } from "../../../api/social-network-api"
+import { Checkbox } from '../../micro/checkbox/Checkbox'
 
 type LoginPagePropsType = {
     logIn: (loginData: LoginDataType) => void
@@ -87,11 +88,12 @@ export const Login: React.FC<LoginPagePropsType> = (props) => {
                         />
                     </FlexWrapper>
                     <FlexWrapper gap={'min(10px, 1vw)'} align={'center'}>
-                        <Input type={'checkbox'}
+                        <Checkbox
+                            label='Remember me'
+                            type={'checkbox'}
                             id={'remember'}
                             {...formik.getFieldProps('remember')}
                         />
-                        <label htmlFor={'remember'}>Remember me</label>
                     </FlexWrapper>
                     <FlexWrapper justify={'center'}>
                         <Button variant={'primary'}
