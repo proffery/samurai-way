@@ -1,8 +1,9 @@
 import styled from "styled-components"
-import { Button } from "../../micro/button/Button"
-import { theme } from "../../../styles/Theme.styled"
-import { Icon } from "../../micro/icon/Icon"
 import { font } from "../../../styles/Font"
+import { theme } from "../../../styles/Theme.styled"
+import { Avatar } from '../../micro/avatar/Avatar'
+import { Button } from "../../micro/button/Button"
+import { FlexWrapper } from '../../micro/FlexWrapper.styled'
 
 type LogoutPropsType = {
     className?: string
@@ -25,11 +26,9 @@ export const Logout: React.FC<LogoutPropsType> = (props) => {
                 <Name>{login}</Name>
                 <Email>{email}</Email>
             </TextContainer>
-            <AvatarContainer>
-                {photoUrl
-                    ? <Avatar src={photoUrl} />
-                    : <DefaultAvatar iconId={'avatarDefault'} viewBox="0 0 1024 1024" />}
-                <LogoutButton variant={'link'} onClick={logOutHandeler}>Logout</LogoutButton>
+            <AvatarContainer direction={'column'} gap='5px'>
+                <Avatar avatarURL={photoUrl} />
+                <LogoutButton variant={'link'} onClick={logOutHandeler}>Log out</LogoutButton>
             </AvatarContainer>
         </StyledLout>
     )
@@ -45,41 +44,6 @@ const StyledLout = styled.div`
         min-width: 50%;
     }
 `
-
-const AvatarContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: end;
-    color: ${theme.color.text.placeholder};
-    width: 40%;
-`
-const Avatar = styled.img`
-    border-radius: 50% 50%;
-    width: 54px;
-    height: 54px;
-    object-fit: fill;
-    aspect-ratio: 1/1;
-    background-color: ${theme.color.background.primary};
-    border: 1px solid ${theme.color.text.placeholder};
-    @media ${theme.media.mobile} {
-        width: 40px;
-        height: 40px;
-    }
-`
-const DefaultAvatar = styled(Icon)`
-    border-radius: 50% 50%;
-    width: 60px;
-    height: 60px;
-    object-fit: fill;
-    aspect-ratio: 1/1;
-    background-color: ${theme.color.background.primary};
-    border: 1px solid ${theme.color.text.placeholder};
-    @media ${theme.media.mobile} {
-        width: 40px;
-        height: 40px;
-    }
-`
 const TextContainer = styled.div`
     display: flex;
     gap: 3px;
@@ -88,6 +52,9 @@ const TextContainer = styled.div`
     flex-direction: column;
     align-items: start;
     justify-content: center;
+`
+const AvatarContainer = styled(FlexWrapper)`
+    width: 20%;
 `
 const Name = styled.span`
     overflow-wrap: anywhere;
@@ -99,5 +66,6 @@ const Email = styled.span`
 `
 const LogoutButton = styled(Button)`
     align-self: center;
+    text-decoration: underline;
     ${font({ weight: 400, Fmin: 10, Fmax: 14 })}
 `

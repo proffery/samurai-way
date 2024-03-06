@@ -5,8 +5,8 @@ import { font } from "../../../../styles/Font"
 import { FlexWrapper } from "../../../micro/FlexWrapper.styled"
 import { UserStateType } from "../../../../redux/usersReducer"
 import { NavLink } from "react-router-dom"
-import { Icon } from "../../../micro/icon/Icon"
 import { MouseEvent } from "react"
+import { Avatar } from '../../../micro/avatar/Avatar'
 
 type UserPropsType = {
     user: UserStateType
@@ -15,31 +15,28 @@ type UserPropsType = {
 }
 
 export const User: React.FC<UserPropsType> = (props) => {
+    const { id: userId, followed, status, isLoading, name, photos } = props.user
+    const { follow, unfollow } = props
+
     const userOnClickFollowHandler = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
-        return props.user.followed
-            ? props.unfollow(props.user.id)
-            : props.follow(props.user.id)
+        return followed ? unfollow(userId) : follow(userId)
     }
     return (
-        <StyledUser to={"/profile/" + props.user.id}>
+        <StyledUser to={"/profile/" + userId}>
             <UserInfo >
-                <AvatarContainer >
-                    {props.user.photos.small
-                        ? <UserAvatar src={props.user.photos.small} />
-                        : <DefaultAvatar iconId={'avatarDefault'} viewBox="0 0 1024 1024" height={'100%'} width={'100%'} />}
-                    <UserName>{props.user.name + ' '}</UserName>
-                </AvatarContainer>
-                <StatusContainer>
-                    {props.user.status && <UserStatus>{props.user.status + ' '}</UserStatus>}
-                </StatusContainer>
+                <StyledAvatar>
+                    <Avatar avatarURL={photos.small} />
+                    <UserName>{name + ' '}</UserName>
+                </StyledAvatar>
+                {status ? <UserStatus>{status + ' '}</UserStatus> : <UserStatus></UserStatus>}
             </UserInfo>
             <ButtonContainer>
                 <Button
-                    variant={props.user.followed ? 'primary' : 'outlined'}
+                    variant={followed ? 'primary' : 'outlined'}
                     onClick={userOnClickFollowHandler}
-                    disabled={props.user.isLoading}
-                >{props.user.followed ? 'UNFOLLOW' : 'FOLLOW'}</Button>
+                    disabled={isLoading}
+                >{followed ? 'UNFOLLOW' : 'FOLLOW'}</Button>
             </ButtonContainer>
         </StyledUser>
     )
@@ -49,7 +46,6 @@ const StyledUser = styled(NavLink)`
     display: flex;
     position: relative;
     width: 100%;
-    flex-wrap: wrap;
     justify-content: space-between;
     ${font({ weight: 300, Fmin: 10, Fmax: 16 })}
     gap: 20px;
@@ -72,30 +68,17 @@ const UserInfo = styled.div`
     width: 65%;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     color: ${theme.color.text.primary_dark};
     gap: 15px;
 `
-const UserAvatar = styled.img`
+const StyledAvatar = styled(FlexWrapper)`
+    flex-direction: column;
    border-radius: 50% 50%;
    object-fit: cover;
    aspect-ratio: 1/1;
    width: 54px;
-   background-color: ${theme.color.background.primary};
-   border: 1px solid ${theme.color.text.placeholder};
-   @media ${theme.media.mobile} {
-        width: 40px;
-    }
-`
-const DefaultAvatar = styled(Icon)`
-    border-radius: 50% 50%;
-   object-fit: cover;
-   aspect-ratio: 1/1;
-   width: 54px;
-   background-color: ${theme.color.background.primary};
-   border: 1px solid ${theme.color.text.placeholder};
-   @media ${theme.media.mobile} {
-        width: 40px;
-    }
+   justify-self: center;
 `
 const UserName = styled.p`
     text-align: center;
@@ -106,26 +89,12 @@ const UserName = styled.p`
 const UserStatus = styled.p`
     text-align: start;
     white-space: normal;
+    width: 80%;
     ${font({ weight: 400, Fmin: 12, Fmax: 16 })}
     color: ${theme.color.text.primary_dark};
-`
-const StatusContainer = styled.div`
-    width: 70%;
 `
 const ButtonContainer = styled(FlexWrapper)`
     width: 30%;
     align-items: center;
     justify-content: center;
-`
-const AvatarContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    align-items: center;
-    justify-content: center;
-    width: 25%;
-    color: ${theme.color.text.placeholder};
-    @media ${theme.media.mobile} {
-        width: 100%;
-    }
 `

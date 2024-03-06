@@ -86,7 +86,7 @@ export const UsersBlock: React.FC<UsersBlockPropsType> = (props) => {
 
 const StyledUsersBlock = styled(BlockSection)`
     display: flex;
-    width: 73%;
+    width: 100%;
     height: 132vh;
     overflow-y: auto;
     overflow-x: hidden;

@@ -11,6 +11,8 @@ import { AuthStateType } from "../../../redux/authReducer"
 import { EditableSpan } from "../../micro/editableSpan/EditableSpan"
 import { useFormik } from "formik"
 import { AlertType } from "../../../redux/appReducer"
+import { Avatar } from '../../micro/avatar/Avatar'
+import { FlexWrapper } from '../../micro/FlexWrapper.styled'
 
 type HeaderBlockPropsType = {
     className?: string
@@ -61,9 +63,7 @@ export const HeaderBlock: React.FC<HeaderBlockPropsType> = memo((props) => {
                 {large
                     ? <BackgroundImage src={large} />
                     : <Icon iconId={'avatarDefault'} viewBox="0 0 1024 1024" height={'100%'} width={'100%'} />}
-                {small
-                    ? <AvatarImage src={small} />
-                    : <DefaultAvatar iconId={'avatarDefault'} viewBox="0 0 1024 1024" height={'100%'} width={'100%'} />}
+                <StyledAvatar avatarURL={small} />
             </BackgroundConainer>
             <InfoConainer>
                 <TextContainer>
@@ -119,21 +119,12 @@ const BackgroundImage = styled.img`
     width: 100%;
     height: 100%;
 `
-const AvatarImage = styled.img`
+const StyledAvatar = styled(Avatar)`
     position: absolute;
     top: 45%;
     left: 5%;
     width: 17%;
     border-radius: 50%;
-    border: 1px solid ${theme.color.text.placeholder};
-`
-const DefaultAvatar = styled(Icon)`
-    position: absolute;
-    top: 45%;
-    left: 5%;
-    width: 17%;
-    height: auto;
-    border-radius: 50% 50%;
     border: 1px solid ${theme.color.text.placeholder};
 `
 const InfoConainer = styled.div`
@@ -149,26 +140,31 @@ const TextContainer = styled.div`
     flex-direction: column;
     color: ${theme.color.text.primary};
     height: 90%;
-    width: 100%;
+    width: 60%;
 `
 const Name = styled.span`
     white-space: nowrap;
     ${font({ weight: 700, Fmin: 16, Fmax: 30 })}
+    @media ${theme.media.mobile} {
+        ${font({ weight: 700, Fmin: 26, Fmax: 30 })}
+        position: absolute;
+        top: 10%;
+        right: 5%;
+        text-shadow: ${theme.shadow.text};
+  }
 `
 
-const ButtonsContainer = styled.div`
+const ButtonsContainer = styled(FlexWrapper)`
     display: flex;
-    height: 40%;
-    min-height: 30px;
+    width: 35%;
     gap: 10px;
     justify-content: end;
-    button {
-        display: flex;
-        align-items: center;
-    }
+    max-height: 50px;
 `
 const MessagesButton = styled(NavLink)`
     display: flex;
+    max-height: 50px;
+    min-width: 30px;
     align-items: center;
     justify-content: center;
     border-radius: 50% 50%; 
@@ -179,7 +175,6 @@ const MessagesButton = styled(NavLink)`
     border-width: 1px;
     border-style: solid;
     border-color: ${theme.color.background.second};
-   
     &:active {
             background-color: ${theme.color.background.primary};
             color: ${theme.color.text.primary};

@@ -3,7 +3,7 @@ import { theme } from "../../../../styles/Theme.styled"
 import { font } from "../../../../styles/Font"
 import { NavLink } from "react-router-dom"
 import { UserResponseType } from "../../../../api/social-network-api"
-import { Icon } from "../../../micro/icon/Icon"
+import { Avatar } from '../../../micro/avatar/Avatar'
 
 type FriendPropsType = {
     friendData: UserResponseType
@@ -12,13 +12,8 @@ type FriendPropsType = {
 export const Friend: React.FC<FriendPropsType> = (props) => {
     return (
         <StyledFriend to={"/profile/" + props.friendData.id} >
-            <AvaterContainer>
-                {props.friendData.photos.small
-                    ? <Avatar src={props.friendData.photos.small} />
-                    : <DefaultAvatar iconId={'avatarDefault'} viewBox="0 0 1024 1024" height={'100%'} width={'100%'} />}
-            </AvaterContainer>
+            <StyledAvatar avatarURL={props.friendData.photos.small} />
             <Name>{props.friendData.name}</Name>
-
         </StyledFriend>
     )
 }
@@ -51,37 +46,11 @@ const StyledFriend = styled(NavLink)`
         width: 30%;
     }
 `
-
-const AvaterContainer = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40%;
-    min-width: 40px;
-    max-width: 50px;
-    color: ${theme.color.text.placeholder};
+const StyledAvatar = styled(Avatar)`
+    width: 45%;
 `
-
-const Avatar = styled.img`
-   border-radius: 50% 50%;
-   object-fit: fill;
-   aspect-ratio: 1/1;
-   width: 100%;
-   background-color: ${theme.color.background.primary};
-   border: 1px solid ${theme.color.text.placeholder};
- 
-`
-const DefaultAvatar = styled(Icon)`
-    border-radius: 50% 50%;
-   object-fit: fill;
-   aspect-ratio: 1/1;
-   width: 100%;
-   background-color: ${theme.color.background.primary};
-   border: 1px solid ${theme.color.text.placeholder};
-`
-
 const Name = styled.span`
-    width: 50%;
+    width: 53%;
     text-align: center;
     ${font({ weight: 400, Fmin: 10, Fmax: 14 })}
     color: ${theme.color.text.primary_dark};
