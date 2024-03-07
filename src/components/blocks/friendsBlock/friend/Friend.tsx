@@ -26,7 +26,7 @@ const StyledFriend = styled(NavLink)`
     height: 100%;
     width: 100%;
     gap: 6px;
-    padding: 10px;
+    padding: min(10px, 2vw);
     &::after {
         position: absolute;
         content: '';
@@ -44,6 +44,7 @@ const StyledFriend = styled(NavLink)`
         flex-direction: column;
         justify-content: flex-start;
         max-width: 20%;
+        min-width: 70px;
     }
 `
 const StyledAvatar = styled(Avatar)`

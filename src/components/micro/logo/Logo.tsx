@@ -16,7 +16,7 @@ export const Logo = (props: LogoPropsType) => {
                     <span>Social</span>
                     <span>Network</span>
                 </>
-            : <Icon iconId={'logo'} viewBox='0 0 800 800'/>}
+            : <Icon iconId={'logo'} viewBox='0 0 1024 1024'/>}
         </LogoLink>
     )
 }

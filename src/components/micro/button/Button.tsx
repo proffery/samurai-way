@@ -95,6 +95,9 @@ const StyledButton = styled.button<StyledButtonPropsType>`
         &:active {
             opacity: 1;
         }
+        &:hover {
+        background: transparent;
+    }
     `}
         &:disabled {
         opacity: .3;

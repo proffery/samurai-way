@@ -41,9 +41,12 @@ export const FriendsBlock: React.FC<FriendsBlockPropsType> = (props) => {
                 <BlockHeader>
                     {props.blockHeaderName}
                 </BlockHeader>
-                <RefreshButton onClick={props.refreshFriends}
+                <RefreshButton
+                    onClick={props.refreshFriends}
                     variant={'link'}
-                    className={props.className}><Icon iconId={'refresh'} />
+                    className={props.className}
+                >
+                    <Icon iconId={'refresh'} viewBox='0 -6 32 32'/>
                 </RefreshButton>
             </FlexWrapper>
             {friendsList()}
@@ -71,7 +74,7 @@ const StyledFriendsList = styled.div`
     justify-content: center;
     flex-direction: column;
     overflow-y: auto;
-    overflow-x: auto;
+    overflow-x: hidden;
     @media ${theme.media.mobile} {
         flex-direction: row;
     }
@@ -80,5 +83,6 @@ const StyledPagination = styled(Pagination)`
     ${font({ weight: 400, Fmin: 11, Fmax: 16 })}
 `
 const RefreshButton = styled(Button)`
-    width: fit-content;
+    max-width: 24px;
+    max-height: 24px;
 `

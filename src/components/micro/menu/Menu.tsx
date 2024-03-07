@@ -62,9 +62,7 @@ const StyledMenu = styled.div<StyledMenuType>`
             align-items: center;
             justify-content: flex-start;
         }
-        @media ${theme.media.mobile} {
-            gap: 16px;
-        }
+        
     }
 `
 
@@ -97,6 +95,6 @@ const IconWrapper = styled.div`
     width: 15%;
     min-width: 24px;
     @media ${theme.media.mobile} {
-        min-width: 20px;
+        min-width: 25px;
     }
 `
