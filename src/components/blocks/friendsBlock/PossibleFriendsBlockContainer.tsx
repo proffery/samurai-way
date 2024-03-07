@@ -1,10 +1,10 @@
 import { connect } from "react-redux"
 import { AppRootStateType } from "../../../redux/redux-store"
-import { getPossibleFriends } from "../../../redux/possibleFriendsReducer"
 import { UserResponseType } from "../../../api/social-network-api"
 import { FriendsBlock } from "./FriendsBlock"
 import { useEffect } from "react"
 import { compose } from "redux"
+import { getFriends } from '../../../redux/friendsReducer'
 
 type PossibleFriendsBlockAPIPropsType = {
     className?: string
@@ -12,14 +12,14 @@ type PossibleFriendsBlockAPIPropsType = {
     totalPossibleFriendsCount: number
     possibleFriendsOnPage: number
     currentPage: number
-    getPossibleFriends: (currentPage: number, possibleFriendsOnPage: number) => void
+    getFriends: (pageNumber: number, usersOnPage: number, isFriend: boolean) => void
 }
 export const PossibleFriendsBlockAPI: React.FC<PossibleFriendsBlockAPIPropsType> = (props) => {
     const pagesCount = Math.ceil(props.totalPossibleFriendsCount / props.possibleFriendsOnPage)
     const randomPage = getRandomPage(1, pagesCount)
 
     useEffect(() => {
-        props.getPossibleFriends(randomPage, props.possibleFriendsOnPage)
+        props.getFriends(randomPage, props.possibleFriendsOnPage, false)
     }, [pagesCount])
 
     function getRandomPage(min: number, max: number) {
@@ -29,7 +29,7 @@ export const PossibleFriendsBlockAPI: React.FC<PossibleFriendsBlockAPIPropsType>
     }
 
     const refreshFriends = () => {
-        props.getPossibleFriends(randomPage, props.possibleFriendsOnPage)
+        props.getFriends(randomPage, props.possibleFriendsOnPage, false)
     }
 
     return (
@@ -51,13 +51,13 @@ type MapStatePropsType = {
 }
 const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
     return {
-        possibleFriends: state.possibleFriends.users,
-        currentPage: state.possibleFriends.currentPage,
-        possibleFriendsOnPage: state.possibleFriends.usersOnPage,
-        totalPossibleFriendsCount: state.possibleFriends.totalUsersCount
+        possibleFriends: state.friends.possibleFriends.users,
+        currentPage: state.friends.possibleFriends.currentPage,
+        possibleFriendsOnPage: state.friends.possibleFriends.usersOnPage,
+        totalPossibleFriendsCount: state.friends.possibleFriends.totalUsersCount
     }
 }
 
 export const PossibleFriendsBlockContainer = compose(
-    connect(mapStateToProps, { getPossibleFriends })
+    connect(mapStateToProps, { getFriends })
 )(PossibleFriendsBlockAPI)

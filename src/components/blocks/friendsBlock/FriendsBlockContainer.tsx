@@ -12,7 +12,7 @@ type FriendsBlockAPIPropsType = {
     totalFriendsCount: number
     friendsOnPage: number
     currentPage: number
-    getFriends: (currentPage: number, friendsOnPage: number) => void
+    getFriends: (pageNumber: number, usersOnPage: number, isFriend: boolean) => void
 }
 
 
@@ -21,7 +21,7 @@ export const FriendsBlockAPI: React.FC<FriendsBlockAPIPropsType> = (props) => {
     const randomPage = getRandomPage(1, pagesCount)
 
     useEffect(() => {
-        props.getFriends(randomPage, props.friendsOnPage)
+        props.getFriends(randomPage, props.friendsOnPage, true)
     }, [pagesCount])
 
     function getRandomPage(min: number, max: number) {
@@ -31,7 +31,7 @@ export const FriendsBlockAPI: React.FC<FriendsBlockAPIPropsType> = (props) => {
     }
 
     const refreshFriends = () => {
-        props.getFriends(randomPage, props.friendsOnPage)
+        props.getFriends(randomPage, props.friendsOnPage, true)
     }
 
     return (
@@ -55,10 +55,10 @@ type MapStatePropsType = {
 
 const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
     return {
-        friends: state.friends.users,
-        currentPage: state.friends.currentPage,
-        friendsOnPage: state.friends.usersOnPage,
-        totalFriendsCount: state.friends.totalUsersCount
+        friends: state.friends.friends.users,
+        currentPage: state.friends.friends.currentPage,
+        friendsOnPage: state.friends.friends.usersOnPage,
+        totalFriendsCount: state.friends.friends.totalUsersCount
     }
 }
 

@@ -125,7 +125,6 @@ const StyledAvatar = styled(Avatar)`
     left: 5%;
     width: 17%;
     border-radius: 50%;
-    border: 1px solid ${theme.color.text.placeholder};
 `
 const InfoConainer = styled.div`
     display: flex;
@@ -148,9 +147,9 @@ const Name = styled.span`
     @media ${theme.media.mobile} {
         ${font({ weight: 700, Fmin: 26, Fmax: 30 })}
         position: absolute;
-        top: 10%;
+        top: 12%;
         right: 5%;
-        text-shadow: ${theme.shadow.text};
+        text-shadow: ${theme.shadow.header};
   }
 `
 

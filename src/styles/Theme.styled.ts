@@ -3,7 +3,7 @@ export const theme = {
     color: {
         background: {
             primary: '#F7F7F8',
-            second: ' #A303A0',
+            second: '#A303A0',
             menu: ' #490057',
             block: ' #FFFFFF',
             status_error: '#FF8080',
@@ -21,7 +21,8 @@ export const theme = {
         main: 'rgba(0, 0, 0, 0.05) 8px 8px 34px ',
         block: 'rgba(0, 0, 0, 0.15) 0 4px 6px',
         text: 'rgba(0, 0, 0,  0.25) 0 4px 4px',
-        navbar: 'rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px'
+        navbar: 'rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px',
+        header: 'rgba(247, 247, 248, 0.4) 0px 1px, rgba(247, 247, 248, 0.3) 0px 2px, rgba(247, 247, 248, 0.2) 0px 4px, rgba(247, 247, 248, 0.1) 0px 6px, rgba(247, 247, 248, 0.05) 0px 8px',
     },
     gradient: {
         dot: 'linear-gradient(180deg, rgba(166, 188, 250, 1), rgba(33, 87, 242, 1))',
