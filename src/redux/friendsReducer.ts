@@ -18,13 +18,13 @@ const SET_TOTAL_POSSIBLE_FRIENDS_COUNT = 'FRIENDS/SET-TOTAL-POSSIBLE-FRIENDS-COU
 const initialState = {
     friends: {
         users: [],
-        usersOnPage: 4,
+        usersOnPage: 5,
         totalUsersCount: 0,
         currentPage: 1,
     },
     possibleFriends: {
         users: [],
-        usersOnPage: 4,
+        usersOnPage: 5,
         totalUsersCount: 0,
         currentPage: 1,
     }

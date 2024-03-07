@@ -1,60 +1,65 @@
-import { connect } from "react-redux"
-import { AppRootStateType } from "../../../redux/redux-store"
-import { UserResponseType } from "../../../api/social-network-api"
-import { FriendsBlock } from "./FriendsBlock"
 import { useEffect } from "react"
+import { connect } from "react-redux"
 import { compose } from "redux"
-import { getFriends } from '../../../redux/friendsReducer'
+import { FriendsType, getFriends } from '../../../redux/friendsReducer'
+import { AppRootStateType } from "../../../redux/redux-store"
+import { FriendsBlock } from "./FriendsBlock"
 
 type PossibleFriendsBlockAPIPropsType = {
     className?: string
-    possibleFriends: UserResponseType[]
-    totalPossibleFriendsCount: number
-    possibleFriendsOnPage: number
+    isLoading: boolean
+    friendsData: FriendsType
+    totalFriendsCount: number
+    friendsOnPage: number
     currentPage: number
     getFriends: (pageNumber: number, usersOnPage: number, isFriend: boolean) => void
 }
 export const PossibleFriendsBlockAPI: React.FC<PossibleFriendsBlockAPIPropsType> = (props) => {
-    const pagesCount = Math.ceil(props.totalPossibleFriendsCount / props.possibleFriendsOnPage)
+    const pagesCount = Math.ceil(props.totalFriendsCount / props.friendsOnPage)
     const randomPage = getRandomPage(1, pagesCount)
 
     useEffect(() => {
-        props.getFriends(randomPage, props.possibleFriendsOnPage, false)
-    }, [pagesCount])
+        props.getFriends(randomPage, props.friendsOnPage, false)
+    }, [])
 
     function getRandomPage(min: number, max: number) {
         const minCeiled = Math.ceil(min)
         const maxFloored = Math.floor(max)
         return Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled)
     }
-
     const refreshFriends = () => {
-        props.getFriends(randomPage, props.possibleFriendsOnPage, false)
+        props.getFriends(randomPage, props.friendsOnPage, false)
     }
-
+    const onPageChangeHandler = (pageNumber: number) => {
+        props.getFriends(pageNumber, props.friendsOnPage, false)
+    }
     return (
         <FriendsBlock
-            friends={props.possibleFriends}
-            blockHeaderName={"Possible Friends"}
             className={props.className}
+            isLoading={props.isLoading}
+            friendsData={props.friendsData}
+            blockHeaderName={"Possible Friends"}
             refreshFriends={refreshFriends}
+            onPageChangeHandler={onPageChangeHandler}
         />
     )
 }
 
 type MapStatePropsType = {
     className?: string
-    possibleFriends: UserResponseType[]
-    totalPossibleFriendsCount: number
-    possibleFriendsOnPage: number
+    isLoading: boolean
+    friendsData: FriendsType
+    totalFriendsCount: number
+    friendsOnPage: number
     currentPage: number
 }
 const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
     return {
-        possibleFriends: state.friends.possibleFriends.users,
+        isLoading: state.app.isLoading,
+        friendsData: state.friends.possibleFriends,
         currentPage: state.friends.possibleFriends.currentPage,
-        possibleFriendsOnPage: state.friends.possibleFriends.usersOnPage,
-        totalPossibleFriendsCount: state.friends.possibleFriends.totalUsersCount
+        friendsOnPage: state.friends.possibleFriends.usersOnPage,
+        totalFriendsCount: state.friends.possibleFriends.totalUsersCount
     }
 }
 

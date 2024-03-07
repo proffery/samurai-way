@@ -59,7 +59,7 @@ export const Profile: React.FC<ProfilePropsType> = (props) => {
                 onChangeNewPostText={props.postOnChange}
             />
             <ProfileFriendsBlock />
-            <ProfilePossibleFriendsBlock />
+            <ProfilePossibleFriendsBlock  />
             <ToTop top_block_anchor_id="profile-header" />
         </StyledProfile>
     )

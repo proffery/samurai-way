@@ -3,7 +3,7 @@ import { BlockSection } from "../../micro/BlockSection.styled"
 import { User } from "./user/User"
 import styled from "styled-components"
 import { FlexWrapper } from "../../micro/FlexWrapper.styled"
-import { UsersPagination } from "./UsersPagination"
+import { Pagination } from "../../micro/pagination/Pagination"
 import { Button } from "../../micro/button/Button"
 import { UsersFilterType, UsersStateType } from "../../../redux/usersReducer"
 import { theme } from "../../../styles/Theme.styled"
@@ -70,16 +70,14 @@ export const UsersBlock: React.FC<UsersBlockPropsType> = (props) => {
                 >{'Unfollowed'}</Button>
             </FlexWrapper>
             {usersList()}
-            <FlexWrapper justify="center" gap="10px" wrap="wrap">
-                <UsersPagination
-                    totalUsersCount={totalUsersCount}
-                    usersOnPage={usersOnPage}
-                    currentPage={currentPage}
-                    usersFilter={usersFilter}
-                    appIsLoading={props.appIsLoading}
-                    onPageChangeHandler={props.onPageChangeHandler}
-                />
-            </FlexWrapper>
+            <Pagination
+                totalUsersCount={totalUsersCount}
+                usersOnPage={usersOnPage}
+                currentPage={currentPage}
+                appIsLoading={props.appIsLoading}
+                onPageChangeHandler={props.onPageChangeHandler}
+                pagesNumber={8}
+            />
         </StyledUsersBlock>
     )
 }

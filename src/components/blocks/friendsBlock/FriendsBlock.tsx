@@ -1,28 +1,33 @@
 import React from "react"
+import styled from "styled-components"
+import { FriendsType } from '../../../redux/friendsReducer'
+import { theme } from "../../../styles/Theme.styled"
 import { BlockHeader } from "../../micro/BlockHeader.styled"
 import { BlockSection } from "../../micro/BlockSection.styled"
-import { Friend } from "./friend/Friend"
-import styled from "styled-components"
-import { theme } from "../../../styles/Theme.styled"
-import { UserResponseType } from "../../../api/social-network-api"
+import { FlexWrapper } from "../../micro/FlexWrapper.styled"
 import { Button } from "../../micro/button/Button"
 import { Icon } from "../../micro/icon/Icon"
-import { FlexWrapper } from "../../micro/FlexWrapper.styled"
+import { Pagination } from '../../micro/pagination/Pagination'
+import { Friend } from "./friend/Friend"
+import { font } from '../../../styles/Font'
 
 
 type FriendsBlockPropsType = {
     className?: string
-    friends: UserResponseType[]
+    isLoading: boolean
+    friendsData: FriendsType
     blockHeaderName: string
     refreshFriends: () => void
+    onPageChangeHandler: (pageNumber: number) => void
 }
 
 export const FriendsBlock: React.FC<FriendsBlockPropsType> = (props) => {
-
+    const { users, currentPage, totalUsersCount, usersOnPage } = props.friendsData
+    const { isLoading, onPageChangeHandler } = props
     const friendsList = () => {
         return (
             <StyledFriendsList>
-                {props.friends.map(friend => <Friend key={friend.id} friendData={friend} />)}
+                {users.map(friend => <Friend key={friend.id} friendData={friend} />)}
             </StyledFriendsList>
         )
     }
@@ -32,14 +37,25 @@ export const FriendsBlock: React.FC<FriendsBlockPropsType> = (props) => {
             id={props.blockHeaderName.toLowerCase().replaceAll(' ', '-')}
             className={props.className}
         >
-            <BlockHeader>
-                {props.blockHeaderName}
-            </BlockHeader>
-            {friendsList()}
-            <FlexWrapper justify={'center'}>
+            <FlexWrapper justify={'space-between'}>
+                <BlockHeader>
+                    {props.blockHeaderName}
+                </BlockHeader>
                 <Button onClick={props.refreshFriends}
                     variant={'link'}
-                    className={props.className} ><Icon iconId={'refresh'} /></Button>
+                    className={props.className}><Icon iconId={'refresh'} />
+                </Button>
+            </FlexWrapper>
+            {friendsList()}
+            <FlexWrapper justify={'center'} direction={'row'}>
+                <StyledPagination
+                    appIsLoading={isLoading}
+                    currentPage={currentPage}
+                    totalUsersCount={totalUsersCount}
+                    usersOnPage={usersOnPage}
+                    onPageChangeHandler={onPageChangeHandler}
+                    pagesNumber={3}
+                />
             </FlexWrapper>
         </StyledFriends>
     )
@@ -48,7 +64,6 @@ const StyledFriends = styled(BlockSection)`
     width: 100%;
     display: flex;
 `
-
 const StyledFriendsList = styled.div`
     display: flex;
     align-items: center;
@@ -60,4 +75,7 @@ const StyledFriendsList = styled.div`
     @media ${theme.media.mobile} {
         flex-direction: row;
     }
+`
+const StyledPagination = styled(Pagination)`
+    ${font({ weight: 400, Fmin: 11, Fmax: 16 })}
 `
