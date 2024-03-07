@@ -53,7 +53,7 @@ export const GlobalStyle = createGlobalStyle`
     ////////////////SCROLLBAR///////////////
     /* width */
     ::-webkit-scrollbar {
-        width: 3px;
+        width: 4px;
         border: 1px solid transparent;
     }
 

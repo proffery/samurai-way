@@ -41,10 +41,10 @@ export const FriendsBlock: React.FC<FriendsBlockPropsType> = (props) => {
                 <BlockHeader>
                     {props.blockHeaderName}
                 </BlockHeader>
-                <Button onClick={props.refreshFriends}
+                <RefreshButton onClick={props.refreshFriends}
                     variant={'link'}
                     className={props.className}><Icon iconId={'refresh'} />
-                </Button>
+                </RefreshButton>
             </FlexWrapper>
             {friendsList()}
             <FlexWrapper justify={'center'} direction={'row'}>
@@ -78,4 +78,7 @@ const StyledFriendsList = styled.div`
 `
 const StyledPagination = styled(Pagination)`
     ${font({ weight: 400, Fmin: 11, Fmax: 16 })}
+`
+const RefreshButton = styled(Button)`
+    width: fit-content;
 `

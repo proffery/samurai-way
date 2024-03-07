@@ -43,7 +43,7 @@ const StyledFriend = styled(NavLink)`
     @media ${theme.media.mobile} {
         flex-direction: column;
         justify-content: flex-start;
-        width: 30%;
+        max-width: 20%;
     }
 `
 const StyledAvatar = styled(Avatar)`

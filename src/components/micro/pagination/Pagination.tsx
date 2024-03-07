@@ -83,12 +83,6 @@ export const Pagination = (props: PaginationPropsType) => {
         setShowInput(false)
     }
 
-    // const formChangeHandle = (e: React.ChangeEvent<HTMLInputElement>) => {
-    //     formik.handleChange(e)
-    //     onPageChangeHandler(formik.values.page)
-    // }
-
-
     return (
         <FlexWrapper direction={'column'} justify='center'>
             <FlexWrapper justify='center'>

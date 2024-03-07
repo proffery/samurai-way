@@ -7,7 +7,8 @@ export const BlockHeader = styled.h2`
     position: relative;
     word-wrap: break-word;
     overflow-wrap: anywhere;
-    padding: min(20px, 2vw) 0;
+    padding-bottom: min(20px, 2vw);
+    width: 100%;
     color: ${theme.color.text.primary};
     ${font({weight: 700, Fmin: 14, Fmax: 26})}
     &::before {
