@@ -4,19 +4,20 @@ import { font } from "../../../../styles/Font"
 import { NavLink } from "react-router-dom"
 import { UserResponseType } from "../../../../api/social-network-api"
 import { Avatar } from '../../../micro/avatar/Avatar'
+import { memo } from 'react'
 
 type FriendPropsType = {
     friendData: UserResponseType
 }
 
-export const Friend: React.FC<FriendPropsType> = (props) => {
+export const Friend: React.FC<FriendPropsType> = memo((props) => {
     return (
         <StyledFriend to={"/profile/" + props.friendData.id} >
             <StyledAvatar avatarURL={props.friendData.photos.small} />
             <Name>{props.friendData.name}</Name>
         </StyledFriend>
     )
-}
+})
 
 const StyledFriend = styled(NavLink)`
     display: flex;

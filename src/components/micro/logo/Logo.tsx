@@ -3,13 +3,14 @@ import styled, { css } from "styled-components"
 import { Icon } from '../icon/Icon'
 import { NavLink } from 'react-router-dom'
 import { theme } from '../../../styles/Theme.styled'
+import { memo } from 'react'
 
 type LogoPropsType = {
     variant: 'primary' | 'secondary'
     type: 'text' | 'logo'
 }
 
-export const Logo = (props: LogoPropsType) => {
+export const Logo:React.FC<LogoPropsType> = memo((props) => {
     return (props.type === 'text' ?
         <LogoLink variant={props.variant} to="/">
             <>
@@ -19,7 +20,7 @@ export const Logo = (props: LogoPropsType) => {
         </LogoLink>
         : <StyledIcon iconId={'burgerMenu'} viewBox='0 0 24 24' />
     )
-}
+})
 
 
 type LinkPropsType = {

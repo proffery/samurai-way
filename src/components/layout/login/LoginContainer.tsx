@@ -6,6 +6,7 @@ import { AlertType, addAppAlert } from "../../../redux/app/appReducer"
 import { Login } from "./Login"
 import { compose } from "redux"
 import { selectIsloggedIn } from 'redux/auth/authSelectors'
+import { memo } from 'react'
 
 type LoginAPIPropsTtype = {
     isLoggedIn: boolean
@@ -13,7 +14,7 @@ type LoginAPIPropsTtype = {
     addAppAlert: (type: AlertType, message: string) => void
 }
 
-export const LoginAPI: React.FC<LoginAPIPropsTtype> = (props) => {
+export const LoginAPI: React.FC<LoginAPIPropsTtype> = memo((props) => {
     return (
         <Login
             isLoggedIn={props.isLoggedIn}
@@ -21,7 +22,7 @@ export const LoginAPI: React.FC<LoginAPIPropsTtype> = (props) => {
             addAppAlert={props.addAppAlert}
         />
     )
-}
+})
 
 type MapStatePropsType = {
     isLoggedIn: boolean

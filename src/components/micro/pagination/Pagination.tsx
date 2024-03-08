@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { memo, useEffect, useState } from "react"
 import { Button } from "../button/Button"
 import { Icon } from "../icon/Icon"
 import { FlexWrapper } from '../FlexWrapper.styled'
@@ -18,7 +18,7 @@ type PaginationPropsType = {
     onPageChangeHandler: (pageNumber: number) => void
 }
 
-export const Pagination = (props: PaginationPropsType) => {
+export const Pagination:React.FC<PaginationPropsType> = memo((props) => {
     const { currentPage, usersOnPage, totalUsersCount, appIsLoading, pagesNumber, onPageChangeHandler } = props
 
     const rangesCount = Math.ceil(totalUsersCount / usersOnPage)
@@ -146,7 +146,7 @@ export const Pagination = (props: PaginationPropsType) => {
             </InputWrapper>
         </FlexWrapper>
     )
-}
+})
 
 const SyledInput = styled(Input)`
     display: flex;

@@ -1,4 +1,4 @@
-import React from "react"
+import React, { memo } from "react"
 import { BlockSection } from "../../micro/BlockSection.styled"
 import styled from "styled-components"
 import { theme } from "../../../styles/Theme.styled"
@@ -21,7 +21,7 @@ type FormikErrorType = {
     password?: string
 }
 
-export const Login: React.FC<LoginPagePropsType> = (props) => {
+export const Login: React.FC<LoginPagePropsType> = memo((props) => {
     const formik = useFormik({
         initialValues: {
             email: 'free@samuraijs.com',
@@ -104,7 +104,7 @@ export const Login: React.FC<LoginPagePropsType> = (props) => {
             </StyledSection>
         </StyledLogin>
     )
-}
+})
 
 const StyledLogin = styled.main`
     display: flex;

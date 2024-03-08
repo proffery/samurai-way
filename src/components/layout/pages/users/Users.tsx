@@ -1,4 +1,4 @@
-import React from "react"
+import React, { memo } from "react"
 import { UsersBlockContainer } from "../../../blocks/usersBlock/UsersBlockContainer"
 import { FriendsBlockContainer } from "../../../blocks/friendsBlock/FriendsBlockContainer"
 import styled from "styled-components"
@@ -11,7 +11,7 @@ type UsersPropsType = {
 
 }
 
-export const Users: React.FC<UsersPropsType> = (props) => {
+export const Users: React.FC<UsersPropsType> = memo((props) => {
     return (
         <StyledUsers id="users">
             <UsersBlockContainer />
@@ -22,7 +22,7 @@ export const Users: React.FC<UsersPropsType> = (props) => {
             <ToTop top_block_anchor_id="all-users"/>
         </StyledUsers>
     )
-}
+})
 
 const StyledUsers = styled.main`
     display: flex;

@@ -1,4 +1,4 @@
-import React from "react"
+import React, { memo } from "react"
 import styled from "styled-components"
 import { GetProfileResponseContactsType } from '../../../../api/social-network-api'
 import { AlertType } from "../../../../redux/app/appReducer"
@@ -28,7 +28,7 @@ type ProfilePropsType = {
     addAppAlert: (type: AlertType, message: string) => void
 }
 
-export const Profile: React.FC<ProfilePropsType> = (props) => {
+export const Profile: React.FC<ProfilePropsType> = memo((props) => {
 
     return (
         <StyledProfile id='profile' >
@@ -63,7 +63,7 @@ export const Profile: React.FC<ProfilePropsType> = (props) => {
             <ToTop top_block_anchor_id="profile-header" />
         </StyledProfile>
     )
-}
+})
 
 const StyledProfile = styled.main`
     display: grid;

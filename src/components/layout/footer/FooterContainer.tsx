@@ -5,6 +5,7 @@ import { Footer } from "./Footer"
 import { compose } from "redux"
 import { selectFooterLinks, selectMenuItems } from 'redux/app/appSelectors'
 import { selectIsloggedIn } from 'redux/auth/authSelectors'
+import { memo } from 'react'
 
 type FooterAPIPropsTtype = {
     menuItems: IconLinksStateType[]
@@ -12,14 +13,14 @@ type FooterAPIPropsTtype = {
     isLoggedIn: boolean
 }
 
-export const FooterAPI: React.FC<FooterAPIPropsTtype> = (props) => {
+export const FooterAPI: React.FC<FooterAPIPropsTtype> = memo((props) => {
     return (
         <Footer
             menuItems={props.isLoggedIn ? props.menuItems : []}
             footerLinks={props.footerLinks}
         />
     )
-}
+})
 
 type MapStatePropsType = {
     menuItems: IconLinksStateType[]

@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components"
 import { theme } from "../../../styles/Theme.styled"
 import { font } from "../../../styles/Font"
-import { MouseEvent } from "react"
+import { MouseEvent, memo } from "react"
 
 type ButtonPropsType = {
     variant: 'primary' | 'outlined' | 'link'
@@ -12,7 +12,7 @@ type ButtonPropsType = {
 }
 
 export const Button: React.FC<ButtonPropsType &
-    React.HTMLProps<HTMLButtonElement>> = (props) => {
+    React.HTMLProps<HTMLButtonElement>> = memo((props) => {
 
         const onClickButtonHandler = (e: MouseEvent<HTMLButtonElement>) => {
             props.onClick && props.onClick(e)
@@ -27,7 +27,7 @@ export const Button: React.FC<ButtonPropsType &
                 disabled={props.disabled || false}
             >{props.children}</StyledButton>
         )
-    }
+    })
 
 type StyledButtonPropsType = {
     variant: 'primary' | 'outlined' | 'link'

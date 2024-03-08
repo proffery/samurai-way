@@ -4,13 +4,14 @@ import { Input } from "../../micro/input/Input.styled"
 import search from "../../../assets/images/Search.svg"
 import { Logout } from "./Logout"
 import { AuthStateType } from "../../../redux/auth/authReducer"
+import { memo } from 'react'
 
 type HeaderPropsType = {
     authData: AuthStateType
     logOut: () => void
 }
 
-export const Header: React.FC<HeaderPropsType> = (props) => {
+export const Header: React.FC<HeaderPropsType> = memo((props) => {
     const { login, email, photoUrl } = props.authData
     return (
         <StyledHeader id="header">
@@ -23,7 +24,7 @@ export const Header: React.FC<HeaderPropsType> = (props) => {
             />
         </StyledHeader>
     )
-}
+})
 
 const StyledHeader = styled.header`
     display: flex;

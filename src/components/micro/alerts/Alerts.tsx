@@ -1,12 +1,13 @@
 import styled from "styled-components"
 import { AlertObjectType } from "../../../redux/app/appReducer"
 import { Alert } from "./Alert"
+import { memo } from 'react'
 
 type AlertsPropsType = {
     alerts: AlertObjectType[]
     removeAlert: (alertId: string) => void
 }
-export const Alerts: React.FC<AlertsPropsType> = (props) => {
+export const Alerts: React.FC<AlertsPropsType> = memo((props) => {
     return (
         <AlertsWrapper>
             {props.alerts.map(alert =>
@@ -19,7 +20,7 @@ export const Alerts: React.FC<AlertsPropsType> = (props) => {
                 />)}
         </AlertsWrapper>
     )
-}
+})
 
 const AlertsWrapper = styled.div`
     position: fixed;

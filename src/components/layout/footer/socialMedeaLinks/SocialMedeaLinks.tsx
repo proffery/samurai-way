@@ -3,12 +3,13 @@ import { Icon } from "../../../../components/micro/icon/Icon"
 import { Link } from "../../../../components/micro/link/Link.styled"
 import { theme } from "../../../../styles/Theme.styled"
 import { IconLinksStateType } from "../../../../redux/app/appReducer"
+import { memo } from 'react'
 
 type SocialMedeaLinksPropsType = {
     footerLinks: IconLinksStateType[]
 }
 
-export const SocialMedeaLinks: React.FC<SocialMedeaLinksPropsType> = (props) => {
+export const SocialMedeaLinks: React.FC<SocialMedeaLinksPropsType> = memo((props) => {
     return (
         <LinksContainer>
             {props.footerLinks.map(link => {
@@ -23,7 +24,7 @@ export const SocialMedeaLinks: React.FC<SocialMedeaLinksPropsType> = (props) => 
             })}
         </LinksContainer>
     )
-}
+})
 
 const LinksContainer = styled.div`
     display: flex;

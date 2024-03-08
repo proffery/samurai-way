@@ -7,6 +7,7 @@ import { Pagination } from "../../micro/pagination/Pagination"
 import { Button } from "../../micro/button/Button"
 import { UsersFilterType, UsersStateType } from "../../../redux/users/usersReducer"
 import { theme } from "../../../styles/Theme.styled"
+import { memo } from 'react'
 
 
 export type UsersBlockPropsType = {
@@ -19,7 +20,7 @@ export type UsersBlockPropsType = {
     filterChangeHandler: (filter: UsersFilterType) => void
 }
 
-export const UsersBlock: React.FC<UsersBlockPropsType> = (props) => {
+export const UsersBlock: React.FC<UsersBlockPropsType> = memo((props) => {
     const { usersFilter, totalUsersCount, usersOnPage, currentPage } = props.usersData
     const usersList = () => {
         return (
@@ -80,7 +81,7 @@ export const UsersBlock: React.FC<UsersBlockPropsType> = (props) => {
             />
         </StyledUsersBlock>
     )
-}
+})
 
 const StyledUsersBlock = styled(BlockSection)`
     display: flex;

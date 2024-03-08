@@ -1,13 +1,14 @@
 import styled from 'styled-components'
 import { theme } from '../../../styles/Theme.styled'
 import { Icon } from '../icon/Icon'
+import { memo } from 'react'
 
 type AvatarPropsType = {
     className?: string
     avatarURL?: string
 }
 
-export const Avatar: React.FC<AvatarPropsType> = (props) => {
+export const Avatar: React.FC<AvatarPropsType> = memo((props) => {
     return (
         <AvaterContainer className={props.className}>
             {props.avatarURL
@@ -20,7 +21,7 @@ export const Avatar: React.FC<AvatarPropsType> = (props) => {
                 />}
         </AvaterContainer>
     )
-}
+})
 
 const AvaterContainer = styled.div`
     display: flex;

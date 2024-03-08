@@ -1,4 +1,4 @@
-import React from "react"
+import React, { memo } from "react"
 import styled from "styled-components"
 import { FriendsType } from '../../../redux/friends/friendsReducer'
 import { theme } from "../../../styles/Theme.styled"
@@ -21,7 +21,7 @@ type FriendsBlockPropsType = {
     onPageChangeHandler: (pageNumber: number) => void
 }
 
-export const FriendsBlock: React.FC<FriendsBlockPropsType> = (props) => {
+export const FriendsBlock: React.FC<FriendsBlockPropsType> = memo((props) => {
     const { users, currentPage, totalUsersCount, usersOnPage } = props.friendsData
     const { isLoading, onPageChangeHandler } = props
     const friendsList = () => {
@@ -62,7 +62,7 @@ export const FriendsBlock: React.FC<FriendsBlockPropsType> = (props) => {
             </FlexWrapper>
         </StyledFriends>
     )
-}
+})
 const StyledFriends = styled(BlockSection)`
     width: 100%;
     display: flex;

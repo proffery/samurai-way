@@ -4,10 +4,10 @@ import { BlockHeader } from "../../../micro/BlockHeader.styled"
 import { FlexWrapper } from "../../../micro/FlexWrapper.styled"
 import { Button } from "../../../micro/button/Button"
 import { useHistory } from "react-router-dom"
-import React from "react"
+import React, { memo } from "react"
 import {font} from '../../../../styles/Font'
 
-export const NotFound: React.FC = () => {
+export const NotFound: React.FC = memo((props) => {
     const history = useHistory()
 
     const handleHome = () => {
@@ -33,7 +33,7 @@ export const NotFound: React.FC = () => {
             </StyledBlockSection>
         </StyledNotFound>
     )
-}
+})
 
 const StyledNotFound = styled.main`
     

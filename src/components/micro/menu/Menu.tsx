@@ -1,4 +1,4 @@
-import React from "react"
+import React, { memo } from "react"
 import { MouseEvent } from "react"
 import styled, { css } from "styled-components"
 import { Icon } from "../icon/Icon"
@@ -14,7 +14,7 @@ type MenuPropsType = {
     menuItems: IconLinksStateType[]
 }
 
-export const Menu: React.FC<MenuPropsType> = (props) => {
+export const Menu: React.FC<MenuPropsType> = memo((props) => {
     const onClickHandler = (e: MouseEvent) => {
         e.stopPropagation()
     }
@@ -43,7 +43,7 @@ export const Menu: React.FC<MenuPropsType> = (props) => {
             </ul>
         </StyledMenu>
     )
-}
+})
 
 type StyledMenuType = {
     type: 'primary' | 'secondary'

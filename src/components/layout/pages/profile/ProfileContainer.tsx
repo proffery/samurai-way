@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { memo, useEffect } from "react"
 import { connect } from "react-redux"
 import { RouteComponentProps, withRouter } from "react-router-dom"
 import { compose } from "redux"
@@ -36,7 +36,7 @@ type PathParamType = {
 }
 type ProfileAPIPropsType = RouteComponentProps<PathParamType> & ConnectPropsType
 
-const ProfileAPI: React.FC<ProfileAPIPropsType> = (props) => {
+const ProfileAPI: React.FC<ProfileAPIPropsType> = memo((props) => {
 
     useEffect(() => {
         props.getProfileData(Number(props.match.params.userId
@@ -58,7 +58,7 @@ const ProfileAPI: React.FC<ProfileAPIPropsType> = (props) => {
         changeProfileAbout={props.changeProfileAbout}
         addAppAlert={props.addAppAlert}
     />
-}
+})
 
 const mapStateToProps = (state: AppRootStateType) => {
     return {

@@ -1,5 +1,5 @@
 import { useFormik } from 'formik'
-import React from "react"
+import React, { memo } from "react"
 import styled from "styled-components"
 import { AlertType } from '../../../redux/app/appReducer'
 import { AuthStateType } from "../../../redux/auth/authReducer"
@@ -20,7 +20,7 @@ type AboutMeBlockPropsType = {
     changeProfileAbout: (about: AboutProfileType) => void
 }
 
-export const AboutMeBlock: React.FC<AboutMeBlockPropsType> = (props) => {
+export const AboutMeBlock: React.FC<AboutMeBlockPropsType> = memo((props) => {
     const { id: authId } = props.authStateData
     const { userId } = props.profileData
 
@@ -38,7 +38,7 @@ export const AboutMeBlock: React.FC<AboutMeBlockPropsType> = (props) => {
             }
         </StyledAbout >
     )
-}
+})
 
 type AboutFormPropsType = {
     className?: string
@@ -54,7 +54,7 @@ type FormikErrorType = {
     fullName?: string
 }
 
-const AboutForm: React.FC<AboutFormPropsType> = (props) => {
+const AboutForm: React.FC<AboutFormPropsType> = memo((props) => {
     const { fullName, aboutMe, lookingForAJob, lookingForAJobDescription } = props.profileData
     const CONTACTS_MAX_LENGTH = 40
     const formik = useFormik({
@@ -124,13 +124,13 @@ const AboutForm: React.FC<AboutFormPropsType> = (props) => {
             </form>
         </CategoryWrapper>
     )
-}
+})
 
 type AboutPropsType = {
     className?: string
     profileData: ProfileDataType
 }
-const About: React.FC<AboutPropsType> = (props) => {
+const About: React.FC<AboutPropsType> = memo((props) => {
     const { fullName, aboutMe, lookingForAJob, lookingForAJobDescription } = props.profileData
     return (
         <CategoryWrapper>
@@ -174,7 +174,7 @@ const About: React.FC<AboutPropsType> = (props) => {
             }
         </CategoryWrapper >
     )
-}
+})
 
 const StyledAbout = styled(BlockSection)`
     width: 100%;

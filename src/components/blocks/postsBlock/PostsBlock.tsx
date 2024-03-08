@@ -1,4 +1,4 @@
-import React, { ChangeEvent, MouseEvent, KeyboardEvent, useState } from "react"
+import React, { ChangeEvent, MouseEvent, KeyboardEvent, useState, memo } from "react"
 import styled from "styled-components"
 import { Button } from "../../micro/button/Button"
 import { Input } from "../../micro/input/Input.styled"
@@ -15,7 +15,7 @@ type PostsBlockPropsType = {
     addPost: () => void
 }
 
-export const PostsBlock: React.FC<PostsBlockPropsType> = (props) => {
+export const PostsBlock: React.FC<PostsBlockPropsType> = memo((props) => {
 
     let [error, setError] = useState<string | null>('Enter your post')
 
@@ -78,7 +78,7 @@ export const PostsBlock: React.FC<PostsBlockPropsType> = (props) => {
             {postsList()}
         </StyledPosts>
     )
-}
+})
 
 const StyledPosts = styled(BlockSection)`
     display: flex;

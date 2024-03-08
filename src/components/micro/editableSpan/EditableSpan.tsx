@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import { Input } from '../input/Input.styled'
 import styled from 'styled-components'
 import { theme } from '../../../styles/Theme.styled'
@@ -14,7 +14,7 @@ type EditableSpanPropsType = {
     onSand: (e?: React.FormEvent<HTMLFormElement> | undefined) => void
 }
 
-export const EditableSpan: React.FC<EditableSpanPropsType> = (props) => {
+export const EditableSpan: React.FC<EditableSpanPropsType> = memo((props) => {
     const { value, error, actualValue, emptyText, name, onChange, onSand } = props
     const [editMode, setEditMode] = useState(false)
     const [localValue, setLocalValue] = useState(value)
@@ -56,7 +56,7 @@ export const EditableSpan: React.FC<EditableSpanPropsType> = (props) => {
             className={props.className}
         />
         : <StyledSpan className={props.className} onClick={activateEditMode}>{localValue || emptyText}</StyledSpan>
-}
+})
 
 const StyledInput = styled(Input)`
     width: 100%;

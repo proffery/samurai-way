@@ -5,7 +5,7 @@ import { font } from "../../../../styles/Font"
 import { FlexWrapper } from "../../../micro/FlexWrapper.styled"
 import { UserStateType } from "../../../../redux/users/usersReducer"
 import { NavLink } from "react-router-dom"
-import { MouseEvent } from "react"
+import { MouseEvent, memo } from "react"
 import { Avatar } from '../../../micro/avatar/Avatar'
 
 type UserPropsType = {
@@ -14,7 +14,7 @@ type UserPropsType = {
     unfollow: (userId: number) => void
 }
 
-export const User: React.FC<UserPropsType> = (props) => {
+export const User: React.FC<UserPropsType> = memo((props) => {
     const { id: userId, followed, status, isLoading, name, photos } = props.user
     const { follow, unfollow } = props
 
@@ -40,7 +40,7 @@ export const User: React.FC<UserPropsType> = (props) => {
             </ButtonContainer>
         </StyledUser>
     )
-}
+})
 
 const StyledUser = styled(NavLink)`
     display: flex;

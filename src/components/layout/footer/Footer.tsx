@@ -7,13 +7,14 @@ import { Link } from "../../../components/micro/link/Link.styled"
 import { Icon } from "../../../components/micro/icon/Icon"
 import { SocialMedeaLinks } from "./socialMedeaLinks/SocialMedeaLinks"
 import { IconLinksStateType } from "../../../redux/app/appReducer"
+import { memo } from 'react'
 
 type FooterPropsType = {
     menuItems: IconLinksStateType[]
     footerLinks: IconLinksStateType[]
 }
 
-export const Footer: React.FC<FooterPropsType> = (props) => {
+export const Footer: React.FC<FooterPropsType> = memo((props) => {
     return (
         <StyledFooter>
             <TopWrapper align="start" direction="row" wrap="wrap" justify="space-between">
@@ -51,7 +52,7 @@ export const Footer: React.FC<FooterPropsType> = (props) => {
             </BottomWrapper>
         </StyledFooter>
     )
-}
+})
 
 const StyledFooter = styled.footer`
     display: flex;

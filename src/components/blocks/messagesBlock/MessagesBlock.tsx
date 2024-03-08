@@ -1,4 +1,4 @@
-import React, { ChangeEvent, MouseEvent, KeyboardEvent, useState } from "react"
+import React, { ChangeEvent, MouseEvent, KeyboardEvent, useState, memo } from "react"
 import { BlockHeader } from "../../micro/BlockHeader.styled"
 import { BlockSection } from "../../micro/BlockSection.styled"
 import { Message } from "./message/Message"
@@ -15,7 +15,7 @@ type MessagesBlockPropsType = {
     addMessage: () => void
 }
 
-export const MessagesBlock: React.FC<MessagesBlockPropsType> = (props) => {
+export const MessagesBlock: React.FC<MessagesBlockPropsType> = memo((props) => {
     let [error, setError] = useState<string | null>('Enter your message')
 
     const onChangeMessageHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -69,7 +69,7 @@ export const MessagesBlock: React.FC<MessagesBlockPropsType> = (props) => {
             </Form>
         </StyledMessagesBlock>
     )
-}
+})
 
 const StyledMessagesBlock = styled(BlockSection)`
     width: 100%;

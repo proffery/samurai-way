@@ -1,4 +1,4 @@
-import React, { MouseEvent, useEffect, useState } from "react"
+import React, { MouseEvent, memo, useEffect, useState } from "react"
 import styled from "styled-components"
 import { Logo } from "../../../components/micro/logo/Logo"
 import { Menu } from "../../../components/micro/menu/Menu"
@@ -11,7 +11,7 @@ type NavbarPropsType = {
     setAppNavbarCollapsed: (value: boolean) => void
 }
 
-export const Navbar: React.FC<NavbarPropsType> = (props) => {
+export const Navbar: React.FC<NavbarPropsType> = memo((props) => {
 
     const [width, setWidth] = useState(window.innerWidth)
     const breakpoint = 768
@@ -46,7 +46,7 @@ export const Navbar: React.FC<NavbarPropsType> = (props) => {
             />
         </StyledNavbar>
     )
-}
+})
 
 const StyledNavbar = styled.nav`
     position: relative;

@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import iconsSprite from '../../../assets/images/icons-sprite.svg'
 
 
@@ -9,7 +10,7 @@ export type IconPropsType = {
     height?: string
 }
 
-export const Icon = (props: IconPropsType) => {
+export const Icon:React.FC<IconPropsType> = memo((props) => {
     return (
         <svg className={props.className}
             xmlns="http://www.w3.org/2000/svg"
@@ -20,4 +21,4 @@ export const Icon = (props: IconPropsType) => {
             <use xlinkHref={`${iconsSprite}#${props.iconId}`} href={`${iconsSprite}#${props.iconId}`} />
         </svg>
     )
-}
+})

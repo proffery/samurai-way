@@ -3,14 +3,14 @@ import { theme } from "../../../../styles/Theme.styled"
 import { font } from "../../../../styles/Font"
 import avatarImg from '../../../../assets/images/Author.webp'
 import { FlexWrapper } from "../../../micro/FlexWrapper.styled"
-import { useEffect, useRef } from "react"
+import { memo, useEffect, useRef } from "react"
 import { MessageType } from "../../../../redux/messages/messagesReducer"
 
 type MessagePropsType = {
     messageData: MessageType
 }
 
-export const Message: React.FC<MessagePropsType> = (props) => {
+export const Message: React.FC<MessagePropsType> = memo((props) => {
     const bottomRef = useRef<null | HTMLDivElement>(null)
     useEffect(() => {
         bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -25,7 +25,7 @@ export const Message: React.FC<MessagePropsType> = (props) => {
             <div ref={bottomRef} />
         </StyledMessage>
     )
-}
+})
 
 const StyledMessage = styled.div`
     display: flex;

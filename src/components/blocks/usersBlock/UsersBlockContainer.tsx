@@ -6,7 +6,7 @@ import {
     getUnfollowedUsers, UsersFilterType, changeUsersFilter,
     UsersStateType
 } from 'redux/users/usersReducer'
-import { useEffect } from "react"
+import { memo, useEffect } from "react"
 import { compose } from "redux"
 import { selectUsersData } from 'redux/users/usersSelectors'
 import { selectIsLoading } from 'redux/app/appSelectors'
@@ -23,7 +23,7 @@ type UsersBlockAPIPropsType = {
     changeUsersFilter: (filter: UsersFilterType) => void
 }
 
-const UsersBlockAPI: React.FC<UsersBlockAPIPropsType> = (props) => {
+const UsersBlockAPI: React.FC<UsersBlockAPIPropsType> = memo((props) => {
     const { usersFilter, usersOnPage } = props.usersData
     useEffect(() => {
         switch (usersFilter) {
@@ -73,7 +73,7 @@ const UsersBlockAPI: React.FC<UsersBlockAPIPropsType> = (props) => {
             filterChangeHandler={filterChangeHandler}
         />
     )
-}
+})
 
 const mapStateToProps = (state: AppRootStateType) => {
     return {

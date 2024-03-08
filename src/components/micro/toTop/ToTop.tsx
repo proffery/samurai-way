@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { memo, useEffect, useState } from "react"
 import { Icon } from "../icon/Icon"
 import styled from "styled-components"
 import { Link } from "../link/Link.styled"
@@ -7,7 +7,7 @@ type ToTopLinkPropsType = {
     top_block_anchor_id: string
 }
 
-export const ToTop: React.FC<ToTopLinkPropsType> = (props) => {
+export const ToTop: React.FC<ToTopLinkPropsType> = memo((props) => {
     const [scrolled, setScrolled] = useState(false)
     useEffect(() => {
         const main = document.querySelector('main')
@@ -33,7 +33,7 @@ export const ToTop: React.FC<ToTopLinkPropsType> = (props) => {
             </StyledToTopLink> : 
         null
     )
-}
+})
 
 const StyledToTopLink = styled(Link)`
     position: fixed;

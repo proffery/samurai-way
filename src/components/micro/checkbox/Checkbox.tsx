@@ -1,4 +1,4 @@
-import React from "react"
+import React, { memo } from "react"
 import styled, { keyframes } from "styled-components"
 import { Input } from '../input/Input.styled'
 import { theme } from '../../../styles/Theme.styled'
@@ -9,7 +9,7 @@ type CheckboxPropsType = {
   onChange?: (e?: React.ChangeEvent<any>) => void
 }
 export const Checkbox: React.FC<CheckboxPropsType &
-  React.HTMLProps<HTMLInputElement> & React.HTMLProps<HTMLLabelElement>> = ({
+  React.HTMLProps<HTMLInputElement> & React.HTMLProps<HTMLLabelElement>> = memo(({
     id,
     label,
     name,
@@ -36,7 +36,7 @@ export const Checkbox: React.FC<CheckboxPropsType &
         <Indicator />
       </Label>
     )
-  }
+  })
 
 const StyledInput = styled(Input)`
   height: 0;

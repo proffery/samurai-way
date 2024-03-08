@@ -2,7 +2,7 @@ import styled, { css } from "styled-components"
 import { AlertType } from "../../../redux/app/appReducer"
 import { theme } from "../../../styles/Theme.styled"
 import { Icon } from "../icon/Icon"
-import { useEffect } from "react"
+import { memo, useEffect } from "react"
 import { FlexWrapper } from "../FlexWrapper.styled"
 
 type AlertPropsType = {
@@ -14,7 +14,7 @@ type AlertPropsType = {
 
 const REMOVE_ALERT_DELAY = 3000
 
-export const Alert: React.FC<AlertPropsType> = (props) => {
+export const Alert: React.FC<AlertPropsType> = memo((props) => {
 
     useEffect(() => {
         const timeout = setTimeout(() => {
@@ -49,7 +49,8 @@ export const Alert: React.FC<AlertPropsType> = (props) => {
             </FlexWrapper>
         </AlertContainer>
     )
-}
+})
+
 type StyledAlertPropsType = {
     className?: string
     request: AlertType

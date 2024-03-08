@@ -1,13 +1,15 @@
 import styled from "styled-components"
 import { theme } from "../../../styles/Theme.styled"
+import { memo } from 'react'
 
-export const InitializationLoader: React.FC = () => {
+export const InitializationLoader: React.FC = memo(() => {
   return (
     <Background>
       <Loader />
     </Background>
   )
-}
+})
+
 const Background = styled.div`
   position: fixed;
   height: 100vh;
@@ -15,7 +17,6 @@ const Background = styled.div`
   background-color: ${theme.color.background.primary};
   z-index: 99999;
 `
-
 const Loader = styled.div`
     position: relative;
     top: 50%;

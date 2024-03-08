@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { memo, useEffect } from "react"
 import { connect } from "react-redux"
 import { compose } from "redux"
 import { FriendsType, getFriends } from "../../../redux/friends/friendsReducer"
@@ -13,7 +13,7 @@ type FriendsBlockAPIPropsType = {
     friendsData: FriendsType
     getFriends: (pageNumber: number, usersOnPage: number, isFriend: boolean) => void
 }
-export const FriendsBlockAPI: React.FC<FriendsBlockAPIPropsType> = (props) => {
+export const FriendsBlockAPI: React.FC<FriendsBlockAPIPropsType> = memo((props) => {
     const { totalUsersCount, usersOnPage } = props.friendsData
     const pagesCount = Math.ceil(totalUsersCount / usersOnPage)
     const randomPage = getRandomPage(1, pagesCount)
@@ -43,7 +43,7 @@ export const FriendsBlockAPI: React.FC<FriendsBlockAPIPropsType> = (props) => {
             onPageChangeHandler={onPageChangeHandler}
         />
     )
-}
+})
 
 
 type MapStatePropsType = {

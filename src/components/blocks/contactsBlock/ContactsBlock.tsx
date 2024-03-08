@@ -1,5 +1,5 @@
 import { useFormik } from 'formik'
-import React from "react"
+import React, { memo } from "react"
 import styled from "styled-components"
 import { GetProfileResponseContactsType } from '../../../api/social-network-api'
 import { AlertType } from '../../../redux/app/appReducer'
@@ -20,7 +20,7 @@ type ContactsBlockPropsType = {
     changeProfileContacts: (contacts: GetProfileResponseContactsType) => void
 }
 
-export const ContactsBlock: React.FC<ContactsBlockPropsType> = (props) => {
+export const ContactsBlock: React.FC<ContactsBlockPropsType> = memo((props) => {
     const { id: authId } = props.authStateData
     const { userId } = props.profileStateData.data
 
@@ -42,7 +42,7 @@ export const ContactsBlock: React.FC<ContactsBlockPropsType> = (props) => {
             }
         </StyledContacts >
     )
-}
+})
 
 type ContactsFormPropsType = {
     className?: string
@@ -61,7 +61,7 @@ type FormikErrorType = {
     website?: string
     mainLink?: string
 }
-const ContactsForm: React.FC<ContactsFormPropsType> = (props) => {
+const ContactsForm: React.FC<ContactsFormPropsType> = memo((props) => {
     const { facebook, twitter, instagram, youtube, github, vk, website, mainLink } = props.contactsData
     const { contactsIcons } = props
     const CONTACTS_MAX_LENGTH = 40
@@ -136,14 +136,14 @@ const ContactsForm: React.FC<ContactsFormPropsType> = (props) => {
             </form>
         </CategoryWrapper>
     )
-}
+})
 
 type ContactsPropsType = {
     className?: string
     contactsData: GetProfileResponseContactsType
     contactsIcons: ContactsIconsType
 }
-const Contacts: React.FC<ContactsPropsType> = (props) => {
+const Contacts: React.FC<ContactsPropsType> = memo((props) => {
     const { facebook, twitter, instagram, youtube, github, vk, website, mainLink } = props.contactsData
     const { contactsIcons } = props
     return (
@@ -162,7 +162,7 @@ const Contacts: React.FC<ContactsPropsType> = (props) => {
             }
         </CategoryWrapper>
     )
-}
+})
 
 const StyledContacts = styled(BlockSection)`
     width: 100%;

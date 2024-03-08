@@ -4,6 +4,7 @@ import { theme } from "../../../styles/Theme.styled"
 import { Avatar } from '../../micro/avatar/Avatar'
 import { Button } from "../../micro/button/Button"
 import { FlexWrapper } from '../../micro/FlexWrapper.styled'
+import { memo } from 'react'
 
 type LogoutPropsType = {
     className?: string
@@ -13,7 +14,7 @@ type LogoutPropsType = {
     logOut: () => void
 }
 
-export const Logout: React.FC<LogoutPropsType> = (props) => {
+export const Logout: React.FC<LogoutPropsType> = memo((props) => {
     const { login, email, photoUrl } = props
 
     const logOutHandeler = () => {
@@ -32,7 +33,7 @@ export const Logout: React.FC<LogoutPropsType> = (props) => {
             </AvatarContainer>
         </StyledLogout>
     )
-}
+})
 
 const StyledLogout = styled.div`
     display: flex;
