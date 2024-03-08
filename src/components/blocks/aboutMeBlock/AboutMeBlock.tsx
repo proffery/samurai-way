@@ -156,6 +156,8 @@ const About: React.FC<AboutPropsType> = (props) => {
                     <Checkbox label='Looking job'
                         id='lookingForAJob'
                         checked={lookingForAJob}
+                        onChange={()=>{}}
+                        readOnly
                     />
                 </ContactCategory>
             }

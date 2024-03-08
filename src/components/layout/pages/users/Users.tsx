@@ -36,6 +36,6 @@ const OtherBlocks = styled(FlexWrapper)`
    gap: min(30px, 2vw);
    width: 20%;
    @media ${theme.media.mobile} {
-        width: 100%;
+        display: none;
     }
 `

@@ -6,6 +6,7 @@ type CheckboxPropsType = {
   id: string
   label: string
   onSand?: (e?: React.FormEvent<HTMLFormElement> | undefined) => void
+  onChange?: (e?: React.ChangeEvent<any>) => void
 }
 export const Checkbox: React.FC<CheckboxPropsType &
   React.HTMLProps<HTMLInputElement> & React.HTMLProps<HTMLLabelElement>> = ({
