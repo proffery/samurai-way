@@ -93,16 +93,16 @@ const Wrapper = styled.div<ContainerPropsType>`
     grid-template-columns: 5px repeat(4, 1fr);
     main {
       grid-area: 2 / 1 / 3 / 6 ;
-      padding-left: 60px;
+      padding-left: min(45px, 12vw);
     }
     nav {
       grid-area: 1 / 1 / 3 / 1 ;
-      width: 45px;
-      padding: 60px 10px;
+      width: 32px;
+      padding: min(45px, 16vw) 4px;
     }
     header {
       grid-area: 1 / 1 / 2 / 6 ;
-      padding-left: 60px;
+      padding-left: min(45px, 12vw);
     }
   `: undefined}
   @media ${theme.media.mobile} {

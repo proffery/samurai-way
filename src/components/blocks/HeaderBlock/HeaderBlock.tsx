@@ -103,11 +103,11 @@ export const HeaderBlock: React.FC<HeaderBlockPropsType> = memo((props) => {
 const StyledHeaderBlock = styled(BlockSection)`
     aspect-ratio: 19 / 7;
     flex-direction: column;
+    position: relative;
     padding: 0;
 `
 const BackgroundConainer = styled.div`
     display: flex;
-    position: relative;
     width: 100%;
     height: 70%;
     color: ${theme.color.text.placeholder};
@@ -121,7 +121,7 @@ const BackgroundImage = styled.img`
 `
 const StyledAvatar = styled(Avatar)`
     position: absolute;
-    top: 45%;
+    top: 35%;
     left: 5%;
     width: 17%;
     border-radius: 50%;
