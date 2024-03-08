@@ -1,9 +1,9 @@
 import { v1 } from "uuid"
-import { ChangeProfileDataType, GetProfileResponseContactsType, GetProfileResponseType, socialNetworkAPI } from "../api/social-network-api"
-import { AppDispatchType, AppRootStateType } from "./redux-store"
-import { AddAlertActionType, SetAppIsLoadingActionType, addAppAlert, setAppIsLoading } from "./appReducer"
-import { FollowUserActionType, UnfollowUserActionType } from "./usersReducer"
-import { CLEAN_REDUCER, CleanReducerType } from "./authReducer"
+import { ChangeProfileDataType, GetProfileResponseContactsType, GetProfileResponseType, socialNetworkAPI } from "../../api/social-network-api"
+import { AppDispatchType, AppRootStateType } from "../redux-store"
+import { AddAlertActionType, SetAppIsLoadingActionType, addAppAlert, setAppIsLoading } from "../app/appReducer"
+import { FollowUserActionType, UnfollowUserActionType } from "../users/usersReducer"
+import { CLEAN_REDUCER, CleanReducerType } from "../auth/authReducer"
 
 //CONSTANTS
 const ADD_POST = 'ADD-POST'

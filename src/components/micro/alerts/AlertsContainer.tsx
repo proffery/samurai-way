@@ -1,6 +1,6 @@
 import { connect } from "react-redux"
 import { AppRootStateType } from "../../../redux/redux-store"
-import { AlertObjectType, removeAlert } from "../../../redux/appReducer"
+import { AlertObjectType, removeAlert } from "../../../redux/app/appReducer"
 import { Alerts } from "./Alerts"
 import { compose } from "redux"
 

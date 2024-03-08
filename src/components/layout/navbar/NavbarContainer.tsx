@@ -1,7 +1,8 @@
 import { connect } from "react-redux"
 import { AppRootStateType } from "../../../redux/redux-store"
-import { IconLinksStateType, setAppNavbarCollapsed } from "../../../redux/appReducer"
+import { IconLinksStateType, setAppNavbarCollapsed } from "../../../redux/app/appReducer"
 import { Navbar } from "./Navbar"
+import { selectMenuItems, selectNavbarCollapsed } from 'redux/app/appSelectors'
 
 
 type NavbarAPIPropsTtype = {
@@ -28,8 +29,8 @@ type MapStatePropsType = {
 
 const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
     return {
-        menuItems: state.app.menuItems,
-        navbarCollapsed: state.app.navbarCollapsed
+        menuItems: selectMenuItems(state),
+        navbarCollapsed: selectNavbarCollapsed(state)
     }
 }
 

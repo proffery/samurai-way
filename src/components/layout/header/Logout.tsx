@@ -21,7 +21,7 @@ export const Logout: React.FC<LogoutPropsType> = (props) => {
     }
 
     return (
-        <StyledLout>
+        <StyledLogout>
             <TextContainer>
                 <Name>{login}</Name>
                 <Email>{email}</Email>
@@ -30,18 +30,18 @@ export const Logout: React.FC<LogoutPropsType> = (props) => {
                 <Avatar avatarURL={photoUrl} />
                 <LogoutButton variant={'link'} onClick={logOutHandeler}>Log out</LogoutButton>
             </AvatarContainer>
-        </StyledLout>
+        </StyledLogout>
     )
 }
 
-const StyledLout = styled.div`
+const StyledLogout = styled.div`
     display: flex;
     flex: 1;
     justify-content: space-around;
     width: fit-content;
     min-width: 24%;
     @media ${theme.media.mobile} {
-        min-width: 50%;
+        min-width: 15%;
     }
 `
 const TextContainer = styled.div`
@@ -52,9 +52,14 @@ const TextContainer = styled.div`
     flex-direction: column;
     align-items: start;
     justify-content: center;
+    @media ${theme.media.mobile} {
+        display: none;
+    }
 `
 const AvatarContainer = styled(FlexWrapper)`
     width: 20%;
+    justify-content: center;
+    align-items: center;
 `
 const Name = styled.span`
     overflow-wrap: anywhere;

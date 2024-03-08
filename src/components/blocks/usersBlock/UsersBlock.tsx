@@ -5,7 +5,7 @@ import styled from "styled-components"
 import { FlexWrapper } from "../../micro/FlexWrapper.styled"
 import { Pagination } from "../../micro/pagination/Pagination"
 import { Button } from "../../micro/button/Button"
-import { UsersFilterType, UsersStateType } from "../../../redux/usersReducer"
+import { UsersFilterType, UsersStateType } from "../../../redux/users/usersReducer"
 import { theme } from "../../../styles/Theme.styled"
 
 

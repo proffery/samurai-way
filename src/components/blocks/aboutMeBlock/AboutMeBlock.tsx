@@ -1,9 +1,9 @@
 import { useFormik } from 'formik'
 import React from "react"
 import styled from "styled-components"
-import { AlertType } from '../../../redux/appReducer'
-import { AuthStateType } from "../../../redux/authReducer"
-import { AboutProfileType, ProfileDataType } from "../../../redux/profileReducer"
+import { AlertType } from '../../../redux/app/appReducer'
+import { AuthStateType } from "../../../redux/auth/authReducer"
+import { AboutProfileType, ProfileDataType } from "../../../redux/profile/profileReducer"
 import { font } from "../../../styles/Font"
 import { theme } from "../../../styles/Theme.styled"
 import { BlockHeader } from "../../micro/BlockHeader.styled"
@@ -156,7 +156,7 @@ const About: React.FC<AboutPropsType> = (props) => {
                     <Checkbox label='Looking job'
                         id='lookingForAJob'
                         checked={lookingForAJob}
-                        onChange={()=>{}}
+                        onChange={() => { }}
                         readOnly
                     />
                 </ContactCategory>

@@ -1,8 +1,9 @@
 import { connect } from "react-redux"
 import { Header } from "./Header"
 import { AppRootStateType } from "../../../redux/redux-store"
-import { AuthStateType, logOut } from "../../../redux/authReducer"
+import { AuthStateType, logOut } from "../../../redux/auth/authReducer"
 import { compose } from "redux"
+import { selectAuthData } from 'redux/auth/authSelectors'
 
 type HeaderAPIPropsTtype = {
     authData: AuthStateType
@@ -24,7 +25,7 @@ type MapStatePropsType = {
 
 const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
     return {
-        authData: state.auth
+        authData: selectAuthData(state)
     }
 }
 

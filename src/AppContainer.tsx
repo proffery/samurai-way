@@ -1,8 +1,10 @@
 import { useEffect } from 'react'
 import { connect } from "react-redux"
 import App from "./App"
-import { initializeApp } from './redux/appReducer'
-import { AppRootStateType } from "./redux/redux-store"
+import { initializeApp } from './redux/app/appReducer'
+import { selectIsInitialized, selectIsLoading, selectNavbarCollapsed } from './redux/app/appSelectors'
+import { AppRootStateType } from 'redux/redux-store'
+import { selectIsloggedIn } from './redux/auth/authSelectors'
 
 type AppAPIPropsTtype = {
     isLoggedIn: boolean
@@ -34,10 +36,10 @@ type MapStatePropsType = {
 }
 const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
     return {
-        isLoggedIn: state.auth.isLoggedIn,
-        navbarCollapsed: state.app.navbarCollapsed,
-        isLoading: state.app.isLoading,
-        isInitialized: state.app.isInitialized
+        isLoggedIn: selectIsloggedIn(state),
+        navbarCollapsed: selectNavbarCollapsed(state),
+        isLoading: selectIsLoading(state),
+        isInitialized: selectIsInitialized(state)
     }
 }
 

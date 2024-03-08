@@ -6,10 +6,11 @@ import styled from "styled-components"
 import { FlexWrapper } from "../../micro/FlexWrapper.styled"
 import { Button } from "../../micro/button/Button"
 import { Input } from "../../micro/input/Input.styled"
-import { MessageStateType, MessagesPageStateType } from "../../../redux/messagesReducer"
+import { MessageType } from "../../../redux/messages/messagesReducer"
 
 type MessagesBlockPropsType = {
-    messagesData: MessagesPageStateType
+    messages: MessageType[]
+    newMessageForm: string
     onChangeMessage: (text: string) => void
     addMessage: () => void
 }
@@ -35,7 +36,7 @@ export const MessagesBlock: React.FC<MessagesBlockPropsType> = (props) => {
     }
 
     const addMessage = () => {
-        if (props.messagesData.newMessageForm.trim() !== "") {
+        if (props.newMessageForm.trim() !== "") {
             props.addMessage()
         } else {
             setError('Enter your message')
@@ -45,7 +46,7 @@ export const MessagesBlock: React.FC<MessagesBlockPropsType> = (props) => {
     return (
         <StyledMessagesBlock id="messages">
             <BlockHeader>Messages</BlockHeader>
-            <MessagesList messagesData={props.messagesData.messages} />
+            <MessagesList messages={props.messages} />
             <Form
                 onKeyDown={addMessageCtrlEnterHandler}
             >
@@ -54,7 +55,7 @@ export const MessagesBlock: React.FC<MessagesBlockPropsType> = (props) => {
                     aria-label="enter your message"
                     placeholder="Enter your message"
                     bordered={'true'}
-                    value={props.messagesData.newMessageForm}
+                    value={props.newMessageForm}
                     onChange={onChangeMessageHandler}
                 />
                 <FlexWrapper>
@@ -89,13 +90,13 @@ const Form = styled.form`
 `
 
 type MessagesListPropsType = {
-    messagesData: MessageStateType[]
+    messages: MessageType[]
 }
 
 const MessagesList: React.FC<MessagesListPropsType> = (props) => {
     return (
         <StyledMessagesList>
-            {props.messagesData.map(message =>
+            {props.messages.map(message =>
                 <Message key={message.id} messageData={message} />
             )}
         </StyledMessagesList>

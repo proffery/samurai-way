@@ -1,9 +1,9 @@
 import React from "react"
 import styled from "styled-components"
 import { GetProfileResponseContactsType } from '../../../../api/social-network-api'
-import { AlertType } from "../../../../redux/appReducer"
-import { AuthStateType } from "../../../../redux/authReducer"
-import { AboutProfileType, ProfileStateType } from "../../../../redux/profileReducer"
+import { AlertType } from "../../../../redux/app/appReducer"
+import { AuthStateType } from "../../../../redux/auth/authReducer"
+import { AboutProfileType, ProfileStateType } from "../../../../redux/profile/profileReducer"
 import { theme } from "../../../../styles/Theme.styled"
 import { AboutMeBlock } from '../../../blocks/aboutMeBlock/AboutMeBlock'
 import { ContactsBlock } from "../../../blocks/contactsBlock/ContactsBlock"
@@ -59,7 +59,7 @@ export const Profile: React.FC<ProfilePropsType> = (props) => {
                 onChangeNewPostText={props.postOnChange}
             />
             <ProfileFriendsBlock />
-            <ProfilePossibleFriendsBlock  />
+            <ProfilePossibleFriendsBlock />
             <ToTop top_block_anchor_id="profile-header" />
         </StyledProfile>
     )

@@ -3,7 +3,7 @@ import { theme } from "../../../styles/Theme.styled"
 import { Input } from "../../micro/input/Input.styled"
 import search from "../../../assets/images/Search.svg"
 import { Logout } from "./Logout"
-import { AuthStateType } from "../../../redux/authReducer"
+import { AuthStateType } from "../../../redux/auth/authReducer"
 
 type HeaderPropsType = {
     authData: AuthStateType
@@ -47,6 +47,9 @@ const StyledField = styled(Input) <StyledFieldPropsType>`
     height: min(100%, 4vh);
     &::placeholder {
         color: ${theme.color.text.primary_dark};
+    }
+    &:focus {
+        box-shadow: ${theme.shadow.block};
     }
 
 `

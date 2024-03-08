@@ -6,11 +6,11 @@ import { theme } from "../../../styles/Theme.styled"
 import { font } from "../../../styles/Font"
 import { NavLink } from "react-router-dom"
 import { BlockSection } from "../../micro/BlockSection.styled"
-import { ProfileStateType } from "../../../redux/profileReducer"
-import { AuthStateType } from "../../../redux/authReducer"
+import { ProfileStateType } from "../../../redux/profile/profileReducer"
+import { AuthStateType } from "../../../redux/auth/authReducer"
 import { EditableSpan } from "../../micro/editableSpan/EditableSpan"
 import { useFormik } from "formik"
-import { AlertType } from "../../../redux/appReducer"
+import { AlertType } from "../../../redux/app/appReducer"
 import { Avatar } from '../../micro/avatar/Avatar'
 import { FlexWrapper } from '../../micro/FlexWrapper.styled'
 

@@ -1,6 +1,6 @@
 import { v1 } from "uuid"
-import { CLEAN_REDUCER, CleanReducerType } from "./authReducer"
-import { AppDispatchType } from "./redux-store"
+import { CLEAN_REDUCER, CleanReducerType } from "../auth/authReducer"
+import { AppDispatchType } from "../redux-store"
 
 //CONSTANTS
 export const ADD_MESSAGE = 'ADD-MESSAGE'
@@ -70,7 +70,7 @@ const initialState: MessagesPageStateType = {
 export const messagesReducer = (state: MessagesPageStateType = initialState, action: MessagesReducerActionsType): MessagesPageStateType => {
     switch (action.type) {
         case ADD_MESSAGE:
-            const newMessage: MessageStateType = {
+            const newMessage: MessageType = {
                 id: v1(),
                 message: state.newMessageForm,
             }
@@ -108,17 +108,17 @@ export type MessagesReducerActionsType =
     | ReturnType<typeof onChangeMessage>
     | CleanReducerType
 
-export type MessageStateType = {
+export type MessageType = {
     id: string
     message: string
 }
-export type DialogStateType = {
+export type DialogType = {
     id: string
     name: string
     second_name: string
 }
 export type MessagesPageStateType = {
-    messages: MessageStateType[]
-    dialogs: DialogStateType[]
+    messages: MessageType[]
+    dialogs: DialogType[]
     newMessageForm: string
 }

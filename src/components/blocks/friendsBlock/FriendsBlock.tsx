@@ -1,6 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-import { FriendsType } from '../../../redux/friendsReducer'
+import { FriendsType } from '../../../redux/friends/friendsReducer'
 import { theme } from "../../../styles/Theme.styled"
 import { BlockHeader } from "../../micro/BlockHeader.styled"
 import { BlockSection } from "../../micro/BlockSection.styled"
@@ -46,7 +46,7 @@ export const FriendsBlock: React.FC<FriendsBlockPropsType> = (props) => {
                     variant={'link'}
                     className={props.className}
                 >
-                    <Icon iconId={'refresh'} viewBox='0 -6 32 32'/>
+                    <Icon iconId={'refresh'} viewBox='0 -6 32 32' />
                 </RefreshButton>
             </FlexWrapper>
             {friendsList()}

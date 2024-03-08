@@ -3,7 +3,7 @@ import { Button } from "../../../micro/button/Button"
 import { theme } from "../../../../styles/Theme.styled"
 import { font } from "../../../../styles/Font"
 import { FlexWrapper } from "../../../micro/FlexWrapper.styled"
-import { UserStateType } from "../../../../redux/usersReducer"
+import { UserStateType } from "../../../../redux/users/usersReducer"
 import { NavLink } from "react-router-dom"
 import { MouseEvent } from "react"
 import { Avatar } from '../../../micro/avatar/Avatar'

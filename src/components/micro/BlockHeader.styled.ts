@@ -3,10 +3,8 @@ import { theme } from "../../styles/Theme.styled";
 import styled from "styled-components";
 
 export const BlockHeader = styled.h2`
-    display: flex;
     position: relative;
     word-wrap: break-word;
-    overflow-wrap: anywhere;
     padding-bottom: min(20px, 2vw);
     width: 100%;
     color: ${theme.color.text.primary};

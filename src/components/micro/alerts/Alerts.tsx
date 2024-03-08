@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { AlertObjectType } from "../../../redux/appReducer"
+import { AlertObjectType } from "../../../redux/app/appReducer"
 import { Alert } from "./Alert"
 
 type AlertsPropsType = {

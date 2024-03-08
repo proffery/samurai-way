@@ -2,22 +2,20 @@ import { useEffect } from "react"
 import { connect } from "react-redux"
 import { RouteComponentProps, withRouter } from "react-router-dom"
 import { compose } from "redux"
-import { GetProfileResponseContactsType } from '../../../../api/social-network-api'
-import { AlertType, addAppAlert } from "../../../../redux/appReducer"
-import { AuthStateType } from "../../../../redux/authReducer"
-import {
-    AboutProfileType,
-    ProfileStateType,
-    addPost,
-    changeProfileAbout,
-    changeProfileContacts,
-    changeProfileStatus,
-    followProfile, getProfileData,
-    postOnChange,
-    unfollowProfile
-} from "../../../../redux/profileReducer"
-import { AppRootStateType } from "../../../../redux/redux-store"
 import { Profile } from "./Profile"
+import { selectIsLoading } from 'redux/app/appSelectors'
+import { selectAuthData } from 'redux/auth/authSelectors'
+import { AuthStateType } from 'redux/auth/authReducer'
+import {
+    AboutProfileType, ProfileStateType, addPost,
+    changeProfileAbout, changeProfileContacts,
+    changeProfileStatus, followProfile, getProfileData,
+    postOnChange, unfollowProfile
+} from 'redux/profile/profileReducer'
+import { AlertType, addAppAlert } from 'redux/app/appReducer'
+import { GetProfileResponseContactsType } from 'api/social-network-api'
+import { AppRootStateType } from 'redux/redux-store'
+import { selectProfileData } from 'redux/profile/profileSelectors'
 
 type ConnectPropsType = {
     authData: AuthStateType
@@ -64,9 +62,9 @@ const ProfileAPI: React.FC<ProfileAPIPropsType> = (props) => {
 
 const mapStateToProps = (state: AppRootStateType) => {
     return {
-        authData: state.auth,
-        profileData: state.profile,
-        appIsLoading: state.app.isLoading
+        authData: selectAuthData(state),
+        profileData: selectProfileData(state),
+        appIsLoading: selectIsLoading(state)
     }
 }
 

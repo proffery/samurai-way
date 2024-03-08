@@ -1,10 +1,11 @@
 import { connect } from "react-redux"
 import { AppRootStateType } from "../../../redux/redux-store"
-import { logIn } from "../../../redux/authReducer"
+import { logIn } from "../../../redux/auth/authReducer"
 import { LoginDataType } from "../../../api/social-network-api"
-import { AlertType, addAppAlert } from "../../../redux/appReducer"
+import { AlertType, addAppAlert } from "../../../redux/app/appReducer"
 import { Login } from "./Login"
 import { compose } from "redux"
+import { selectIsloggedIn } from 'redux/auth/authSelectors'
 
 type LoginAPIPropsTtype = {
     isLoggedIn: boolean
@@ -28,7 +29,7 @@ type MapStatePropsType = {
 
 const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
     return {
-        isLoggedIn: state.auth.isLoggedIn
+        isLoggedIn: selectIsloggedIn(state)
     }
 }
 

@@ -6,10 +6,10 @@ import { Menu } from "../../../components/micro/menu/Menu"
 import { Link } from "../../../components/micro/link/Link.styled"
 import { Icon } from "../../../components/micro/icon/Icon"
 import { SocialMedeaLinks } from "./socialMedeaLinks/SocialMedeaLinks"
-import { IconLinksStateType } from "../../../redux/appReducer"
+import { IconLinksStateType } from "../../../redux/app/appReducer"
 
 type FooterPropsType = {
-    menuData: IconLinksStateType[]
+    menuItems: IconLinksStateType[]
     footerLinks: IconLinksStateType[]
 }
 
@@ -45,7 +45,7 @@ export const Footer: React.FC<FooterPropsType> = (props) => {
                     direction="row"
                     icons={false}
                     name={true}
-                    menuItems={props.menuData}
+                    menuItems={props.menuItems}
                 />
                 <Copyright><span>Copyright © 2023&nbsp;</span><Link variant="primary">Dmitry Shamko</Link></Copyright>
             </BottomWrapper>

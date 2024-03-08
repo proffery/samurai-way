@@ -1,7 +1,7 @@
-import { UserResponseType, socialNetworkAPI } from "../api/social-network-api"
-import { AddAlertActionType, SetAppIsLoadingActionType, addAppAlert, setAppIsLoading } from "./appReducer"
-import { CLEAN_REDUCER, CleanReducerType } from "./authReducer"
-import { AppDispatchType } from "./redux-store"
+import { UserResponseType, socialNetworkAPI } from "../../api/social-network-api"
+import { AddAlertActionType, SetAppIsLoadingActionType, addAppAlert, setAppIsLoading } from "../app/appReducer"
+import { CLEAN_REDUCER, CleanReducerType } from "../auth/authReducer"
+import { AppDispatchType } from "../redux-store"
 
 //CONSTANTS
 const FOLLOW = 'FOLLOW'

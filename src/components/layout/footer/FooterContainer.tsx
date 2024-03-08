@@ -1,11 +1,13 @@
 import { connect } from "react-redux"
 import { AppRootStateType } from "../../../redux/redux-store"
-import { IconLinksStateType } from "../../../redux/appReducer"
+import { IconLinksStateType } from "../../../redux/app/appReducer"
 import { Footer } from "./Footer"
 import { compose } from "redux"
+import { selectFooterLinks, selectMenuItems } from 'redux/app/appSelectors'
+import { selectIsloggedIn } from 'redux/auth/authSelectors'
 
 type FooterAPIPropsTtype = {
-    menuData: IconLinksStateType[]
+    menuItems: IconLinksStateType[]
     footerLinks: IconLinksStateType[]
     isLoggedIn: boolean
 }
@@ -13,22 +15,22 @@ type FooterAPIPropsTtype = {
 export const FooterAPI: React.FC<FooterAPIPropsTtype> = (props) => {
     return (
         <Footer
-            menuData={props.isLoggedIn ? props.menuData : []}
+            menuItems={props.isLoggedIn ? props.menuItems : []}
             footerLinks={props.footerLinks}
         />
     )
 }
 
 type MapStatePropsType = {
-    menuData: IconLinksStateType[]
+    menuItems: IconLinksStateType[]
     footerLinks: IconLinksStateType[]
     isLoggedIn: boolean
 }
 const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
     return {
-        menuData: state.app.menuItems,
-        footerLinks: state.app.footerLinks,
-        isLoggedIn: state.auth.isLoggedIn
+        menuItems: selectMenuItems(state),
+        footerLinks: selectFooterLinks(state),
+        isLoggedIn: selectIsloggedIn(state),
     }
 }
 

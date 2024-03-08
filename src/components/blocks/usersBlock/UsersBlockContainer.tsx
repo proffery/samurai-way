@@ -5,10 +5,12 @@ import {
     getAllUsers, followUser, unfollowUser, getFollowedUsers,
     getUnfollowedUsers, UsersFilterType, changeUsersFilter,
     UsersStateType
-} from "../../../redux/usersReducer"
-import { AppRootStateType } from "../../../redux/redux-store"
+} from 'redux/users/usersReducer'
 import { useEffect } from "react"
 import { compose } from "redux"
+import { selectUsersData } from 'redux/users/usersSelectors'
+import { selectIsLoading } from 'redux/app/appSelectors'
+import { AppRootStateType } from 'redux/redux-store'
 
 type UsersBlockAPIPropsType = {
     usersData: UsersStateType
@@ -75,13 +77,14 @@ const UsersBlockAPI: React.FC<UsersBlockAPIPropsType> = (props) => {
 
 const mapStateToProps = (state: AppRootStateType) => {
     return {
-        usersData: state.users,
-        appIsLoading: state.app.isLoading
+        usersData: selectUsersData(state),
+        appIsLoading: selectIsLoading(state)
     }
 }
 
 export const UsersBlockContainer = compose(
     connect(mapStateToProps, {
-        followUser, unfollowUser, getAllUsers, getFollowedUsers, getUnfollowedUsers, changeUsersFilter
+        followUser, unfollowUser, getAllUsers,
+        getFollowedUsers, getUnfollowedUsers, changeUsersFilter
     })
 )(UsersBlockAPI)

@@ -1,12 +1,14 @@
 import { connect } from "react-redux"
-import { addMessage, onChangeMessage } from "../../../redux/messagesReducer"
+import { addMessage, onChangeMessage } from "../../../redux/messages/messagesReducer"
 import { MessagesBlock } from "./MessagesBlock"
 import { AppRootStateType } from "../../../redux/redux-store"
 import { compose } from "redux"
+import { selectMessages } from 'redux/messages/messagesSelectors'
 
 const mapStateToProps = (state: AppRootStateType) => {
     return {
-        messagesData: state.messages
+        messages: selectMessages(state),
+        newMessageForm: state.messages.newMessageForm //Need fix
     }
 }
 

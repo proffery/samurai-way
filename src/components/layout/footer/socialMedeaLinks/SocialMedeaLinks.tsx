@@ -2,7 +2,7 @@ import styled from "styled-components"
 import { Icon } from "../../../../components/micro/icon/Icon"
 import { Link } from "../../../../components/micro/link/Link.styled"
 import { theme } from "../../../../styles/Theme.styled"
-import { IconLinksStateType } from "../../../../redux/appReducer"
+import { IconLinksStateType } from "../../../../redux/app/appReducer"
 
 type SocialMedeaLinksPropsType = {
     footerLinks: IconLinksStateType[]

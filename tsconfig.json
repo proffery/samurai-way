@@ -18,7 +18,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "baseUrl": "src",
   },
   "include": [
     "src"
@@ -33,7 +34,8 @@
   //   "removeComments": true,
   //   "sourceMap": true,
   //   "allowJs": true,
-  //   "jsx": "react"
+  //   "jsx": "react",
+  //    "baseUrl": "src",
   // },
   // "exclude": [
   //   "./node_modules/**/*"

@@ -1,6 +1,6 @@
-import { GetMeDataType, LoginDataType, socialNetworkAPI } from '../api/social-network-api'
-import { SetAppIsInitializedType, SetAppIsLoadingActionType, addAppAlert, initializeApp, setAppIsLoading } from './appReducer'
-import { AppDispatchType } from './redux-store'
+import { GetMeDataType, LoginDataType, socialNetworkAPI } from '../../api/social-network-api'
+import { SetAppIsInitializedType, SetAppIsLoadingActionType, addAppAlert, initializeApp, setAppIsLoading } from '../app/appReducer'
+import { AppDispatchType } from '../redux-store'
 
 //CONSTANTS
 const SET_AUTH_DATA = 'AUTH/SET-AUTH-DATA'

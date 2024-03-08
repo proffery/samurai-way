@@ -4,16 +4,16 @@ import { font } from "../../../../styles/Font"
 import avatarImg from '../../../../assets/images/Author.webp'
 import { FlexWrapper } from "../../../micro/FlexWrapper.styled"
 import { useEffect, useRef } from "react"
-import { MessageStateType } from "../../../../redux/messagesReducer"
+import { MessageType } from "../../../../redux/messages/messagesReducer"
 
 type MessagePropsType = {
-    messageData: MessageStateType
+    messageData: MessageType
 }
 
 export const Message: React.FC<MessagePropsType> = (props) => {
-    const bottomRef = useRef<null | HTMLDivElement>(null);
+    const bottomRef = useRef<null | HTMLDivElement>(null)
     useEffect(() => {
-        bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+        bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
     }, [props.messageData])
     return (
         <StyledMessage>
