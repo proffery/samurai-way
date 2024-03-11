@@ -62,7 +62,7 @@ export const HeaderBlock: React.FC<HeaderBlockPropsType> = memo((props) => {
         <StyledHeaderBlock id="profile-header" className={props.className}>
             <BackgroundConainer>
                 {large
-                    ? <BackgroundImage src={large} />
+                    ? <BackgroundImage src={large} alt='Background'/>
                     : <Icon iconId={'avatarDefault'} viewBox="0 0 1024 1024" height={'100%'} width={'100%'} />}
                 <StyledAvatar avatarURL={small} />
             </BackgroundConainer>

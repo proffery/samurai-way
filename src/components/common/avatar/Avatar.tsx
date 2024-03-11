@@ -12,7 +12,7 @@ export const Avatar: React.FC<AvatarPropsType> = memo((props) => {
     return (
         <AvaterContainer className={props.className}>
             {props.avatarURL
-                ? <AvatarImage src={props.avatarURL} />
+                ? <AvatarImage src={props.avatarURL} alt='Avatar'/>
                 : <DefaultImage
                     iconId={'avatarDefault'}
                     viewBox="0 0 1024 1024"
