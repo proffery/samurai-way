@@ -1,19 +1,19 @@
+import { theme } from './styles/Theme.styled'
 import styled, { css } from 'styled-components'
 import { Route, Switch, Redirect } from 'react-router-dom'
-import { Users } from "./components/layout/pages/users/Users"
-import { Messages } from "./components/layout/pages/messages/Messages"
-import { Notifications } from "./components/layout/pages/notifications/Notifications"
-import { Settings } from "./components/layout/pages/settings/Settings"
+import { Users } from './components/layout/pages/users/Users'
+import { Messages } from './components/layout/pages/messages/Messages'
+import { Settings } from './components/layout/pages/settings/Settings'
 import { NotFound } from './components/layout/pages/notFound/NotFound'
-import { theme } from './styles/Theme.styled'
-import { HeaderContainer } from './components/containers/HeaderContainer'
-import { LoadingLoader } from './components/common/loaders/LoadingLoader.styled'
 import { LoginContainer } from './components/containers/LoginContainer'
 import { AlertsContainer } from './components/containers/AlertsContainer'
 import { NavbarContainer } from './components/containers/NavbarContainer'
 import { FooterContainer } from './components/containers/FooterContainer'
-import { InitializationLoader } from './components/common/loaders/IniatializationLoader'
+import { HeaderContainer } from './components/containers/HeaderContainer'
 import { ProfileContainer } from './components/containers/ProfileContainer'
+import { LoadingLoader } from './components/common/loaders/LoadingLoader.styled'
+import { Notifications } from './components/layout/pages/notifications/Notifications'
+import { InitializationLoader } from './components/common/loaders/IniatializationLoader'
 
 type AppPropsType = {
   isLoggedIn: boolean
