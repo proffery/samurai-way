@@ -1,25 +1,25 @@
 import { memo, useEffect } from "react"
 import { connect } from "react-redux"
 import { compose } from "redux"
-import { FriendsType, getFriends } from '../../../redux/friends/friendsReducer'
-import { AppRootStateType } from "../../../redux/redux-store"
-import { FriendsBlock } from "./FriendsBlock"
+import { FriendsType, getFriends } from "../../redux/friends/friendsReducer"
+import { AppRootStateType } from "../../redux/redux-store"
+import { FriendsBlock } from "../blocks/friendsBlock/FriendsBlock"
 import { selectIsLoading } from 'redux/app/appSelectors'
-import { selectPossibleFriendsData } from 'redux/friends/friendsSelectors'
+import { selectFriendsData } from 'redux/friends/friendsSelectors'
 
-type PossibleFriendsBlockAPIPropsType = {
+type FriendsBlockAPIPropsType = {
     className?: string
     isLoading: boolean
     friendsData: FriendsType
     getFriends: (pageNumber: number, usersOnPage: number, isFriend: boolean) => void
 }
-export const PossibleFriendsBlockAPI: React.FC<PossibleFriendsBlockAPIPropsType> = memo((props) => {
+export const FriendsBlockAPI: React.FC<FriendsBlockAPIPropsType> = memo((props) => {
     const { totalUsersCount, usersOnPage } = props.friendsData
     const pagesCount = Math.ceil(totalUsersCount / usersOnPage)
     const randomPage = getRandomPage(1, pagesCount)
 
     useEffect(() => {
-        props.getFriends(randomPage, usersOnPage, false)
+        props.getFriends(randomPage, usersOnPage, true)
     }, [])
 
     function getRandomPage(min: number, max: number) {
@@ -28,35 +28,37 @@ export const PossibleFriendsBlockAPI: React.FC<PossibleFriendsBlockAPIPropsType>
         return Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled)
     }
     const refreshFriends = () => {
-        props.getFriends(randomPage, usersOnPage, false)
+        props.getFriends(randomPage, usersOnPage, true)
     }
     const onPageChangeHandler = (pageNumber: number) => {
-        props.getFriends(pageNumber, usersOnPage, false)
+        props.getFriends(pageNumber, usersOnPage, true)
     }
     return (
         <FriendsBlock
             className={props.className}
             isLoading={props.isLoading}
             friendsData={props.friendsData}
-            blockHeaderName={"Potential Friends"}
+            blockHeaderName={"Friends"}
             refreshFriends={refreshFriends}
             onPageChangeHandler={onPageChangeHandler}
         />
     )
 })
 
+
 type MapStatePropsType = {
     className?: string
     isLoading: boolean
     friendsData: FriendsType
 }
+
 const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
     return {
         isLoading: selectIsLoading(state),
-        friendsData: selectPossibleFriendsData(state),
+        friendsData: selectFriendsData(state),
     }
 }
 
-export const PossibleFriendsBlockContainer = compose(
+export const FriendsBlockContainer = compose(
     connect(mapStateToProps, { getFriends })
-)(PossibleFriendsBlockAPI)
+)(FriendsBlockAPI)

@@ -1,18 +1,18 @@
 import React, { memo } from "react"
 import styled from "styled-components"
-import { Button } from "../../micro/button/Button"
-import { Icon } from "../../micro/icon/Icon"
+import { Button } from "../../common/button/Button"
+import { Icon } from "../../common/icon/Icon"
 import { theme } from "../../../styles/Theme.styled"
 import { font } from "../../../styles/Font"
 import { NavLink } from "react-router-dom"
-import { BlockSection } from "../../micro/BlockSection.styled"
+import { BlockSection } from "../BlockSection.styled"
 import { ProfileStateType } from "../../../redux/profile/profileReducer"
 import { AuthStateType } from "../../../redux/auth/authReducer"
-import { EditableSpan } from "../../micro/editableSpan/EditableSpan"
+import { EditableSpan } from "../../common/editableSpan/EditableSpan"
 import { useFormik } from "formik"
 import { AlertType } from "../../../redux/app/appReducer"
-import { Avatar } from '../../micro/avatar/Avatar'
-import { FlexWrapper } from '../../micro/FlexWrapper.styled'
+import { Avatar } from '../../common/avatar/Avatar'
+import { FlexWrapper } from '../../common/FlexWrapper.styled'
 
 type HeaderBlockPropsType = {
     className?: string

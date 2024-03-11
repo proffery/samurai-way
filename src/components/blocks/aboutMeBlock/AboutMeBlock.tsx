@@ -6,11 +6,11 @@ import { AuthStateType } from "../../../redux/auth/authReducer"
 import { AboutProfileType, ProfileDataType } from "../../../redux/profile/profileReducer"
 import { font } from "../../../styles/Font"
 import { theme } from "../../../styles/Theme.styled"
-import { BlockHeader } from "../../micro/BlockHeader.styled"
-import { BlockSection } from "../../micro/BlockSection.styled"
-import { EditableSpan } from "../../micro/editableSpan/EditableSpan"
-import { Icon } from "../../micro/icon/Icon"
-import { Checkbox } from '../../micro/checkbox/Checkbox'
+import { BlockHeader } from "../BlockHeader.styled"
+import { BlockSection } from "../BlockSection.styled"
+import { EditableSpan } from "../../common/editableSpan/EditableSpan"
+import { Icon } from "../../common/icon/Icon"
+import { Checkbox } from '../../common/checkbox/Checkbox'
 
 type AboutMeBlockPropsType = {
     className?: string

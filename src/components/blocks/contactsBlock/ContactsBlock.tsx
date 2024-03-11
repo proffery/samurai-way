@@ -7,10 +7,10 @@ import { AuthStateType } from "../../../redux/auth/authReducer"
 import { ContactsIconsType, ProfileStateType } from "../../../redux/profile/profileReducer"
 import { font } from "../../../styles/Font"
 import { theme } from "../../../styles/Theme.styled"
-import { BlockHeader } from "../../micro/BlockHeader.styled"
-import { BlockSection } from "../../micro/BlockSection.styled"
-import { EditableSpan } from "../../micro/editableSpan/EditableSpan"
-import { Icon } from "../../micro/icon/Icon"
+import { BlockHeader } from "../BlockHeader.styled"
+import { BlockSection } from "../BlockSection.styled"
+import { EditableSpan } from "../../common/editableSpan/EditableSpan"
+import { Icon } from "../../common/icon/Icon"
 
 type ContactsBlockPropsType = {
     authStateData: AuthStateType

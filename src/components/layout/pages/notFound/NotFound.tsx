@@ -1,11 +1,11 @@
 import styled from "styled-components"
-import { BlockSection } from "../../../micro/BlockSection.styled"
-import { BlockHeader } from "../../../micro/BlockHeader.styled"
-import { FlexWrapper } from "../../../micro/FlexWrapper.styled"
-import { Button } from "../../../micro/button/Button"
+import { BlockSection } from "../../../blocks/BlockSection.styled"
+import { BlockHeader } from "../../../blocks/BlockHeader.styled"
+import { FlexWrapper } from "../../../common/FlexWrapper.styled"
+import { Button } from "../../../common/button/Button"
 import { useHistory } from "react-router-dom"
 import React, { memo } from "react"
-import {font} from '../../../../styles/Font'
+import { font } from '../../../../styles/Font'
 
 export const NotFound: React.FC = memo((props) => {
     const history = useHistory()
@@ -13,7 +13,7 @@ export const NotFound: React.FC = memo((props) => {
     const handleHome = () => {
         history.push("/")
     }
-    
+
     const handleBack = () => {
         history.goBack()
     }
@@ -56,5 +56,5 @@ const TextWrapper = styled.div`
 const StyledText = styled.p`
     width: 50%;
     text-align: left;
-    ${font({weight: 400, Fmin: 10, Fmax: 16})}
+    ${font({ weight: 400, Fmin: 10, Fmax: 16 })}
 `

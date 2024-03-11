@@ -1,7 +1,7 @@
 import { v1 } from "uuid"
-import { CleanReducerType, getAuthPhoto, setAuthUserData, setIsLoggedIn } from "../auth/authReducer"
-import { AppDispatchType, AppRootStateType } from "../redux-store"
 import { socialNetworkAPI } from '../../api/social-network-api'
+import { CleanReducerType, setAuthUserData, setIsLoggedIn } from "../auth/authReducer"
+import { AppDispatchType, AppRootStateType } from "../redux-store"
 
 //CONSTANTS
 const APP_SET_IS_LOADING = 'APP-SET-IS_LOADING'

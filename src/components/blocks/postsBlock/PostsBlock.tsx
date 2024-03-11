@@ -1,11 +1,11 @@
 import React, { ChangeEvent, MouseEvent, KeyboardEvent, useState, memo } from "react"
 import styled from "styled-components"
-import { Button } from "../../micro/button/Button"
-import { Input } from "../../micro/input/Input.styled"
-import { FlexWrapper } from "../../micro/FlexWrapper.styled"
+import { Button } from "../../common/button/Button"
+import { Input } from "../../common/input/Input.styled"
+import { FlexWrapper } from "../../common/FlexWrapper.styled"
 import { Post } from "./post/Post"
-import { BlockHeader } from "../../micro/BlockHeader.styled"
-import { BlockSection } from "../../micro/BlockSection.styled"
+import { BlockHeader } from "../BlockHeader.styled"
+import { BlockSection } from "../BlockSection.styled"
 import { ProfileStateType } from "../../../redux/profile/profileReducer"
 
 type PostsBlockPropsType = {

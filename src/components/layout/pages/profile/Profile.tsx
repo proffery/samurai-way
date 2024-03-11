@@ -7,11 +7,11 @@ import { AboutProfileType, ProfileStateType } from "../../../../redux/profile/pr
 import { theme } from "../../../../styles/Theme.styled"
 import { AboutMeBlock } from '../../../blocks/aboutMeBlock/AboutMeBlock'
 import { ContactsBlock } from "../../../blocks/contactsBlock/ContactsBlock"
-import { FriendsBlockContainer } from "../../../blocks/friendsBlock/FriendsBlockContainer"
-import { PossibleFriendsBlockContainer } from "../../../blocks/friendsBlock/PossibleFriendsBlockContainer"
+import { FriendsBlockContainer } from "../../../containers/FriendsBlockContainer"
+import { PossibleFriendsBlockContainer } from "../../../containers/PossibleFriendsBlockContainer"
 import { HeaderBlock } from "../../../blocks/headerBlock/HeaderBlock"
 import { PostsBlock } from "../../../blocks/postsBlock/PostsBlock"
-import { ToTop } from "../../../micro/toTop/ToTop"
+import { ToTop } from "../../../common/toTop/ToTop"
 
 type ProfilePropsType = {
     className?: string

@@ -1,7 +1,7 @@
 import { connect } from "react-redux"
-import { addMessage, onChangeMessage } from "../../../redux/messages/messagesReducer"
-import { MessagesBlock } from "./MessagesBlock"
-import { AppRootStateType } from "../../../redux/redux-store"
+import { addMessage, onChangeMessage } from "../../redux/messages/messagesReducer"
+import { MessagesBlock } from "../blocks/messagesBlock/MessagesBlock"
+import { AppRootStateType } from "../../redux/redux-store"
 import { compose } from "redux"
 import { selectMessages } from 'redux/messages/messagesSelectors'
 

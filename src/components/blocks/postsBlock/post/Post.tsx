@@ -1,10 +1,10 @@
 import styled from "styled-components"
 import { theme } from "../../../../styles/Theme.styled"
-import { Button } from "../../../micro/button/Button"
-import { FlexWrapper } from "../../../micro/FlexWrapper.styled"
+import { Button } from "../../../common/button/Button"
+import { FlexWrapper } from "../../../common/FlexWrapper.styled"
 import { font } from "../../../../styles/Font"
 import avatarImg from '../../../../assets/images/Author.webp'
-import { Icon } from "../../../micro/icon/Icon"
+import { Icon } from "../../../common/icon/Icon"
 import { PostStateType } from "../../../../redux/profile/profileReducer"
 import { memo } from 'react'
 

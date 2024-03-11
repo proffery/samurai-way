@@ -2,7 +2,7 @@ import { memo, useEffect } from "react"
 import { connect } from "react-redux"
 import { RouteComponentProps, withRouter } from "react-router-dom"
 import { compose } from "redux"
-import { Profile } from "./Profile"
+import { Profile } from "../layout/pages/profile/Profile"
 import { selectIsLoading } from 'redux/app/appSelectors'
 import { selectAuthData } from 'redux/auth/authSelectors'
 import { AuthStateType } from 'redux/auth/authReducer'

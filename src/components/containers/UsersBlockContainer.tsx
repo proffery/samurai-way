@@ -1,6 +1,6 @@
 
 import { connect } from "react-redux"
-import { UsersBlock } from "./UsersBlock"
+import { UsersBlock } from "../blocks/usersBlock/UsersBlock"
 import {
     getAllUsers, followUser, unfollowUser, getFollowedUsers,
     getUnfollowedUsers, UsersFilterType, changeUsersFilter,

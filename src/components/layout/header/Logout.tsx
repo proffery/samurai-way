@@ -1,9 +1,9 @@
 import styled from "styled-components"
 import { font } from "../../../styles/Font"
 import { theme } from "../../../styles/Theme.styled"
-import { Avatar } from '../../micro/avatar/Avatar'
-import { Button } from "../../micro/button/Button"
-import { FlexWrapper } from '../../micro/FlexWrapper.styled'
+import { Avatar } from '../../common/avatar/Avatar'
+import { Button } from "../../common/button/Button"
+import { FlexWrapper } from '../../common/FlexWrapper.styled'
 import { memo } from 'react'
 
 type LogoutPropsType = {

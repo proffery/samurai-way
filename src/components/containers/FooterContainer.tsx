@@ -1,7 +1,7 @@
 import { connect } from "react-redux"
-import { AppRootStateType } from "../../../redux/redux-store"
-import { IconLinksStateType } from "../../../redux/app/appReducer"
-import { Footer } from "./Footer"
+import { AppRootStateType } from "../../redux/redux-store"
+import { IconLinksStateType } from "../../redux/app/appReducer"
+import { Footer } from "../layout/footer/Footer"
 import { compose } from "redux"
 import { selectFooterLinks, selectMenuItems } from 'redux/app/appSelectors'
 import { selectIsloggedIn } from 'redux/auth/authSelectors'

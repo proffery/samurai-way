@@ -3,7 +3,7 @@ import { theme } from "../../../../styles/Theme.styled"
 import { font } from "../../../../styles/Font"
 import { NavLink } from "react-router-dom"
 import { UserResponseType } from "../../../../api/social-network-api"
-import { Avatar } from '../../../micro/avatar/Avatar'
+import { Avatar } from '../../../common/avatar/Avatar'
 import { memo } from 'react'
 
 type FriendPropsType = {

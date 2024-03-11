@@ -1,7 +1,7 @@
 import { connect } from "react-redux"
-import { Header } from "./Header"
-import { AppRootStateType } from "../../../redux/redux-store"
-import { AuthStateType, logOut } from "../../../redux/auth/authReducer"
+import { Header } from "../layout/header/Header"
+import { AppRootStateType } from "../../redux/redux-store"
+import { AuthStateType, logOut } from "../../redux/auth/authReducer"
 import { compose } from "redux"
 import { selectAuthData } from 'redux/auth/authSelectors'
 import { memo } from 'react'

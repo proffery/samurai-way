@@ -1,6 +1,6 @@
 import styled from "styled-components"
-import { Icon } from "../../../../components/micro/icon/Icon"
-import { Link } from "../../../../components/micro/link/Link.styled"
+import { Icon } from "../../../common/icon/Icon"
+import { Link } from "../../../common/link/Link.styled"
 import { theme } from "../../../../styles/Theme.styled"
 import { IconLinksStateType } from "../../../../redux/app/appReducer"
 import { memo } from 'react'

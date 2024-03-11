@@ -1,8 +1,9 @@
+import { FriendsBlockContainer } from 'components/containers/FriendsBlockContainer'
+import { MessagesBlockContainer } from 'components/containers/MessagesBlockContainer'
 import React, { memo } from "react"
 import styled from "styled-components"
-import { theme } from "../../../../styles/Theme.styled"
-import { MessagesBlockContainer } from "../../../blocks/messagesBlock/MessagesBlockContainer"
-import { FriendsBlockContainer } from "../../../blocks/friendsBlock/FriendsBlockContainer"
+import { theme } from 'styles/Theme.styled'
+
 
 type MessagesPropsType = {
 

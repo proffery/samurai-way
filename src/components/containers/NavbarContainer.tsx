@@ -1,7 +1,7 @@
 import { connect } from "react-redux"
-import { AppRootStateType } from "../../../redux/redux-store"
-import { IconLinksStateType, setAppNavbarCollapsed } from "../../../redux/app/appReducer"
-import { Navbar } from "./Navbar"
+import { AppRootStateType } from "../../redux/redux-store"
+import { IconLinksStateType, setAppNavbarCollapsed } from "../../redux/app/appReducer"
+import { Navbar } from "../layout/navbar/Navbar"
 import { selectMenuItems, selectNavbarCollapsed } from 'redux/app/appSelectors'
 import { memo } from 'react'
 

@@ -1,15 +1,15 @@
 import React, { memo } from "react"
-import { BlockSection } from "../../micro/BlockSection.styled"
+import { BlockSection } from "../../blocks/BlockSection.styled"
 import styled from "styled-components"
 import { theme } from "../../../styles/Theme.styled"
-import { BlockHeader } from "../../micro/BlockHeader.styled"
-import { Input } from "../../micro/input/Input.styled"
-import { FlexWrapper } from "../../micro/FlexWrapper.styled"
-import { Button } from "../../micro/button/Button"
+import { BlockHeader } from "../../blocks/BlockHeader.styled"
+import { Input } from "../../common/input/Input.styled"
+import { FlexWrapper } from "../../common/FlexWrapper.styled"
+import { Button } from "../../common/button/Button"
 import { useFormik } from "formik"
 import { AlertType } from "../../../redux/app/appReducer"
 import { LoginDataType } from "../../../api/social-network-api"
-import { Checkbox } from '../../micro/checkbox/Checkbox'
+import { Checkbox } from '../../common/checkbox/Checkbox'
 
 type LoginPagePropsType = {
     logIn: (loginData: LoginDataType) => void

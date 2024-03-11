@@ -2,12 +2,12 @@ import React, { memo } from "react"
 import styled from "styled-components"
 import { FriendsType } from '../../../redux/friends/friendsReducer'
 import { theme } from "../../../styles/Theme.styled"
-import { BlockHeader } from "../../micro/BlockHeader.styled"
-import { BlockSection } from "../../micro/BlockSection.styled"
-import { FlexWrapper } from "../../micro/FlexWrapper.styled"
-import { Button } from "../../micro/button/Button"
-import { Icon } from "../../micro/icon/Icon"
-import { Pagination } from '../../micro/pagination/Pagination'
+import { BlockHeader } from "../BlockHeader.styled"
+import { BlockSection } from "../BlockSection.styled"
+import { FlexWrapper } from "../../common/FlexWrapper.styled"
+import { Button } from "../../common/button/Button"
+import { Icon } from "../../common/icon/Icon"
+import { Pagination } from '../../common/pagination/Pagination'
 import { Friend } from "./friend/Friend"
 import { font } from '../../../styles/Font'
 

@@ -5,7 +5,7 @@ import { ThemeProvider } from 'styled-components'
 import { theme } from './styles/Theme.styled'
 import { Provider } from "react-redux"
 import { BrowserRouter as Router } from 'react-router-dom'
-import { AppContainer } from "./AppContainer"
+import { AppContainer } from "./components/containers/AppContainer"
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>

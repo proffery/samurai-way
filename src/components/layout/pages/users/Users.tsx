@@ -1,10 +1,10 @@
 import React, { memo } from "react"
-import { UsersBlockContainer } from "../../../blocks/usersBlock/UsersBlockContainer"
-import { FriendsBlockContainer } from "../../../blocks/friendsBlock/FriendsBlockContainer"
+import { UsersBlockContainer } from "../../../containers/UsersBlockContainer"
+import { FriendsBlockContainer } from "../../../containers/FriendsBlockContainer"
 import styled from "styled-components"
-import { FlexWrapper } from "../../../micro/FlexWrapper.styled"
-import { PossibleFriendsBlockContainer } from "../../../blocks/friendsBlock/PossibleFriendsBlockContainer"
-import { ToTop } from "../../../micro/toTop/ToTop"
+import { FlexWrapper } from "../../../common/FlexWrapper.styled"
+import { PossibleFriendsBlockContainer } from "../../../containers/PossibleFriendsBlockContainer"
+import { ToTop } from "../../../common/toTop/ToTop"
 import { theme } from "../../../../styles/Theme.styled"
 
 type UsersPropsType = {
@@ -19,7 +19,7 @@ export const Users: React.FC<UsersPropsType> = memo((props) => {
                 <FriendsBlockContainer />
                 <PossibleFriendsBlockContainer />
             </OtherBlocks>
-            <ToTop top_block_anchor_id="all-users"/>
+            <ToTop top_block_anchor_id="all-users" />
         </StyledUsers>
     )
 })

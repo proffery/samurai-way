@@ -6,14 +6,14 @@ import { Notifications } from "./components/layout/pages/notifications/Notificat
 import { Settings } from "./components/layout/pages/settings/Settings"
 import { NotFound } from './components/layout/pages/notFound/NotFound'
 import { theme } from './styles/Theme.styled'
-import { HeaderContainer } from './components/layout/header/HeaderContainer'
-import { LoadingLoader } from './components/micro/loaders/LoadingLoader.styled'
-import { LoginContainer } from './components/layout/login/LoginContainer'
-import { AlertsContainer } from './components/micro/alerts/AlertsContainer'
-import { NavbarContainer } from './components/layout/navbar/NavbarContainer'
-import { FooterContainer } from './components/layout/footer/FooterContainer'
-import { InitializationLoader } from './components/micro/loaders/IniatializationLoader'
-import { ProfileContainer } from './components/layout/pages/profile/ProfileContainer'
+import { HeaderContainer } from './components/containers/HeaderContainer'
+import { LoadingLoader } from './components/common/loaders/LoadingLoader.styled'
+import { LoginContainer } from './components/containers/LoginContainer'
+import { AlertsContainer } from './components/common/alerts/AlertsContainer'
+import { NavbarContainer } from './components/containers/NavbarContainer'
+import { FooterContainer } from './components/containers/FooterContainer'
+import { InitializationLoader } from './components/common/loaders/IniatializationLoader'
+import { ProfileContainer } from './components/containers/ProfileContainer'
 
 type AppPropsType = {
   isLoggedIn: boolean
@@ -28,7 +28,7 @@ function App(props: AppPropsType) {
     return (
       <LoginWrapper>
         {isLoading && <LoadingLoader />}
-        {!isInitialized && <InitializationLoader/>}
+        {!isInitialized && <InitializationLoader />}
         <AlertsContainer />
         <Switch>
           <Route path='/' exact render={() => <Redirect to={'/login'} />} />
@@ -43,7 +43,7 @@ function App(props: AppPropsType) {
   return (
     <Wrapper collapsed={navbarCollapsed.toString()}>
       {isLoading && <LoadingLoader />}
-      {!isInitialized && <InitializationLoader/>}
+      {!isInitialized && <InitializationLoader />}
       <AlertsContainer />
       <NavbarContainer />
       <HeaderContainer />
