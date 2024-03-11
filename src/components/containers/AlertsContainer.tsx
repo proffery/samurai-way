@@ -1,9 +1,9 @@
-import { connect } from "react-redux"
-import { compose } from "redux"
 import { memo } from 'react'
+import { compose } from "redux"
+import { connect } from "react-redux"
+import { AppRootStateType } from 'store/redux-store'
 import { Alerts } from 'components/common/alerts/Alerts'
 import { AlertObjectType, removeAppAlert } from 'store/app/appReducer'
-import { AppRootStateType } from 'store/redux-store'
 
 export const AlertsAPI: React.FC<AlertsAPIPropsTtype> = memo((props) => {
     return (

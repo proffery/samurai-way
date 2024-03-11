@@ -1,19 +1,19 @@
-import { UserResponseType, usersAPI } from 'api/social-network-api'
-import { addAppAlert, setAppIsLoading, SetAppIsLoadingActionType } from 'store/app/appReducer'
-import { CLEAN_REDUCER, CleanReducerType } from 'store/auth/authReducer'
 import { AppDispatchType } from 'store/redux-store'
+import { UserResponseType, usersAPI } from 'api/social-network-api'
+import { CLEAN_REDUCER, CleanReducerType } from 'store/auth/authReducer'
+import { addAppAlert, setAppIsLoading, SetAppIsLoadingActionType } from 'store/app/appReducer'
 
 
 //CONSTANTS
 const SET_FRIENDS = 'FRIENDS/SET-FRIENDS'
 const SET_FRIENDS_ON_PAGE = 'FRIENDS/SET-FRIENDS-ON-PAGE'
-const SET_CURRENT_FRIENDS_PAGE = 'FRIENDS/SET-CURRENT-FRIENDS--PAGE'
 const SET_TOTAL_FRIENDS_COUNT = 'FRIENDS/SET-TOTAL-FRIENDS-COUNT'
+const SET_CURRENT_FRIENDS_PAGE = 'FRIENDS/SET-CURRENT-FRIENDS--PAGE'
 
 const SET_POSSIBLE_FRIENDS = 'FRIENDS/SET-POSSIBLE-FRIENDS'
 const SET_POSSIBLE_FRIENDS_ON_PAGE = 'FRIENDS/SET-POSSIBLE-FRIENDS-ON-PAGE'
-const SET_POSSIBLE_FRIENDS_CURRENT_PAGE = 'FRIENDS/SET-POSSIBLE-FRIENDS-CURRENT-PAGE'
 const SET_TOTAL_POSSIBLE_FRIENDS_COUNT = 'FRIENDS/SET-TOTAL-POSSIBLE-FRIENDS-COUNT'
+const SET_POSSIBLE_FRIENDS_CURRENT_PAGE = 'FRIENDS/SET-POSSIBLE-FRIENDS-CURRENT-PAGE'
 
 //INITIAL STATE
 const initialState = {

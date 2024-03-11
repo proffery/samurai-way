@@ -1,13 +1,13 @@
 
-import { LoginDataType } from 'api/social-network-api'
-import { Login } from 'components/layout/login/Login'
 import { memo } from 'react'
-import { connect } from 'react-redux'
 import { compose } from 'redux'
-import { AlertType, addAppAlert } from 'store/app/appReducer'
+import { connect } from 'react-redux'
 import { login } from 'store/auth/authReducer'
-import { selectIsloggedIn } from 'store/auth/authSelectors'
 import { AppRootStateType } from 'store/redux-store'
+import { Login } from 'components/layout/login/Login'
+import { LoginDataType } from 'api/social-network-api'
+import { selectIsloggedIn } from 'store/auth/authSelectors'
+import { AlertType, addAppAlert } from 'store/app/appReducer'
 
 export const LoginAPI: React.FC<LoginAPIPropsTtype> = memo((props) => {
     return (

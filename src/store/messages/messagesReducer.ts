@@ -118,7 +118,7 @@ export type DialogType = {
     second_name: string
 }
 export type MessagesPageStateType = {
-    messages: MessageType[]
     dialogs: DialogType[]
+    messages: MessageType[]
     newMessageForm: string
 }

@@ -55,58 +55,58 @@ export const authAPI = {
 
 //ENUM
 export const ResultCode = {
-    success: 0,
     error: 1,
+    success: 0,
     captcha: 10
 } as const
 
 //TYPES
 export type UserResponseType = {
     id: number
-    followed: boolean
     name: string
+    status: string
+    followed: boolean
+    uniqueUrlName: string
     photos: {
         small: string,
         large: string
     }
-    status: string
-    uniqueUrlName: string
 }
 type GetUsersResponseType = {
-    items: UserResponseType[]
     error: number
     totalCount: number
+    items: UserResponseType[]
 }
 export type ResponseType<D = {}> = {
-    resultCode: number
-    messages: string[],
     data: D
+    resultCode: number
+    messages: string[]
 }
 export type GetProfileResponseContactsType = {
-    facebook: string
-    website: string
     vk: string
-    twitter: string
-    instagram: string
-    youtube: string
     github: string
+    website: string
+    twitter: string
+    youtube: string
+    facebook: string
     mainLink: string
+    instagram: string
 }
 export type GetProfileResponseType = {
+    userId: number
     aboutMe: string
-    contacts: GetProfileResponseContactsType,
+    fullName: string
     lookingForAJob: boolean
     lookingForAJobDescription: string
-    fullName: string
-    userId: number
+    contacts: GetProfileResponseContactsType,
     photos: {
         small: string
         large: string
     }
 }
 export type GetMeDataType = {
-    id: number,
-    email: string,
+    id: number
+    email: string
     login: string
 }
 export type LoginDataType = {
@@ -115,9 +115,9 @@ export type LoginDataType = {
     remember: boolean
 }
 export type ChangeProfileDataType = {
-    contacts: GetProfileResponseContactsType,
+    aboutMe: string
+    fullName: string
     lookingForAJob: boolean
     lookingForAJobDescription: string
-    fullName: string
-    aboutMe: string
+    contacts: GetProfileResponseContactsType
 }

@@ -1,16 +1,16 @@
 
+import { compose } from "redux"
 import { connect } from "react-redux"
+import { memo, useEffect } from "react"
+import { AppRootStateType } from 'store/redux-store'
+import { selectIsLoading } from 'store/app/appSelectors'
+import { selectUsersData } from 'store/users/usersSelectors'
 import { UsersBlock } from "../blocks/usersBlock/UsersBlock"
 import {
     getAllUsers, followUser, unfollowUser, getFollowedUsers,
     getUnfollowedUsers, UsersFilterType, changeUsersFilter,
     UsersStateType
 } from 'store/users/usersReducer'
-import { memo, useEffect } from "react"
-import { compose } from "redux"
-import { selectUsersData } from 'store/users/usersSelectors'
-import { selectIsLoading } from 'store/app/appSelectors'
-import { AppRootStateType } from 'store/redux-store'
 
 const UsersBlockAPI: React.FC<UsersBlockAPIPropsType> = memo((props) => {
     const { usersFilter, usersOnPage } = props.usersData
@@ -80,12 +80,12 @@ export const UsersBlockContainer = compose(
 
 //TYPES
 type UsersBlockAPIPropsType = {
-    usersData: UsersStateType
     appIsLoading: boolean
+    usersData: UsersStateType
     followUser: (userId: number) => void
     unfollowUser: (userId: number) => void
+    changeUsersFilter: (filter: UsersFilterType) => void
     getAllUsers: (currentPage: number, usersOnPage: number) => void
     getFollowedUsers: (currentPage: number, usersOnPage: number) => void
     getUnfollowedUsers: (currentPage: number, usersOnPage: number) => void
-    changeUsersFilter: (filter: UsersFilterType) => void
 }

@@ -1,24 +1,24 @@
+import { AppDispatchType } from 'store/redux-store'
+import { CLEAN_REDUCER, CleanReducerType } from 'store/auth/authReducer'
 import { UserResponseType, ResultCode, usersAPI } from 'api/social-network-api'
 import { setAppIsLoading, addAppAlert, SetAppIsLoadingActionType, AddAlertActionType } from 'store/app/appReducer'
-import { CLEAN_REDUCER, CleanReducerType } from 'store/auth/authReducer'
-import { AppDispatchType } from 'store/redux-store'
 
 //CONSTANTS
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET-USERS'
-const SET_USERS_ON_PAGE = 'SET-USERS-ON-PAGE'
 const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE'
-const SET_TOTAL_USERS_COUNT = 'SET-TOTAL-USERS-COUNT'
+const SET_USERS_ON_PAGE = 'SET-USERS-ON-PAGE'
 const CHANGE_USERS_FILTER = 'CHANGE-USERS-FILTER'
+const SET_TOTAL_USERS_COUNT = 'SET-TOTAL-USERS-COUNT'
 const CHANGE_USER_IS_LOADING = 'CHANGE-USER-IS-LOADING'
 
 //INITIAL STATE
 const initialState = {
-    users: [] as UserStateType[],
+    currentPage: 1,
     usersOnPage: 15,
     totalUsersCount: 0,
-    currentPage: 1,
+    users: [] as UserStateType[],
     usersFilter: 'all' as UsersFilterType
 }
 
@@ -166,8 +166,6 @@ export const unfollowUser = (userId: number) => (dispatch: AppDispatchType) => {
 
 //TYPES
 export type UsersReducerActionsType =
-    | FollowUserActionType
-    | UnfollowUserActionType
     | ReturnType<typeof setUsers>
     | ReturnType<typeof setCurrentPage>
     | ReturnType<typeof setUsersOnPage>
@@ -175,6 +173,8 @@ export type UsersReducerActionsType =
     | ReturnType<typeof changeUsersFilter>
     | ReturnType<typeof changeUserIsLoading>
     | SetAppIsLoadingActionType
+    | UnfollowUserActionType
+    | FollowUserActionType
     | AddAlertActionType
     | CleanReducerType
 export type FollowUserActionType = ReturnType<typeof setFollowUser>

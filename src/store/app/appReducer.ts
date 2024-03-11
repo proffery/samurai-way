@@ -1,16 +1,16 @@
-import { authAPI, ResultCode } from 'api/social-network-api'
-import { setAuthUserData, setIsLoggedIn, CleanReducerType } from 'store/auth/authReducer'
-import { AppDispatchType, AppRootStateType } from 'store/redux-store'
 import { v1 } from 'uuid'
+import { authAPI, ResultCode } from 'api/social-network-api'
+import { AppDispatchType, AppRootStateType } from 'store/redux-store'
+import { setAuthUserData, setIsLoggedIn, CleanReducerType } from 'store/auth/authReducer'
 
 
 
 //CONSTANTS
-const APP_SET_IS_LOADING = 'APP-SET-IS_LOADING'
 const APP_ADD_ALERT = 'APP-ADD-ALERT'
 const APP_REMOVE_ALERT = 'APP-REMOVE-ALERT'
-const APP_SET_NAVBAR_COLLAPSED = 'APP-SET-NAVBAR-COLLAPSED'
+const APP_SET_IS_LOADING = 'APP-SET-IS_LOADING'
 const APP_SET_IS_INITIALIZED = 'APP-SET-IS_INITIALIZED'
+const APP_SET_NAVBAR_COLLAPSED = 'APP-SET-NAVBAR-COLLAPSED'
 
 //INITIAL STATE
 const initialState = {
@@ -172,15 +172,15 @@ export const addAppAlert = (type: AlertType, message: string) =>
 //TYPES
 export type AddAlertActionType = ReturnType<typeof setAppAlert>
 export type RemoveAlertActionType = ReturnType<typeof removeAppAlert>
-export type SetNavbarCollapsedActionType = ReturnType<typeof setAppNavbarCollapsed>
 export type SetAppIsLoadingActionType = ReturnType<typeof setAppIsLoading>
 export type SetAppIsInitializedType = ReturnType<typeof setAppIsInitialized>
+export type SetNavbarCollapsedActionType = ReturnType<typeof setAppNavbarCollapsed>
 type AppActionsType =
-    | SetAppIsLoadingActionType
-    | AddAlertActionType
-    | RemoveAlertActionType
     | SetNavbarCollapsedActionType
+    | SetAppIsLoadingActionType
     | SetAppIsInitializedType
+    | RemoveAlertActionType
+    | AddAlertActionType
     | CleanReducerType
 export type IconLinksStateType = {
     id: number

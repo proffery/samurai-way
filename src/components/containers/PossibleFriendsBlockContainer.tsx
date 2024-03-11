@@ -1,12 +1,15 @@
-import { UserResponseType } from 'api/social-network-api'
-import { FriendsBlock } from 'components/blocks/friendsBlock/FriendsBlock'
-import { memo, useEffect } from "react"
-import { connect } from 'react-redux'
 import { compose } from 'redux'
-import { selectIsLoading } from 'store/app/appSelectors'
-import { getFriends } from 'store/friends/friendsReducer'
-import { selectPossibleFriends, selectPossibleFriendsCurrentPage, selectPossibleFriendsOnPage, selectTotalPossibleFriendsCount } from 'store/friends/friendsSelectors'
+import { connect } from 'react-redux'
+import { memo, useEffect } from "react"
 import { AppRootStateType } from 'store/redux-store'
+import { selectIsLoading } from 'store/app/appSelectors'
+import { UserResponseType } from 'api/social-network-api'
+import { getFriends } from 'store/friends/friendsReducer'
+import { FriendsBlock } from 'components/blocks/friendsBlock/FriendsBlock'
+import {
+    selectPossibleFriends, selectPossibleFriendsCurrentPage, selectPossibleFriendsOnPage,
+    selectTotalPossibleFriendsCount
+} from 'store/friends/friendsSelectors'
 
 export const PossibleFriendsBlockAPI: React.FC<PossibleFriendsBlockAPIPropsType> = memo((props) => {
     const { totalUsersCount, usersOnPage, friends, currentPage, isLoading } = props
@@ -30,12 +33,12 @@ export const PossibleFriendsBlockAPI: React.FC<PossibleFriendsBlockAPIPropsType>
     }
     return (
         <FriendsBlock
-            className={props.className}
-            isLoading={isLoading}
             users={friends}
-            currentPage={currentPage}
-            totalUsersCount={totalUsersCount}
+            isLoading={isLoading}
             usersOnPage={usersOnPage}
+            currentPage={currentPage}
+            className={props.className}
+            totalUsersCount={totalUsersCount}
             blockHeaderName={"Potential Friends"}
             refreshFriends={refreshFriends}
             onPageChangeHandler={onPageChangeHandler}
@@ -48,8 +51,8 @@ const mapStateToProps = (state: AppRootStateType) => {
         isLoading: selectIsLoading(state),
         friends: selectPossibleFriends(state),
         usersOnPage: selectPossibleFriendsOnPage(state),
-        totalUsersCount: selectTotalPossibleFriendsCount(state),
         currentPage: selectPossibleFriendsCurrentPage(state),
+        totalUsersCount: selectTotalPossibleFriendsCount(state),
     }
 }
 
@@ -59,11 +62,11 @@ export const PossibleFriendsBlockContainer = compose(
 
 //TYPES
 type PossibleFriendsBlockAPIPropsType = {
-    className?: string
     isLoading: boolean
-    friends: UserResponseType[]
+    className?: string
+    currentPage: number
     usersOnPage: number
     totalUsersCount: number
-    currentPage: number
+    friends: UserResponseType[]
     getFriends: (pageNumber: number, usersOnPage: number, isFriend: boolean) => void
 }

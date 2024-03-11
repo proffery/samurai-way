@@ -1,22 +1,21 @@
-import { GetProfileResponseContactsType } from 'api/social-network-api'
-import { Profile } from 'components/layout/pages/profile/Profile'
-import { memo, useEffect } from "react"
-import { connect } from "react-redux"
-import { RouteComponentProps, withRouter } from "react-router-dom"
-import { compose } from "redux"
-import { AlertType, addAppAlert } from 'store/app/appReducer'
-import { selectIsLoading } from 'store/app/appSelectors'
+import { compose } from 'redux'
+import { connect } from 'react-redux'
+import { memo, useEffect } from 'react'
+import { AppRootStateType } from 'store/redux-store'
 import { AuthStateType } from 'store/auth/authReducer'
+import { selectIsLoading } from 'store/app/appSelectors'
 import { selectAuthData } from 'store/auth/authSelectors'
+import { AlertType, addAppAlert } from 'store/app/appReducer'
+import { Profile } from 'components/layout/pages/profile/Profile'
+import { selectProfileData } from 'store/profile/profileSelectors'
+import { RouteComponentProps, withRouter } from 'react-router-dom'
+import { GetProfileResponseContactsType } from 'api/social-network-api'
 import {
     ChangeAboutProfileType, ProfileStateType, addPost,
     changeProfileAbout, changeProfileContacts,
     changeProfileStatus, followProfile, getProfileData,
     postOnChange, unfollowProfile
 } from 'store/profile/profileReducer'
-import { selectProfileData } from 'store/profile/profileSelectors'
-import { AppRootStateType } from 'store/redux-store'
-
 
 const ProfileAPI: React.FC<ProfileAPIPropsType> = memo((props) => {
     const { id: authId } = props.authData
@@ -28,24 +27,24 @@ const ProfileAPI: React.FC<ProfileAPIPropsType> = memo((props) => {
 
     return <Profile
         authStateData={props.authData}
-        profileStateData={props.profileData}
         appIsLoading={props.appIsLoading}
+        profileStateData={props.profileData}
         addPost={props.addPost}
-        followProfile={props.followProfile}
+        addAppAlert={props.addAppAlert}
         postOnChange={props.postOnChange}
+        followProfile={props.followProfile}
         unfollowProfile={props.unfollowProfile}
+        changeProfileAbout={props.changeProfileAbout}
         changeProfileStatus={props.changeProfileStatus}
         changeProfileContacts={props.changeProfileContacts}
-        changeProfileAbout={props.changeProfileAbout}
-        addAppAlert={props.addAppAlert}
     />
 })
 
 const mapStateToProps = (state: AppRootStateType) => {
     return {
         authData: selectAuthData(state),
+        appIsLoading: selectIsLoading(state),
         profileData: selectProfileData(state),
-        appIsLoading: selectIsLoading(state)
     }
 }
 
@@ -58,21 +57,20 @@ export const ProfileContainer = compose(
         })
 )(withRouter(ProfileAPI))
 
-
 //TYPES
 type ConnectPropsType = {
+    appIsLoading: boolean
     authData: AuthStateType
     profileData: ProfileStateType
-    appIsLoading: boolean
     addPost: () => void
-    followProfile: (userId: number) => void
-    unfollowProfile: (userId: number) => void
     postOnChange: (newPost: string) => void
+    followProfile: (userId: number) => void
     getProfileData: (iserId: number) => void
+    unfollowProfile: (userId: number) => void
     changeProfileStatus: (newStatus: string) => void
     addAppAlert: (type: AlertType, message: string) => void
-    changeProfileContacts: (contacts: GetProfileResponseContactsType) => void
     changeProfileAbout: (about: ChangeAboutProfileType) => void
+    changeProfileContacts: (contacts: GetProfileResponseContactsType) => void
 }
 type PathParamType = {
     userId: string

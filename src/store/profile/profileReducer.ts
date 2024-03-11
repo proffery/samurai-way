@@ -296,15 +296,15 @@ export const changeProfileAbout = (about: ChangeAboutProfileType) =>
 //TYPES
 export type ProfileReducerActionsType =
     | ReturnType<typeof setPost>
+    | ReturnType<typeof setStatus>
     | ReturnType<typeof updatePost>
     | ReturnType<typeof postOnChange>
     | ReturnType<typeof setProfileData>
     | ReturnType<typeof setFollowStatus>
-    | ReturnType<typeof setStatus>
     | SetAppIsLoadingActionType
-    | AddAlertActionType
-    | FollowUserActionType
     | UnfollowUserActionType
+    | FollowUserActionType
+    | AddAlertActionType
     | CleanReducerType
 
 export type PostStateType = {
@@ -317,18 +317,16 @@ export interface ProfileDataType extends GetProfileResponseType {
     isFollow: boolean
     status: string
 }
-export type ContactsIconsType = typeof initialState.contactsIcons
-
 export type ProfileStateType = {
     posts: PostStateType[]
     newPostForm: string
     data: ProfileDataType
     contactsIcons: typeof initialState.contactsIcons
 }
-
 export type ChangeAboutProfileType = {
     aboutMe: string
+    fullName: string
     lookingForAJob: boolean
     lookingForAJobDescription: string
-    fullName: string
-} 
+}
+export type ContactsIconsType = typeof initialState.contactsIcons
