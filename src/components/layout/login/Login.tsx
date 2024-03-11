@@ -96,7 +96,9 @@ export const Login: React.FC<LoginPagePropsType> = memo((props) => {
                         />
                     </FlexWrapper>
                     <FlexWrapper justify={'center'}>
-                        <Button variant={'primary'}
+                        <Button
+                            ariaLabel={'Submit button'}
+                            variant={'primary'}
                             type={'submit'}
                             disabled={!!formik.errors.email || !!formik.errors.password}>Sign in</Button>
                     </FlexWrapper>

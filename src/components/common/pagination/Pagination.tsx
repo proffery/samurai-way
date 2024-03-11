@@ -89,6 +89,7 @@ export const Pagination: React.FC<PaginationPropsType> = memo((props) => {
             <FlexWrapper justify='center'>
                 {rangesCount > pagesNumber &&
                     <Button
+                        ariaLabel={'Change pages range - button'}
                         variant={'link'}
                         disabled={props.appIsLoading}
                         onClick={pagesRangeDec}
@@ -99,6 +100,7 @@ export const Pagination: React.FC<PaginationPropsType> = memo((props) => {
                         .filter((el, index) => (index >= minPageIndex && index < maxPageIndex))
                         .map(el =>
                             <Button
+                                ariaLabel={'Go to page button'}
                                 key={el}
                                 className={props.className}
                                 variant={'link'}
@@ -111,6 +113,7 @@ export const Pagination: React.FC<PaginationPropsType> = memo((props) => {
                 </FlexWrapper>
                 {rangesCount > pagesNumber &&
                     <Button variant={'link'}
+                        ariaLabel={'Change pages range + button'}
                         disabled={appIsLoading}
                         onClick={pagesRangeInc}
                     ><Icon iconId="rightArrow" viewBox="15 3 24 24" /></Button>
@@ -141,6 +144,7 @@ export const Pagination: React.FC<PaginationPropsType> = memo((props) => {
                 }
                 {rangesCount > pagesNumber &&
                     <Button
+                        ariaLabel={'Show pages input button'}
                         variant='link'
                         onClick={showInputHandler}
                     ><Icon iconId='dots' /></Button>}

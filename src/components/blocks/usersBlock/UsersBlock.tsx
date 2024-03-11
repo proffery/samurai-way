@@ -51,18 +51,21 @@ export const UsersBlock: React.FC<UsersBlockPropsType> = memo((props) => {
             <BlockHeader>Users</BlockHeader>
             <FlexWrapper justify="center" gap="20px">
                 <Button
+                    ariaLabel={'All filter button'}
                     variant={'link'}
                     isActive={usersFilter === 'all'}
                     disabled={props.appIsLoading}
                     onClick={onAllFilterChangeHandler}
                 >{'All'}</Button>
                 <Button
+                    ariaLabel={'Followed filter button'}
                     variant={'link'}
                     isActive={usersFilter === 'followed'}
                     disabled={props.appIsLoading}
                     onClick={onFriendsFilterChangeHandler}
                 >{'Followed'}</Button>
                 <Button
+                    ariaLabel={'Unfollowed filter button'}
                     variant={'link'}
                     isActive={usersFilter === 'unfollowed'}
                     disabled={props.appIsLoading}

@@ -46,6 +46,7 @@ export const FriendsBlock: React.FC<FriendsBlockPropsType> = memo((props) => {
                     onClick={props.refreshFriends}
                     variant={'link'}
                     className={props.className}
+                    ariaLabel={'Refresh button'}
                 >
                     <Icon iconId={'refresh'} viewBox='0 -6 32 32' />
                 </RefreshButton>

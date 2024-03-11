@@ -9,6 +9,7 @@ type ButtonPropsType = {
     isActive?: boolean
     disabled?: boolean
     onClick?: (e: MouseEvent<HTMLButtonElement> ) => void
+    ariaLabel: string 
 }
 
 export const Button: React.FC<ButtonPropsType &
@@ -25,6 +26,7 @@ export const Button: React.FC<ButtonPropsType &
                 className={props.className}
                 active={props.isActive?.toString() || 'false'}
                 disabled={props.disabled || false}
+                aria-label={props.ariaLabel}
             >{props.children}</StyledButton>
         )
     })

@@ -66,6 +66,7 @@ export const MessagesBlock: React.FC<MessagesBlockPropsType> = memo((props) => {
                         variant={'primary'}
                         onClick={addMessageOnClickHandler}
                         disabled={!!error}
+                        ariaLabel={'Submit button'}
                     >{'Send'}</Button>
                 </FlexWrapper>
             </Form>

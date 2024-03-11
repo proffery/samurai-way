@@ -72,6 +72,7 @@ export const PostsBlock: React.FC<PostsBlockPropsType> = memo((props) => {
                         variant={'primary'}
                         disabled={!!error}
                         onClick={addPostOnClickHandler}
+                        ariaLabel={'Submit button'}
                     >{'Send'}</Button>
                 </FlexWrapper>
             </Form>

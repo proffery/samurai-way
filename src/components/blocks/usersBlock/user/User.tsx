@@ -34,6 +34,7 @@ export const User: React.FC<UserPropsType> = memo((props) => {
             </UserInfo>
             <ButtonContainer>
                 <Button
+                    ariaLabel={'Follow/Unfollow button'}
                     variant={followed ? 'primary' : 'outlined'}
                     onClick={userOnClickFollowHandler}
                     disabled={isLoading}

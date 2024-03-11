@@ -32,7 +32,12 @@ export const Post: React.FC<PostPropsType> = memo((props) => {
                         <PostDate>15mins ago</PostDate>
                     </FlexWrapper>
                 </AuthorInfo>
-                <MoreButton variant="link" name={'...'} onClick={moreButtonOnClickHandler} />
+                <MoreButton
+                    variant={"link"}
+                    name={'...'}
+                    onClick={moreButtonOnClickHandler}
+                    ariaLabel={'Go to page open/close button'}
+                />
             </Author>
             <Picture>
 
@@ -42,14 +47,18 @@ export const Post: React.FC<PostPropsType> = memo((props) => {
             </Message>
             <PostActivites>
                 <FlexWrapper align="center">
-                    <Button onClick={likesButtonOnClickHandler}
+                    <Button
+                        ariaLabel={'Like button'}
+                        onClick={likesButtonOnClickHandler}
                         variant="link"
                     ><Icon iconId="likes" viewBox="0 0 28 28" width="100%" height="100%" /></Button>
                     <AuthorName>{props.postData.likeCount}</AuthorName>
                 </FlexWrapper>
                 <FlexWrapper align="center">
-                    <Button onClick={commentsButtonOnClickHandler}
+                    <Button
+                        onClick={commentsButtonOnClickHandler}
                         variant="link"
+                        ariaLabel={'Comments button'}
                     ><Icon iconId="comments" viewBox="0 0 28 28" width="100%" height="100%" /></Button>
                     <AuthorName>{props.postData.commentsCount}</AuthorName>
                 </FlexWrapper>

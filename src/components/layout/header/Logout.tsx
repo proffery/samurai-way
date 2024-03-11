@@ -29,7 +29,11 @@ export const Logout: React.FC<LogoutPropsType> = memo((props) => {
             </TextContainer>
             <AvatarContainer direction={'column'} gap='5px'>
                 <Avatar avatarURL={photoUrl} />
-                <LogoutButton variant={'link'} onClick={logOutHandeler}>Log out</LogoutButton>
+                <LogoutButton
+                    ariaLabel={'Log Out button'}
+                    variant={'link'}
+                    onClick={logOutHandeler}
+                >Log out</LogoutButton>
             </AvatarContainer>
         </StyledLogout>
     )

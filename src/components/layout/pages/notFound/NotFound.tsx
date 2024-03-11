@@ -26,8 +26,16 @@ export const NotFound: React.FC = memo((props) => {
                     <h3>Page Not Found</h3>
                     <StyledText>The page you are looking for doesn't exist. Here are some helpful links:</StyledText>
                     <FlexWrapper gap="min(30px, 2vw)" wrap={'wrap'} justify={'center'}>
-                        <Button variant={'outlined'} onClick={handleBack}>← Back</Button>
-                        <Button variant={'primary'} onClick={handleHome}>Go home</Button>
+                        <Button
+                            ariaLabel={'Go back button'}
+                            variant={'outlined'}
+                            onClick={handleBack}
+                        >← Back</Button>
+                        <Button
+                            ariaLabel={'Go home button'}
+                            variant={'primary'}
+                            onClick={handleHome}
+                        >Go home</Button>
                     </FlexWrapper>
                 </TextWrapper>
             </StyledBlockSection>

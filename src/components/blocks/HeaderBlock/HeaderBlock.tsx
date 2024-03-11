@@ -88,7 +88,9 @@ export const HeaderBlock: React.FC<HeaderBlockPropsType> = memo((props) => {
                         <MessagesButton
                             to={`/messages/${userId}`}
                         ><Icon iconId={'messages'} viewBox="-2 -3 24 24" height={'50%'} width={'50%'} /></MessagesButton>
-                        <Button variant={isFollow ? 'primary' : 'outlined'}
+                        <Button
+                            ariaLabel={'Follow/Unfollow button'}
+                            variant={isFollow ? 'primary' : 'outlined'}
                             onClick={followOnClickHandler}
                             disabled={props.appIsLoading}
                         >{isFollow ? 'Unfollow' : 'Follow'}</Button>
