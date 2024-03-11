@@ -9,7 +9,7 @@ import { PossibleFriendsBlockContainer } from 'components/containers/PossibleFri
 import React, { memo } from "react"
 import { AlertType } from 'store/app/appReducer'
 import { AuthStateType } from 'store/auth/authReducer'
-import { ProfileStateType, AboutProfileType } from 'store/profile/profileReducer'
+import { ProfileStateType, ChangeAboutProfileType } from 'store/profile/profileReducer'
 import styled from "styled-components"
 import { theme } from 'styles/Theme.styled'
 
@@ -24,7 +24,7 @@ type ProfilePropsType = {
     postOnChange: (newPost: string) => void
     changeProfileStatus: (newStatus: string) => void
     changeProfileContacts: (contacts: GetProfileResponseContactsType) => void
-    changeProfileAbout: (about: AboutProfileType) => void
+    changeProfileAbout: (about: ChangeAboutProfileType) => void
     addAppAlert: (type: AlertType, message: string) => void
 }
 

@@ -3,7 +3,6 @@ import { setAppIsLoading, addAppAlert, SetAppIsLoadingActionType, AddAlertAction
 import { CLEAN_REDUCER, CleanReducerType } from 'store/auth/authReducer'
 import { AppDispatchType } from 'store/redux-store'
 
-
 //CONSTANTS
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
@@ -15,12 +14,12 @@ const CHANGE_USERS_FILTER = 'CHANGE-USERS-FILTER'
 const CHANGE_USER_IS_LOADING = 'CHANGE-USER-IS-LOADING'
 
 //INITIAL STATE
-const initialState: UsersStateType = {
-    users: [],
+const initialState = {
+    users: [] as UserStateType[],
     usersOnPage: 15,
     totalUsersCount: 0,
     currentPage: 1,
-    usersFilter: 'all'
+    usersFilter: 'all' as UsersFilterType
 }
 
 //REDUCER
@@ -183,11 +182,5 @@ export type UnfollowUserActionType = ReturnType<typeof setUnfollowUser>
 export interface UserStateType extends UserResponseType {
     isLoading: boolean
 }
-export type UsersStateType = {
-    users: UserStateType[]
-    usersOnPage: number
-    totalUsersCount: number
-    currentPage: number
-    usersFilter: UsersFilterType
-}
+export type UsersStateType = typeof initialState
 export type UsersFilterType = 'all' | 'followed' | 'unfollowed'

@@ -30,6 +30,7 @@ export const HeaderContainer = compose(
 )(HeaderAPI)
 
 //TYPES
+
 type HeaderAPIPropsTtype = {
     authData: AuthStateType
     logout: () => void

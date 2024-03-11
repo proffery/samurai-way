@@ -13,7 +13,7 @@ const APP_SET_NAVBAR_COLLAPSED = 'APP-SET-NAVBAR-COLLAPSED'
 const APP_SET_IS_INITIALIZED = 'APP-SET-IS_INITIALIZED'
 
 //INITIAL STATE
-const initialState: AppStateType = {
+const initialState = {
     footerLinks: [
         {
             id: 1,
@@ -57,7 +57,7 @@ const initialState: AppStateType = {
             icon_id: "rss",
             viewBox: "0 0 24 24",
         },
-    ],
+    ] as IconLinksStateType[],
     menuItems: [
         {
             id: 1,
@@ -94,15 +94,15 @@ const initialState: AppStateType = {
             icon_id: "settings",
             viewBox: "-2 -2 30 30",
         }
-    ],
-    isLoading: false,
-    navbarCollapsed: true,
-    alerts: [],
-    isInitialized: false,
+    ] as IconLinksStateType[],
+    isLoading: false as boolean,
+    navbarCollapsed: true as boolean,
+    alerts: [] as AlertObjectType[],
+    isInitialized: false as boolean,
 }
 
 //REDUCER
-export const appReducer = (state: AppStateType = initialState, action: AppActionsType): AppStateType => {
+export const appReducer = (state: typeof initialState = initialState, action: AppActionsType): typeof initialState => {
     switch (action.type) {
         case APP_SET_IS_LOADING:
             return { ...state, isLoading: action.payload.isLoading }
@@ -194,12 +194,4 @@ export type AlertObjectType = {
     id: string
     type: AlertType
     message: string
-}
-export type AppStateType = {
-    footerLinks: IconLinksStateType[]
-    menuItems: IconLinksStateType[]
-    isLoading: boolean
-    navbarCollapsed: boolean
-    alerts: AlertObjectType[]
-    isInitialized: boolean
 }

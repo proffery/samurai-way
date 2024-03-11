@@ -1,3 +1,4 @@
+import { UserResponseType } from 'api/social-network-api'
 import { BlockHeader } from 'components/blocks/BlockHeader.styled'
 import { BlockSection } from 'components/blocks/BlockSection.styled'
 import { Friend } from 'components/blocks/friendsBlock/friend/Friend'
@@ -6,7 +7,6 @@ import { Button } from 'components/common/button/Button'
 import { Icon } from 'components/common/icon/Icon'
 import { Pagination } from 'components/common/pagination/Pagination'
 import { memo } from 'react'
-import { FriendsType } from 'store/friends/friendsReducer'
 import styled from 'styled-components'
 import { font } from 'styles/Font'
 import { theme } from 'styles/Theme.styled'
@@ -16,14 +16,17 @@ import { theme } from 'styles/Theme.styled'
 type FriendsBlockPropsType = {
     className?: string
     isLoading: boolean
-    friendsData: FriendsType
+    users: UserResponseType[]
+    usersOnPage: number
+    totalUsersCount: number
+    currentPage: number
     blockHeaderName: string
     refreshFriends: () => void
     onPageChangeHandler: (pageNumber: number) => void
 }
 
 export const FriendsBlock: React.FC<FriendsBlockPropsType> = memo((props) => {
-    const { users, currentPage, totalUsersCount, usersOnPage } = props.friendsData
+    const { users, currentPage, totalUsersCount, usersOnPage } = props
     const { isLoading, onPageChangeHandler } = props
     const friendsList = () => {
         return (

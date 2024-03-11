@@ -18,13 +18,13 @@ const SET_TOTAL_POSSIBLE_FRIENDS_COUNT = 'FRIENDS/SET-TOTAL-POSSIBLE-FRIENDS-COU
 //INITIAL STATE
 const initialState = {
     friends: {
-        users: [],
+        users: [] as UserResponseType[],
         usersOnPage: 5,
         totalUsersCount: 0,
         currentPage: 1,
     },
     possibleFriends: {
-        users: [],
+        users: [] as UserResponseType[],
         usersOnPage: 5,
         totalUsersCount: 0,
         currentPage: 1,
@@ -32,7 +32,7 @@ const initialState = {
 }
 
 //REDUCER
-export const friendsReducer = (state: FriendsStateType = initialState, action: FriendsReducerActionsType): FriendsStateType => {
+export const friendsReducer = (state: typeof initialState = initialState, action: FriendsReducerActionsType): typeof initialState => {
     switch (action.type) {
         case SET_FRIENDS:
             return { ...state, friends: { ...state.friends, users: [...action.payload.users] } }
@@ -111,13 +111,3 @@ export type FriendsReducerActionsType =
     | ReturnType<typeof setPossibleTotalFriendsCount>
     | SetAppIsLoadingActionType
     | CleanReducerType
-export type FriendsType = {
-    users: UserResponseType[],
-    usersOnPage: number,
-    totalUsersCount: number,
-    currentPage: number,
-}
-export type FriendsStateType = {
-    friends: FriendsType,
-    possibleFriends: FriendsType
-}

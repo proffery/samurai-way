@@ -7,7 +7,7 @@ import { useFormik } from 'formik'
 import { memo } from 'react'
 import { AlertType } from 'store/app/appReducer'
 import { AuthStateType } from 'store/auth/authReducer'
-import { ProfileDataType, AboutProfileType } from 'store/profile/profileReducer'
+import { ProfileDataType, ChangeAboutProfileType } from 'store/profile/profileReducer'
 import styled from 'styled-components'
 import { font } from 'styles/Font'
 import { theme } from 'styles/Theme.styled'
@@ -18,7 +18,7 @@ type AboutMeBlockPropsType = {
     profileData: ProfileDataType
     authStateData: AuthStateType
     addAppAlert: (type: AlertType, message: string) => void
-    changeProfileAbout: (about: AboutProfileType) => void
+    changeProfileAbout: (about: ChangeAboutProfileType) => void
 }
 
 export const AboutMeBlock: React.FC<AboutMeBlockPropsType> = memo((props) => {
@@ -45,7 +45,7 @@ type AboutFormPropsType = {
     className?: string
     profileData: ProfileDataType
     addAppAlert: (type: AlertType, message: string) => void
-    changeProfileAbout: (about: AboutProfileType) => void
+    changeProfileAbout: (about: ChangeAboutProfileType) => void
 }
 
 type FormikErrorType = {

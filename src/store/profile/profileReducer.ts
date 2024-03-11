@@ -263,7 +263,7 @@ export const changeProfileContacts = (contacts: GetProfileResponseContactsType) 
             })
             .finally(() => dispatch(setAppIsLoading(false)))
     }
-export const changeProfileAbout = (about: AboutProfileType) =>
+export const changeProfileAbout = (about: ChangeAboutProfileType) =>
     (dispatch: AppDispatchType, getState: () => AppRootStateType) => {
         const { contacts } = getState().profile.data
         const model: ChangeProfileDataType = {
@@ -318,14 +318,15 @@ export interface ProfileDataType extends GetProfileResponseType {
     status: string
 }
 export type ContactsIconsType = typeof initialState.contactsIcons
+
 export type ProfileStateType = {
     posts: PostStateType[]
     newPostForm: string
     data: ProfileDataType
-    contactsIcons: ContactsIconsType
+    contactsIcons: typeof initialState.contactsIcons
 }
 
-export type AboutProfileType = {
+export type ChangeAboutProfileType = {
     aboutMe: string
     lookingForAJob: boolean
     lookingForAJobDescription: string

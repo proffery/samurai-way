@@ -9,7 +9,7 @@ import { selectIsLoading } from 'store/app/appSelectors'
 import { AuthStateType } from 'store/auth/authReducer'
 import { selectAuthData } from 'store/auth/authSelectors'
 import {
-    AboutProfileType, ProfileStateType, addPost,
+    ChangeAboutProfileType, ProfileStateType, addPost,
     changeProfileAbout, changeProfileContacts,
     changeProfileStatus, followProfile, getProfileData,
     postOnChange, unfollowProfile
@@ -72,7 +72,7 @@ type ConnectPropsType = {
     changeProfileStatus: (newStatus: string) => void
     addAppAlert: (type: AlertType, message: string) => void
     changeProfileContacts: (contacts: GetProfileResponseContactsType) => void
-    changeProfileAbout: (about: AboutProfileType) => void
+    changeProfileAbout: (about: ChangeAboutProfileType) => void
 }
 type PathParamType = {
     userId: string
