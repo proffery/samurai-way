@@ -1,12 +1,12 @@
-import styled from "styled-components"
-import { theme } from "../../../../styles/Theme.styled"
-import { Button } from "../../../common/button/Button"
-import { FlexWrapper } from "../../../common/FlexWrapper.styled"
-import { font } from "../../../../styles/Font"
-import avatarImg from '../../../../assets/images/Author.webp'
-import { Icon } from "../../../common/icon/Icon"
-import { PostStateType } from "../../../../store/profile/profileReducer"
+import { FlexWrapper } from 'components/common/FlexWrapper.styled'
+import { Icon } from 'components/common/icon/Icon'
 import { memo } from 'react'
+import { PostStateType } from 'store/profile/profileReducer'
+import styled from 'styled-components'
+import { font } from 'styles/Font'
+import { theme } from 'styles/Theme.styled'
+import avatarImg from '/assets/images/Author.webp'
+import { Button } from 'components/common/button/Button'
 
 type PostPropsType = {
     postData: PostStateType

@@ -1,7 +1,9 @@
+
+import { Input } from 'components/common/input/Input.styled'
 import React, { memo, useEffect, useState } from 'react'
-import { Input } from '../input/Input.styled'
 import styled from 'styled-components'
-import { theme } from '../../../styles/Theme.styled'
+import { theme } from 'styles/Theme.styled'
+
 
 type EditableSpanPropsType = {
     className?: string

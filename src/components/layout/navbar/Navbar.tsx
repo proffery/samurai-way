@@ -1,9 +1,9 @@
+import { Logo } from 'components/common/logo/Logo'
+import { Menu } from 'components/common/menu/Menu'
 import React, { MouseEvent, memo, useEffect, useState } from "react"
+import { IconLinksStateType } from 'store/app/appReducer'
 import styled from "styled-components"
-import { Logo } from "../../common/logo/Logo"
-import { Menu } from "../../common/menu/Menu"
-import { IconLinksStateType } from "../../../store/app/appReducer"
-import { theme } from "../../../styles/Theme.styled"
+import { theme } from 'styles/Theme.styled'
 
 type NavbarPropsType = {
     menuItems: IconLinksStateType[]

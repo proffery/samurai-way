@@ -124,9 +124,9 @@ export const setAppIsLoading = (isLoading: boolean) =>
     ({ type: APP_SET_IS_LOADING, payload: { isLoading } } as const)
 const setAppAlert = (newAlert: AlertObjectType) =>
     ({ type: APP_ADD_ALERT, payload: { newAlert } } as const)
-const removeAppAlert = (id: string) =>
+export const removeAppAlert = (id: string) =>
     ({ type: APP_REMOVE_ALERT, payload: { id } } as const)
-const setAppNavbarCollapsed = (navbarCollapsed: boolean) =>
+export const setAppNavbarCollapsed = (navbarCollapsed: boolean) =>
     ({ type: APP_SET_NAVBAR_COLLAPSED, payload: { navbarCollapsed } } as const)
 const setAppIsInitialized = (isInitialized: boolean) =>
     ({ type: APP_SET_IS_INITIALIZED, payload: { isInitialized } } as const)

@@ -2,10 +2,7 @@ import { memo, useEffect } from "react"
 import { connect } from "react-redux"
 import { RouteComponentProps, withRouter } from "react-router-dom"
 import { compose } from "redux"
-import { Profile } from "../layout/pages/profile/Profile"
 import { selectIsLoading } from 'store/app/appSelectors'
-import { selectAuthData } from 'redux/auth/authSelectors'
-import { AuthStateType } from 'redux/auth/authReducer'
 import {
     AboutProfileType, ProfileStateType, addPost,
     changeProfileAbout, changeProfileContacts,
@@ -16,6 +13,9 @@ import { AlertType, addAppAlert } from 'store/app/appReducer'
 import { GetProfileResponseContactsType } from 'api/social-network-api'
 import { AppRootStateType } from 'store/redux-store'
 import { selectProfileData } from 'store/profile/profileSelectors'
+import { AuthStateType } from 'store/auth/authReducer'
+import { selectAuthData } from 'store/auth/authSelectors'
+import { Profile } from 'components/layout/pages/profile/Profile'
 
 type ConnectPropsType = {
     authData: AuthStateType

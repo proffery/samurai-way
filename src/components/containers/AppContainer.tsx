@@ -1,10 +1,11 @@
+import App from 'App'
 import { useEffect } from 'react'
-import { connect } from "react-redux"
-import App from "../../App"
-import { initializeApp } from '../../store/app/appReducer'
-import { selectIsInitialized, selectIsLoading, selectNavbarCollapsed } from '../../store/app/appSelectors'
+import { connect } from 'react-redux'
+import { initializeApp } from 'store/app/appReducer'
+import { selectNavbarCollapsed, selectIsLoading, selectIsInitialized } from 'store/app/appSelectors'
+import { selectIsloggedIn } from 'store/auth/authSelectors'
 import { AppRootStateType } from 'store/redux-store'
-import { selectIsloggedIn } from '../../redux/auth/authSelectors'
+
 
 type AppAPIPropsTtype = {
     isLoggedIn: boolean

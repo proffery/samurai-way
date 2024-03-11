@@ -1,6 +1,5 @@
 import styled, { css } from "styled-components"
-import { theme } from "../../../styles/Theme.styled"
-
+import { theme } from 'styles/Theme.styled'
 
 type LinkPropsType = {
     variant: 'primary' | 'secondary' | 'buttonPrimary' | 'buttonSecondary',

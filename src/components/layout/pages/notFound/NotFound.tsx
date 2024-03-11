@@ -1,11 +1,11 @@
+import { BlockHeader } from 'components/blocks/BlockHeader.styled'
+import { BlockSection } from 'components/blocks/BlockSection.styled'
+import { FlexWrapper } from 'components/common/FlexWrapper.styled'
+import { Button } from 'components/common/button/Button'
+import { memo } from 'react'
+import { useHistory } from 'react-router-dom'
 import styled from "styled-components"
-import { BlockSection } from "../../../blocks/BlockSection.styled"
-import { BlockHeader } from "../../../blocks/BlockHeader.styled"
-import { FlexWrapper } from "../../../common/FlexWrapper.styled"
-import { Button } from "../../../common/button/Button"
-import { useHistory } from "react-router-dom"
-import React, { memo } from "react"
-import { font } from '../../../../styles/Font'
+import { font } from 'styles/Font'
 
 export const NotFound: React.FC = memo((props) => {
     const history = useHistory()

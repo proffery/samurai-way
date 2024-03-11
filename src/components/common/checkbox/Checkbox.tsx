@@ -1,7 +1,8 @@
+import { Input } from 'components/common/input/Input.styled'
 import React, { memo } from "react"
 import styled, { keyframes } from "styled-components"
-import { Input } from '../input/Input.styled'
-import { theme } from '../../../styles/Theme.styled'
+import { theme } from 'styles/Theme.styled'
+
 type CheckboxPropsType = {
   id: string
   label: string

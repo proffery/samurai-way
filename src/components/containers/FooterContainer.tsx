@@ -1,11 +1,12 @@
-import { connect } from "react-redux"
-import { AppRootStateType } from "../../store/redux-store"
-import { IconLinksStateType } from "../../store/app/appReducer"
-import { Footer } from "../layout/footer/Footer"
-import { compose } from "redux"
-import { selectFooterLinks, selectMenuItems } from 'store/app/appSelectors'
-import { selectIsloggedIn } from 'redux/auth/authSelectors'
+import { Footer } from 'components/layout/footer/Footer'
 import { memo } from 'react'
+import { connect } from 'react-redux'
+import { compose } from 'redux'
+import { IconLinksStateType } from 'store/app/appReducer'
+import { selectMenuItems, selectFooterLinks } from 'store/app/appSelectors'
+import { selectIsloggedIn } from 'store/auth/authSelectors'
+import { AppRootStateType } from 'store/redux-store'
+
 
 type FooterAPIPropsTtype = {
     menuItems: IconLinksStateType[]

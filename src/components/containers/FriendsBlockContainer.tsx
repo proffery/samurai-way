@@ -1,11 +1,11 @@
-import { memo, useEffect } from "react"
-import { connect } from "react-redux"
-import { compose } from "redux"
-import { FriendsType, getFriends } from "../../store/friends/friendsReducer"
-import { AppRootStateType } from "../../store/redux-store"
-import { FriendsBlock } from "../blocks/friendsBlock/FriendsBlock"
+import { FriendsBlock } from 'components/blocks/friendsBlock/FriendsBlock'
+import { memo, useEffect } from 'react'
+import { connect } from 'react-redux'
+import { compose } from 'redux'
 import { selectIsLoading } from 'store/app/appSelectors'
+import { FriendsType, getFriends } from 'store/friends/friendsReducer'
 import { selectFriendsData } from 'store/friends/friendsSelectors'
+import { AppRootStateType } from 'store/redux-store'
 
 type FriendsBlockAPIPropsType = {
     className?: string

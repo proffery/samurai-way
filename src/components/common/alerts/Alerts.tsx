@@ -1,11 +1,11 @@
 import styled from "styled-components"
-import { AlertObjectType } from "../../../store/app/appReducer"
-import { Alert } from "./Alert"
 import { memo } from 'react'
+import { Alert } from 'components/common/alerts/Alert'
+import { AlertObjectType } from 'store/app/appReducer'
 
 type AlertsPropsType = {
     alerts: AlertObjectType[]
-    removeAlert: (alertId: string) => void
+    removeAppAlert: (alertId: string) => void
 }
 export const Alerts: React.FC<AlertsPropsType> = memo((props) => {
     return (
@@ -16,7 +16,7 @@ export const Alerts: React.FC<AlertsPropsType> = memo((props) => {
                     alertId={alert.id}
                     alertMessage={alert.message}
                     alertType={alert.type}
-                    removeAlert={props.removeAlert}
+                    removeAlert={props.removeAppAlert}
                 />)}
         </AlertsWrapper>
     )

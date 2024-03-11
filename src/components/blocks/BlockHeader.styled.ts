@@ -1,6 +1,6 @@
-import { font } from "../../styles/Font";
-import { theme } from "../../styles/Theme.styled";
 import styled from "styled-components";
+import { font } from 'styles/Font'
+import { theme } from 'styles/Theme.styled'
 
 export const BlockHeader = styled.h2`
     position: relative;

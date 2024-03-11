@@ -1,14 +1,14 @@
 import styled from "styled-components"
-import { theme } from "../../../styles/Theme.styled"
-import { Input } from "../../common/input/Input.styled"
-import search from "../../../assets/images/Search.svg"
-import { Logout } from "./Logout"
-import { AuthStateType } from "../../../redux/auth/authReducer"
 import { memo } from 'react'
+import { Logout } from 'components/layout/header/Logout'
+import { AuthStateType } from 'store/auth/authReducer'
+import { theme } from 'styles/Theme.styled'
+import { Input } from 'components/common/input/Input.styled'
+import search from '/assets/images/Search.svg'
 
 type HeaderPropsType = {
     authData: AuthStateType
-    logOut: () => void
+    logout: () => void
 }
 
 export const Header: React.FC<HeaderPropsType> = memo((props) => {
@@ -20,7 +20,7 @@ export const Header: React.FC<HeaderPropsType> = memo((props) => {
                 login={login}
                 email={email}
                 photoUrl={photoUrl}
-                logOut={props.logOut}
+                logOut={props.logout}
             />
         </StyledHeader>
     )

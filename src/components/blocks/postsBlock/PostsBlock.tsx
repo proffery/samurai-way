@@ -1,12 +1,12 @@
+import { BlockHeader } from 'components/blocks/BlockHeader.styled'
+import { BlockSection } from 'components/blocks/BlockSection.styled'
+import { Post } from 'components/blocks/postsBlock/post/Post'
+import { FlexWrapper } from 'components/common/FlexWrapper.styled'
+import { Button } from 'components/common/button/Button'
+import { Input } from 'components/common/input/Input.styled'
 import React, { ChangeEvent, MouseEvent, KeyboardEvent, useState, memo } from "react"
-import styled from "styled-components"
-import { Button } from "../../common/button/Button"
-import { Input } from "../../common/input/Input.styled"
-import { FlexWrapper } from "../../common/FlexWrapper.styled"
-import { Post } from "./post/Post"
-import { BlockHeader } from "../BlockHeader.styled"
-import { BlockSection } from "../BlockSection.styled"
-import { ProfileStateType } from "../../../store/profile/profileReducer"
+import { ProfileStateType } from 'store/profile/profileReducer'
+import styled from 'styled-components'
 
 type PostsBlockPropsType = {
     className?: string

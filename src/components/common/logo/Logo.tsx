@@ -1,9 +1,10 @@
-import { font } from '../../../styles/Font'
-import styled, { css } from "styled-components"
-import { Icon } from '../icon/Icon'
-import { NavLink } from 'react-router-dom'
-import { theme } from '../../../styles/Theme.styled'
+
+import { Icon } from 'components/common/icon/Icon'
 import { memo } from 'react'
+import { NavLink } from 'react-router-dom'
+import styled, { css } from 'styled-components'
+import { font } from 'styles/Font'
+import { theme } from 'styles/Theme.styled'
 
 type LogoPropsType = {
     variant: 'primary' | 'secondary'

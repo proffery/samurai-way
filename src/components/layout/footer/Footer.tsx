@@ -1,13 +1,13 @@
 import styled from "styled-components"
-import { Logo } from "../../common/logo/Logo"
-import { theme } from "../../../styles/Theme.styled"
-import { FlexWrapper } from "../../common/FlexWrapper.styled"
-import { Menu } from "../../common/menu/Menu"
-import { Link } from "../../common/link/Link.styled"
-import { Icon } from "../../common/icon/Icon"
-import { SocialMedeaLinks } from "./socialMedeaLinks/SocialMedeaLinks"
-import { IconLinksStateType } from "../../../store/app/appReducer"
 import { memo } from 'react'
+import { FlexWrapper } from 'components/common/FlexWrapper.styled'
+import { Icon } from 'components/common/icon/Icon'
+import { Logo } from 'components/common/logo/Logo'
+import { SocialMedeaLinks } from 'components/layout/footer/socialMedeaLinks/SocialMedeaLinks'
+import { IconLinksStateType } from 'store/app/appReducer'
+import { theme } from 'styles/Theme.styled'
+import { Menu } from 'components/common/menu/Menu'
+import { Link } from 'components/common/link/Link.styled'
 
 type FooterPropsType = {
     menuItems: IconLinksStateType[]

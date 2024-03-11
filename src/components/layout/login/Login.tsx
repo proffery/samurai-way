@@ -1,18 +1,18 @@
+import { LoginDataType } from 'api/social-network-api'
+import { BlockHeader } from 'components/blocks/BlockHeader.styled'
+import { BlockSection } from 'components/blocks/BlockSection.styled'
+import { FlexWrapper } from 'components/common/FlexWrapper.styled'
+import { Button } from 'components/common/button/Button'
+import { Checkbox } from 'components/common/checkbox/Checkbox'
+import { Input } from 'components/common/input/Input.styled'
+import { useFormik } from 'formik'
 import React, { memo } from "react"
-import { BlockSection } from "../../blocks/BlockSection.styled"
-import styled from "styled-components"
-import { theme } from "../../../styles/Theme.styled"
-import { BlockHeader } from "../../blocks/BlockHeader.styled"
-import { Input } from "../../common/input/Input.styled"
-import { FlexWrapper } from "../../common/FlexWrapper.styled"
-import { Button } from "../../common/button/Button"
-import { useFormik } from "formik"
-import { AlertType } from "../../../store/app/appReducer"
-import { LoginDataType } from "../../../api/social-network-api"
-import { Checkbox } from '../../common/checkbox/Checkbox'
+import { AlertType } from 'store/app/appReducer'
+import styled from 'styled-components'
+import { theme } from 'styles/Theme.styled'
 
 type LoginPagePropsType = {
-    logIn: (loginData: LoginDataType) => void
+    login: (loginData: LoginDataType) => void
     addAppAlert: (type: AlertType, message: string) => void
     isLoggedIn: boolean
 }
@@ -29,7 +29,7 @@ export const Login: React.FC<LoginPagePropsType> = memo((props) => {
             remember: false
         },
         onSubmit: (values) => {
-            props.logIn(values)
+            props.login(values)
         },
         validate: (values) => {
             const errors: FormikErrorType = {}

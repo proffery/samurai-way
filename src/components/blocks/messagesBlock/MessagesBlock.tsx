@@ -1,12 +1,14 @@
-import React, { ChangeEvent, MouseEvent, KeyboardEvent, useState, memo } from "react"
-import { BlockHeader } from "../BlockHeader.styled"
-import { BlockSection } from "../BlockSection.styled"
-import { Message } from "./message/Message"
-import styled from "styled-components"
-import { FlexWrapper } from "../../common/FlexWrapper.styled"
-import { Button } from "../../common/button/Button"
-import { Input } from "../../common/input/Input.styled"
-import { MessageType } from "../../../store/messages/messagesReducer"
+import { BlockHeader } from 'components/blocks/BlockHeader.styled'
+import { BlockSection } from 'components/blocks/BlockSection.styled'
+import { FlexWrapper } from 'components/common/FlexWrapper.styled'
+import { memo, useState, ChangeEvent } from 'react'
+import styled from 'styled-components'
+import { MouseEvent, KeyboardEvent } from 'react'
+import { Input } from 'components/common/input/Input.styled'
+import { Button } from 'components/common/button/Button'
+import { MessageType } from 'store/messages/messagesReducer'
+import { Message } from 'components/blocks/messagesBlock/message/Message'
+
 
 type MessagesBlockPropsType = {
     messages: MessageType[]

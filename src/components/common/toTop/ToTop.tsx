@@ -1,7 +1,7 @@
+import { Icon } from 'components/common/icon/Icon'
+import { Link } from 'components/common/link/Link.styled'
 import { memo, useEffect, useState } from "react"
-import { Icon } from "../icon/Icon"
-import styled from "styled-components"
-import { Link } from "../link/Link.styled"
+import styled from 'styled-components'
 
 type ToTopLinkPropsType = {
     top_block_anchor_id: string

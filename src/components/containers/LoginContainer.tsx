@@ -1,16 +1,17 @@
-import { connect } from "react-redux"
-import { AppRootStateType } from "../../store/redux-store"
-import { logIn } from "../../redux/auth/authReducer"
-import { LoginDataType } from "../../api/social-network-api"
-import { AlertType, addAppAlert } from "../../store/app/appReducer"
-import { Login } from "../layout/login/Login"
-import { compose } from "redux"
-import { selectIsloggedIn } from 'redux/auth/authSelectors'
+
+import { LoginDataType } from 'api/social-network-api'
+import { Login } from 'components/layout/login/Login'
 import { memo } from 'react'
+import { connect } from 'react-redux'
+import { compose } from 'redux'
+import { AlertType, addAppAlert } from 'store/app/appReducer'
+import { login } from 'store/auth/authReducer'
+import { selectIsloggedIn } from 'store/auth/authSelectors'
+import { AppRootStateType } from 'store/redux-store'
 
 type LoginAPIPropsTtype = {
     isLoggedIn: boolean
-    logIn: (loginData: LoginDataType) => void
+    login: (loginData: LoginDataType) => void
     addAppAlert: (type: AlertType, message: string) => void
 }
 
@@ -18,7 +19,7 @@ export const LoginAPI: React.FC<LoginAPIPropsTtype> = memo((props) => {
     return (
         <Login
             isLoggedIn={props.isLoggedIn}
-            logIn={props.logIn}
+            login={props.login}
             addAppAlert={props.addAppAlert}
         />
     )
@@ -35,5 +36,5 @@ const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
 }
 
 export const LoginContainer = compose(
-    connect(mapStateToProps, { logIn, addAppAlert })
+    connect(mapStateToProps, { login, addAppAlert })
 )(LoginAPI)

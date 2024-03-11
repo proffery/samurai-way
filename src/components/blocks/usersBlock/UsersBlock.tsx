@@ -1,14 +1,13 @@
-import { BlockHeader } from "../BlockHeader.styled"
-import { BlockSection } from "../BlockSection.styled"
-import { User } from "./user/User"
-import styled from "styled-components"
-import { FlexWrapper } from "../../common/FlexWrapper.styled"
-import { Pagination } from "../../common/pagination/Pagination"
-import { Button } from "../../common/button/Button"
-import { UsersFilterType, UsersStateType } from "../../../store/users/usersReducer"
-import { theme } from "../../../styles/Theme.styled"
+import { BlockHeader } from 'components/blocks/BlockHeader.styled'
+import { BlockSection } from 'components/blocks/BlockSection.styled'
+import { User } from 'components/blocks/usersBlock/user/User'
+import { FlexWrapper } from 'components/common/FlexWrapper.styled'
+import { Button } from 'components/common/button/Button'
+import { Pagination } from 'components/common/pagination/Pagination'
 import { memo } from 'react'
-
+import { UsersStateType, UsersFilterType } from 'store/users/usersReducer'
+import styled from 'styled-components'
+import { theme } from 'styles/Theme.styled'
 
 export type UsersBlockPropsType = {
     usersData: UsersStateType

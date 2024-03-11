@@ -1,9 +1,9 @@
 import styled from "styled-components"
-import { Icon } from "../../../common/icon/Icon"
-import { Link } from "../../../common/link/Link.styled"
-import { theme } from "../../../../styles/Theme.styled"
-import { IconLinksStateType } from "../../../../store/app/appReducer"
 import { memo } from 'react'
+import { Icon } from 'components/common/icon/Icon'
+import { IconLinksStateType } from 'store/app/appReducer'
+import { theme } from 'styles/Theme.styled'
+import { Link } from 'components/common/link/Link.styled'
 
 type SocialMedeaLinksPropsType = {
     footerLinks: IconLinksStateType[]

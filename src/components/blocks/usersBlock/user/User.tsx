@@ -1,12 +1,13 @@
+import { FlexWrapper } from 'components/common/FlexWrapper.styled'
+import { Avatar } from 'components/common/avatar/Avatar'
+import { Button } from 'components/common/button/Button'
+import { memo, MouseEvent } from 'react'
+import { NavLink } from 'react-router-dom'
+import { UserStateType } from 'store/users/usersReducer'
 import styled from "styled-components"
-import { Button } from "../../../common/button/Button"
-import { theme } from "../../../../styles/Theme.styled"
-import { font } from "../../../../styles/Font"
-import { FlexWrapper } from "../../../common/FlexWrapper.styled"
-import { UserStateType } from "../../../../store/users/usersReducer"
-import { NavLink } from "react-router-dom"
-import { MouseEvent, memo } from "react"
-import { Avatar } from '../../../common/avatar/Avatar'
+import { font } from 'styles/Font'
+import { theme } from 'styles/Theme.styled'
+
 
 type UserPropsType = {
     user: UserStateType

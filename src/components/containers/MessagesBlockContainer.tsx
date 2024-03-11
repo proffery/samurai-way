@@ -1,9 +1,10 @@
-import { connect } from "react-redux"
-import { addMessage, onChangeMessage } from "../../store/messages/messagesReducer"
-import { MessagesBlock } from "../blocks/messagesBlock/MessagesBlock"
-import { AppRootStateType } from "../../store/redux-store"
-import { compose } from "redux"
+import { MessagesBlock } from 'components/blocks/messagesBlock/MessagesBlock'
+import { connect } from 'react-redux'
+import { compose } from 'redux'
+import { onChangeMessage, addMessage } from 'store/messages/messagesReducer'
 import { selectMessages } from 'store/messages/messagesSelectors'
+import { AppRootStateType } from 'store/redux-store'
+
 
 const mapStateToProps = (state: AppRootStateType) => {
     return {

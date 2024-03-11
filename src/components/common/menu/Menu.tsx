@@ -1,10 +1,10 @@
 import React, { memo } from "react"
 import { MouseEvent } from "react"
 import styled, { css } from "styled-components"
-import { Icon } from "../icon/Icon"
-import { theme } from "../../../styles/Theme.styled"
 import { NavLink } from "react-router-dom"
-import { IconLinksStateType } from "../../../store/app/appReducer"
+import { Icon } from 'components/common/icon/Icon'
+import { IconLinksStateType } from 'store/app/appReducer'
+import { theme } from 'styles/Theme.styled'
 
 type MenuPropsType = {
     type: 'primary' | 'secondary'

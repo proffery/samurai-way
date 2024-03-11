@@ -1,7 +1,7 @@
 import styled from 'styled-components'
-import { theme } from '../../../styles/Theme.styled'
-import { Icon } from '../icon/Icon'
 import { memo } from 'react'
+import { Icon } from 'components/common/icon/Icon'
+import { theme } from 'styles/Theme.styled'
 
 type AvatarPropsType = {
     className?: string

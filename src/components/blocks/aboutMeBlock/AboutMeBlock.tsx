@@ -1,16 +1,17 @@
+import { Checkbox } from 'antd'
+import { BlockHeader } from 'components/blocks/BlockHeader.styled'
+import { BlockSection } from 'components/blocks/BlockSection.styled'
+import { EditableSpan } from 'components/common/editableSpan/EditableSpan'
+import { Icon } from 'components/common/icon/Icon'
 import { useFormik } from 'formik'
-import React, { memo } from "react"
-import styled from "styled-components"
-import { AlertType } from '../../../store/app/appReducer'
-import { AuthStateType } from "../../../redux/auth/authReducer"
-import { AboutProfileType, ProfileDataType } from "../../../store/profile/profileReducer"
-import { font } from "../../../styles/Font"
-import { theme } from "../../../styles/Theme.styled"
-import { BlockHeader } from "../BlockHeader.styled"
-import { BlockSection } from "../BlockSection.styled"
-import { EditableSpan } from "../../common/editableSpan/EditableSpan"
-import { Icon } from "../../common/icon/Icon"
-import { Checkbox } from '../../common/checkbox/Checkbox'
+import { memo } from 'react'
+import { AlertType } from 'store/app/appReducer'
+import { AuthStateType } from 'store/auth/authReducer'
+import { ProfileDataType, AboutProfileType } from 'store/profile/profileReducer'
+import styled from 'styled-components'
+import { font } from 'styles/Font'
+import { theme } from 'styles/Theme.styled'
+
 
 type AboutMeBlockPropsType = {
     className?: string

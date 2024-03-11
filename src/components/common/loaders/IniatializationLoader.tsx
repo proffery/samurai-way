@@ -1,6 +1,6 @@
 import styled from "styled-components"
-import { theme } from "../../../styles/Theme.styled"
 import { memo } from 'react'
+import { theme } from 'styles/Theme.styled'
 
 export const InitializationLoader: React.FC = memo(() => {
   return (

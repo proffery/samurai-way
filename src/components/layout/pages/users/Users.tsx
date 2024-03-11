@@ -1,11 +1,12 @@
+import { FlexWrapper } from 'components/common/FlexWrapper.styled'
+import { ToTop } from 'components/common/toTop/ToTop'
+import { FriendsBlockContainer } from 'components/containers/FriendsBlockContainer'
+import { PossibleFriendsBlockContainer } from 'components/containers/PossibleFriendsBlockContainer'
+import { UsersBlockContainer } from 'components/containers/UsersBlockContainer'
 import React, { memo } from "react"
-import { UsersBlockContainer } from "../../../containers/UsersBlockContainer"
-import { FriendsBlockContainer } from "../../../containers/FriendsBlockContainer"
-import styled from "styled-components"
-import { FlexWrapper } from "../../../common/FlexWrapper.styled"
-import { PossibleFriendsBlockContainer } from "../../../containers/PossibleFriendsBlockContainer"
-import { ToTop } from "../../../common/toTop/ToTop"
-import { theme } from "../../../../styles/Theme.styled"
+import styled from 'styled-components'
+import { theme } from 'styles/Theme.styled'
+
 
 type UsersPropsType = {
 

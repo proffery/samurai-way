@@ -1,17 +1,17 @@
+import { GetProfileResponseContactsType } from 'api/social-network-api'
+import { AboutMeBlock } from 'components/blocks/aboutMeBlock/AboutMeBlock'
+import { ContactsBlock } from 'components/blocks/contactsBlock/ContactsBlock'
+import { HeaderBlock } from 'components/blocks/headerBlock/HeaderBlock'
+import { PostsBlock } from 'components/blocks/postsBlock/PostsBlock'
+import { ToTop } from 'components/common/toTop/ToTop'
+import { FriendsBlockContainer } from 'components/containers/FriendsBlockContainer'
+import { PossibleFriendsBlockContainer } from 'components/containers/PossibleFriendsBlockContainer'
 import React, { memo } from "react"
+import { AlertType } from 'store/app/appReducer'
+import { AuthStateType } from 'store/auth/authReducer'
+import { ProfileStateType, AboutProfileType } from 'store/profile/profileReducer'
 import styled from "styled-components"
-import { GetProfileResponseContactsType } from '../../../../api/social-network-api'
-import { AlertType } from "../../../../store/app/appReducer"
-import { AuthStateType } from "../../../../redux/auth/authReducer"
-import { AboutProfileType, ProfileStateType } from "../../../../store/profile/profileReducer"
-import { theme } from "../../../../styles/Theme.styled"
-import { AboutMeBlock } from '../../../blocks/aboutMeBlock/AboutMeBlock'
-import { ContactsBlock } from "../../../blocks/contactsBlock/ContactsBlock"
-import { FriendsBlockContainer } from "../../../containers/FriendsBlockContainer"
-import { PossibleFriendsBlockContainer } from "../../../containers/PossibleFriendsBlockContainer"
-import { HeaderBlock } from "../../../blocks/headerBlock/HeaderBlock"
-import { PostsBlock } from "../../../blocks/postsBlock/PostsBlock"
-import { ToTop } from "../../../common/toTop/ToTop"
+import { theme } from 'styles/Theme.styled'
 
 type ProfilePropsType = {
     className?: string

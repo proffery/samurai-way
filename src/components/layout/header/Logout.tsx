@@ -1,10 +1,10 @@
 import styled from "styled-components"
-import { font } from "../../../styles/Font"
-import { theme } from "../../../styles/Theme.styled"
-import { Avatar } from '../../common/avatar/Avatar'
-import { Button } from "../../common/button/Button"
-import { FlexWrapper } from '../../common/FlexWrapper.styled'
 import { memo } from 'react'
+import { Avatar } from 'components/common/avatar/Avatar'
+import { FlexWrapper } from 'components/common/FlexWrapper.styled'
+import { font } from 'styles/Font'
+import { theme } from 'styles/Theme.styled'
+import { Button } from 'components/common/button/Button'
 
 type LogoutPropsType = {
     className?: string

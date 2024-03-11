@@ -1,11 +1,12 @@
-import { memo, useEffect, useState } from "react"
-import { Button } from "../button/Button"
-import { Icon } from "../icon/Icon"
-import { FlexWrapper } from '../FlexWrapper.styled'
-import { Input } from '../input/Input.styled'
-import styled from 'styled-components'
+import { FlexWrapper } from 'components/common/FlexWrapper.styled'
+import { Button } from 'components/common/button/Button'
+import { Icon } from 'components/common/icon/Icon'
+import { Input } from 'components/common/input/Input.styled'
 import { useFormik } from 'formik'
-import { theme } from '../../../styles/Theme.styled'
+import { memo, useEffect, useState } from "react"
+import styled from 'styled-components'
+import { theme } from 'styles/Theme.styled'
+
 
 
 type PaginationPropsType = {

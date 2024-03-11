@@ -1,21 +1,21 @@
-import { connect } from "react-redux"
-import { Header } from "../layout/header/Header"
-import { AppRootStateType } from "../../store/redux-store"
-import { AuthStateType, logOut } from "../../redux/auth/authReducer"
-import { compose } from "redux"
-import { selectAuthData } from 'redux/auth/authSelectors'
+import { Header } from 'components/layout/header/Header'
 import { memo } from 'react'
+import { connect } from 'react-redux'
+import { compose } from 'redux'
+import { AuthStateType, logout } from 'store/auth/authReducer'
+import { selectAuthData } from 'store/auth/authSelectors'
+import { AppRootStateType } from 'store/redux-store'
 
 type HeaderAPIPropsTtype = {
     authData: AuthStateType
-    logOut: () => void
+    logout: () => void
 }
 
 export const HeaderAPI: React.FC<HeaderAPIPropsTtype> = memo((props) => {
     return (
         <Header
             authData={props.authData}
-            logOut={props.logOut}
+            logout={props.logout}
         />
     )
 })
@@ -31,5 +31,5 @@ const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
 }
 
 export const HeaderContainer = compose(
-    connect(mapStateToProps, { logOut })
+    connect(mapStateToProps, { logout })
 )(HeaderAPI)

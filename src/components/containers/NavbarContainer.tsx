@@ -1,10 +1,9 @@
-import { connect } from "react-redux"
-import { AppRootStateType } from "../../store/redux-store"
-import { IconLinksStateType, setAppNavbarCollapsed } from "../../store/app/appReducer"
-import { Navbar } from "../layout/navbar/Navbar"
-import { selectMenuItems, selectNavbarCollapsed } from 'store/app/appSelectors'
+import { Navbar } from 'components/layout/navbar/Navbar'
 import { memo } from 'react'
-
+import { connect } from 'react-redux'
+import { IconLinksStateType, setAppNavbarCollapsed } from 'store/app/appReducer'
+import { selectMenuItems, selectNavbarCollapsed } from 'store/app/appSelectors'
+import { AppRootStateType } from 'store/redux-store'
 
 type NavbarAPIPropsTtype = {
     menuItems: IconLinksStateType[]

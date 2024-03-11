@@ -74,7 +74,7 @@ const setUsersOnPage = (usersOnPage: number) =>
     ({ type: SET_USERS_ON_PAGE, payload: { usersOnPage } }) as const
 const setTotalUsersCount = (totalUsersCount: number) =>
     ({ type: SET_TOTAL_USERS_COUNT, payload: { totalUsersCount } }) as const
-const changeUsersFilter = (usersFilter: UsersFilterType) =>
+export const changeUsersFilter = (usersFilter: UsersFilterType) =>
     ({ type: CHANGE_USERS_FILTER, payload: { usersFilter } }) as const
 const changeUserIsLoading = (userId: number, isLoading: boolean) =>
     ({ type: CHANGE_USER_IS_LOADING, payload: { userId, isLoading } }) as const

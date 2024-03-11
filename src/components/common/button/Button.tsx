@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components"
-import { theme } from "../../../styles/Theme.styled"
-import { font } from "../../../styles/Font"
 import { MouseEvent, memo } from "react"
+import { font } from 'styles/Font'
+import { theme } from 'styles/Theme.styled'
 
 type ButtonPropsType = {
     variant: 'primary' | 'outlined' | 'link'
