@@ -1,6 +1,7 @@
-import { Button, Avatar } from 'antd'
 import { BlockSection } from 'components/blocks/BlockSection.styled'
 import { FlexWrapper } from 'components/common/FlexWrapper.styled'
+import { Avatar } from 'components/common/avatar/Avatar'
+import { Button } from 'components/common/button/Button'
 import { EditableSpan } from 'components/common/editableSpan/EditableSpan'
 import { Icon } from 'components/common/icon/Icon'
 import { useFormik } from 'formik'

@@ -5,7 +5,7 @@ import { PostStateType } from 'store/profile/profileReducer'
 import styled from 'styled-components'
 import { font } from 'styles/Font'
 import { theme } from 'styles/Theme.styled'
-import avatarImg from '/assets/images/Author.webp'
+import avatarImg from '../../../../assets/images/Author.webp'
 import { Button } from 'components/common/button/Button'
 
 type PostPropsType = {

@@ -1,5 +1,5 @@
 import { memo } from 'react'
-import iconsSprite from '/assets/images/icons-sprite.svg'
+import iconsSprite from '../../../assets/images/icons-sprite.svg'
 
 
 export type IconPropsType = {

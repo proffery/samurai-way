@@ -1,6 +1,6 @@
-import { Checkbox } from 'antd'
 import { BlockHeader } from 'components/blocks/BlockHeader.styled'
 import { BlockSection } from 'components/blocks/BlockSection.styled'
+import { Checkbox } from 'components/common/checkbox/Checkbox'
 import { EditableSpan } from 'components/common/editableSpan/EditableSpan'
 import { Icon } from 'components/common/icon/Icon'
 import { useFormik } from 'formik'

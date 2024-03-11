@@ -4,7 +4,7 @@ import { Logout } from 'components/layout/header/Logout'
 import { AuthStateType } from 'store/auth/authReducer'
 import { theme } from 'styles/Theme.styled'
 import { Input } from 'components/common/input/Input.styled'
-import search from '/assets/images/Search.svg'
+import search from '../../../assets/images/Search.svg'
 
 type HeaderPropsType = {
     authData: AuthStateType

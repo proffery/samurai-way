@@ -1,5 +1,5 @@
-import { Avatar } from 'antd'
 import { UserResponseType } from 'api/social-network-api'
+import { Avatar } from 'components/common/avatar/Avatar'
 import { memo } from 'react'
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'

@@ -5,7 +5,7 @@ import { MessageType } from 'store/messages/messagesReducer'
 import styled from 'styled-components'
 import { font } from 'styles/Font'
 import { theme } from 'styles/Theme.styled'
-import avatarImg from '/assets/images/Author.webp'
+import avatarImg from '../../../../assets/images/Author.webp'
 
 type MessagePropsType = {
     messageData: MessageType
