@@ -1,4 +1,4 @@
-import { store } from "./redux/redux-store"
+import { store } from "./store/redux-store"
 import ReactDOM from 'react-dom'
 import { GlobalStyle } from './styles/Global.styled'
 import { ThemeProvider } from 'styled-components'

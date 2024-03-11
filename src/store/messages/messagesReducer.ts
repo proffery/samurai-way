@@ -3,9 +3,9 @@ import { CLEAN_REDUCER, CleanReducerType } from "../auth/authReducer"
 import { AppDispatchType } from "../redux-store"
 
 //CONSTANTS
-export const ADD_MESSAGE = 'ADD-MESSAGE'
-export const UPDATE_MESSAGE = 'UPDATE-MESSAGE'
-export const ON_CHANGE_MESSAGE = 'ON-CHANGE-MESSAGE'
+const ADD_MESSAGE = 'ADD-MESSAGE'
+const UPDATE_MESSAGE = 'UPDATE-MESSAGE'
+const ON_CHANGE_MESSAGE = 'ON-CHANGE-MESSAGE'
 
 //INITIAL STATE
 const initialState: MessagesPageStateType = {

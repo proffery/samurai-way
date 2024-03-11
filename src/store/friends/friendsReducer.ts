@@ -1,7 +1,8 @@
-import { UserResponseType, socialNetworkAPI } from '../../api/social-network-api'
-import { SetAppIsLoadingActionType, addAppAlert, setAppIsLoading } from '../app/appReducer'
-import { CLEAN_REDUCER, CleanReducerType } from '../auth/authReducer'
-import { AppDispatchType } from '../redux-store'
+import { UserResponseType, usersAPI } from 'api/social-network-api'
+import { addAppAlert, setAppIsLoading, SetAppIsLoadingActionType } from 'store/app/appReducer'
+import { CLEAN_REDUCER, CleanReducerType } from 'store/auth/authReducer'
+import { AppDispatchType } from 'store/redux-store'
+
 
 //CONSTANTS
 const SET_FRIENDS = 'FRIENDS/SET-FRIENDS'
@@ -57,28 +58,28 @@ export const friendsReducer = (state: FriendsStateType = initialState, action: F
 }
 
 //ACTIONS
-export const setFriends = (users: UserResponseType[]) =>
+const setFriends = (users: UserResponseType[]) =>
     ({ type: SET_FRIENDS, payload: { users } }) as const
-export const setFriendsPage = (currentPage: number) =>
+const setFriendsPage = (currentPage: number) =>
     ({ type: SET_CURRENT_FRIENDS_PAGE, payload: { currentPage } }) as const
-export const setFriendsOnPage = (usersOnPage: number) =>
+const setFriendsOnPage = (usersOnPage: number) =>
     ({ type: SET_FRIENDS_ON_PAGE, payload: { usersOnPage } }) as const
-export const setTotalFriendsCount = (totalUsersCount: number) =>
+const setTotalFriendsCount = (totalUsersCount: number) =>
     ({ type: SET_TOTAL_FRIENDS_COUNT, payload: { totalUsersCount } }) as const
-export const setPossibleFriends = (users: UserResponseType[]) =>
+const setPossibleFriends = (users: UserResponseType[]) =>
     ({ type: SET_POSSIBLE_FRIENDS, payload: { users } }) as const
-export const setPossibleFriendsPage = (currentPage: number) =>
+const setPossibleFriendsPage = (currentPage: number) =>
     ({ type: SET_POSSIBLE_FRIENDS_CURRENT_PAGE, payload: { currentPage } }) as const
-export const setPossibleFriendsOnPage = (usersOnPage: number) =>
+const setPossibleFriendsOnPage = (usersOnPage: number) =>
     ({ type: SET_POSSIBLE_FRIENDS_ON_PAGE, payload: { usersOnPage } }) as const
-export const setPossibleTotalFriendsCount = (totalUsersCount: number) =>
+const setPossibleTotalFriendsCount = (totalUsersCount: number) =>
     ({ type: SET_TOTAL_POSSIBLE_FRIENDS_COUNT, payload: { totalUsersCount } }) as const
 
 //THUNKS
 export const getFriends = (pageNumber: number, usersOnPage: number, isFriend: boolean) =>
     (dispatch: AppDispatchType) => {
         dispatch(setAppIsLoading(true))
-        socialNetworkAPI.getSortedUsers(pageNumber, usersOnPage, isFriend)
+        usersAPI.getSortedUsers(pageNumber, usersOnPage, isFriend)
             .then(res => {
                 if (isFriend) {
                     dispatch(setTotalFriendsCount(res.data.totalCount))

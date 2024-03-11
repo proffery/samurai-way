@@ -7,7 +7,7 @@ import { Input } from "../../common/input/Input.styled"
 import { FlexWrapper } from "../../common/FlexWrapper.styled"
 import { Button } from "../../common/button/Button"
 import { useFormik } from "formik"
-import { AlertType } from "../../../redux/app/appReducer"
+import { AlertType } from "../../../store/app/appReducer"
 import { LoginDataType } from "../../../api/social-network-api"
 import { Checkbox } from '../../common/checkbox/Checkbox'
 

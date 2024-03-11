@@ -2,9 +2,9 @@ import { useFormik } from 'formik'
 import React, { memo } from "react"
 import styled from "styled-components"
 import { GetProfileResponseContactsType } from '../../../api/social-network-api'
-import { AlertType } from '../../../redux/app/appReducer'
+import { AlertType } from '../../../store/app/appReducer'
 import { AuthStateType } from "../../../redux/auth/authReducer"
-import { ContactsIconsType, ProfileStateType } from "../../../redux/profile/profileReducer"
+import { ContactsIconsType, ProfileStateType } from "../../../store/profile/profileReducer"
 import { font } from "../../../styles/Font"
 import { theme } from "../../../styles/Theme.styled"
 import { BlockHeader } from "../BlockHeader.styled"

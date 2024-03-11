@@ -1,9 +1,13 @@
-import { v1 } from "uuid"
-import { ChangeProfileDataType, GetProfileResponseContactsType, GetProfileResponseType, socialNetworkAPI } from "../../api/social-network-api"
-import { AppDispatchType, AppRootStateType } from "../redux-store"
-import { AddAlertActionType, SetAppIsLoadingActionType, addAppAlert, setAppIsLoading } from "../app/appReducer"
-import { FollowUserActionType, UnfollowUserActionType } from "../users/usersReducer"
-import { CLEAN_REDUCER, CleanReducerType } from "../auth/authReducer"
+import {
+    GetProfileResponseType, ResultCode, GetProfileResponseContactsType,
+    ChangeProfileDataType, profileAPI, usersAPI
+} from 'api/social-network-api'
+import { setAppIsLoading, addAppAlert, SetAppIsLoadingActionType, AddAlertActionType } from 'store/app/appReducer'
+import { CLEAN_REDUCER, CleanReducerType } from 'store/auth/authReducer'
+import { AppDispatchType, AppRootStateType } from 'store/redux-store'
+import { FollowUserActionType, UnfollowUserActionType } from 'store/users/usersReducer'
+import { v1 } from 'uuid'
+
 
 //CONSTANTS
 const ADD_POST = 'ADD-POST'
@@ -141,11 +145,11 @@ export const updatePost = (postId: string, newPost: string) => (
     { type: UPDATE_POST, payload: { newPost, postId } }) as const
 export const postOnChange = (newPost: string) => (
     { type: ON_CHANGE_POST, payload: { newPost } }) as const
-export const setProfileData = (data: GetProfileResponseType) => (
+const setProfileData = (data: GetProfileResponseType) => (
     { type: SET_PROFILE_DATA, payload: { data } }) as const
-export const setFollowStatus = (isFollow: boolean) => (
+const setFollowStatus = (isFollow: boolean) => (
     { type: SET_FOLLOW_STATUS, payload: { isFollow } }) as const
-export const setStatus = (status: string) => (
+const setStatus = (status: string) => (
     { type: SET_STATUS, payload: { status } }) as const
 
 //THUNKS
@@ -157,16 +161,16 @@ export const addPost = () => (dispatch: AppDispatchType, getState: () => AppRoot
 export const getProfileData = (userId: number) =>
     (dispatch: AppDispatchType, getState: () => AppRootStateType) => {
         dispatch(setAppIsLoading(true))
-        socialNetworkAPI.getProfile(userId)
+        profileAPI.getProfile(userId)
             .then(res => {
                 dispatch(setProfileData(res.data))
                 if (res.data.userId !== getState().auth.id)
-                    return socialNetworkAPI.isFollow(userId)
+                    return usersAPI.isFollow(userId)
                 else return { data: false }
             })
             .then(res => {
                 dispatch(setFollowStatus(res.data))
-                return socialNetworkAPI.getProfileStatus(userId)
+                return profileAPI.getProfileStatus(userId)
             })
             .then(res => {
                 dispatch(setStatus(res.data))
@@ -178,9 +182,9 @@ export const getProfileData = (userId: number) =>
     }
 export const followProfile = (userId: number) => (dispatch: AppDispatchType) => {
     dispatch(setAppIsLoading(true))
-    socialNetworkAPI.followUser(userId)
+    usersAPI.followUser(userId)
         .then(res => {
-            if (res.data.resultCode === 0) {
+            if (res.data.resultCode === ResultCode.success) {
                 dispatch(setFollowStatus(true))
                 dispatch(addAppAlert('succeeded', 'Followed!'))
             }
@@ -195,9 +199,9 @@ export const followProfile = (userId: number) => (dispatch: AppDispatchType) => 
 }
 export const unfollowProfile = (userId: number) => (dispatch: AppDispatchType) => {
     dispatch(setAppIsLoading(true))
-    socialNetworkAPI.unfollowUser(userId)
+    usersAPI.unfollowUser(userId)
         .then(res => {
-            if (res.data.resultCode === 0) {
+            if (res.data.resultCode === ResultCode.success) {
                 dispatch(setFollowStatus(false))
                 dispatch(addAppAlert('succeeded', 'Unfollowed!'))
             }
@@ -214,9 +218,9 @@ export const changeProfileStatus = (newStatus: string) =>
     (dispatch: AppDispatchType, getState: () => AppRootStateType) => {
         if (newStatus !== getState().profile.data.status) {
             dispatch(setAppIsLoading(true))
-            socialNetworkAPI.changeStatus(newStatus)
+            profileAPI.changeStatus(newStatus)
                 .then(res => {
-                    if (res.data.resultCode === 0) {
+                    if (res.data.resultCode === ResultCode.success) {
                         dispatch(setStatus(newStatus))
                         dispatch(addAppAlert('succeeded', 'Status changed!'))
                     }
@@ -241,9 +245,9 @@ export const changeProfileContacts = (contacts: GetProfileResponseContactsType) 
             lookingForAJobDescription: lookingForAJobDescription || 'no info'
         }
         dispatch(setAppIsLoading(true))
-        socialNetworkAPI.changeProfile(model)
+        profileAPI.changeProfile(model)
             .then(res => {
-                if (res.data.resultCode === 0) {
+                if (res.data.resultCode === ResultCode.success) {
                     const oldProfileData = getState().profile.data
                     const oldStatus = getState().profile.data.status
                     dispatch(setProfileData({ ...oldProfileData, ...model }))
@@ -270,9 +274,9 @@ export const changeProfileAbout = (about: AboutProfileType) =>
             lookingForAJobDescription: about.lookingForAJobDescription || 'no info'
         }
         dispatch(setAppIsLoading(true))
-        socialNetworkAPI.changeProfile(model)
+        profileAPI.changeProfile(model)
             .then(res => {
-                if (res.data.resultCode === 0) {
+                if (res.data.resultCode === ResultCode.success) {
                     const oldProfileData = getState().profile.data
                     const oldStatus = getState().profile.data.status
                     dispatch(setProfileData({ ...oldProfileData, ...model }))

@@ -4,7 +4,7 @@ import { font } from "../../../../styles/Font"
 import avatarImg from '../../../../assets/images/Author.webp'
 import { FlexWrapper } from "../../../common/FlexWrapper.styled"
 import { memo, useEffect, useRef } from "react"
-import { MessageType } from "../../../../redux/messages/messagesReducer"
+import { MessageType } from "../../../../store/messages/messagesReducer"
 
 type MessagePropsType = {
     messageData: MessageType

@@ -2,7 +2,7 @@ import styled from "styled-components"
 import { Icon } from "../../../common/icon/Icon"
 import { Link } from "../../../common/link/Link.styled"
 import { theme } from "../../../../styles/Theme.styled"
-import { IconLinksStateType } from "../../../../redux/app/appReducer"
+import { IconLinksStateType } from "../../../../store/app/appReducer"
 import { memo } from 'react'
 
 type SocialMedeaLinksPropsType = {

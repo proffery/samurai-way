@@ -6,7 +6,7 @@ import { Menu } from "../../common/menu/Menu"
 import { Link } from "../../common/link/Link.styled"
 import { Icon } from "../../common/icon/Icon"
 import { SocialMedeaLinks } from "./socialMedeaLinks/SocialMedeaLinks"
-import { IconLinksStateType } from "../../../redux/app/appReducer"
+import { IconLinksStateType } from "../../../store/app/appReducer"
 import { memo } from 'react'
 
 type FooterPropsType = {

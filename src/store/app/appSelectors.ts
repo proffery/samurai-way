@@ -1,5 +1,5 @@
-import { AppRootStateType } from 'redux/redux-store'
-import { IconLinksStateType } from './appReducer'
+import { IconLinksStateType } from 'store/app/appReducer'
+import { AppRootStateType } from 'store/redux-store'
 
 export const selectIsLoading = (state: AppRootStateType): boolean => state.app.isLoading
 export const selectIsInitialized = (state: AppRootStateType): boolean => state.app.isInitialized

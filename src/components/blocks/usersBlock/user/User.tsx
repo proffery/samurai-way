@@ -3,7 +3,7 @@ import { Button } from "../../../common/button/Button"
 import { theme } from "../../../../styles/Theme.styled"
 import { font } from "../../../../styles/Font"
 import { FlexWrapper } from "../../../common/FlexWrapper.styled"
-import { UserStateType } from "../../../../redux/users/usersReducer"
+import { UserStateType } from "../../../../store/users/usersReducer"
 import { NavLink } from "react-router-dom"
 import { MouseEvent, memo } from "react"
 import { Avatar } from '../../../common/avatar/Avatar'

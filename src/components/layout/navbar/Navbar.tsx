@@ -2,7 +2,7 @@ import React, { MouseEvent, memo, useEffect, useState } from "react"
 import styled from "styled-components"
 import { Logo } from "../../common/logo/Logo"
 import { Menu } from "../../common/menu/Menu"
-import { IconLinksStateType } from "../../../redux/app/appReducer"
+import { IconLinksStateType } from "../../../store/app/appReducer"
 import { theme } from "../../../styles/Theme.styled"
 
 type NavbarPropsType = {

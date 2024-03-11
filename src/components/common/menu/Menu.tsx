@@ -4,7 +4,7 @@ import styled, { css } from "styled-components"
 import { Icon } from "../icon/Icon"
 import { theme } from "../../../styles/Theme.styled"
 import { NavLink } from "react-router-dom"
-import { IconLinksStateType } from "../../../redux/app/appReducer"
+import { IconLinksStateType } from "../../../store/app/appReducer"
 
 type MenuPropsType = {
     type: 'primary' | 'secondary'

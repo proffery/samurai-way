@@ -1,8 +1,8 @@
 import { connect } from "react-redux"
-import { AppRootStateType } from "../../redux/redux-store"
+import { AppRootStateType } from "../../store/redux-store"
 import { logIn } from "../../redux/auth/authReducer"
 import { LoginDataType } from "../../api/social-network-api"
-import { AlertType, addAppAlert } from "../../redux/app/appReducer"
+import { AlertType, addAppAlert } from "../../store/app/appReducer"
 import { Login } from "../layout/login/Login"
 import { compose } from "redux"
 import { selectIsloggedIn } from 'redux/auth/authSelectors'

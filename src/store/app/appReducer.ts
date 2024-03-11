@@ -1,7 +1,9 @@
-import { v1 } from "uuid"
-import { socialNetworkAPI } from '../../api/social-network-api'
-import { CleanReducerType, setAuthUserData, setIsLoggedIn } from "../auth/authReducer"
-import { AppDispatchType, AppRootStateType } from "../redux-store"
+import { authAPI, ResultCode } from 'api/social-network-api'
+import { setAuthUserData, setIsLoggedIn, CleanReducerType } from 'store/auth/authReducer'
+import { AppDispatchType, AppRootStateType } from 'store/redux-store'
+import { v1 } from 'uuid'
+
+
 
 //CONSTANTS
 const APP_SET_IS_LOADING = 'APP-SET-IS_LOADING'
@@ -120,22 +122,22 @@ export const appReducer = (state: AppStateType = initialState, action: AppAction
 //ACTIONS
 export const setAppIsLoading = (isLoading: boolean) =>
     ({ type: APP_SET_IS_LOADING, payload: { isLoading } } as const)
-export const setAppAlert = (newAlert: AlertObjectType) =>
+const setAppAlert = (newAlert: AlertObjectType) =>
     ({ type: APP_ADD_ALERT, payload: { newAlert } } as const)
-export const removeAlert = (id: string) =>
+const removeAppAlert = (id: string) =>
     ({ type: APP_REMOVE_ALERT, payload: { id } } as const)
-export const setAppNavbarCollapsed = (navbarCollapsed: boolean) =>
+const setAppNavbarCollapsed = (navbarCollapsed: boolean) =>
     ({ type: APP_SET_NAVBAR_COLLAPSED, payload: { navbarCollapsed } } as const)
-export const setAppIsInitialized = (isInitialized: boolean) =>
+const setAppIsInitialized = (isInitialized: boolean) =>
     ({ type: APP_SET_IS_INITIALIZED, payload: { isInitialized } } as const)
 
 //THUNKS
 export const initializeApp = () =>
     (dispatch: AppDispatchType) => {
         dispatch(setAppIsLoading(true))
-        return socialNetworkAPI.getMe()
+        return authAPI.getMe()
             .then(res => {
-                if (res.data.resultCode === 0) {
+                if (res.data.resultCode === ResultCode.success) {
                     Promise.all([
                         dispatch(setAuthUserData(res.data.data)),
                         dispatch(setIsLoggedIn(true))])
@@ -156,7 +158,7 @@ export const initializeApp = () =>
 
 export const addAppAlert = (type: AlertType, message: string) =>
     (dispatch: AppDispatchType, getState: () => AppRootStateType) => {
-        const alerts = getState().app.alerts
+        const alerts: AlertObjectType[] = getState().app.alerts
         const alertDuplicat = alerts.find(alert => alert.message === message && alert.type === type)
         if (alertDuplicat) return
         const newAlert: AlertObjectType = {
@@ -169,7 +171,7 @@ export const addAppAlert = (type: AlertType, message: string) =>
 
 //TYPES
 export type AddAlertActionType = ReturnType<typeof setAppAlert>
-export type RemoveAlertActionType = ReturnType<typeof removeAlert>
+export type RemoveAlertActionType = ReturnType<typeof removeAppAlert>
 export type SetNavbarCollapsedActionType = ReturnType<typeof setAppNavbarCollapsed>
 export type SetAppIsLoadingActionType = ReturnType<typeof setAppIsLoading>
 export type SetAppIsInitializedType = ReturnType<typeof setAppIsInitialized>

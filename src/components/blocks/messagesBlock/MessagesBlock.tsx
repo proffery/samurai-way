@@ -6,7 +6,7 @@ import styled from "styled-components"
 import { FlexWrapper } from "../../common/FlexWrapper.styled"
 import { Button } from "../../common/button/Button"
 import { Input } from "../../common/input/Input.styled"
-import { MessageType } from "../../../redux/messages/messagesReducer"
+import { MessageType } from "../../../store/messages/messagesReducer"
 
 type MessagesBlockPropsType = {
     messages: MessageType[]

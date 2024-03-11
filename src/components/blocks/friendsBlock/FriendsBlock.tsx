@@ -1,6 +1,6 @@
 import React, { memo } from "react"
 import styled from "styled-components"
-import { FriendsType } from '../../../redux/friends/friendsReducer'
+import { FriendsType } from '../../../store/friends/friendsReducer'
 import { theme } from "../../../styles/Theme.styled"
 import { BlockHeader } from "../BlockHeader.styled"
 import { BlockSection } from "../BlockSection.styled"

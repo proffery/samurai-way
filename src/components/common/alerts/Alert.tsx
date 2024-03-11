@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components"
-import { AlertType } from "../../../redux/app/appReducer"
+import { AlertType } from "../../../store/app/appReducer"
 import { theme } from "../../../styles/Theme.styled"
 import { Icon } from "../icon/Icon"
 import { memo, useEffect } from "react"

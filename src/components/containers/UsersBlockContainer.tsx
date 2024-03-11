@@ -5,12 +5,12 @@ import {
     getAllUsers, followUser, unfollowUser, getFollowedUsers,
     getUnfollowedUsers, UsersFilterType, changeUsersFilter,
     UsersStateType
-} from 'redux/users/usersReducer'
+} from 'store/users/usersReducer'
 import { memo, useEffect } from "react"
 import { compose } from "redux"
-import { selectUsersData } from 'redux/users/usersSelectors'
-import { selectIsLoading } from 'redux/app/appSelectors'
-import { AppRootStateType } from 'redux/redux-store'
+import { selectUsersData } from 'store/users/usersSelectors'
+import { selectIsLoading } from 'store/app/appSelectors'
+import { AppRootStateType } from 'store/redux-store'
 
 type UsersBlockAPIPropsType = {
     usersData: UsersStateType

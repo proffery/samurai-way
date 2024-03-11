@@ -1,9 +1,10 @@
-import { GetMeDataType, LoginDataType, socialNetworkAPI } from '../../api/social-network-api'
+import { GetMeDataType, profileAPI, LoginDataType, authAPI, ResultCode } from 'api/social-network-api'
 import {
-    SetAppIsInitializedType, SetAppIsLoadingActionType,
-    addAppAlert, initializeApp, setAppIsLoading
-} from '../app/appReducer'
-import { AppDispatchType } from '../redux-store'
+    initializeApp, addAppAlert, SetAppIsLoadingActionType,
+    SetAppIsInitializedType, setAppIsLoading
+} from 'store/app/appReducer'
+import { AppDispatchType } from 'store/redux-store'
+
 
 //CONSTANTS
 const SET_AUTH_DATA = 'AUTH/SET-AUTH-DATA'
@@ -50,17 +51,17 @@ export const cleanReducer = () =>
 //THUNKS
 
 export const getAuthPhoto = (authId: number) => (dispatch: AppDispatchType) => {
-    return socialNetworkAPI.getProfile(authId)
+    return profileAPI.getProfile(authId)
         .then(res => {
             dispatch(setPhotoUrl(res.data.photos.small))
         })
 }
 
-export const logIn = (loginData: LoginDataType) => (dispatch: AppDispatchType) => {
+export const login = (loginData: LoginDataType) => (dispatch: AppDispatchType) => {
     dispatch(setAppIsLoading(true))
-    return socialNetworkAPI.login(loginData)
+    return authAPI.login(loginData)
         .then(res => {
-            if (res.data.resultCode === 0) {
+            if (res.data.resultCode === ResultCode.success) {
                 dispatch(initializeApp())
             }
             else {
@@ -73,11 +74,11 @@ export const logIn = (loginData: LoginDataType) => (dispatch: AppDispatchType) =
         .finally(() => dispatch(setAppIsLoading(false)))
 }
 
-export const logOut = () => (dispatch: AppDispatchType) => {
+export const logout = () => (dispatch: AppDispatchType) => {
     dispatch(setAppIsLoading(true))
-    socialNetworkAPI.logout()
+    authAPI.logout()
         .then(res => {
-            if (res.data.resultCode === 0) {
+            if (res.data.resultCode === ResultCode.success) {
                 dispatch(setIsLoggedIn(false))
                 dispatch(cleanReducer())
             }

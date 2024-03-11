@@ -8,7 +8,7 @@ const instance = axios.create({
     }
 })
 
-export const socialNetworkAPI = {
+export const usersAPI = {
     getUsers(pageNumber: number, usersOnPage: number) {
         return instance.get<GetUsersResponseType>(`/users?page=${pageNumber}&count=${usersOnPage}`)
     },
@@ -23,21 +23,15 @@ export const socialNetworkAPI = {
     },
     getSortedUsers(pageNumber: number, usersOnPage: number, isFriend: boolean) {
         return instance.get<GetUsersResponseType>(`/users?page=${pageNumber}&count=${usersOnPage}&friend=${isFriend}`)
-    },
+    }
+}
+
+export const profileAPI = {
     getProfile(userId: number) {
         return instance.get<GetProfileResponseType>(`/profile/${userId}`)
     },
     getProfileStatus(userId: number) {
         return instance.get<string>(`/profile/status/${userId}`)
-    },
-    getMe() {
-        return instance.get<ResponseType<GetMeDataType>>('/auth/me')
-    },
-    logout() {
-        return instance.delete<ResponseType>('/auth/login')
-    },
-    login(loginData: LoginDataType) {
-        return instance.post<ResponseType<{ userId: number }>>('/auth/login', loginData)
     },
     changeStatus(newStatus: string) {
         return instance.put<ResponseType>('/profile/status', { status: newStatus })
@@ -47,13 +41,24 @@ export const socialNetworkAPI = {
     }
 }
 
+export const authAPI = {
+    getMe() {
+        return instance.get<ResponseType<GetMeDataType>>('/auth/me')
+    },
+    logout() {
+        return instance.delete<ResponseType>('/auth/login')
+    },
+    login(loginData: LoginDataType) {
+        return instance.post<ResponseType<{ userId: number }>>('/auth/login', loginData)
+    }
+}
 
 //ENUM
 export const ResultCode = {
     success: 0,
     error: 1,
     captcha: 10
-  } as const
+} as const
 
 //TYPES
 export type UserResponseType = {

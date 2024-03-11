@@ -1,9 +1,9 @@
 import { connect } from "react-redux"
-import { AppRootStateType } from "../../redux/redux-store"
-import { IconLinksStateType } from "../../redux/app/appReducer"
+import { AppRootStateType } from "../../store/redux-store"
+import { IconLinksStateType } from "../../store/app/appReducer"
 import { Footer } from "../layout/footer/Footer"
 import { compose } from "redux"
-import { selectFooterLinks, selectMenuItems } from 'redux/app/appSelectors'
+import { selectFooterLinks, selectMenuItems } from 'store/app/appSelectors'
 import { selectIsloggedIn } from 'redux/auth/authSelectors'
 import { memo } from 'react'
 

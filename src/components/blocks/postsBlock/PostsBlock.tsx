@@ -6,7 +6,7 @@ import { FlexWrapper } from "../../common/FlexWrapper.styled"
 import { Post } from "./post/Post"
 import { BlockHeader } from "../BlockHeader.styled"
 import { BlockSection } from "../BlockSection.styled"
-import { ProfileStateType } from "../../../redux/profile/profileReducer"
+import { ProfileStateType } from "../../../store/profile/profileReducer"
 
 type PostsBlockPropsType = {
     className?: string

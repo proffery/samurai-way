@@ -5,7 +5,7 @@ import { FlexWrapper } from "../../../common/FlexWrapper.styled"
 import { font } from "../../../../styles/Font"
 import avatarImg from '../../../../assets/images/Author.webp'
 import { Icon } from "../../../common/icon/Icon"
-import { PostStateType } from "../../../../redux/profile/profileReducer"
+import { PostStateType } from "../../../../store/profile/profileReducer"
 import { memo } from 'react'
 
 type PostPropsType = {

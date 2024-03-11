@@ -1,7 +1,8 @@
-import { UserResponseType, socialNetworkAPI } from "../../api/social-network-api"
-import { AddAlertActionType, SetAppIsLoadingActionType, addAppAlert, setAppIsLoading } from "../app/appReducer"
-import { CLEAN_REDUCER, CleanReducerType } from "../auth/authReducer"
-import { AppDispatchType } from "../redux-store"
+import { UserResponseType, ResultCode, usersAPI } from 'api/social-network-api'
+import { setAppIsLoading, addAppAlert, SetAppIsLoadingActionType, AddAlertActionType } from 'store/app/appReducer'
+import { CLEAN_REDUCER, CleanReducerType } from 'store/auth/authReducer'
+import { AppDispatchType } from 'store/redux-store'
+
 
 //CONSTANTS
 const FOLLOW = 'FOLLOW'
@@ -61,27 +62,27 @@ export const usersReducer = (state: UsersStateType = initialState, action: Users
 }
 
 //ACTIONS
-export const setFollowUser = (userId: number) =>
+const setFollowUser = (userId: number) =>
     ({ type: FOLLOW, payload: { userId } }) as const
-export const setUnfollowUser = (userId: number) =>
+const setUnfollowUser = (userId: number) =>
     ({ type: UNFOLLOW, payload: { userId } }) as const
-export const setUsers = (users: UserResponseType[]) =>
+const setUsers = (users: UserResponseType[]) =>
     ({ type: SET_USERS, payload: { users } }) as const
-export const setCurrentPage = (currentPage: number) =>
+const setCurrentPage = (currentPage: number) =>
     ({ type: SET_CURRENT_PAGE, payload: { currentPage } }) as const
-export const setUsersOnPage = (usersOnPage: number) =>
+const setUsersOnPage = (usersOnPage: number) =>
     ({ type: SET_USERS_ON_PAGE, payload: { usersOnPage } }) as const
-export const setTotalUsersCount = (totalUsersCount: number) =>
+const setTotalUsersCount = (totalUsersCount: number) =>
     ({ type: SET_TOTAL_USERS_COUNT, payload: { totalUsersCount } }) as const
-export const changeUsersFilter = (usersFilter: UsersFilterType) =>
+const changeUsersFilter = (usersFilter: UsersFilterType) =>
     ({ type: CHANGE_USERS_FILTER, payload: { usersFilter } }) as const
-export const changeUserIsLoading = (userId: number, isLoading: boolean) =>
+const changeUserIsLoading = (userId: number, isLoading: boolean) =>
     ({ type: CHANGE_USER_IS_LOADING, payload: { userId, isLoading } }) as const
 
 //THUNKS
 export const getAllUsers = (pageNumber: number, usersOnPage: number) => (dispatch: AppDispatchType) => {
     dispatch(setAppIsLoading(true))
-    socialNetworkAPI.getUsers(pageNumber, usersOnPage)
+    usersAPI.getUsers(pageNumber, usersOnPage)
         .then(res => {
             dispatch(setTotalUsersCount(res.data.totalCount))
             dispatch(setCurrentPage(pageNumber))
@@ -95,7 +96,7 @@ export const getAllUsers = (pageNumber: number, usersOnPage: number) => (dispatc
 }
 export const getFollowedUsers = (pageNumber: number, usersOnPage: number) => (dispatch: AppDispatchType) => {
     dispatch(setAppIsLoading(true))
-    socialNetworkAPI.getSortedUsers(pageNumber, usersOnPage, true)
+    usersAPI.getSortedUsers(pageNumber, usersOnPage, true)
         .then(res => {
             dispatch(setTotalUsersCount(res.data.totalCount))
             dispatch(setCurrentPage(pageNumber))
@@ -109,7 +110,7 @@ export const getFollowedUsers = (pageNumber: number, usersOnPage: number) => (di
 }
 export const getUnfollowedUsers = (pageNumber: number, usersOnPage: number) => (dispatch: AppDispatchType) => {
     dispatch(setAppIsLoading(true))
-    socialNetworkAPI.getSortedUsers(pageNumber, usersOnPage, false)
+    usersAPI.getSortedUsers(pageNumber, usersOnPage, false)
         .then(res => {
             dispatch(setTotalUsersCount(res.data.totalCount))
             dispatch(setCurrentPage(pageNumber))
@@ -124,9 +125,9 @@ export const getUnfollowedUsers = (pageNumber: number, usersOnPage: number) => (
 export const followUser = (userId: number) => (dispatch: AppDispatchType) => {
     dispatch(changeUserIsLoading(userId, true))
     dispatch(setAppIsLoading(true))
-    socialNetworkAPI.followUser(userId)
+    usersAPI.followUser(userId)
         .then(res => {
-            if (res.data.resultCode === 0) {
+            if (res.data.resultCode === ResultCode.success) {
                 dispatch(setFollowUser(userId))
                 dispatch(addAppAlert('succeeded', 'Followed!'))
             }
@@ -145,9 +146,9 @@ export const followUser = (userId: number) => (dispatch: AppDispatchType) => {
 export const unfollowUser = (userId: number) => (dispatch: AppDispatchType) => {
     dispatch(changeUserIsLoading(userId, true))
     dispatch(setAppIsLoading(true))
-    socialNetworkAPI.unfollowUser(userId)
+    usersAPI.unfollowUser(userId)
         .then(res => {
-            if (res.data.resultCode === 0) {
+            if (res.data.resultCode === ResultCode.success) {
                 dispatch(setUnfollowUser(userId))
                 dispatch(addAppAlert('succeeded', 'Unfollowed!'))
             }

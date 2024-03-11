@@ -1,6 +1,6 @@
 import { connect } from "react-redux"
 import { Header } from "../layout/header/Header"
-import { AppRootStateType } from "../../redux/redux-store"
+import { AppRootStateType } from "../../store/redux-store"
 import { AuthStateType, logOut } from "../../redux/auth/authReducer"
 import { compose } from "redux"
 import { selectAuthData } from 'redux/auth/authSelectors'

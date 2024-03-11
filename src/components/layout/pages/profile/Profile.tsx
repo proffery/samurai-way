@@ -1,9 +1,9 @@
 import React, { memo } from "react"
 import styled from "styled-components"
 import { GetProfileResponseContactsType } from '../../../../api/social-network-api'
-import { AlertType } from "../../../../redux/app/appReducer"
+import { AlertType } from "../../../../store/app/appReducer"
 import { AuthStateType } from "../../../../redux/auth/authReducer"
-import { AboutProfileType, ProfileStateType } from "../../../../redux/profile/profileReducer"
+import { AboutProfileType, ProfileStateType } from "../../../../store/profile/profileReducer"
 import { theme } from "../../../../styles/Theme.styled"
 import { AboutMeBlock } from '../../../blocks/aboutMeBlock/AboutMeBlock'
 import { ContactsBlock } from "../../../blocks/contactsBlock/ContactsBlock"
