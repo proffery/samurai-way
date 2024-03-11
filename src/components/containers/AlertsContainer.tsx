@@ -5,11 +5,6 @@ import { Alerts } from 'components/common/alerts/Alerts'
 import { AlertObjectType, removeAppAlert } from 'store/app/appReducer'
 import { AppRootStateType } from 'store/redux-store'
 
-type AlertsAPIPropsTtype = {
-    alerts: AlertObjectType[]
-    removeAppAlert: (alertId: string) => void
-}
-
 export const AlertsAPI: React.FC<AlertsAPIPropsTtype> = memo((props) => {
     return (
         <Alerts
@@ -32,3 +27,9 @@ const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
 export const AlertsContainer = compose(
     connect(mapStateToProps, { removeAppAlert })
 )(AlertsAPI)
+
+//TYPES
+type AlertsAPIPropsTtype = {
+    alerts: AlertObjectType[]
+    removeAppAlert: (alertId: string) => void
+}

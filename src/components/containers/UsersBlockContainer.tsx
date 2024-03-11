@@ -12,17 +12,6 @@ import { selectUsersData } from 'store/users/usersSelectors'
 import { selectIsLoading } from 'store/app/appSelectors'
 import { AppRootStateType } from 'store/redux-store'
 
-type UsersBlockAPIPropsType = {
-    usersData: UsersStateType
-    appIsLoading: boolean
-    followUser: (userId: number) => void
-    unfollowUser: (userId: number) => void
-    getAllUsers: (currentPage: number, usersOnPage: number) => void
-    getFollowedUsers: (currentPage: number, usersOnPage: number) => void
-    getUnfollowedUsers: (currentPage: number, usersOnPage: number) => void
-    changeUsersFilter: (filter: UsersFilterType) => void
-}
-
 const UsersBlockAPI: React.FC<UsersBlockAPIPropsType> = memo((props) => {
     const { usersFilter, usersOnPage } = props.usersData
     useEffect(() => {
@@ -88,3 +77,15 @@ export const UsersBlockContainer = compose(
         getFollowedUsers, getUnfollowedUsers, changeUsersFilter
     })
 )(UsersBlockAPI)
+
+//TYPES
+type UsersBlockAPIPropsType = {
+    usersData: UsersStateType
+    appIsLoading: boolean
+    followUser: (userId: number) => void
+    unfollowUser: (userId: number) => void
+    getAllUsers: (currentPage: number, usersOnPage: number) => void
+    getFollowedUsers: (currentPage: number, usersOnPage: number) => void
+    getUnfollowedUsers: (currentPage: number, usersOnPage: number) => void
+    changeUsersFilter: (filter: UsersFilterType) => void
+}

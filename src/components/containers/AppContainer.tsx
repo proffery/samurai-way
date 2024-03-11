@@ -6,16 +6,7 @@ import { selectNavbarCollapsed, selectIsLoading, selectIsInitialized } from 'sto
 import { selectIsloggedIn } from 'store/auth/authSelectors'
 import { AppRootStateType } from 'store/redux-store'
 
-
-type AppAPIPropsTtype = {
-    isLoggedIn: boolean
-    navbarCollapsed: boolean
-    isLoading: boolean
-    isInitialized: boolean
-    initializeApp: () => Promise<void>
-}
-
-export const AppAPI = (props: AppAPIPropsTtype) => {
+export const AppAPI = (props: AppAPIPropsType) => {
     useEffect(() => {
         props.initializeApp()
     }, [])
@@ -46,3 +37,11 @@ const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
 
 export const AppContainer = connect(mapStateToProps, { initializeApp })(AppAPI)
 
+//TYPES
+type AppAPIPropsType = {
+    isLoggedIn: boolean
+    navbarCollapsed: boolean
+    isLoading: boolean
+    isInitialized: boolean
+    initializeApp: () => Promise<void>
+}

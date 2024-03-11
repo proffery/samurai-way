@@ -9,12 +9,6 @@ import { login } from 'store/auth/authReducer'
 import { selectIsloggedIn } from 'store/auth/authSelectors'
 import { AppRootStateType } from 'store/redux-store'
 
-type LoginAPIPropsTtype = {
-    isLoggedIn: boolean
-    login: (loginData: LoginDataType) => void
-    addAppAlert: (type: AlertType, message: string) => void
-}
-
 export const LoginAPI: React.FC<LoginAPIPropsTtype> = memo((props) => {
     return (
         <Login
@@ -38,3 +32,10 @@ const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
 export const LoginContainer = compose(
     connect(mapStateToProps, { login, addAppAlert })
 )(LoginAPI)
+
+//TYPES
+type LoginAPIPropsTtype = {
+    isLoggedIn: boolean
+    login: (loginData: LoginDataType) => void
+    addAppAlert: (type: AlertType, message: string) => void
+}

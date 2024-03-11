@@ -7,13 +7,6 @@ import { FriendsType, getFriends } from 'store/friends/friendsReducer'
 import { selectPossibleFriendsData } from 'store/friends/friendsSelectors'
 import { AppRootStateType } from 'store/redux-store'
 
-
-type PossibleFriendsBlockAPIPropsType = {
-    className?: string
-    isLoading: boolean
-    friendsData: FriendsType
-    getFriends: (pageNumber: number, usersOnPage: number, isFriend: boolean) => void
-}
 export const PossibleFriendsBlockAPI: React.FC<PossibleFriendsBlockAPIPropsType> = memo((props) => {
     const { totalUsersCount, usersOnPage } = props.friendsData
     const pagesCount = Math.ceil(totalUsersCount / usersOnPage)
@@ -46,12 +39,7 @@ export const PossibleFriendsBlockAPI: React.FC<PossibleFriendsBlockAPIPropsType>
     )
 })
 
-type MapStatePropsType = {
-    className?: string
-    isLoading: boolean
-    friendsData: FriendsType
-}
-const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
+const mapStateToProps = (state: AppRootStateType) => {
     return {
         isLoading: selectIsLoading(state),
         friendsData: selectPossibleFriendsData(state),
@@ -61,3 +49,11 @@ const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
 export const PossibleFriendsBlockContainer = compose(
     connect(mapStateToProps, { getFriends })
 )(PossibleFriendsBlockAPI)
+
+//TYPES
+type PossibleFriendsBlockAPIPropsType = {
+    className?: string
+    isLoading: boolean
+    friendsData: FriendsType
+    getFriends: (pageNumber: number, usersOnPage: number, isFriend: boolean) => void
+}

@@ -5,12 +5,6 @@ import { IconLinksStateType, setAppNavbarCollapsed } from 'store/app/appReducer'
 import { selectMenuItems, selectNavbarCollapsed } from 'store/app/appSelectors'
 import { AppRootStateType } from 'store/redux-store'
 
-type NavbarAPIPropsTtype = {
-    menuItems: IconLinksStateType[]
-    navbarCollapsed: boolean
-    setAppNavbarCollapsed: (value: boolean) => void
-}
-
 export const NavbarAPI: React.FC<NavbarAPIPropsTtype> = memo((props) => {
 
     return (
@@ -22,12 +16,7 @@ export const NavbarAPI: React.FC<NavbarAPIPropsTtype> = memo((props) => {
     )
 })
 
-type MapStatePropsType = {
-    menuItems: IconLinksStateType[]
-    navbarCollapsed: boolean
-}
-
-const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
+const mapStateToProps = (state: AppRootStateType) => {
     return {
         menuItems: selectMenuItems(state),
         navbarCollapsed: selectNavbarCollapsed(state)
@@ -35,3 +24,10 @@ const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
 }
 
 export const NavbarContainer = connect(mapStateToProps, { setAppNavbarCollapsed })(NavbarAPI)
+
+//TYPES
+type NavbarAPIPropsTtype = {
+    menuItems: IconLinksStateType[]
+    navbarCollapsed: boolean
+    setAppNavbarCollapsed: (value: boolean) => void
+}

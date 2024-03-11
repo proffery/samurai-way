@@ -6,11 +6,6 @@ import { AuthStateType, logout } from 'store/auth/authReducer'
 import { selectAuthData } from 'store/auth/authSelectors'
 import { AppRootStateType } from 'store/redux-store'
 
-type HeaderAPIPropsTtype = {
-    authData: AuthStateType
-    logout: () => void
-}
-
 export const HeaderAPI: React.FC<HeaderAPIPropsTtype> = memo((props) => {
     return (
         <Header
@@ -33,3 +28,9 @@ const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
 export const HeaderContainer = compose(
     connect(mapStateToProps, { logout })
 )(HeaderAPI)
+
+//TYPES
+type HeaderAPIPropsTtype = {
+    authData: AuthStateType
+    logout: () => void
+}
