@@ -1,13 +1,11 @@
-import { FlexWrapper } from 'components/common/FlexWrapper.styled'
-import { Button } from 'components/common/button/Button'
-import { Icon } from 'components/common/icon/Icon'
-import { Input } from 'components/common/input/Input.styled'
 import { useFormik } from 'formik'
-import { memo, useEffect, useState } from "react"
 import styled from 'styled-components'
 import { theme } from 'styles/Theme.styled'
-
-
+import { memo, useEffect, useState } from 'react'
+import { Icon } from 'components/common/icon/Icon'
+import { Button } from 'components/common/button/Button'
+import { Input } from 'components/common/input/Input.styled'
+import { FlexWrapper } from 'components/common/FlexWrapper.styled'
 
 type PaginationPropsType = {
     className?: string
@@ -165,7 +163,6 @@ const SyledInput = styled(Input)`
     &::placeholder {
     }
 `
-
 const InputWrapper = styled(FlexWrapper)`
     position: relative;
 `

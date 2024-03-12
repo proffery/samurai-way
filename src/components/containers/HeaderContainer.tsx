@@ -1,14 +1,14 @@
-import { memo, useEffect } from 'react'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
+import { memo, useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
 import { AppRootStateType } from 'store/redux-store'
 import { Header } from 'components/layout/header/Header'
 import { selectAuthData } from 'store/auth/authSelectors'
+import { selectStoragePath } from 'store/app/appSelectors'
 import { setUsersSearchTerm } from 'store/users/usersReducer'
 import { AuthStateType, logout } from 'store/auth/authReducer'
 import { selectUsersSearchTerm } from 'store/users/usersSelectors'
-import { useHistory } from 'react-router-dom'
-import { selectStoragePath } from 'store/app/appSelectors'
 
 export const HeaderAPI: React.FC<HeaderAPIPropsTtype> = memo((props) => {
     const history = useHistory()

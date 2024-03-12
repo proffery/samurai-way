@@ -1,7 +1,7 @@
-import { Input } from 'components/common/input/Input.styled'
-import React, { memo } from "react"
-import styled, { keyframes } from "styled-components"
+import React, { memo } from 'react'
 import { theme } from 'styles/Theme.styled'
+import styled, { keyframes } from 'styled-components'
+import { Input } from 'components/common/input/Input.styled'
 
 type CheckboxPropsType = {
   id: string
@@ -45,14 +45,12 @@ const StyledInput = styled(Input)`
   opacity: 0;
   z-index: -1;
 `
-
 const Label = styled.label`
   position: relative;
   display: flex;
   align-items: center;
   padding: 0px 0px 0px 2em;
 `
-
 const rotate = keyframes`
   from {
     opacity: 0;
@@ -63,7 +61,6 @@ const rotate = keyframes`
     transform: rotate(45deg);
   }
 `
-
 const Indicator = styled.div`
   width: 1.2em;
   height: 1.2em;
@@ -74,21 +71,17 @@ const Indicator = styled.div`
   transform: translateY(-50%);
   border: 1px solid ${theme.color.text.primary};
   border-radius: 0.2em;
-
   ${StyledInput}:not(:disabled):checked & {
     background: #d1d1d1;
   }
-
   ${Label}:hover & {
     background: #ccc;
   }
-
   &::after {
     content: "";
     position: absolute;
     display: none;
   }
-
   ${StyledInput}:checked + &::after {
     display: block;
     top: -33%;
@@ -101,7 +94,6 @@ const Indicator = styled.div`
     animation-duration: 0.3s;
     animation-fill-mode: forwards;
   }
-
   &:disabled {
     cursor: not-allowed;
   }

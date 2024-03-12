@@ -1,11 +1,14 @@
 import App from 'App'
 import { useEffect } from 'react'
 import { connect } from 'react-redux'
+import { AppRootStateType } from 'store/redux-store'
+import { selectIsloggedIn } from 'store/auth/authSelectors'
 import { RouteComponentProps, withRouter } from 'react-router-dom'
 import { initializeApp, savePathToStorage } from 'store/app/appReducer'
-import { selectNavbarCollapsed, selectIsLoading, selectIsInitialized, selectStoragePath } from 'store/app/appSelectors'
-import { selectIsloggedIn } from 'store/auth/authSelectors'
-import { AppRootStateType } from 'store/redux-store'
+import {
+    selectNavbarCollapsed, selectIsLoading, selectIsInitialized,
+    selectStoragePath
+} from 'store/app/appSelectors'
 
 export const AppAPI = (props: AppAPIPropsType) => {
     const { pathname } = props.location

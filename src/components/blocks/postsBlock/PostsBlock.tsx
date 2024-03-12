@@ -1,12 +1,12 @@
-import { BlockHeader } from 'components/blocks/BlockHeader.styled'
-import { BlockSection } from 'components/blocks/BlockSection.styled'
-import { Post } from 'components/blocks/postsBlock/post/Post'
-import { FlexWrapper } from 'components/common/FlexWrapper.styled'
+import styled from 'styled-components'
 import { Button } from 'components/common/button/Button'
 import { Input } from 'components/common/input/Input.styled'
-import React, { ChangeEvent, MouseEvent, KeyboardEvent, useState, memo } from "react"
+import { Post } from 'components/blocks/postsBlock/post/Post'
 import { ProfileStateType } from 'store/profile/profileReducer'
-import styled from 'styled-components'
+import { FlexWrapper } from 'components/common/FlexWrapper.styled'
+import { BlockHeader } from 'components/blocks/BlockHeader.styled'
+import { BlockSection } from 'components/blocks/BlockSection.styled'
+import React, { ChangeEvent, MouseEvent, KeyboardEvent, useState, memo } from "react"
 
 type PostsBlockPropsType = {
     className?: string
@@ -17,25 +17,22 @@ type PostsBlockPropsType = {
 
 export const PostsBlock: React.FC<PostsBlockPropsType> = memo((props) => {
 
-    let [error, setError] = useState<string | null>('Enter your post')
+    const [error, setError] = useState<string | null>('Enter your post')
 
     const onChangeNewPostHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         props.onChangeNewPostText(e.currentTarget.value)
     }
-
     const addPostOnCtrlEnterHandler = (e: KeyboardEvent<HTMLFormElement>) => {
         if (error) setError(null)
         if (e.key === 'Enter' && e.ctrlKey) {
             addPost()
         }
     }
-
     const addPostOnClickHandler = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
         if (error) setError(null)
         addPost()
     }
-
     const addPost = () => {
         if (props.profileStateData.newPostForm.trim() !== "") {
             props.addPost()
@@ -43,7 +40,6 @@ export const PostsBlock: React.FC<PostsBlockPropsType> = memo((props) => {
             setError('Enter your post')
         }
     }
-
     const postsList = () => {
         return (
             <>

@@ -1,17 +1,16 @@
+import { memo } from 'react'
+import { font } from 'styles/Font'
+import { useFormik } from 'formik'
+import styled from 'styled-components'
+import { theme } from 'styles/Theme.styled'
+import { AlertType } from 'store/app/appReducer'
+import { Icon } from 'components/common/icon/Icon'
+import { Checkbox } from 'components/common/checkbox/Checkbox'
 import { BlockHeader } from 'components/blocks/BlockHeader.styled'
 import { BlockSection } from 'components/blocks/BlockSection.styled'
-import { Checkbox } from 'components/common/checkbox/Checkbox'
 import { EditableSpan } from 'components/common/editableSpan/EditableSpan'
-import { Icon } from 'components/common/icon/Icon'
-import { useFormik } from 'formik'
-import { memo } from 'react'
-import { AlertType } from 'store/app/appReducer'
 import { AuthStateType } from 'store/auth/authReducer'
 import { ProfileDataType, ChangeAboutProfileType } from 'store/profile/profileReducer'
-import styled from 'styled-components'
-import { font } from 'styles/Font'
-import { theme } from 'styles/Theme.styled'
-
 
 type AboutMeBlockPropsType = {
     className?: string
@@ -78,6 +77,7 @@ const AboutForm: React.FC<AboutFormPropsType> = memo((props) => {
             return errors
         }
     })
+
     return (
         <CategoryWrapper>
             <form onSubmit={formik.handleSubmit}>

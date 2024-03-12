@@ -1,17 +1,16 @@
-import { GetProfileResponseContactsType } from 'api/social-network-api'
+import { memo } from 'react'
+import { font } from 'styles/Font'
+import { useFormik } from 'formik'
+import styled from 'styled-components'
+import { theme } from 'styles/Theme.styled'
+import { AlertType } from 'store/app/appReducer'
+import { Icon } from 'components/common/icon/Icon'
+import { AuthStateType } from 'store/auth/authReducer'
 import { BlockHeader } from 'components/blocks/BlockHeader.styled'
 import { BlockSection } from 'components/blocks/BlockSection.styled'
+import { GetProfileResponseContactsType } from 'api/social-network-api'
 import { EditableSpan } from 'components/common/editableSpan/EditableSpan'
-import { Icon } from 'components/common/icon/Icon'
-import { useFormik } from 'formik'
-import { memo } from 'react'
-import { AlertType } from 'store/app/appReducer'
-import { AuthStateType } from 'store/auth/authReducer'
 import { ProfileStateType, ContactsIconsType } from 'store/profile/profileReducer'
-import styled from 'styled-components'
-import { font } from 'styles/Font'
-import { theme } from 'styles/Theme.styled'
-
 
 type ContactsBlockPropsType = {
     authStateData: AuthStateType
@@ -28,15 +27,14 @@ export const ContactsBlock: React.FC<ContactsBlockPropsType> = memo((props) => {
     return (
         <StyledContacts id="contacts" className={props.className}>
             <BlockHeader>Contacts</BlockHeader>
-            {userId === authId ?
-                <ContactsForm
+            {userId === authId
+                ? <ContactsForm
                     contactsData={props.profileStateData.data.contacts}
                     contactsIcons={props.profileStateData.contactsIcons}
                     addAppAlert={props.addAppAlert}
                     changeProfileContacts={props.changeProfileContacts}
                 />
-                :
-                <Contacts
+                : <Contacts
                     contactsData={props.profileStateData.data.contacts}
                     contactsIcons={props.profileStateData.contactsIcons}
                 />

@@ -1,16 +1,15 @@
 
-import { Input } from 'components/common/input/Input.styled'
-import React, { memo, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { theme } from 'styles/Theme.styled'
-
+import React, { memo, useEffect, useState } from 'react'
+import { Input } from 'components/common/input/Input.styled'
 
 type EditableSpanPropsType = {
-    className?: string
+    name?: string
     value: string
+    className?: string
     actualValue: string
     emptyText?: string
-    name?: string
     error?: 'true' | 'false'
     onChange: (e: React.ChangeEvent<any>) => void
     onSand: (e?: React.FormEvent<HTMLFormElement> | undefined) => void
@@ -68,7 +67,6 @@ const StyledInput = styled(Input)`
     border-radius: 0;
     padding: min(10px, 1vw) 0;
 `
-
 const StyledSpan = styled.p`
     display: flex;
     width: 100%;

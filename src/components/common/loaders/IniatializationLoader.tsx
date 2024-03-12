@@ -1,5 +1,5 @@
-import styled from "styled-components"
 import { memo } from 'react'
+import styled from 'styled-components'
 import { theme } from 'styles/Theme.styled'
 
 export const InitializationLoader: React.FC = memo(() => {

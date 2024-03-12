@@ -1,9 +1,9 @@
-import styled, { css } from "styled-components"
-import { memo, useEffect } from "react"
-import { FlexWrapper } from 'components/common/FlexWrapper.styled'
-import { Icon } from 'components/common/icon/Icon'
-import { AlertType } from 'store/app/appReducer'
+import { memo, useEffect } from 'react'
 import { theme } from 'styles/Theme.styled'
+import styled, { css } from 'styled-components'
+import { AlertType } from 'store/app/appReducer'
+import { Icon } from 'components/common/icon/Icon'
+import { FlexWrapper } from 'components/common/FlexWrapper.styled'
 
 type AlertPropsType = {
     alertType: AlertType

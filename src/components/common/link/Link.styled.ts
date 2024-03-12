@@ -1,5 +1,5 @@
-import styled, { css } from "styled-components"
 import { theme } from 'styles/Theme.styled'
+import styled, { css } from 'styled-components'
 
 type LinkPropsType = {
     variant: 'primary' | 'secondary' | 'buttonPrimary' | 'buttonSecondary',
@@ -10,7 +10,6 @@ export const Link = styled.a<LinkPropsType>`
     cursor: pointer;
     display: flex;
     align-items: center;
-
     ${props => props.variant === 'buttonPrimary' && css<LinkPropsType>`
         background-color: ${theme.color.background.second};
         color: ${theme.color.text.second};
@@ -29,7 +28,6 @@ export const Link = styled.a<LinkPropsType>`
             border-color: ${theme.color.background.second};
         }
     `}
-    
     ${props => props.variant === 'buttonSecondary' && css<LinkPropsType>`
         background-color: transparent;
         color: ${theme.color.text.primary};
@@ -48,7 +46,6 @@ export const Link = styled.a<LinkPropsType>`
             border-color: ${theme.color.background.second};
         }
     `}
-    
     ${props => props.variant === 'primary' && css<LinkPropsType>`
         background-color: transparent;
         color: ${theme.color.text.primary};
@@ -57,7 +54,6 @@ export const Link = styled.a<LinkPropsType>`
             opacity: 1;
         }
     `}
-    
     ${props => props.variant === 'secondary' && css<LinkPropsType>`
         background-color: transparent;
         color: ${theme.color.text.second};

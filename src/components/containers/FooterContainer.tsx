@@ -1,11 +1,11 @@
-import { Footer } from 'components/layout/footer/Footer'
 import { memo } from 'react'
-import { connect } from 'react-redux'
 import { compose } from 'redux'
-import { IconLinksStateType } from 'store/app/appReducer'
-import { selectMenuItems, selectFooterLinks } from 'store/app/appSelectors'
-import { selectIsloggedIn } from 'store/auth/authSelectors'
+import { connect } from 'react-redux'
 import { AppRootStateType } from 'store/redux-store'
+import { Footer } from 'components/layout/footer/Footer'
+import { IconLinksStateType } from 'store/app/appReducer'
+import { selectIsloggedIn } from 'store/auth/authSelectors'
+import { selectMenuItems, selectFooterLinks } from 'store/app/appSelectors'
 
 export const FooterAPI: React.FC<FooterAPIPropsTtype> = memo((props) => {
     return (

@@ -1,17 +1,15 @@
+import { memo } from 'react'
+import { font } from 'styles/Font'
+import styled from 'styled-components'
+import { theme } from 'styles/Theme.styled'
+import { Icon } from 'components/common/icon/Icon'
+import { Button } from 'components/common/button/Button'
 import { UserResponseType } from 'api/social-network-api'
+import { FlexWrapper } from 'components/common/FlexWrapper.styled'
 import { BlockHeader } from 'components/blocks/BlockHeader.styled'
 import { BlockSection } from 'components/blocks/BlockSection.styled'
-import { Friend } from 'components/blocks/friendsBlock/friend/Friend'
-import { FlexWrapper } from 'components/common/FlexWrapper.styled'
-import { Button } from 'components/common/button/Button'
-import { Icon } from 'components/common/icon/Icon'
 import { Pagination } from 'components/common/pagination/Pagination'
-import { memo } from 'react'
-import styled from 'styled-components'
-import { font } from 'styles/Font'
-import { theme } from 'styles/Theme.styled'
-
-
+import { Friend } from 'components/blocks/friendsBlock/friend/Friend'
 
 type FriendsBlockPropsType = {
     className?: string

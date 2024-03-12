@@ -1,7 +1,7 @@
-import styled from 'styled-components'
 import { memo } from 'react'
-import { Icon } from 'components/common/icon/Icon'
+import styled from 'styled-components'
 import { theme } from 'styles/Theme.styled'
+import { Icon } from 'components/common/icon/Icon'
 
 type AvatarPropsType = {
     className?: string
@@ -12,7 +12,7 @@ export const Avatar: React.FC<AvatarPropsType> = memo((props) => {
     return (
         <AvaterContainer className={props.className}>
             {props.avatarURL
-                ? <AvatarImage src={props.avatarURL} alt='Avatar'/>
+                ? <AvatarImage src={props.avatarURL} alt='Avatar' />
                 : <DefaultImage
                     iconId={'avatarDefault'}
                     viewBox="0 0 1024 1024"

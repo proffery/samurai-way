@@ -4,8 +4,8 @@ import { connect } from "react-redux"
 import { memo, useEffect } from "react"
 import { AppRootStateType } from 'store/redux-store'
 import { selectIsLoading } from 'store/app/appSelectors'
+import { UsersBlock } from 'components/blocks/usersBlock/UsersBlock'
 import { selectUsersData, selectUsersSearchTerm } from 'store/users/usersSelectors'
-import { UsersBlock } from "../blocks/usersBlock/UsersBlock"
 import {
     getUsers, followUser, unfollowUser,
     UsersFilterType, changeUsersFilter, UsersStateType
@@ -46,7 +46,7 @@ const UsersBlockAPI: React.FC<UsersBlockAPIPropsType> = memo((props) => {
                 props.getUsers(pageNumber, usersOnPage, false, searchTerm)
                 break
             default:
-                props.getUsers(pageNumber, usersOnPage,  null, searchTerm)
+                props.getUsers(pageNumber, usersOnPage, null, searchTerm)
         }
     }
 

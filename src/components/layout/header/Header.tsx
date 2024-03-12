@@ -16,7 +16,7 @@ type HeaderPropsType = {
 export const Header: React.FC<HeaderPropsType> = memo((props) => {
     const { login, email, photoUrl } = props.authData
     const { searchTerm, setUsersSearchTerm, logout } = props
-    
+
     const onSearchChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setUsersSearchTerm(e.currentTarget.value)
     }

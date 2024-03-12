@@ -1,19 +1,18 @@
-import { BlockSection } from 'components/blocks/BlockSection.styled'
-import { FlexWrapper } from 'components/common/FlexWrapper.styled'
+import { memo } from 'react'
+import { font } from 'styles/Font'
+import { useFormik } from 'formik'
+import styled from 'styled-components'
+import { NavLink } from 'react-router-dom'
+import { theme } from 'styles/Theme.styled'
+import { AlertType } from 'store/app/appReducer'
+import { Icon } from 'components/common/icon/Icon'
+import { AuthStateType } from 'store/auth/authReducer'
 import { Avatar } from 'components/common/avatar/Avatar'
 import { Button } from 'components/common/button/Button'
-import { EditableSpan } from 'components/common/editableSpan/EditableSpan'
-import { Icon } from 'components/common/icon/Icon'
-import { useFormik } from 'formik'
-import { memo } from 'react'
-import { NavLink } from 'react-router-dom'
-import { AlertType } from 'store/app/appReducer'
-import { AuthStateType } from 'store/auth/authReducer'
 import { ProfileStateType } from 'store/profile/profileReducer'
-import styled from 'styled-components'
-import { font } from 'styles/Font'
-import { theme } from 'styles/Theme.styled'
-
+import { FlexWrapper } from 'components/common/FlexWrapper.styled'
+import { BlockSection } from 'components/blocks/BlockSection.styled'
+import { EditableSpan } from 'components/common/editableSpan/EditableSpan'
 
 type HeaderBlockPropsType = {
     className?: string
@@ -62,7 +61,7 @@ export const HeaderBlock: React.FC<HeaderBlockPropsType> = memo((props) => {
         <StyledHeaderBlock id="profile-header" className={props.className}>
             <BackgroundConainer>
                 {large
-                    ? <BackgroundImage src={large} alt='Background'/>
+                    ? <BackgroundImage src={large} alt='Background' />
                     : <Icon iconId={'avatarDefault'} viewBox="0 0 1024 1024" height={'100%'} width={'100%'} />}
                 <StyledAvatar avatarURL={small} />
             </BackgroundConainer>
@@ -114,7 +113,7 @@ const BackgroundConainer = styled.div`
     width: 100%;
     height: 70%;
     color: ${theme.color.text.placeholder};
-    `
+`
 const BackgroundImage = styled.img`
     object-fit: cover;
     object-position: center;
@@ -155,7 +154,6 @@ const Name = styled.span`
         text-shadow: ${theme.shadow.header};
   }
 `
-
 const ButtonsContainer = styled(FlexWrapper)`
     display: flex;
     width: 35%;
@@ -178,8 +176,8 @@ const MessagesButton = styled(NavLink)`
     border-style: solid;
     border-color: ${theme.color.background.second};
     &:active {
-            background-color: ${theme.color.background.primary};
-            color: ${theme.color.text.primary};
-            border-color: ${theme.color.background.second};
-        }
+        background-color: ${theme.color.background.primary};
+        color: ${theme.color.text.primary};
+        border-color: ${theme.color.background.second};
+    }
 `

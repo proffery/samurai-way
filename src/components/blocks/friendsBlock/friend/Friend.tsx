@@ -1,11 +1,10 @@
-import { UserResponseType } from 'api/social-network-api'
-import { Avatar } from 'components/common/avatar/Avatar'
 import { memo } from 'react'
-import { NavLink } from 'react-router-dom'
-import styled from 'styled-components'
 import { font } from 'styles/Font'
+import styled from 'styled-components'
+import { NavLink } from 'react-router-dom'
 import { theme } from 'styles/Theme.styled'
-
+import { Avatar } from 'components/common/avatar/Avatar'
+import { UserResponseType } from 'api/social-network-api'
 
 type FriendPropsType = {
     friendData: UserResponseType

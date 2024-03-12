@@ -1,15 +1,15 @@
-import styled, { css } from "styled-components"
-import { MouseEvent, memo } from "react"
 import { font } from 'styles/Font'
+import { MouseEvent, memo } from 'react'
 import { theme } from 'styles/Theme.styled'
+import styled, { css } from 'styled-components'
 
 type ButtonPropsType = {
     variant: 'primary' | 'outlined' | 'link'
     className?: string
     isActive?: boolean
     disabled?: boolean
-    onClick?: (e: MouseEvent<HTMLButtonElement> ) => void
-    ariaLabel: string 
+    onClick?: (e: MouseEvent<HTMLButtonElement>) => void
+    ariaLabel: string
 }
 
 export const Button: React.FC<ButtonPropsType &
@@ -32,9 +32,9 @@ export const Button: React.FC<ButtonPropsType &
     })
 
 type StyledButtonPropsType = {
-    variant: 'primary' | 'outlined' | 'link'
     active?: string
     disabled?: boolean
+    variant: 'primary' | 'outlined' | 'link'
 }
 
 const StyledButton = styled.button<StyledButtonPropsType>`
@@ -50,7 +50,6 @@ const StyledButton = styled.button<StyledButtonPropsType>`
     ${props => props.active === "true" ? `
         ${font({ weight: 700, Fmin: 10, Fmax: 22 })}
     `: undefined}
-
     ${props => props.variant === 'primary' && css<StyledButtonPropsType>`
         background-color: ${theme.color.background.second};
         color: ${theme.color.text.second};
@@ -69,7 +68,6 @@ const StyledButton = styled.button<StyledButtonPropsType>`
             border-color: ${theme.color.background.second};
         }
     `}
-    
     ${props => props.variant === 'outlined' && css<StyledButtonPropsType>`
         background-color: transparent;
         color: ${theme.color.text.primary};
@@ -88,7 +86,6 @@ const StyledButton = styled.button<StyledButtonPropsType>`
             border-color: ${theme.color.background.second};
         }
     `}
-    
     ${props => props.variant === 'link' && css<StyledButtonPropsType>`
         background-color: transparent;
         color: ${theme.color.text.primary};

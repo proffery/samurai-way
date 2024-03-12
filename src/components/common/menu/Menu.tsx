@@ -1,10 +1,10 @@
-import React, { memo } from "react"
-import { MouseEvent } from "react"
-import styled, { css } from "styled-components"
-import { NavLink } from "react-router-dom"
+import React, { memo } from 'react'
+import { MouseEvent } from 'react'
+import { NavLink } from 'react-router-dom'
+import { theme } from 'styles/Theme.styled'
+import styled, { css } from 'styled-components'
 import { Icon } from 'components/common/icon/Icon'
 import { IconLinksStateType } from 'store/app/appReducer'
-import { theme } from 'styles/Theme.styled'
 
 type MenuPropsType = {
     type: 'primary' | 'secondary'
@@ -32,7 +32,12 @@ export const Menu: React.FC<MenuPropsType> = memo((props) => {
                             >
                                 {props.icons &&
                                     <IconWrapper>
-                                        <Icon iconId={item.icon_id} height="100%" width="100%" viewBox={item.viewBox} />
+                                        <Icon
+                                            iconId={item.icon_id}
+                                            height="100%"
+                                            width="100%"
+                                            viewBox={item.viewBox}
+                                        />
                                     </IconWrapper>
                                 }
                                 {props.name && item.name}

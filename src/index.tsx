@@ -1,11 +1,11 @@
-import { store } from "./store/redux-store"
 import ReactDOM from 'react-dom'
-import { GlobalStyle } from './styles/Global.styled'
-import { ThemeProvider } from 'styled-components'
+import { Provider } from 'react-redux'
+import { store } from './store/redux-store'
 import { theme } from './styles/Theme.styled'
-import { Provider } from "react-redux"
-import { BrowserRouter as Router } from 'react-router-dom'
-import { AppContainer } from "./components/containers/AppContainer"
+import { ThemeProvider } from 'styled-components'
+import { GlobalStyle } from './styles/Global.styled'
+import { HashRouter as Router } from 'react-router-dom'
+import { AppContainer } from './components/containers/AppContainer'
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>

@@ -1,7 +1,7 @@
-import styled from "styled-components"
 import { memo } from 'react'
-import { Alert } from 'components/common/alerts/Alert'
+import styled from 'styled-components'
 import { AlertObjectType } from 'store/app/appReducer'
+import { Alert } from 'components/common/alerts/Alert'
 
 type AlertsPropsType = {
     alerts: AlertObjectType[]

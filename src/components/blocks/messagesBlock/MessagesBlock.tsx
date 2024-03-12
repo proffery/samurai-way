@@ -1,14 +1,13 @@
-import { BlockHeader } from 'components/blocks/BlockHeader.styled'
-import { BlockSection } from 'components/blocks/BlockSection.styled'
-import { FlexWrapper } from 'components/common/FlexWrapper.styled'
-import { memo, useState, ChangeEvent } from 'react'
 import styled from 'styled-components'
 import { MouseEvent, KeyboardEvent } from 'react'
-import { Input } from 'components/common/input/Input.styled'
+import { memo, useState, ChangeEvent } from 'react'
 import { Button } from 'components/common/button/Button'
 import { MessageType } from 'store/messages/messagesReducer'
+import { Input } from 'components/common/input/Input.styled'
+import { BlockHeader } from 'components/blocks/BlockHeader.styled'
+import { FlexWrapper } from 'components/common/FlexWrapper.styled'
+import { BlockSection } from 'components/blocks/BlockSection.styled'
 import { Message } from 'components/blocks/messagesBlock/message/Message'
-
 
 type MessagesBlockPropsType = {
     messages: MessageType[]
@@ -18,25 +17,22 @@ type MessagesBlockPropsType = {
 }
 
 export const MessagesBlock: React.FC<MessagesBlockPropsType> = memo((props) => {
-    let [error, setError] = useState<string | null>('Enter your message')
+    const [error, setError] = useState<string | null>('Enter your message')
 
     const onChangeMessageHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         props.onChangeMessage(e.currentTarget.value)
     }
-
     const addMessageOnClickHandler = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
         if (error) setError(null)
         addMessage()
     }
-
     const addMessageCtrlEnterHandler = (e: KeyboardEvent<HTMLFormElement>) => {
         if (error) setError(null)
         if (e.key === 'Enter' && e.ctrlKey) {
             addMessage()
         }
     }
-
     const addMessage = () => {
         if (props.newMessageForm.trim() !== "") {
             props.addMessage()
@@ -81,7 +77,6 @@ const StyledMessagesBlock = styled(BlockSection)`
     min-height: 50%;
     overflow-y: scroll;
 `
-
 const Form = styled.form`
     display: flex;
     flex-direction: column;
@@ -95,7 +90,6 @@ const Form = styled.form`
 type MessagesListPropsType = {
     messages: MessageType[]
 }
-
 const MessagesList: React.FC<MessagesListPropsType> = (props) => {
     return (
         <StyledMessagesList>
