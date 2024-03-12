@@ -4,22 +4,24 @@ import { UserResponseType, ResultCode, usersAPI } from 'api/social-network-api'
 import { setAppIsLoading, addAppAlert, SetAppIsLoadingActionType, AddAlertActionType } from 'store/app/appReducer'
 
 //CONSTANTS
-const FOLLOW = 'FOLLOW'
-const UNFOLLOW = 'UNFOLLOW'
-const SET_USERS = 'SET-USERS'
-const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE'
-const SET_USERS_ON_PAGE = 'SET-USERS-ON-PAGE'
-const CHANGE_USERS_FILTER = 'CHANGE-USERS-FILTER'
-const SET_TOTAL_USERS_COUNT = 'SET-TOTAL-USERS-COUNT'
-const CHANGE_USER_IS_LOADING = 'CHANGE-USER-IS-LOADING'
+const FOLLOW = 'USERS/FOLLOW'
+const UNFOLLOW = 'USERS/UNFOLLOW'
+const SET_USERS = 'USERS/SET-USERS'
+const SET_CURRENT_PAGE = 'USERS/SET-CURRENT-PAGE'
+const SET_USERS_ON_PAGE = 'USERS/SET-USERS-ON-PAGE'
+const CHANGE_SEARCH_TERM = 'USERS/CHANGE-SEARCH-TERM'
+const CHANGE_USERS_FILTER = 'USERS/CHANGE-USERS-FILTER'
+const SET_TOTAL_USERS_COUNT = 'USERS/SET-TOTAL-USERS-COUNT'
+const CHANGE_USER_IS_LOADING = 'USERS/CHANGE-USER-IS-LOADING'
 
 //INITIAL STATE
 const initialState = {
+    searchTerm: '',
     currentPage: 1,
     usersOnPage: 15,
     totalUsersCount: 0,
     users: [] as UserStateType[],
-    usersFilter: 'all' as UsersFilterType
+    usersFilter: 'all' as UsersFilterType,
 }
 
 //REDUCER
@@ -47,6 +49,8 @@ export const usersReducer = (state: UsersStateType = initialState, action: Users
             return { ...state, totalUsersCount: action.payload.totalUsersCount }
         case CHANGE_USERS_FILTER:
             return { ...state, usersFilter: action.payload.usersFilter }
+        case CHANGE_SEARCH_TERM:
+            return { ...state, searchTerm: action.payload.searchTerm }
         case CHANGE_USER_IS_LOADING:
             return {
                 ...state, users: state.users.map(user => user.id === action.payload.userId
@@ -73,15 +77,17 @@ const setUsersOnPage = (usersOnPage: number) =>
     ({ type: SET_USERS_ON_PAGE, payload: { usersOnPage } }) as const
 const setTotalUsersCount = (totalUsersCount: number) =>
     ({ type: SET_TOTAL_USERS_COUNT, payload: { totalUsersCount } }) as const
+export const setUsersSearchTerm = (searchTerm: string) =>
+    ({ type: CHANGE_SEARCH_TERM, payload: { searchTerm } }) as const
 export const changeUsersFilter = (usersFilter: UsersFilterType) =>
     ({ type: CHANGE_USERS_FILTER, payload: { usersFilter } }) as const
 const changeUserIsLoading = (userId: number, isLoading: boolean) =>
     ({ type: CHANGE_USER_IS_LOADING, payload: { userId, isLoading } }) as const
 
 //THUNKS
-export const getAllUsers = (pageNumber: number, usersOnPage: number) => (dispatch: AppDispatchType) => {
+export const getUsers = (pageNumber: number, usersOnPage: number, isFriend: boolean | null, searchTerm: string) => (dispatch: AppDispatchType) => {
     dispatch(setAppIsLoading(true))
-    usersAPI.getUsers(pageNumber, usersOnPage)
+    usersAPI.getUsers(pageNumber, usersOnPage, isFriend, searchTerm)
         .then(res => {
             dispatch(setTotalUsersCount(res.data.totalCount))
             dispatch(setCurrentPage(pageNumber))
@@ -93,34 +99,7 @@ export const getAllUsers = (pageNumber: number, usersOnPage: number) => (dispatc
         })
         .finally(() => dispatch(setAppIsLoading(false)))
 }
-export const getFollowedUsers = (pageNumber: number, usersOnPage: number) => (dispatch: AppDispatchType) => {
-    dispatch(setAppIsLoading(true))
-    usersAPI.getSortedUsers(pageNumber, usersOnPage, true)
-        .then(res => {
-            dispatch(setTotalUsersCount(res.data.totalCount))
-            dispatch(setCurrentPage(pageNumber))
-            dispatch(setUsersOnPage(usersOnPage))
-            dispatch(setUsers(res.data.items))
-        })
-        .catch(error => {
-            dispatch(addAppAlert('failed', error.message))
-        })
-        .finally(() => dispatch(setAppIsLoading(false)))
-}
-export const getUnfollowedUsers = (pageNumber: number, usersOnPage: number) => (dispatch: AppDispatchType) => {
-    dispatch(setAppIsLoading(true))
-    usersAPI.getSortedUsers(pageNumber, usersOnPage, false)
-        .then(res => {
-            dispatch(setTotalUsersCount(res.data.totalCount))
-            dispatch(setCurrentPage(pageNumber))
-            dispatch(setUsersOnPage(usersOnPage))
-            dispatch(setUsers(res.data.items))
-        })
-        .catch(error => {
-            dispatch(addAppAlert('failed', error.message))
-        })
-        .finally(() => dispatch(setAppIsLoading(false)))
-}
+
 export const followUser = (userId: number) => (dispatch: AppDispatchType) => {
     dispatch(changeUserIsLoading(userId, true))
     dispatch(setAppIsLoading(true))
@@ -169,8 +148,9 @@ export type UsersReducerActionsType =
     | ReturnType<typeof setUsers>
     | ReturnType<typeof setCurrentPage>
     | ReturnType<typeof setUsersOnPage>
-    | ReturnType<typeof setTotalUsersCount>
     | ReturnType<typeof changeUsersFilter>
+    | ReturnType<typeof setTotalUsersCount>
+    | ReturnType<typeof setUsersSearchTerm>
     | ReturnType<typeof changeUserIsLoading>
     | SetAppIsLoadingActionType
     | UnfollowUserActionType

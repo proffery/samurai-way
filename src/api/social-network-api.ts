@@ -9,8 +9,12 @@ const instance = axios.create({
 })
 
 export const usersAPI = {
-    getUsers(pageNumber: number, usersOnPage: number) {
-        return instance.get<GetUsersResponseType>(`/users?page=${pageNumber}&count=${usersOnPage}`)
+    // getUsers(pageNumber: number, usersOnPage: number) {
+    //     return instance.get<GetUsersResponseType>(`/users?page=${pageNumber}&count=${usersOnPage}`)
+    // },
+    getUsers(pageNumber: number, usersOnPage: number, isFriend: boolean | null, searchTerm: string) {
+        return instance.get<GetUsersResponseType>
+            (`/users?page=${pageNumber}&count=${usersOnPage}&friend=${isFriend}&term=${searchTerm}`)
     },
     isFollow(userId: number) {
         return instance.get<boolean>(`/follow/${userId}`)
@@ -20,9 +24,6 @@ export const usersAPI = {
     },
     unfollowUser(userId: number) {
         return instance.delete<ResponseType>(`/follow/${userId}`)
-    },
-    getSortedUsers(pageNumber: number, usersOnPage: number, isFriend: boolean) {
-        return instance.get<GetUsersResponseType>(`/users?page=${pageNumber}&count=${usersOnPage}&friend=${isFriend}`)
     }
 }
 

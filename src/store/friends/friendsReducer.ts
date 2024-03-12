@@ -79,7 +79,7 @@ const setPossibleTotalFriendsCount = (totalUsersCount: number) =>
 export const getFriends = (pageNumber: number, usersOnPage: number, isFriend: boolean) =>
     (dispatch: AppDispatchType) => {
         dispatch(setAppIsLoading(true))
-        usersAPI.getSortedUsers(pageNumber, usersOnPage, isFriend)
+        usersAPI.getUsers(pageNumber, usersOnPage, isFriend, '')
             .then(res => {
                 if (isFriend) {
                     dispatch(setTotalFriendsCount(res.data.totalCount))

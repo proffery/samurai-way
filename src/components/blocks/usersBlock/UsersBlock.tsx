@@ -14,7 +14,6 @@ export type UsersBlockPropsType = {
     appIsLoading: boolean
     follow: (userId: number) => void
     unfollow: (userId: number) => void
-    getAllUsers: (currentPage: number, usersOnPage: number) => void
     onPageChangeHandler: (pageNumber: number) => void
     filterChangeHandler: (filter: UsersFilterType) => void
 }
