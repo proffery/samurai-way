@@ -6,7 +6,7 @@ import { PostsBlock } from 'components/blocks/postsBlock/PostsBlock'
 import { ToTop } from 'components/common/toTop/ToTop'
 import { FriendsBlockContainer } from 'components/containers/FriendsBlockContainer'
 import { PossibleFriendsBlockContainer } from 'components/containers/PossibleFriendsBlockContainer'
-import React, { memo } from "react"
+import React, { RefObject, memo, useRef } from "react"
 import { AlertType } from 'store/app/appReducer'
 import { AuthStateType } from 'store/auth/authReducer'
 import { ProfileStateType, ChangeAboutProfileType } from 'store/profile/profileReducer'
@@ -29,9 +29,9 @@ type ProfilePropsType = {
 }
 
 export const Profile: React.FC<ProfilePropsType> = memo((props) => {
-
     return (
         <StyledProfile id='profile' >
+            <ToTop anchor_id='profile-header' />
             <ProfileHeaderBlock
                 authStateData={props.authStateData}
                 profileStateData={props.profileStateData}
@@ -60,7 +60,6 @@ export const Profile: React.FC<ProfilePropsType> = memo((props) => {
             />
             <ProfileFriendsBlock />
             <ProfilePossibleFriendsBlock />
-            <ToTop top_block_anchor_id="profile-header" />
         </StyledProfile>
     )
 })

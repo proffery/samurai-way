@@ -1,26 +1,25 @@
-import { FlexWrapper } from 'components/common/FlexWrapper.styled'
+import styled from 'styled-components'
+import { theme } from 'styles/Theme.styled'
+import React, { RefObject, memo } from "react"
 import { ToTop } from 'components/common/toTop/ToTop'
+import { FlexWrapper } from 'components/common/FlexWrapper.styled'
 import { FriendsBlockContainer } from 'components/containers/FriendsBlockContainer'
 import { PossibleFriendsBlockContainer } from 'components/containers/PossibleFriendsBlockContainer'
 import { UsersBlockContainer } from 'components/containers/UsersBlockContainer'
-import React, { memo } from "react"
-import styled from 'styled-components'
-import { theme } from 'styles/Theme.styled'
-
 
 type UsersPropsType = {
-
+    ref?: RefObject<HTMLDivElement>
 }
 
 export const Users: React.FC<UsersPropsType> = memo((props) => {
     return (
         <StyledUsers id="users">
+            <ToTop anchor_id='users-block' />
             <UsersBlockContainer />
             <OtherBlocks>
                 <FriendsBlockContainer />
                 <PossibleFriendsBlockContainer />
             </OtherBlocks>
-            <ToTop top_block_anchor_id="all-users" />
         </StyledUsers>
     )
 })

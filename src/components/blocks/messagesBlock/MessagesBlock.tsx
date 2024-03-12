@@ -42,7 +42,7 @@ export const MessagesBlock: React.FC<MessagesBlockPropsType> = memo((props) => {
     }
 
     return (
-        <StyledMessagesBlock id="messages">
+        <StyledMessagesBlock id="messages-block">
             <BlockHeader>Messages</BlockHeader>
             <MessagesList messages={props.messages} />
             <Form

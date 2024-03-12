@@ -56,7 +56,7 @@ const StyledNavbar = styled.nav`
     padding: 54px 32px;
     gap: 54px;
     z-index: 1000;
-    transition: all ease-in-out .2s;
+    transition: all ease-out .2s;
     &:hover {
         box-shadow: ${theme.shadow.navbar};
         background-image: ${theme.gradient.banner};

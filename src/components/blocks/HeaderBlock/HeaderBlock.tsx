@@ -1,4 +1,4 @@
-import { memo } from 'react'
+import { RefObject, memo } from 'react'
 import { font } from 'styles/Font'
 import { useFormik } from 'formik'
 import styled from 'styled-components'

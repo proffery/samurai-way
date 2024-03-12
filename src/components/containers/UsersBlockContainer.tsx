@@ -1,7 +1,7 @@
 
 import { compose } from "redux"
 import { connect } from "react-redux"
-import { memo, useEffect } from "react"
+import { RefObject, memo, useEffect } from "react"
 import { AppRootStateType } from 'store/redux-store'
 import { selectIsLoading } from 'store/app/appSelectors'
 import { UsersBlock } from 'components/blocks/usersBlock/UsersBlock'
