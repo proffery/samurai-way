@@ -1,47 +1,60 @@
 import App from 'App'
 import { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { initializeApp } from 'store/app/appReducer'
-import { selectNavbarCollapsed, selectIsLoading, selectIsInitialized } from 'store/app/appSelectors'
+import { RouteComponentProps, withRouter } from 'react-router-dom'
+import { initializeApp, savePathToStorage } from 'store/app/appReducer'
+import { selectNavbarCollapsed, selectIsLoading, selectIsInitialized, selectStoragePath } from 'store/app/appSelectors'
 import { selectIsloggedIn } from 'store/auth/authSelectors'
 import { AppRootStateType } from 'store/redux-store'
 
 export const AppAPI = (props: AppAPIPropsType) => {
+    const { pathname } = props.location
+    const { initializeApp, savePathToStorage } = props
     useEffect(() => {
-        props.initializeApp()
+        initializeApp()
     }, [])
+
+    useEffect(() => {
+        pathname !== '/login' && savePathToStorage(pathname)
+    }, [pathname])
+
+
     return (
         <App
             isLoggedIn={props.isLoggedIn}
             navbarCollapsed={props.navbarCollapsed}
             isLoading={props.isLoading}
             isInitialized={props.isInitialized}
+            storagePath={props.storagePath}
         />
     )
 }
 
-type MapStatePropsType = {
-    isLoggedIn: boolean
-    navbarCollapsed: boolean
-    isLoading: boolean
-    isInitialized: boolean
-}
-const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
+
+const mapStateToProps = (state: AppRootStateType) => {
     return {
         isLoggedIn: selectIsloggedIn(state),
         navbarCollapsed: selectNavbarCollapsed(state),
         isLoading: selectIsLoading(state),
-        isInitialized: selectIsInitialized(state)
+        isInitialized: selectIsInitialized(state),
+        storagePath: selectStoragePath(state)
     }
 }
 
-export const AppContainer = connect(mapStateToProps, { initializeApp })(AppAPI)
+export const AppContainer = connect(
+    mapStateToProps,
+    { initializeApp, savePathToStorage }
+)(withRouter(AppAPI))
 
 //TYPES
-type AppAPIPropsType = {
+type ConnectPropsType = {
     isLoggedIn: boolean
     navbarCollapsed: boolean
     isLoading: boolean
+    storagePath: string
     isInitialized: boolean
     initializeApp: () => Promise<void>
+    savePathToStorage: (currentPatch: string) => void
 }
+
+type AppAPIPropsType = ConnectPropsType & RouteComponentProps

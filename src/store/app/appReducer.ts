@@ -1,16 +1,18 @@
 import { v1 } from 'uuid'
 import { authAPI, ResultCode } from 'api/social-network-api'
 import { AppDispatchType, AppRootStateType } from 'store/redux-store'
-import { setAuthUserData, setIsLoggedIn, CleanReducerType } from 'store/auth/authReducer'
+import { setAuthUserData, setIsLoggedIn, CleanReducerType, getAuthPhoto } from 'store/auth/authReducer'
+import { storageAvailable } from 'utils/storage'
 
 
 
 //CONSTANTS
-const APP_ADD_ALERT = 'APP-ADD-ALERT'
-const APP_REMOVE_ALERT = 'APP-REMOVE-ALERT'
-const APP_SET_IS_LOADING = 'APP-SET-IS_LOADING'
-const APP_SET_IS_INITIALIZED = 'APP-SET-IS_INITIALIZED'
-const APP_SET_NAVBAR_COLLAPSED = 'APP-SET-NAVBAR-COLLAPSED'
+const APP_ADD_ALERT = 'APP/ADD-ALERT'
+const APP_REMOVE_ALERT = 'APP/REMOVE-ALERT'
+const APP_SET_IS_LOADING = 'APP/SET-IS_LOADING'
+const APP_SET_IS_INITIALIZED = 'APP/SET-IS_INITIALIZED'
+const APP_SET_NAVBAR_COLLAPSED = 'APP/SET-NAVBAR-COLLAPSED'
+const APP_SET_CURRENT_PATH = 'APP/SET-CURRENT-PATH'
 
 //INITIAL STATE
 const initialState = {
@@ -99,6 +101,7 @@ const initialState = {
     navbarCollapsed: true as boolean,
     alerts: [] as AlertObjectType[],
     isInitialized: false as boolean,
+    currentPath: '/' as string
 }
 
 //REDUCER
@@ -114,6 +117,8 @@ export const appReducer = (state: typeof initialState = initialState, action: Ap
             return { ...state, navbarCollapsed: action.payload.navbarCollapsed }
         case APP_SET_IS_INITIALIZED:
             return { ...state, isInitialized: action.payload.isInitialized }
+        case APP_SET_CURRENT_PATH:
+            return { ...state, currentPath: action.payload.currentPath }
         default:
             return state
     }
@@ -130,6 +135,8 @@ export const setAppNavbarCollapsed = (navbarCollapsed: boolean) =>
     ({ type: APP_SET_NAVBAR_COLLAPSED, payload: { navbarCollapsed } } as const)
 const setAppIsInitialized = (isInitialized: boolean) =>
     ({ type: APP_SET_IS_INITIALIZED, payload: { isInitialized } } as const)
+const setCurrentPath = (currentPath: string) =>
+    ({ type: APP_SET_CURRENT_PATH, payload: { currentPath } } as const)
 
 //THUNKS
 export const initializeApp = () =>
@@ -140,7 +147,10 @@ export const initializeApp = () =>
                 if (res.data.resultCode === ResultCode.success) {
                     Promise.all([
                         dispatch(setAuthUserData(res.data.data)),
-                        dispatch(setIsLoggedIn(true))])
+                        dispatch(getAuthPhoto(res.data.data.id)),
+                        dispatch(loadPathFromStorage()),
+                        dispatch(setIsLoggedIn(true))
+                    ]).then(() => dispatch(setAppIsInitialized(true)))
                 }
                 else {
                     // dispatch(addAppAlert('failed', res.data.messages[0]))
@@ -169,15 +179,38 @@ export const addAppAlert = (type: AlertType, message: string) =>
         dispatch(setAppAlert(newAlert))
     }
 
+export const savePathToStorage = (currentPath: string) => (dispatch: AppDispatchType) => {
+    if (storageAvailable('sessionStorage')) {
+        sessionStorage.setItem('currentPath', currentPath)
+    } else {
+        dispatch(addAppAlert('info', 'Session storage unavailable!'))
+    }
+}
+
+export const loadPathFromStorage = () => (dispatch: AppDispatchType, getState: () => AppRootStateType) => {
+    if (storageAvailable('sessionStorage')) {
+        const currentPath = sessionStorage.getItem('currentPath')
+        if (!currentPath) {
+            dispatch(savePathToStorage(getState().app.currentPath))
+        } else {
+            dispatch(setCurrentPath(currentPath))
+        }
+    } else {
+        dispatch(addAppAlert('info', 'Session storage unavailable!'))
+    }
+}
+
 //TYPES
+type RemoveAlertActionType = ReturnType<typeof removeAppAlert>
 export type AddAlertActionType = ReturnType<typeof setAppAlert>
-export type RemoveAlertActionType = ReturnType<typeof removeAppAlert>
+type SetCurrentPathActionType = ReturnType<typeof setCurrentPath>
 export type SetAppIsLoadingActionType = ReturnType<typeof setAppIsLoading>
+type SetNavbarCollapsedActionType = ReturnType<typeof setAppNavbarCollapsed>
 export type SetAppIsInitializedType = ReturnType<typeof setAppIsInitialized>
-export type SetNavbarCollapsedActionType = ReturnType<typeof setAppNavbarCollapsed>
 type AppActionsType =
     | SetNavbarCollapsedActionType
     | SetAppIsLoadingActionType
+    | SetCurrentPathActionType
     | SetAppIsInitializedType
     | RemoveAlertActionType
     | AddAlertActionType

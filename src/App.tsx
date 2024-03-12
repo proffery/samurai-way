@@ -16,13 +16,14 @@ import { Notifications } from './components/layout/pages/notifications/Notificat
 import { InitializationLoader } from './components/common/loaders/IniatializationLoader'
 
 type AppPropsType = {
-  isLoggedIn: boolean
-  navbarCollapsed: boolean
   isLoading: boolean
+  storagePath: string
+  isLoggedIn: boolean
   isInitialized: boolean
+  navbarCollapsed: boolean
 }
 function App(props: AppPropsType) {
-  const { isLoggedIn, navbarCollapsed, isLoading, isInitialized } = props
+  const { isLoggedIn, navbarCollapsed, isLoading, isInitialized, storagePath } = props
 
   if (!isLoggedIn) {
     return (
@@ -55,7 +56,7 @@ function App(props: AppPropsType) {
         <Route path='/notifications' component={Notifications} />
         <Route path='/settings' component={Settings} />
         <Route path='/404' component={NotFound} />
-        <Route path='/login' render={() => <Redirect to={'/'} />} />
+        <Route path='/login' render={() => <Redirect to={`${storagePath}`} />} />
         <Route path='*' render={() => <Redirect to={'/404'} />} />
       </Switch>
       <FooterContainer />
