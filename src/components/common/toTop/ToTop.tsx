@@ -17,8 +17,12 @@ export const ToTop: React.FC<ToTopLinkPropsType> = memo((props) => {
     useEffect(() => {
         const main = document.querySelector('main')
         const onScroll = () => {
-            if (main && main.scrollTop > 50) setScrolled(true)
-            else setScrolled(false)
+            if (main && main.scrollTop > 300) {
+                setScrolled(true)
+            }
+            else {
+                setScrolled(false)
+            }
         }
         main && main.addEventListener('scroll', onScroll)
         return () => { main && main.removeEventListener('scroll', onScroll) }
@@ -34,15 +38,17 @@ export const ToTop: React.FC<ToTopLinkPropsType> = memo((props) => {
                 document
                     .getElementById(lastHash.current)
                     ?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-                lastHash.current = ''
             }, 100)
         }
     }, [location])
-
+    const onClickHandler = () => {
+        document.location = '#' + props.anchor_id
+    }
     return (
         scrolled ?
             <StyledToTopLink
                 to={'#' + props.anchor_id}
+                onClick={onClickHandler}
             ><Icon iconId="leftArrow" viewBox="-1 9 14 14" />
             </StyledToTopLink> :
             null
