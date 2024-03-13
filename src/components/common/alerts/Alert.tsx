@@ -12,7 +12,7 @@ type AlertPropsType = {
     removeAlert: (id: string) => void
 }
 
-const REMOVE_ALERT_DELAY = 3000
+const REMOVE_ALERT_DELAY = 4000
 
 export const Alert: React.FC<AlertPropsType> = memo((props) => {
 
@@ -39,7 +39,7 @@ export const Alert: React.FC<AlertPropsType> = memo((props) => {
     }
 
     return (
-        <AlertContainer request={props.alertType}>
+        <AlertContainer request={props.alertType} delay={REMOVE_ALERT_DELAY}>
             <FlexWrapper gap={"10px"} align={"center"}>
                 {iconSwitcher(props.alertType)}
                 <Message>{props.alertMessage}</Message>
@@ -54,9 +54,11 @@ export const Alert: React.FC<AlertPropsType> = memo((props) => {
 type StyledAlertPropsType = {
     className?: string
     request: AlertType
+    delay: number
 }
 const AlertContainer = styled.div<StyledAlertPropsType>`
     display: flex;
+    position: relative;
     align-items: center;
     justify-content: space-between;
     gap: 10px;
@@ -79,6 +81,28 @@ const AlertContainer = styled.div<StyledAlertPropsType>`
     @media ${theme.media.mobile} {
         padding: 6px;
   }
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        transform: translateY(100%);
+        background: ${theme.gradient.banner};
+        animation: moveColor ${props => props.delay / 1000}s linear;
+        animation-fill-mode: forwards;
+        z-index: 2;
+        }
+
+        @keyframes moveColor {
+        0% {
+            transform: translateY(100%);
+        }
+        100% {
+            transform: translateY(0);
+        }
+    }
 `
 const Message = styled.span`
     color: ${theme.color.text.second};

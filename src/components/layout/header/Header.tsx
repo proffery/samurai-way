@@ -6,10 +6,12 @@ import { AuthStateType } from 'store/auth/authReducer'
 import styled from "styled-components"
 import { theme } from 'styles/Theme.styled'
 import search from '../../../assets/images/Search.svg'
+import { AlertType } from 'store/app/appReducer'
 
 type HeaderPropsType = {
     logout: () => void
     setUsersSearchTerm: (searchTerm: string) => void
+    addAppAlert: (type: AlertType, message: string) => void
     searchTerm: string
     authData: AuthStateType
 }
@@ -18,8 +20,6 @@ export const Header: React.FC<HeaderPropsType> = memo((props) => {
     const { login, email, photoUrl } = props.authData
     const { searchTerm, setUsersSearchTerm, logout } = props
     const [timerId, setTimerId] = useState<number | undefined>(undefined)
-
-
 
     const formik = useFormik({
         initialValues: {
@@ -33,6 +33,7 @@ export const Header: React.FC<HeaderPropsType> = memo((props) => {
             const errors: { searchTerm?: string } = {}
             if (!/^[A-Za-z0-9_)(;:!@-]*$/i.test(values.searchTerm)) {
                 errors.searchTerm = 'Wrong characters!'
+                props.addAppAlert('failed', errors.searchTerm)
             }
             return errors
         }

@@ -9,6 +9,7 @@ import { selectStoragePath } from 'store/app/appSelectors'
 import { setUsersSearchTerm } from 'store/users/usersReducer'
 import { AuthStateType, logout } from 'store/auth/authReducer'
 import { selectUsersSearchTerm } from 'store/users/usersSelectors'
+import { AlertType, addAppAlert } from 'store/app/appReducer'
 
 export const HeaderAPI: React.FC<HeaderAPIPropsTtype> = memo((props) => {
     const history = useHistory()
@@ -24,6 +25,7 @@ export const HeaderAPI: React.FC<HeaderAPIPropsTtype> = memo((props) => {
             logout={props.logout}
             authData={props.authData}
             searchTerm={props.searchTerm}
+            addAppAlert={props.addAppAlert}
             setUsersSearchTerm={props.setUsersSearchTerm}
         />
     )
@@ -39,7 +41,7 @@ const mapStateToProps = (state: AppRootStateType) => {
 }
 
 export const HeaderContainer = compose(
-    connect(mapStateToProps, { logout, setUsersSearchTerm })
+    connect(mapStateToProps, { logout, setUsersSearchTerm, addAppAlert })
 )(HeaderAPI)
 
 //TYPES
@@ -50,4 +52,5 @@ type HeaderAPIPropsTtype = {
     authData: AuthStateType
     logout: () => void
     setUsersSearchTerm: (searchTerm: string) => void
+    addAppAlert: (type: AlertType, message: string) => void
 }

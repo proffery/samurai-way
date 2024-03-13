@@ -1,7 +1,7 @@
-import { memo } from 'react'
-import styled from 'styled-components'
-import { AlertObjectType } from 'store/app/appReducer'
 import { Alert } from 'components/common/alerts/Alert'
+import { memo } from 'react'
+import { AlertObjectType } from 'store/app/appReducer'
+import styled from 'styled-components'
 
 type AlertsPropsType = {
     alerts: AlertObjectType[]
@@ -23,7 +23,7 @@ export const Alerts: React.FC<AlertsPropsType> = memo((props) => {
 })
 
 const AlertsWrapper = styled.div`
-    position: fixed;
+    position: absolute;
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
