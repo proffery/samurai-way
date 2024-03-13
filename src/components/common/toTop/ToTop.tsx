@@ -38,6 +38,7 @@ export const ToTop: React.FC<ToTopLinkPropsType> = memo((props) => {
                 document
                     .getElementById(lastHash.current)
                     ?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                lastHash.current = ''
             }, 100)
         }
     }, [location])

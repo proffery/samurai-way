@@ -6,26 +6,26 @@ import { PostsBlock } from 'components/blocks/postsBlock/PostsBlock'
 import { ToTop } from 'components/common/toTop/ToTop'
 import { FriendsBlockContainer } from 'components/containers/FriendsBlockContainer'
 import { PossibleFriendsBlockContainer } from 'components/containers/PossibleFriendsBlockContainer'
-import React, { RefObject, memo, useRef } from "react"
+import React, { memo } from "react"
 import { AlertType } from 'store/app/appReducer'
 import { AuthStateType } from 'store/auth/authReducer'
-import { ProfileStateType, ChangeAboutProfileType } from 'store/profile/profileReducer'
+import { ChangeAboutProfileType, ProfileStateType } from 'store/profile/profileReducer'
 import styled from "styled-components"
 import { theme } from 'styles/Theme.styled'
 
 type ProfilePropsType = {
     className?: string
+    appIsLoading: boolean
     authStateData: AuthStateType
     profileStateData: ProfileStateType
-    appIsLoading: boolean
     addPost: () => void
     followProfile: (userId: number) => void
-    unfollowProfile: (userId: number) => void
     postOnChange: (newPost: string) => void
+    unfollowProfile: (userId: number) => void
     changeProfileStatus: (newStatus: string) => void
-    changeProfileContacts: (contacts: GetProfileResponseContactsType) => void
-    changeProfileAbout: (about: ChangeAboutProfileType) => void
     addAppAlert: (type: AlertType, message: string) => void
+    changeProfileAbout: (about: ChangeAboutProfileType) => void
+    changeProfileContacts: (contacts: GetProfileResponseContactsType) => void
 }
 
 export const Profile: React.FC<ProfilePropsType> = memo((props) => {

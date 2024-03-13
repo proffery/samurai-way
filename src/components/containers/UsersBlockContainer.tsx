@@ -1,15 +1,19 @@
 
-import { compose } from "redux"
-import { connect } from "react-redux"
-import { RefObject, memo, useEffect } from "react"
-import { AppRootStateType } from 'store/redux-store'
-import { selectIsLoading } from 'store/app/appSelectors'
 import { UsersBlock } from 'components/blocks/usersBlock/UsersBlock'
-import { selectUsersData, selectUsersSearchTerm } from 'store/users/usersSelectors'
+import { memo, useEffect } from "react"
+import { connect } from "react-redux"
+import { compose } from "redux"
+import { selectIsLoading } from 'store/app/appSelectors'
+import { AppRootStateType } from 'store/redux-store'
 import {
-    getUsers, followUser, unfollowUser,
-    UsersFilterType, changeUsersFilter, UsersStateType
+    UsersFilterType,
+    UsersStateType,
+    changeUsersFilter,
+    followUser,
+    getUsers,
+    unfollowUser
 } from 'store/users/usersReducer'
+import { selectUsersData } from 'store/users/usersSelectors'
 
 const UsersBlockAPI: React.FC<UsersBlockAPIPropsType> = memo((props) => {
     const { usersFilter, usersOnPage, searchTerm } = props.usersData
@@ -65,7 +69,6 @@ const UsersBlockAPI: React.FC<UsersBlockAPIPropsType> = memo((props) => {
 const mapStateToProps = (state: AppRootStateType) => {
     return {
         usersData: selectUsersData(state),
-        searchTerm: selectUsersSearchTerm(state),
         appIsLoading: selectIsLoading(state)
     }
 }
@@ -78,7 +81,6 @@ export const UsersBlockContainer = compose(
 
 //TYPES
 type UsersBlockAPIPropsType = {
-    searchTerm: string
     appIsLoading: boolean
     usersData: UsersStateType
     followUser: (userId: number) => void
