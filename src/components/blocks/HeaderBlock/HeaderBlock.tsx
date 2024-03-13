@@ -85,6 +85,7 @@ export const HeaderBlock: React.FC<HeaderBlockPropsType> = memo((props) => {
                 {authId !== userId ?
                     <ButtonsContainer>
                         <MessagesButton
+                            aria-label={`Go to chat with ${fullName}`}
                             to={`/messages/${userId}`}
                         ><Icon iconId={'messages'} viewBox="-2 -3 24 24" height={'50%'} width={'50%'} /></MessagesButton>
                         <Button
