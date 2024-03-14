@@ -18,7 +18,7 @@ const SET_FOLLOW_STATUS = 'SET-FOLLOW-STATUS'
 const SET_STATUS = 'SET-STATUS'
 
 //INITIAL STATE
-const initialState = {
+export const initialState = {
     posts: [],
     newPostForm: '',
     data: {
@@ -105,7 +105,7 @@ const initialState = {
 }
 
 //REDUCER
-export const profileReducer = (state: ProfileStateType = initialState, action: ProfileReducerActionsType): ProfileStateType => {
+export const profileReducer = (state: ProfileStateType = initialState, action: ProfileActionsType): ProfileStateType => {
     switch (action.type) {
         case ADD_POST:
             return { ...state, posts: [action.payload.newPost, ...state.posts] }
@@ -145,11 +145,11 @@ export const updatePost = (postId: string, newPost: string) => (
     { type: UPDATE_POST, payload: { newPost, postId } }) as const
 export const postOnChange = (newPost: string) => (
     { type: ON_CHANGE_POST, payload: { newPost } }) as const
-const setProfileData = (data: GetProfileResponseType) => (
+export const setProfileData = (data: GetProfileResponseType) => (
     { type: SET_PROFILE_DATA, payload: { data } }) as const
-const setFollowStatus = (isFollow: boolean) => (
+export const setFollowStatus = (isFollow: boolean) => (
     { type: SET_FOLLOW_STATUS, payload: { isFollow } }) as const
-const setStatus = (status: string) => (
+export const setStatus = (status: string) => (
     { type: SET_STATUS, payload: { status } }) as const
 
 //THUNKS
@@ -294,7 +294,7 @@ export const changeProfileAbout = (about: ChangeAboutProfileType) =>
     }
 
 //TYPES
-export type ProfileReducerActionsType =
+export type ProfileActionsType =
     | ReturnType<typeof setPost>
     | ReturnType<typeof setStatus>
     | ReturnType<typeof updatePost>

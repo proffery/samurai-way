@@ -15,7 +15,7 @@ const SET_TOTAL_USERS_COUNT = 'USERS/SET-TOTAL-USERS-COUNT'
 const CHANGE_USER_IS_LOADING = 'USERS/CHANGE-USER-IS-LOADING'
 
 //INITIAL STATE
-const initialState = {
+export const initialState = {
     searchTerm: '',
     currentPage: 1,
     usersOnPage: 15,
@@ -63,40 +63,41 @@ export const usersReducer = (state: UsersStateType = initialState, action: Users
 }
 
 //ACTIONS
-const setFollowUser = (userId: number) =>
+export const setFollowUser = (userId: number) =>
     ({ type: FOLLOW, payload: { userId } }) as const
-const setUnfollowUser = (userId: number) =>
+export const setUnfollowUser = (userId: number) =>
     ({ type: UNFOLLOW, payload: { userId } }) as const
-const setUsers = (users: UserResponseType[]) =>
+export const setUsers = (users: UserResponseType[]) =>
     ({ type: SET_USERS, payload: { users } }) as const
-const setCurrentPage = (currentPage: number) =>
+export const setCurrentPage = (currentPage: number) =>
     ({ type: SET_CURRENT_PAGE, payload: { currentPage } }) as const
-const setUsersOnPage = (usersOnPage: number) =>
+export const setUsersOnPage = (usersOnPage: number) =>
     ({ type: SET_USERS_ON_PAGE, payload: { usersOnPage } }) as const
-const setTotalUsersCount = (totalUsersCount: number) =>
+export const setTotalUsersCount = (totalUsersCount: number) =>
     ({ type: SET_TOTAL_USERS_COUNT, payload: { totalUsersCount } }) as const
 export const setUsersSearchTerm = (searchTerm: string) =>
     ({ type: CHANGE_SEARCH_TERM, payload: { searchTerm } }) as const
 export const changeUsersFilter = (usersFilter: UsersFilterType) =>
     ({ type: CHANGE_USERS_FILTER, payload: { usersFilter } }) as const
-const changeUserIsLoading = (userId: number, isLoading: boolean) =>
+export const changeUserIsLoading = (userId: number, isLoading: boolean) =>
     ({ type: CHANGE_USER_IS_LOADING, payload: { userId, isLoading } }) as const
 
 //THUNKS
-export const getUsers = (pageNumber: number, usersOnPage: number, isFriend: boolean | null, searchTerm: string) => (dispatch: AppDispatchType) => {
-    dispatch(setAppIsLoading(true))
-    usersAPI.getUsers(pageNumber, usersOnPage, isFriend, searchTerm)
-        .then(res => {
-            dispatch(setTotalUsersCount(res.data.totalCount))
-            dispatch(setCurrentPage(pageNumber))
-            dispatch(setUsersOnPage(usersOnPage))
-            dispatch(setUsers(res.data.items))
-        })
-        .catch(error => {
-            dispatch(addAppAlert('failed', error.message))
-        })
-        .finally(() => dispatch(setAppIsLoading(false)))
-}
+export const getUsers = (pageNumber: number, usersOnPage: number, isFriend: boolean | null, searchTerm: string) =>
+    (dispatch: AppDispatchType) => {
+        dispatch(setAppIsLoading(true))
+        usersAPI.getUsers(pageNumber, usersOnPage, isFriend, searchTerm)
+            .then(res => {
+                dispatch(setTotalUsersCount(res.data.totalCount))
+                dispatch(setCurrentPage(pageNumber))
+                dispatch(setUsersOnPage(usersOnPage))
+                dispatch(setUsers(res.data.items))
+            })
+            .catch(error => {
+                dispatch(addAppAlert('failed', error.message))
+            })
+            .finally(() => dispatch(setAppIsLoading(false)))
+    }
 
 export const followUser = (userId: number) => (dispatch: AppDispatchType) => {
     dispatch(changeUserIsLoading(userId, true))
