@@ -174,7 +174,7 @@ describe('Users reducer', () => {
         expect(expectedState.users[1].isLoading).toBe(true)
     })
 
-    it('should reset the state to the initial', () => {
+    it('should reset users state to the initial', () => {
         const startState: UsersStateType = {
             searchTerm: 'John',
             currentPage: 2,

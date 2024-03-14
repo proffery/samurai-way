@@ -211,7 +211,7 @@ describe('Friends reducer', () => {
         expect(friendsReducer(startState, action).possibleFriends.totalUsersCount).not.toBe(552)
     })
 
-    it('friends reduced state should be restored to initial state', () => {
+    it('friends reducer state should be restored to initial state', () => {
         const startState: FriendsStateType = {
             friends: { ...initialState.possibleFriends },
             possibleFriends: { ...initialState.friends }

@@ -31,8 +31,8 @@ export const Header: React.FC<HeaderPropsType> = memo((props) => {
         },
         validate: (values) => {
             const errors: { searchTerm?: string } = {}
-            if (!/^[A-Za-z0-9_)(;:!@-]*$/i.test(values.searchTerm)) {
-                errors.searchTerm = 'Wrong characters!'
+            if (!/^[A-Za-zА-Яа-я0-9_)(;:!@-]*$/i.test(values.searchTerm)) {
+                errors.searchTerm = 'Wrong symbol!'
                 props.addAppAlert('failed', errors.searchTerm)
             }
             return errors

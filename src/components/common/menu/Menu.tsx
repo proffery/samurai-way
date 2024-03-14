@@ -23,12 +23,13 @@ export const Menu: React.FC<MenuPropsType> = memo((props) => {
             <ul role="menu" aria-label="menu">
                 {props.menuItems.map((item) => {
                     return (
-                        <li role="menuitem" key={item.id}>
+                        <li key={item.id}>
                             <StyledNavLink
                                 to={item.href}
                                 type={props.type}
                                 tabIndex={0}
                                 onClick={onClickHandler}
+                                role="menuitem"
                             >
                                 {props.icons &&
                                     <IconWrapper>

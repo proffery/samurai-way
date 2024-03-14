@@ -43,7 +43,7 @@ describe('Auth reducer', () => {
         expect(authReducer(startState, action).photoUrl).toBe(expectedState.photoUrl)
     })
 
-    it('auth reduced state should be restored to initial state', () => {
+    it('auth reducer state should be restored to initial state', () => {
         const startState: AuthStateType = {
             id: 9999,
             email: v1(),
