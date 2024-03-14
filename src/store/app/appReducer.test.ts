@@ -7,8 +7,8 @@ import {
 } from './appReducer'
 
 describe('App reducer', () => {
-    it('appReducer should return the initial state', () => {
-        expect(appReducer(initialState, {} as AppActionsType)).toEqual(initialState)
+    it('app reducer should return the initial state', () => {
+        expect(appReducer(undefined, {} as AppActionsType)).toEqual(initialState)
     })
 
     it('property "isLoading" should change to true', () => {
@@ -19,7 +19,7 @@ describe('App reducer', () => {
         expect(appReducer(startState, action).isLoading).toBe(expectedState.isLoading)
     })
 
-    it('new Alert should added to state', () => {
+    it('new alert should added to state', () => {
         const startState: AppReducerStateType = { ...initialState, alerts: [] }
         const newAlert: AlertObjectType = {
             id: '123',

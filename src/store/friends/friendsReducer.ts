@@ -16,7 +16,7 @@ const SET_TOTAL_POSSIBLE_FRIENDS_COUNT = 'FRIENDS/SET-TOTAL-POSSIBLE-FRIENDS-COU
 const SET_POSSIBLE_FRIENDS_CURRENT_PAGE = 'FRIENDS/SET-POSSIBLE-FRIENDS-CURRENT-PAGE'
 
 //INITIAL STATE
-const initialState = {
+export const initialState = {
     friends: {
         users: [] as UserResponseType[],
         usersOnPage: 5,
@@ -32,7 +32,7 @@ const initialState = {
 }
 
 //REDUCER
-export const friendsReducer = (state: typeof initialState = initialState, action: FriendsReducerActionsType): typeof initialState => {
+export const friendsReducer = (state: FriendsStateType = initialState, action: FriendsActionsType): FriendsStateType => {
     switch (action.type) {
         case SET_FRIENDS:
             return { ...state, friends: { ...state.friends, users: [...action.payload.users] } }
@@ -58,21 +58,21 @@ export const friendsReducer = (state: typeof initialState = initialState, action
 }
 
 //ACTIONS
-const setFriends = (users: UserResponseType[]) =>
+export const setFriends = (users: UserResponseType[]) =>
     ({ type: SET_FRIENDS, payload: { users } }) as const
-const setFriendsPage = (currentPage: number) =>
+export const setFriendsPage = (currentPage: number) =>
     ({ type: SET_CURRENT_FRIENDS_PAGE, payload: { currentPage } }) as const
-const setFriendsOnPage = (usersOnPage: number) =>
+export const setFriendsOnPage = (usersOnPage: number) =>
     ({ type: SET_FRIENDS_ON_PAGE, payload: { usersOnPage } }) as const
-const setTotalFriendsCount = (totalUsersCount: number) =>
+export const setTotalFriendsCount = (totalUsersCount: number) =>
     ({ type: SET_TOTAL_FRIENDS_COUNT, payload: { totalUsersCount } }) as const
-const setPossibleFriends = (users: UserResponseType[]) =>
+export const setPossibleFriends = (users: UserResponseType[]) =>
     ({ type: SET_POSSIBLE_FRIENDS, payload: { users } }) as const
-const setPossibleFriendsPage = (currentPage: number) =>
+export const setPossibleFriendsPage = (currentPage: number) =>
     ({ type: SET_POSSIBLE_FRIENDS_CURRENT_PAGE, payload: { currentPage } }) as const
-const setPossibleFriendsOnPage = (usersOnPage: number) =>
+export const setPossibleFriendsOnPage = (usersOnPage: number) =>
     ({ type: SET_POSSIBLE_FRIENDS_ON_PAGE, payload: { usersOnPage } }) as const
-const setPossibleTotalFriendsCount = (totalUsersCount: number) =>
+export const setPossibleTotalFriendsCount = (totalUsersCount: number) =>
     ({ type: SET_TOTAL_POSSIBLE_FRIENDS_COUNT, payload: { totalUsersCount } }) as const
 
 //THUNKS
@@ -100,7 +100,7 @@ export const getFriends = (pageNumber: number, usersOnPage: number, isFriend: bo
     }
 
 //TYPES
-export type FriendsReducerActionsType =
+export type FriendsActionsType =
     | ReturnType<typeof setFriends>
     | ReturnType<typeof setFriendsPage>
     | ReturnType<typeof setFriendsOnPage>
@@ -111,3 +111,5 @@ export type FriendsReducerActionsType =
     | ReturnType<typeof setPossibleTotalFriendsCount>
     | SetAppIsLoadingActionType
     | CleanReducerType
+
+export type FriendsStateType = typeof initialState

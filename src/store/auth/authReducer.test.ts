@@ -1,13 +1,14 @@
 import { GetMeDataType } from 'api/social-network-api'
 import {
-    AuthReducerActionsType, AuthStateType, authReducer, cleanReducer, initialState,
-    setAuthUserData, setIsLoggedIn, setPhotoUrl
+    AuthReducerActionsType, AuthStateType, authReducer,
+    cleanReducer, initialState, setAuthUserData,
+    setIsLoggedIn, setPhotoUrl
 } from './authReducer'
 import { v1 } from 'uuid'
 
 describe('Auth reducer', () => {
-    it('authReducer should return the initial state', () => {
-        expect(authReducer(initialState, {} as AuthReducerActionsType)).toEqual(initialState)
+    it('auth reducer should return the initial state', () => {
+        expect(authReducer(undefined, {} as AuthReducerActionsType)).toEqual(initialState)
     })
 
     it('correct data should be in state', () => {
@@ -42,16 +43,15 @@ describe('Auth reducer', () => {
         expect(authReducer(startState, action).photoUrl).toBe(expectedState.photoUrl)
     })
 
-    it('Auth reduced state should be restored to initial state', () => {
+    it('auth reduced state should be restored to initial state', () => {
         const startState: AuthStateType = {
-            ...initialState,
             id: 9999,
             email: v1(),
             login: v1(),
             photoUrl: v1(),
             isLoggedIn: true
         }
-        const expectedState: AuthStateType = {...initialState}
+        const expectedState: AuthStateType = { ...initialState }
         const action = cleanReducer()
         expect(authReducer(startState, action)).toEqual(expectedState)
     })

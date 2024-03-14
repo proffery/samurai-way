@@ -29,15 +29,13 @@ export const usersReducer = (state: UsersStateType = initialState, action: Users
     switch (action.type) {
         case FOLLOW:
             return {
-                ...state, users: state.users.map(user => user.id === action.payload.userId
-                    ? { ...user, followed: true }
-                    : user)
+                ...state, users: state.users
+                    .map(user => user.id === action.payload.userId ? { ...user, followed: true } : user)
             }
         case UNFOLLOW:
             return {
-                ...state, users: state.users.map(user => user.id === action.payload.userId
-                    ? { ...user, followed: false }
-                    : user)
+                ...state, users: state.users
+                    .map(user => user.id === action.payload.userId ? { ...user, followed: false } : user)
             }
         case SET_USERS:
             return { ...state, users: action.payload.users.map(user => ({ ...user, isLoading: false })) }
@@ -53,9 +51,9 @@ export const usersReducer = (state: UsersStateType = initialState, action: Users
             return { ...state, searchTerm: action.payload.searchTerm }
         case CHANGE_USER_IS_LOADING:
             return {
-                ...state, users: state.users.map(user => user.id === action.payload.userId
-                    ? { ...user, isLoading: action.payload.isLoading }
-                    : user)
+                ...state, users: state.users
+                    .map(user => user.id === action.payload.userId
+                        ? { ...user, isLoading: action.payload.isLoading } : user)
             }
         case CLEAN_REDUCER:
             return initialState
