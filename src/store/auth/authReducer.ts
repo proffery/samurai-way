@@ -13,7 +13,7 @@ const SET_PHOTO_URL = 'AUTH/SET-PHOTO-URL'
 export const CLEAN_REDUCER = 'AUTH/CLEAN-REDUCER'
 
 //INITIAL STATE
-const initialState: AuthStateType = {
+export const initialState: AuthStateType = {
     id: 2,
     email: '',
     login: '',
