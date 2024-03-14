@@ -13,7 +13,7 @@ const APP_SET_IS_INITIALIZED = 'APP/SET-IS_INITIALIZED'
 const APP_SET_NAVBAR_COLLAPSED = 'APP/SET-NAVBAR-COLLAPSED'
 
 //INITIAL STATE
-const initialState = {
+export const initialState = {
     footerLinks: [
         {
             id: 1,
@@ -103,7 +103,7 @@ const initialState = {
 }
 
 //REDUCER
-export const appReducer = (state: typeof initialState = initialState, action: AppActionsType): typeof initialState => {
+export const appReducer = (state: AppReducerStateType = initialState, action: AppActionsType): AppReducerStateType => {
     switch (action.type) {
         case APP_SET_IS_LOADING:
             return { ...state, isLoading: action.payload.isLoading }
@@ -125,15 +125,15 @@ export const appReducer = (state: typeof initialState = initialState, action: Ap
 //ACTIONS
 export const setAppIsLoading = (isLoading: boolean) =>
     ({ type: APP_SET_IS_LOADING, payload: { isLoading } } as const)
-const setAppAlert = (newAlert: AlertObjectType) =>
+export const setAppAlert = (newAlert: AlertObjectType) =>
     ({ type: APP_ADD_ALERT, payload: { newAlert } } as const)
 export const removeAppAlert = (id: string) =>
     ({ type: APP_REMOVE_ALERT, payload: { id } } as const)
 export const setAppNavbarCollapsed = (navbarCollapsed: boolean) =>
     ({ type: APP_SET_NAVBAR_COLLAPSED, payload: { navbarCollapsed } } as const)
-const setAppIsInitialized = (isInitialized: boolean) =>
+export const setAppIsInitialized = (isInitialized: boolean) =>
     ({ type: APP_SET_IS_INITIALIZED, payload: { isInitialized } } as const)
-const setCurrentPath = (currentPath: string) =>
+export const setCurrentPath = (currentPath: string) =>
     ({ type: APP_SET_CURRENT_PATH, payload: { currentPath } } as const)
 
 //THUNKS
@@ -205,7 +205,7 @@ type SetCurrentPathActionType = ReturnType<typeof setCurrentPath>
 export type SetAppIsLoadingActionType = ReturnType<typeof setAppIsLoading>
 type SetNavbarCollapsedActionType = ReturnType<typeof setAppNavbarCollapsed>
 export type SetAppIsInitializedType = ReturnType<typeof setAppIsInitialized>
-type AppActionsType =
+export type AppActionsType =
     | SetNavbarCollapsedActionType
     | SetAppIsLoadingActionType
     | SetCurrentPathActionType
@@ -226,3 +226,4 @@ export type AlertObjectType = {
     type: AlertType
     message: string
 }
+export type AppReducerStateType = typeof initialState
