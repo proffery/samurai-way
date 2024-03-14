@@ -20,16 +20,16 @@ export const Menu: React.FC<MenuPropsType> = memo((props) => {
     }
     return (
         <StyledMenu direction={props.direction} type={props.type}>
-            <ul role="menu" aria-label="menu">
+            <ul role="menu" aria-label='Menu'>
                 {props.menuItems.map((item) => {
                     return (
-                        <li key={item.id}>
+                        <li role="menuitem" aria-label={item.name} key={item.id}>
                             <StyledNavLink
                                 to={item.href}
                                 type={props.type}
                                 tabIndex={0}
                                 onClick={onClickHandler}
-                                role="menuitem"
+                                aria-label={'Go to ' + item.name}
                             >
                                 {props.icons &&
                                     <IconWrapper>
