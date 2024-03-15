@@ -22,6 +22,7 @@ type ProfilePropsType = {
     followProfile: (userId: number) => void
     postOnChange: (newPost: string) => void
     unfollowProfile: (userId: number) => void
+    changeProfilePhotos: (image: File) => void
     changeProfileStatus: (newStatus: string) => void
     addAppAlert: (type: AlertType, message: string) => void
     changeProfileAbout: (about: ChangeAboutProfileType) => void
@@ -40,6 +41,7 @@ export const Profile: React.FC<ProfilePropsType> = memo((props) => {
                 unfollow={props.unfollowProfile}
                 changeProfileStatus={props.changeProfileStatus}
                 addAppAlert={props.addAppAlert}
+                changeProfilePhotos={props.changeProfilePhotos}
             />
             <ProfileAboutBlock
                 profileData={props.profileStateData.data}

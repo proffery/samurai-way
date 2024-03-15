@@ -39,6 +39,15 @@ export const profileAPI = {
     },
     changeProfile(newData: ChangeProfileDataType) {
         return instance.put<ResponseType>('/profile', newData)
+    },
+    changePhoto(image: File) {
+        const formData = new FormData()
+        formData.append('image', image)
+        return instance.put<ResponseType<PhotosResponseType>>('/profile/photo', formData, {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        })
     }
 }
 
@@ -121,4 +130,10 @@ export type ChangeProfileDataType = {
     lookingForAJob: boolean
     lookingForAJobDescription: string
     contacts: GetProfileResponseContactsType
+}
+export type PhotosResponseType = {
+    photos: {
+        small: string,
+        large: string
+    }
 }

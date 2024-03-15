@@ -1,21 +1,23 @@
 import {
     GetProfileResponseType, ResultCode, GetProfileResponseContactsType,
-    ChangeProfileDataType, profileAPI, usersAPI
+    ChangeProfileDataType, profileAPI, usersAPI,
+    PhotosResponseType
 } from 'api/social-network-api'
 import { setAppIsLoading, addAppAlert, SetAppIsLoadingActionType, AddAlertActionType } from 'store/app/appReducer'
-import { CLEAN_REDUCER, CleanReducerType } from 'store/auth/authReducer'
+import { CLEAN_REDUCER, CleanReducerType, setAuthUserPhoto } from 'store/auth/authReducer'
 import { AppDispatchType, AppRootStateType } from 'store/redux-store'
 import { FollowUserActionType, UnfollowUserActionType } from 'store/users/usersReducer'
 import { v1 } from 'uuid'
 
 
 //CONSTANTS
-const ADD_POST = 'ADD-POST'
-const UPDATE_POST = 'UPDATE-POST'
-const ON_CHANGE_POST = 'ON-CHANGE-POST'
-const SET_PROFILE_DATA = 'SET-PROFILE-DATA'
-const SET_FOLLOW_STATUS = 'SET-FOLLOW-STATUS'
-const SET_STATUS = 'SET-STATUS'
+const ADD_POST = 'PROFILE/ADD-POST'
+const UPDATE_POST = 'PROFILE/UPDATE-POST'
+const ON_CHANGE_POST = 'PROFILE/ON-CHANGE-POST'
+const SET_PROFILE_DATA = 'PROFILE/SET-PROFILE-DATA'
+const SET_FOLLOW_STATUS = 'PROFILE/SET-FOLLOW-STATUS'
+const SET_STATUS = 'PROFILE/SET-STATUS'
+const SET_PHOTOS = 'PROFILE/SET-PHOTOS'
 
 //INITIAL STATE
 export const initialState = {
@@ -125,6 +127,8 @@ export const profileReducer = (state: ProfileStateType = initialState, action: P
             return { ...state, data: { ...state.data, isFollow: action.payload.isFollow } }
         case SET_STATUS:
             return { ...state, data: { ...state.data, status: action.payload.status } }
+        case SET_PHOTOS:
+            return { ...state, data: { ...state.data, photos: { ...action.payload.data.photos } } }
         case CLEAN_REDUCER:
             return initialState
         default: return state
@@ -151,6 +155,8 @@ export const setFollowStatus = (isFollow: boolean) => (
     { type: SET_FOLLOW_STATUS, payload: { isFollow } }) as const
 export const setStatus = (status: string) => (
     { type: SET_STATUS, payload: { status } }) as const
+export const setPhotos = (data: PhotosResponseType) => (
+    { type: SET_PHOTOS, payload: { data } }) as const
 
 //THUNKS
 export const addPost = () => (dispatch: AppDispatchType, getState: () => AppRootStateType) => {
@@ -292,10 +298,30 @@ export const changeProfileAbout = (about: ChangeAboutProfileType) =>
             })
             .finally(() => dispatch(setAppIsLoading(false)))
     }
+export const changeProfilePhotos = (image: File) =>
+    (dispatch: AppDispatchType) => {
+        dispatch(setAppIsLoading(true))
+        profileAPI.changePhoto(image)
+            .then(res => {
+                if (res.data.resultCode === ResultCode.success) {
+                    dispatch(setPhotos(res.data.data))
+                    dispatch(setAuthUserPhoto(res.data.data.photos.small))
+                    dispatch(addAppAlert('succeeded', 'Photo is changed!'))
+                }
+                else {
+                    dispatch(addAppAlert('failed', res.data.messages[0]))
+                }
+            })
+            .catch(error => {
+                dispatch(addAppAlert('failed', error.message))
+            })
+            .finally(() => dispatch(setAppIsLoading(false)))
+    }
 
 //TYPES
 export type ProfileActionsType =
     | ReturnType<typeof setPost>
+    | ReturnType<typeof setPhotos>
     | ReturnType<typeof setStatus>
     | ReturnType<typeof updatePost>
     | ReturnType<typeof postOnChange>

@@ -1,4 +1,4 @@
-import { RefObject, memo } from 'react'
+import { ChangeEvent, memo } from 'react'
 import { font } from 'styles/Font'
 import { useFormik } from 'formik'
 import styled from 'styled-components'
@@ -21,6 +21,7 @@ type HeaderBlockPropsType = {
     appIsLoading: boolean
     follow: (userId: number) => void
     unfollow: (userId: number) => void
+    changeProfilePhotos: (image: File) => void
     changeProfileStatus: (newStatus: string) => void
     addAppAlert: (type: AlertType, message: string) => void
 }
@@ -37,6 +38,10 @@ export const HeaderBlock: React.FC<HeaderBlockPropsType> = memo((props) => {
 
     const followOnClickHandler = () => {
         isFollow ? props.unfollow(userId) : props.follow(userId)
+    }
+
+    const uploadPhotoOnchangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        e.currentTarget.files && props.changeProfilePhotos(e.currentTarget.files[0])
     }
 
     const formik = useFormik({
@@ -96,6 +101,16 @@ export const HeaderBlock: React.FC<HeaderBlockPropsType> = memo((props) => {
                         >{isFollow ? 'Unfollow' : 'Follow'}</Button>
                     </ButtonsContainer> :
                     <ButtonsContainer>
+                        <UploadForm>
+                            <UploadButton htmlFor={'photo-upload'} title='Uplod photo'>
+                                <input
+                                    id={'photo-upload'}
+                                    type={'file'}
+                                    accept={'image/*'}
+                                    onChange={uploadPhotoOnchangeHandler}
+                                /><Icon iconId={'addPhoto'} viewBox='-3 -2 30 30' height='100%' width='100%' />
+                            </UploadButton>
+                        </UploadForm>
                     </ButtonsContainer>
                 }
             </InfoConainer>
@@ -181,4 +196,18 @@ const MessagesButton = styled(NavLink)`
         color: ${theme.color.text.primary};
         border-color: ${theme.color.background.second};
     }
+`
+const UploadForm = styled.form`
+    display: flex;
+    & input[type='file'] {
+        display: none;
+    }
+    justify-content: end;
+    align-items: center;
+`
+const UploadButton = styled.label`
+    display: flex;
+    height: 100%;
+    color: ${theme.color.text.primary};
+    cursor: copy;
 `

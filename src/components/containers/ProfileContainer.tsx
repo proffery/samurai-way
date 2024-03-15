@@ -13,6 +13,7 @@ import { GetProfileResponseContactsType } from 'api/social-network-api'
 import {
     ChangeAboutProfileType, ProfileStateType, addPost,
     changeProfileAbout, changeProfileContacts,
+    changeProfilePhotos,
     changeProfileStatus, followProfile, getProfileData,
     postOnChange, unfollowProfile
 } from 'store/profile/profileReducer'
@@ -35,6 +36,7 @@ const ProfileAPI: React.FC<ProfileAPIPropsType> = memo((props) => {
         followProfile={props.followProfile}
         unfollowProfile={props.unfollowProfile}
         changeProfileAbout={props.changeProfileAbout}
+        changeProfilePhotos={props.changeProfilePhotos}
         changeProfileStatus={props.changeProfileStatus}
         changeProfileContacts={props.changeProfileContacts}
     />
@@ -53,7 +55,8 @@ export const ProfileContainer = compose(
         {
             postOnChange, addPost, getProfileData,
             unfollowProfile, followProfile, changeProfileStatus,
-            addAppAlert, changeProfileContacts, changeProfileAbout
+            addAppAlert, changeProfileContacts, changeProfileAbout,
+            changeProfilePhotos
         })
 )(withRouter(ProfileAPI))
 
@@ -67,6 +70,7 @@ type ConnectPropsType = {
     followProfile: (userId: number) => void
     getProfileData: (iserId: number) => void
     unfollowProfile: (userId: number) => void
+    changeProfilePhotos: (image: File) => void
     changeProfileStatus: (newStatus: string) => void
     addAppAlert: (type: AlertType, message: string) => void
     changeProfileAbout: (about: ChangeAboutProfileType) => void

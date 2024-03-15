@@ -2,7 +2,7 @@ import { GetMeDataType } from 'api/social-network-api'
 import {
     AuthReducerActionsType, AuthStateType, authReducer,
     cleanReducer, initialState, setAuthUserData,
-    setIsLoggedIn, setPhotoUrl
+    setIsLoggedIn, setAuthUserPhoto
 } from './authReducer'
 import { v1 } from 'uuid'
 
@@ -38,7 +38,7 @@ describe('Auth reducer', () => {
         const startState: AuthStateType = { ...initialState, photoUrl: '' }
         const photoUrl = 'https://example.com/photo.jpg'
         const expectedState: AuthStateType = { ...initialState, photoUrl }
-        const action = setPhotoUrl(photoUrl)
+        const action = setAuthUserPhoto(photoUrl)
         expect(authReducer(startState, action)).toEqual(expectedState)
         expect(authReducer(startState, action).photoUrl).toBe(expectedState.photoUrl)
     })

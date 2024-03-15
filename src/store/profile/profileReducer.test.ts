@@ -1,4 +1,4 @@
-import { GetProfileResponseType } from 'api/social-network-api'
+import { PhotosResponseType, GetProfileResponseType } from 'api/social-network-api'
 import {
     profileReducer,
     initialState,
@@ -6,7 +6,8 @@ import {
     setFollowStatus,
     setStatus,
     ProfileStateType,
-    ProfileActionsType
+    ProfileActionsType,
+    setPhotos
 } from './profileReducer'
 import { v1 } from 'uuid'
 import { cleanReducer } from 'store/auth/authReducer'
@@ -66,7 +67,7 @@ describe('Profile reducer', () => {
 
     it('should update the status', () => {
         const status = 'Updated status'
-        const startState = {
+        const startState: ProfileStateType = {
             ...initialState, data: {
                 ...initialState.data,
                 status: ''
@@ -75,6 +76,28 @@ describe('Profile reducer', () => {
         const action = setStatus(status)
         const expectedState = profileReducer(startState, action)
         expect(expectedState.data.status).toBe(status)
+    })
+    it('should update the photos', () => {
+        const photosData: PhotosResponseType = {
+            photos: {
+                large: 'https://example.com/photo-large.jpg',
+                small: 'https://example.com/photo-small.jpg'
+            }
+        }
+        const startState: ProfileStateType = {
+            ...initialState, data: {
+                ...initialState.data,
+                photos: {
+                    large: '',
+                    small: ''
+                }
+            }
+        }
+        const action = setPhotos(photosData)
+        const expectedState: ProfileStateType = profileReducer(startState, action)
+        expect(expectedState.data.photos).toEqual(photosData)
+        expect(expectedState.data.photos.large).toBe(photosData.photos.large)
+        expect(expectedState.data.photos.small).toBe(photosData.photos.small)
     })
 
     it('should reset profile state to the initial', () => {

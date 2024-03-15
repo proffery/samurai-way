@@ -43,7 +43,7 @@ export const setAuthUserData = (data: GetMeDataType) =>
     ({ type: SET_AUTH_DATA, payload: { data } }) as const
 export const setIsLoggedIn = (value: boolean) =>
     ({ type: SET_IS_LOGGED_IN, payload: { value } }) as const
-export const setPhotoUrl = (photoUrl: string) =>
+export const setAuthUserPhoto = (photoUrl: string) =>
     ({ type: SET_PHOTO_URL, payload: { photoUrl } }) as const
 export const cleanReducer = () =>
     ({ type: CLEAN_REDUCER }) as const
@@ -53,7 +53,7 @@ export const cleanReducer = () =>
 export const getAuthPhoto = (authId: number) => (dispatch: AppDispatchType) => {
     return profileAPI.getProfile(authId)
         .then(res => {
-            dispatch(setPhotoUrl(res.data.photos.small))
+            dispatch(setAuthUserPhoto(res.data.photos.small))
         })
 }
 
@@ -96,7 +96,7 @@ export const logout = () => (dispatch: AppDispatchType) => {
 export type AuthReducerActionsType =
     | ReturnType<typeof setAuthUserData>
     | ReturnType<typeof setIsLoggedIn>
-    | ReturnType<typeof setPhotoUrl>
+    | ReturnType<typeof setAuthUserPhoto>
     | SetAppIsLoadingActionType
     | SetAppIsInitializedType
     | CleanReducerType
