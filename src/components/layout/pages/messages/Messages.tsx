@@ -3,7 +3,7 @@ import styled from "styled-components"
 import { theme } from 'styles/Theme.styled'
 import { ToTop } from 'components/common/toTop/ToTop'
 import { FriendsBlockContainer } from 'components/containers/FriendsBlockContainer'
-import { MessagesBlockContainer } from 'components/containers/MessagesBlockContainer'
+import { MessagesBlock } from 'components/blocks/messagesBlock/MessagesBlock'
 
 
 type MessagesPropsType = {
@@ -15,7 +15,7 @@ export const Messages: React.FC<MessagesPropsType> = memo((props) => {
         <StyledMessages id="messages">
             <ToTop anchor_id='messages-block' />
             <StyledFriends />
-            <MessagesBlockContainer />
+            {/* <MessagesBlock /> */}
         </StyledMessages>
     )
 })

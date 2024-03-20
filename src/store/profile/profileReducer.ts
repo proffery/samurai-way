@@ -4,7 +4,7 @@ import {
     PhotosResponseType
 } from 'api/social-network-api'
 import { setAppIsLoading, addAppAlert, SetAppIsLoadingActionType, AddAlertActionType } from 'store/app/appReducer'
-import { CLEAN_REDUCER, CleanReducerType, setAuthUserPhoto } from 'store/auth/authReducer'
+import { CLEAR_REDUCER, CleanReducerType, setAuthUserPhoto } from 'store/auth/authReducer'
 import { AppDispatchType, AppRootStateType } from 'store/redux-store'
 import { FollowUserActionType, UnfollowUserActionType } from 'store/users/usersReducer'
 import { v1 } from 'uuid'
@@ -129,7 +129,7 @@ export const profileReducer = (state: ProfileStateType = initialState, action: P
             return { ...state, data: { ...state.data, status: action.payload.status } }
         case SET_PHOTOS:
             return { ...state, data: { ...state.data, photos: { ...action.payload.data.photos } } }
-        case CLEAN_REDUCER:
+        case CLEAR_REDUCER:
             return initialState
         default: return state
     }

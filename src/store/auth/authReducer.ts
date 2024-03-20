@@ -10,7 +10,7 @@ import { AppDispatchType } from 'store/redux-store'
 const SET_AUTH_DATA = 'AUTH/SET-AUTH-DATA'
 const SET_IS_LOGGED_IN = 'AUTH/SET-IS-LOGGED-IN'
 const SET_PHOTO_URL = 'AUTH/SET-PHOTO-URL'
-export const CLEAN_REDUCER = 'AUTH/CLEAN-REDUCER'
+export const CLEAR_REDUCER = 'AUTH/CLEAR-REDUCER'
 
 //INITIAL STATE
 export const initialState: AuthStateType = {
@@ -30,7 +30,7 @@ export const authReducer = (state: AuthStateType = initialState, action: AuthRed
             return { ...state, isLoggedIn: action.payload.value }
         case SET_PHOTO_URL:
             return { ...state, photoUrl: action.payload.photoUrl }
-        case CLEAN_REDUCER:
+        case CLEAR_REDUCER:
             return initialState
         default:
             return state
@@ -46,7 +46,7 @@ export const setIsLoggedIn = (value: boolean) =>
 export const setAuthUserPhoto = (photoUrl: string) =>
     ({ type: SET_PHOTO_URL, payload: { photoUrl } }) as const
 export const cleanReducer = () =>
-    ({ type: CLEAN_REDUCER }) as const
+    ({ type: CLEAR_REDUCER }) as const
 
 //THUNKS
 

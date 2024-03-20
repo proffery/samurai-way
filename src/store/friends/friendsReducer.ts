@@ -1,6 +1,6 @@
 import { AppDispatchType } from 'store/redux-store'
 import { UserResponseType, usersAPI } from 'api/social-network-api'
-import { CLEAN_REDUCER, CleanReducerType } from 'store/auth/authReducer'
+import { CLEAR_REDUCER, CleanReducerType } from 'store/auth/authReducer'
 import { addAppAlert, setAppIsLoading, SetAppIsLoadingActionType } from 'store/app/appReducer'
 
 
@@ -50,7 +50,7 @@ export const friendsReducer = (state: FriendsStateType = initialState, action: F
             return { ...state, possibleFriends: { ...state.possibleFriends, usersOnPage: action.payload.usersOnPage } }
         case SET_TOTAL_POSSIBLE_FRIENDS_COUNT:
             return { ...state, possibleFriends: { ...state.possibleFriends, totalUsersCount: action.payload.totalUsersCount } }
-        case CLEAN_REDUCER:
+        case CLEAR_REDUCER:
             return initialState
         default:
             return state

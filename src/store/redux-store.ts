@@ -1,5 +1,6 @@
-import { AnyAction, applyMiddleware, combineReducers, createStore } from 'redux'
-import thunk, { ThunkDispatch } from 'redux-thunk'
+import { configureStore } from '@reduxjs/toolkit'
+import { AnyAction, combineReducers } from 'redux'
+import { ThunkDispatch } from 'redux-thunk'
 import { appReducer } from 'store/app/appReducer'
 import { authReducer } from 'store/auth/authReducer'
 import { friendsReducer } from 'store/friends/friendsReducer'
@@ -16,7 +17,12 @@ const rootReducer = combineReducers({
     app: appReducer,
     auth: authReducer
 })
-export const store = createStore(rootReducer, applyMiddleware(thunk))
+
+export const store = configureStore({
+    reducer: rootReducer
+})
+
+//export const store = createStore(rootReducer, applyMiddleware(thunk))
 export type AppRootStateType = ReturnType<typeof rootReducer>
 export type AppDispatchType = ThunkDispatch<AppRootStateType, unknown, AnyAction>
 // @ts-ignore

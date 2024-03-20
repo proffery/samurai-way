@@ -1,4 +1,5 @@
 import { AppRootStateType } from 'store/redux-store'
-import { MessageType } from './messagesReducer'
+import { DialogType, MessageType } from './messagesReducer'
 
 export const selectMessages = (state: AppRootStateType): MessageType[] => state.messages.messages
+export const selectDialogs = (state: AppRootStateType): DialogType[] => state.messages.dialogs

@@ -12,15 +12,14 @@ import { Message } from 'components/blocks/messagesBlock/message/Message'
 type MessagesBlockPropsType = {
     messages: MessageType[]
     newMessageForm: string
-    onChangeMessage: (text: string) => void
-    addMessage: () => void
+    // addMessage: () => void
 }
 
 export const MessagesBlock: React.FC<MessagesBlockPropsType> = memo((props) => {
     const [error, setError] = useState<string | null>('Enter your message')
 
     const onChangeMessageHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.onChangeMessage(e.currentTarget.value)
+        // props.onChangeMessage(e.currentTarget.value)
     }
     const addMessageOnClickHandler = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
@@ -35,7 +34,7 @@ export const MessagesBlock: React.FC<MessagesBlockPropsType> = memo((props) => {
     }
     const addMessage = () => {
         if (props.newMessageForm.trim() !== "") {
-            props.addMessage()
+            // props.addMessage()
         } else {
             setError('Enter your message')
         }

@@ -1,5 +1,5 @@
 import { AppDispatchType } from 'store/redux-store'
-import { CLEAN_REDUCER, CleanReducerType } from 'store/auth/authReducer'
+import { CLEAR_REDUCER, CleanReducerType } from 'store/auth/authReducer'
 import { UserResponseType, ResultCode, usersAPI } from 'api/social-network-api'
 import { setAppIsLoading, addAppAlert, SetAppIsLoadingActionType, AddAlertActionType } from 'store/app/appReducer'
 
@@ -55,7 +55,7 @@ export const usersReducer = (state: UsersStateType = initialState, action: Users
                     .map(user => user.id === action.payload.userId
                         ? { ...user, isLoading: action.payload.isLoading } : user)
             }
-        case CLEAN_REDUCER:
+        case CLEAR_REDUCER:
             return initialState
         default:
             return state
