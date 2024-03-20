@@ -95,7 +95,7 @@ describe('Profile reducer', () => {
         }
         const action = setPhotos(photosData)
         const expectedState: ProfileStateType = profileReducer(startState, action)
-        expect(expectedState.data.photos).toEqual(photosData)
+        expect(expectedState.data.photos).toEqual(photosData.photos)
         expect(expectedState.data.photos.large).toBe(photosData.photos.large)
         expect(expectedState.data.photos.small).toBe(photosData.photos.small)
     })

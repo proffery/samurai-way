@@ -48,7 +48,7 @@ export const Footer: React.FC<FooterPropsType> = memo((props) => {
                     name={true}
                     menuItems={props.menuItems}
                 />
-                <Copyright><span>Copyright © 2023&nbsp;</span><Link variant="primary">Dmitry Shamko</Link></Copyright>
+                <Copyright><span>Copyright © {new Date().getFullYear()}&nbsp;</span><Link variant="primary">Dmitry Shamko</Link></Copyright>
             </BottomWrapper>
         </StyledFooter>
     )
