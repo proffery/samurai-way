@@ -53,7 +53,7 @@ function App(props: AppPropsType) {
         <Route path='/' exact render={() => <ProfileContainer />} />
         <Route path='/profile/:userId?' render={() => <ProfileContainer />} />
         <Route path='/users' component={Users} />
-        <Route path='/messages' component={MessagesContainer} />
+        <Route path='/messages/:userId?' component={MessagesContainer} />
         <Route path='/notifications' component={Notifications} />
         <Route path='/settings' component={Settings} />
         <Route path='/404' component={NotFound} />

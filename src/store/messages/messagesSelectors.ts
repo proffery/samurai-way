@@ -1,5 +1,5 @@
 import { AppRootStateType } from 'store/redux-store'
-import { DialogType, MessageType } from './messagesReducer'
+import { DialogResponseType, MessageRasponseType } from 'api/social-network-api'
 
-export const selectMessages = (state: AppRootStateType): MessageType[] => state.messages.messages
-export const selectDialogs = (state: AppRootStateType): DialogType[] => state.messages.dialogs
+export const selectMessages = (state: AppRootStateType): MessageRasponseType[] => state.messages.messages
+export const selectDialogs = (state: AppRootStateType): DialogResponseType[] => state.messages.dialogs

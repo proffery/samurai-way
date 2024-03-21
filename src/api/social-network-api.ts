@@ -1,4 +1,4 @@
-import axios from "axios"
+import axios, { AxiosError } from "axios"
 
 const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.0',
@@ -7,6 +7,8 @@ const instance = axios.create({
         'API-KEY': '5bb84785-0aba-4f56-a56a-3dbda6de189f',
     }
 })
+
+export type ServerNetworkErrorType = Error | AxiosError<{ error: string }>
 
 export const usersAPI = {
     getUsers(pageNumber: number, usersOnPage: number, isFriend: boolean | null, searchTerm: string) {
@@ -62,7 +64,7 @@ export const authAPI = {
 
 export const dialogsAPI = {
     getDialogs() {
-        return instance.get<ResponseType>('dialogs')
+        return instance.get<DialogResponseType[]>('dialogs')
     },
     startDialog(userId: number) {
         return instance.put<ResponseType>(`dialogs/${userId}`)
@@ -71,7 +73,7 @@ export const dialogsAPI = {
         return instance.get<ResponseType>(`dialogs/${userId}/messages?page=${pageNumber}&count=${messagesCount}`)
     },
     sendMessage(userId: number, message: string) {
-        return instance.post<ResponseType>(`dialogs/${userId}/messages`, message)
+        return instance.post<ResponseType<{ message: MessageRasponseType }>>(`dialogs/${userId}/messages`, { body: message })
     },
     checkIsMessageReaded(messageId: number) {
         return instance.get<ResponseType>(`dialogs/messages/${messageId}/viewed`)
@@ -120,6 +122,7 @@ type GetUsersResponseType = {
 export type ResponseType<D = {}> = {
     data: D
     resultCode: number
+    fieldsErrors: string[]
     messages: string[]
 }
 export type GetProfileResponseContactsType = {
@@ -166,4 +169,28 @@ export type PhotosResponseType = {
         small: string,
         large: string
     }
+}
+export type DialogResponseType = {
+    id: number
+    userName: string
+    hasNewMessages: boolean
+    newMessagesCount: number
+    photos: PhotosResponseType
+    lastUserActivityDate: string
+    lastDialogActivityDate: string
+}
+export type MessageRasponseType = {
+    id: string
+    body: string
+    translatedBody: number | null
+    addedAt: string
+    senderId: number
+    senderName: string
+    recipientId: number
+    recipientName: string
+    viewed: false
+    deletedBySender: false
+    deletedByRecipient: false
+    isSpam: false
+    distributionId: number | null
 }

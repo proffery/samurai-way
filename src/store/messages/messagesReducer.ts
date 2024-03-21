@@ -1,11 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { DialogResponseType, dialogsAPI, MessageRasponseType, ResultCode } from 'api/social-network-api'
+import { appActions } from 'store/app/appReducer'
 import { clearReducers } from 'store/common.actions'
+import { createAppAsyncThunk } from 'utils/create-app-async-thunk'
+import { handleServerNetworkError } from 'utils/handle-server-network-error'
 
 
 //INITIAL STATE
 const initialState = {
-    messages: [] as MessageType[],
-    dialogs: [] as DialogType[],
+    messages: [] as MessageRasponseType[],
+    dialogs: [] as DialogResponseType[],
 }
 //SLICE
 const slice = createSlice({
@@ -14,64 +18,66 @@ const slice = createSlice({
     reducers: {
     },
     extraReducers: (builder) => {
-        builder.addCase(clearReducers, () => {
-            return initialState
-        })
+        builder
+            .addCase(clearReducers, () => {
+                return initialState
+            })
+            .addCase(getDialogs.fulfilled, (state, action) => {
+                state.dialogs = action.payload.dialogs
+            })
     }
 })
 
+export const getDialogs = createAppAsyncThunk<{ dialogs: DialogResponseType[] }>(`${slice.name}/getDialogs`, async (_, thunkAPI) => {
+    const { dispatch, rejectWithValue } = thunkAPI
+    try {
+        dispatch(appActions.setAppIsLoading(true))
+        const res = await dialogsAPI.getDialogs()
+        return { dialogs: res.data }
+    } catch (err) {
+        handleServerNetworkError(err, dispatch)
+        return rejectWithValue(null)
+    } finally {
+        dispatch(appActions.setAppIsLoading(false))
+    }
+})
 
-//REDUCER
-// export const messagesReducer = (state: MessagesPageStateType = initialState, action: MessagesReducerActionsType): MessagesPageStateType => {
-//     switch (action.type) {
-//         case ADD_MESSAGE:
-//             const newMessage: MessageType = {
-//                 id: v1(),
-//                 message: state.newMessageForm,
-//             }
-//             return { ...state, messages: [...state.messages, newMessage] }
-//         case UPDATE_MESSAGE:
-//             return {
-//                 ...state, messages: state.messages.map(el => el.id === action.payload.messageId
-//                     ? { ...el, message: action.payload.newMessage }
-//                     : el
-//                 )
-//             }
-//         case ON_CHANGE_MESSAGE:
-//             return { ...state, newMessageForm: action.payload.newMessage }
-//         case CLEAN_REDUCER:
-//             return initialState
-//         default: return state
-//     }
-// }
+export const startDialog = createAppAsyncThunk<undefined, number>(`${slice.name}/startDialog`, async (userId, thunkAPI) => {
+    const { dispatch, rejectWithValue } = thunkAPI
+    try {
+        dispatch(appActions.setAppIsLoading(true))
+        const res = await dialogsAPI.startDialog(userId)
+        if (res.data.resultCode === ResultCode.success) {
+            dispatch(getDialogs())
+            return undefined
+        }
+        else rejectWithValue(null)
+    } catch (err) {
+        handleServerNetworkError(err, dispatch)
+        return rejectWithValue(null)
+    } finally {
+        dispatch(appActions.setAppIsLoading(false))
+    }
+})
 
-//ACTIONS
-// export const setMessage = () => ({ type: ADD_MESSAGE } as const)
-// export const updateMessage = (messageId: string, newMessage: string) =>
-//     ({ type: UPDATE_MESSAGE, payload: { newMessage, messageId } } as const)
-// export const onChangeMessage = (newMessage: string) =>
-//     ({ type: ON_CHANGE_MESSAGE, payload: { newMessage } } as const)
-// export const addMessage = () => (dispatch: AppDispatchType) => {
-//     dispatch(setMessage())
-//     dispatch(onChangeMessage(''))
-// }
+export const sendMessage = createAppAsyncThunk<undefined, { userId: number, message: string }>(`${slice.name}/sendMessage`,
+    async (arg, thunkAPI) => {
+        const { dispatch, rejectWithValue } = thunkAPI
+        try {
+            dispatch(appActions.setAppIsLoading(true))
+            const res = await dialogsAPI.sendMessage(arg.userId, arg.message)
+            if (res.data.resultCode === ResultCode.success) {
+                return undefined
+            } else rejectWithValue(null)
+        } catch (err) {
+            handleServerNetworkError(err, dispatch)
+            return rejectWithValue(null)
+        } finally {
+            dispatch(appActions.setAppIsLoading(false))
+        }
+    })
 
-//TYPES
-// export type MessagesReducerActionsType =
-//     | ReturnType<typeof setMessage>
-//     | ReturnType<typeof updateMessage>
-//     | ReturnType<typeof onChangeMessage>
-//     | CleanReducerType
+export type MessagesStateType = typeof initialState
 
 export const messagesReducer = slice.reducer
-
-export type MessageType = {
-    id: string
-    message: string
-}
-export type DialogType = {
-    id: string
-    name: string
-    second_name: string
-}
-export type MessagesStateType = typeof initialState
+export const messagesThunk = { startDialog, getDialogs, sendMessage }

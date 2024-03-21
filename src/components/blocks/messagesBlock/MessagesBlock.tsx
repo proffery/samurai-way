@@ -1,3 +1,4 @@
+import { MessageRasponseType } from 'api/social-network-api'
 import { BlockHeader } from 'components/blocks/BlockHeader.styled'
 import { BlockSection } from 'components/blocks/BlockSection.styled'
 import { Message } from 'components/blocks/messagesBlock/message/Message'
@@ -5,13 +6,12 @@ import { Button } from 'components/common/button/Button'
 import { FlexWrapper } from 'components/common/FlexWrapper.styled'
 import { Input } from 'components/common/input/Input.styled'
 import { useFormik } from 'formik'
-import { KeyboardEvent, memo, MouseEvent } from 'react'
+import { KeyboardEvent, memo } from 'react'
 import { AlertType } from 'store/app/appReducer'
-import { MessageType } from 'store/messages/messagesReducer'
 import styled from 'styled-components'
 
 type MessagesBlockPropsType = {
-    messages: MessageType[]
+    messages: MessageRasponseType[]
     addMessage: (message: string) => void
     addAppAlert: (type: AlertType, message: string) => void
 }
@@ -94,7 +94,7 @@ const Form = styled.form`
 `
 
 type MessagesListPropsType = {
-    messages: MessageType[]
+    messages: MessageRasponseType[]
 }
 const MessagesList: React.FC<MessagesListPropsType> = (props) => {
     return (

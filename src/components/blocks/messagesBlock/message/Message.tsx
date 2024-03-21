@@ -3,12 +3,12 @@ import { font } from 'styles/Font'
 import styled from 'styled-components'
 import { theme } from 'styles/Theme.styled'
 import { memo, useRef, useEffect } from 'react'
-import { MessageType } from 'store/messages/messagesReducer'
 import avatarImg from '../../../../assets/images/Author.webp'
 import { FlexWrapper } from 'components/common/FlexWrapper.styled'
+import { MessageRasponseType } from 'api/social-network-api'
 
 type MessagePropsType = {
-    messageData: MessageType
+    messageData: MessageRasponseType
 }
 
 export const Message: React.FC<MessagePropsType> = memo((props) => {
@@ -22,7 +22,7 @@ export const Message: React.FC<MessagePropsType> = memo((props) => {
                 <Avatar src={avatarImg} />
                 <AuthorName>Dmitry&nbsp;</AuthorName>
             </FlexWrapper>
-            <MessageText>{props.messageData.message}</MessageText>
+            <MessageText>{props.messageData.body}</MessageText>
             <div ref={bottomRef} />
         </StyledMessage>
     )

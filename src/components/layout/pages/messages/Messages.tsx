@@ -4,12 +4,12 @@ import { theme } from 'styles/Theme.styled'
 import { ToTop } from 'components/common/toTop/ToTop'
 import { FriendsBlockContainer } from 'components/containers/FriendsBlockContainer'
 import { MessagesBlock } from 'components/blocks/messagesBlock/MessagesBlock'
-import { DialogType, MessageType } from 'store/messages/messagesReducer'
 import { AlertType } from 'store/app/appReducer'
+import { DialogResponseType, MessageRasponseType } from 'api/social-network-api'
 
 type MessagesPropsType = {
-    messages: MessageType[]
-    dialogs: DialogType[]
+    messages: MessageRasponseType[]
+    dialogs: DialogResponseType[]
     addMessage: (message: string) => void
     addAppAlert: (type: AlertType, message: string) => void
 }

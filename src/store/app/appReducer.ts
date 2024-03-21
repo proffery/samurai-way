@@ -228,4 +228,5 @@ export type AlertObjectType = {
 }
 export type AppReducerStateType = typeof initialState
 
-export const appThunks = {loadPathFromStorage, savePathToStorage, addAppAlert, initializeApp}
+export const appThunks = { loadPathFromStorage, savePathToStorage, addAppAlert, initializeApp }
+export const appActions = { setAppIsLoading }
