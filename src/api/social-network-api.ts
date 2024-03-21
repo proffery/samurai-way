@@ -70,10 +70,10 @@ export const dialogsAPI = {
         return instance.put<ResponseType>(`dialogs/${userId}`)
     },
     getMessages(userId: number, pageNumber: number, messagesCount: number) {
-        return instance.get<ResponseType>(`dialogs/${userId}/messages?page=${pageNumber}&count=${messagesCount}`)
+        return instance.get<GetMessagesResponseType>(`dialogs/${userId}/messages?page=${pageNumber}&count=${messagesCount}`)
     },
     sendMessage(userId: number, message: string) {
-        return instance.post<ResponseType<{ message: MessageRasponseType }>>(`dialogs/${userId}/messages`, { body: message })
+        return instance.post<ResponseType<{ message: AddMessageResponseType }>>(`dialogs/${userId}/messages`, { body: message })
     },
     checkIsMessageReaded(messageId: number) {
         return instance.get<ResponseType>(`dialogs/messages/${messageId}/viewed`)
@@ -175,14 +175,17 @@ export type DialogResponseType = {
     userName: string
     hasNewMessages: boolean
     newMessagesCount: number
-    photos: PhotosResponseType
+    photos: {
+        small: string,
+        large: string
+    }
     lastUserActivityDate: string
     lastDialogActivityDate: string
 }
-export type MessageRasponseType = {
+export type AddMessageResponseType = {
     id: string
     body: string
-    translatedBody: number | null
+    translatedBody: string | null
     addedAt: string
     senderId: number
     senderName: string
@@ -193,4 +196,20 @@ export type MessageRasponseType = {
     deletedByRecipient: false
     isSpam: false
     distributionId: number | null
+}
+
+export type MessageResponseType = {
+    addedAt: string
+    body: string
+    id: string
+    recipientId: number
+    senderId: number
+    senderName: string
+    translatedBody: string | null
+    viewed: false
+}
+export type GetMessagesResponseType = {
+    error: string | null
+    items: MessageResponseType[]
+    totalCount: number
 }

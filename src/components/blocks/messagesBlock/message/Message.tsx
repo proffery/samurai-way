@@ -5,10 +5,10 @@ import { theme } from 'styles/Theme.styled'
 import { memo, useRef, useEffect } from 'react'
 import avatarImg from '../../../../assets/images/Author.webp'
 import { FlexWrapper } from 'components/common/FlexWrapper.styled'
-import { MessageRasponseType } from 'api/social-network-api'
+import { MessageResponseType } from 'api/social-network-api'
 
 type MessagePropsType = {
-    messageData: MessageRasponseType
+    messageData: MessageResponseType
 }
 
 export const Message: React.FC<MessagePropsType> = memo((props) => {

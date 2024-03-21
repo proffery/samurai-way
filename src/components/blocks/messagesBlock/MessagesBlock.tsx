@@ -1,4 +1,4 @@
-import { MessageRasponseType } from 'api/social-network-api'
+import { DialogResponseType, MessageResponseType } from 'api/social-network-api'
 import { BlockHeader } from 'components/blocks/BlockHeader.styled'
 import { BlockSection } from 'components/blocks/BlockSection.styled'
 import { Message } from 'components/blocks/messagesBlock/message/Message'
@@ -7,11 +7,14 @@ import { FlexWrapper } from 'components/common/FlexWrapper.styled'
 import { Input } from 'components/common/input/Input.styled'
 import { useFormik } from 'formik'
 import { KeyboardEvent, memo } from 'react'
+import { NavLink } from 'react-router-dom'
 import { AlertType } from 'store/app/appReducer'
 import styled from 'styled-components'
 
 type MessagesBlockPropsType = {
-    messages: MessageRasponseType[]
+    messages: MessageResponseType[]
+    className?: string
+    dialog?: DialogResponseType
     addMessage: (message: string) => void
     addAppAlert: (type: AlertType, message: string) => void
 }
@@ -19,7 +22,7 @@ type FormikErrorType = {
     message?: string
 }
 export const MessagesBlock: React.FC<MessagesBlockPropsType> = memo((props) => {
-    const { addMessage, addAppAlert, messages } = props
+    const { addMessage, addAppAlert, messages, dialog } = props
 
     const addMessageCtrlEnterHandler = (e: KeyboardEvent<HTMLFormElement>) => {
         if (e.key === 'Enter' && e.ctrlKey) {
@@ -33,6 +36,7 @@ export const MessagesBlock: React.FC<MessagesBlockPropsType> = memo((props) => {
         },
         onSubmit: (values) => {
             addMessage(values.message)
+            formik.resetForm()
         },
         validate: (values) => {
             const errors: FormikErrorType = {}
@@ -48,7 +52,7 @@ export const MessagesBlock: React.FC<MessagesBlockPropsType> = memo((props) => {
 
     return (
         <StyledMessagesBlock id="messages-block">
-            <BlockHeader>Messages</BlockHeader>
+            <BlockHeader >Messages with <NavLink to={'/profile/' + dialog?.id}>{dialog?.userName}</NavLink></BlockHeader>
             <MessagesList messages={messages} />
             <Form onSubmit={formik.handleSubmit}
                 onKeyDown={addMessageCtrlEnterHandler}
@@ -94,7 +98,7 @@ const Form = styled.form`
 `
 
 type MessagesListPropsType = {
-    messages: MessageRasponseType[]
+    messages: MessageResponseType[]
 }
 const MessagesList: React.FC<MessagesListPropsType> = (props) => {
     return (

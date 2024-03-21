@@ -25,5 +25,5 @@ import { AppDispatchType, AppRootStateType } from 'store/redux-store'
 export const createAppAsyncThunk = createAsyncThunk.withTypes<{
   state: AppRootStateType
   dispatch: AppDispatchType
-  rejectValue: null 
+  rejectValue: null
 }>()

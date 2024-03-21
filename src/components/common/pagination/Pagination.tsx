@@ -93,7 +93,7 @@ export const Pagination: React.FC<PaginationPropsType> = memo((props) => {
                         onClick={pagesRangeDec}
                     ><Icon iconId="leftArrow" viewBox="-5 3 24 24" /></Button>
                 }
-                <FlexWrapper gap='8px' justify='center'>
+                <FlexWrapper gap='6px' justify='center'>
                     {rangesArray
                         .filter((el, index) => (index >= minPageIndex && index < maxPageIndex))
                         .map(el =>
