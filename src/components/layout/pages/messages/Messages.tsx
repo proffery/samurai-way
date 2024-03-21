@@ -4,18 +4,27 @@ import { theme } from 'styles/Theme.styled'
 import { ToTop } from 'components/common/toTop/ToTop'
 import { FriendsBlockContainer } from 'components/containers/FriendsBlockContainer'
 import { MessagesBlock } from 'components/blocks/messagesBlock/MessagesBlock'
-
+import { DialogType, MessageType } from 'store/messages/messagesReducer'
+import { AlertType } from 'store/app/appReducer'
 
 type MessagesPropsType = {
-
+    messages: MessageType[]
+    dialogs: DialogType[]
+    addMessage: (message: string) => void
+    addAppAlert: (type: AlertType, message: string) => void
 }
 
 export const Messages: React.FC<MessagesPropsType> = memo((props) => {
+    const { messages, dialogs, addMessage, addAppAlert } = props
     return (
         <StyledMessages id="messages">
             <ToTop anchor_id='messages-block' />
             <StyledFriends />
-            {/* <MessagesBlock /> */}
+            <MessagesBlock
+                messages={messages}
+                addAppAlert={addAppAlert}
+                addMessage={addMessage}
+            />
         </StyledMessages>
     )
 })

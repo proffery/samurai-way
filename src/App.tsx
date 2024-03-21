@@ -14,6 +14,7 @@ import { ProfileContainer } from './components/containers/ProfileContainer'
 import { LoadingLoader } from './components/common/loaders/LoadingLoader.styled'
 import { Notifications } from './components/layout/pages/notifications/Notifications'
 import { InitializationLoader } from './components/common/loaders/IniatializationLoader'
+import { MessagesContainer } from 'components/containers/MessagesContainer'
 
 type AppPropsType = {
   isLoading: boolean
@@ -52,7 +53,7 @@ function App(props: AppPropsType) {
         <Route path='/' exact render={() => <ProfileContainer />} />
         <Route path='/profile/:userId?' render={() => <ProfileContainer />} />
         <Route path='/users' component={Users} />
-        <Route path='/messages' component={Messages} />
+        <Route path='/messages' component={MessagesContainer} />
         <Route path='/notifications' component={Notifications} />
         <Route path='/settings' component={Settings} />
         <Route path='/404' component={NotFound} />

@@ -1,50 +1,56 @@
-import styled from 'styled-components'
-import { MouseEvent, KeyboardEvent } from 'react'
-import { memo, useState, ChangeEvent } from 'react'
-import { Button } from 'components/common/button/Button'
-import { MessageType } from 'store/messages/messagesReducer'
-import { Input } from 'components/common/input/Input.styled'
 import { BlockHeader } from 'components/blocks/BlockHeader.styled'
-import { FlexWrapper } from 'components/common/FlexWrapper.styled'
 import { BlockSection } from 'components/blocks/BlockSection.styled'
 import { Message } from 'components/blocks/messagesBlock/message/Message'
+import { Button } from 'components/common/button/Button'
+import { FlexWrapper } from 'components/common/FlexWrapper.styled'
+import { Input } from 'components/common/input/Input.styled'
+import { useFormik } from 'formik'
+import { KeyboardEvent, memo, MouseEvent } from 'react'
+import { AlertType } from 'store/app/appReducer'
+import { MessageType } from 'store/messages/messagesReducer'
+import styled from 'styled-components'
 
 type MessagesBlockPropsType = {
     messages: MessageType[]
-    newMessageForm: string
-    // addMessage: () => void
+    addMessage: (message: string) => void
+    addAppAlert: (type: AlertType, message: string) => void
 }
-
+type FormikErrorType = {
+    message?: string
+}
 export const MessagesBlock: React.FC<MessagesBlockPropsType> = memo((props) => {
-    const [error, setError] = useState<string | null>('Enter your message')
+    const { addMessage, addAppAlert, messages } = props
 
-    const onChangeMessageHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        // props.onChangeMessage(e.currentTarget.value)
-    }
-    const addMessageOnClickHandler = (e: MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault()
-        if (error) setError(null)
-        addMessage()
-    }
     const addMessageCtrlEnterHandler = (e: KeyboardEvent<HTMLFormElement>) => {
-        if (error) setError(null)
         if (e.key === 'Enter' && e.ctrlKey) {
-            addMessage()
+            formik.handleSubmit(e)
         }
     }
-    const addMessage = () => {
-        if (props.newMessageForm.trim() !== "") {
-            // props.addMessage()
-        } else {
-            setError('Enter your message')
-        }
-    }
+
+    const formik = useFormik({
+        initialValues: {
+            message: '',
+        },
+        onSubmit: (values) => {
+            addMessage(values.message)
+        },
+        validate: (values) => {
+            const errors: FormikErrorType = {}
+            if (!values.message) {
+                errors.message = 'Message is emtyt!'
+            } else if (values.message.length > 300) {
+                errors.message = 'Message must be less than 300 symbols!'
+                addAppAlert('failed', errors.message)
+            }
+            return errors
+        },
+    })
 
     return (
         <StyledMessagesBlock id="messages-block">
             <BlockHeader>Messages</BlockHeader>
-            <MessagesList messages={props.messages} />
-            <Form
+            <MessagesList messages={messages} />
+            <Form onSubmit={formik.handleSubmit}
                 onKeyDown={addMessageCtrlEnterHandler}
             >
                 <Input
@@ -52,15 +58,16 @@ export const MessagesBlock: React.FC<MessagesBlockPropsType> = memo((props) => {
                     aria-label="enter your message"
                     placeholder="Enter your message"
                     bordered={'true'}
-                    value={props.newMessageForm}
-                    onChange={onChangeMessageHandler}
+                    id={'message'}
+                    error={!!formik.errors.message ? 'true' : 'false'}
+                    {...formik.getFieldProps('message')}
+                    autoFocus
                 />
                 <FlexWrapper>
                     <Button
                         type={'submit'}
                         variant={'primary'}
-                        onClick={addMessageOnClickHandler}
-                        disabled={!!error}
+                        disabled={!!formik.errors.message}
                         ariaLabel={'Submit button'}
                     >{'Send'}</Button>
                 </FlexWrapper>
@@ -92,7 +99,7 @@ type MessagesListPropsType = {
 const MessagesList: React.FC<MessagesListPropsType> = (props) => {
     return (
         <StyledMessagesList>
-            {props.messages.map(message =>
+            {props.messages?.map(message =>
                 <Message key={message.id} messageData={message} />
             )}
         </StyledMessagesList>

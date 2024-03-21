@@ -13,7 +13,7 @@ const slice = createSlice({
     initialState,
     reducers: {
     },
-    extraReducers: (builder) =>  {
+    extraReducers: (builder) => {
         builder.addCase(clearReducers, () => {
             return initialState
         })

@@ -1,6 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { AnyAction, combineReducers } from 'redux'
-import { ThunkDispatch } from 'redux-thunk'
+import { combineReducers } from 'redux'
 import { appReducer } from 'store/app/appReducer'
 import { authReducer } from 'store/auth/authReducer'
 import { friendsReducer } from 'store/friends/friendsReducer'
@@ -24,6 +23,7 @@ export const store = configureStore({
 
 //export const store = createStore(rootReducer, applyMiddleware(thunk))
 export type AppRootStateType = ReturnType<typeof rootReducer>
-export type AppDispatchType = ThunkDispatch<AppRootStateType, unknown, AnyAction>
+export type AppDispatchType = typeof store.dispatch
+//export type AppDispatchType = ThunkDispatch<AppRootStateType, unknown, AnyAction>
 // @ts-ignore
 window.store = store
