@@ -2,12 +2,14 @@ import { Messages } from 'components/layout/pages/messages/Messages'
 import { memo, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useHistory, useParams } from 'react-router-dom'
+import { selectAuthData } from 'store/auth/authSelectors'
 import { selectDialogs, selectMessages } from 'store/messages/messagesSelectors'
 import { useActions } from 'utils/customHooks/useActions'
 
 export const MessagesContainer: React.FC = memo(() => {
     const messages = useSelector(selectMessages)
     const dialogs = useSelector(selectDialogs)
+    const authData = useSelector(selectAuthData)
     const { addAppAlert, startDialog, getDialogs, sendMessage } = useActions()
     const params = useParams<{ userId: string }>()
     const history = useHistory()
@@ -37,6 +39,7 @@ export const MessagesContainer: React.FC = memo(() => {
         userId={+params.userId}
         dialogs={dialogs}
         messages={messages}
+        authData={authData}
         addAppAlert={addAppAlert}
         addMessage={addMessage}
     />

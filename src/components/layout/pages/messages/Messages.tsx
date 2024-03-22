@@ -6,10 +6,12 @@ import { FriendsBlockContainer } from 'components/containers/FriendsBlockContain
 import { MessagesBlock } from 'components/blocks/messagesBlock/MessagesBlock'
 import { AlertType } from 'store/app/appReducer'
 import { DialogResponseType, MessageResponseType } from 'api/social-network-api'
+import { AuthStateType } from 'store/auth/authReducer'
 
 type MessagesPropsType = {
     className?: string
     userId: number
+    authData: AuthStateType
     dialogs: DialogResponseType[]
     messages: MessageResponseType[]
     addMessage: (message: string) => void
@@ -17,17 +19,18 @@ type MessagesPropsType = {
 }
 
 export const Messages: React.FC<MessagesPropsType> = memo((props) => {
-    const { messages, dialogs, addMessage, addAppAlert } = props
+    const { messages, dialogs, authData, addMessage, addAppAlert } = props
 
     return (
         <StyledMessages id="messages">
             <ToTop anchor_id='messages-block' />
             <StyledFriends />
             <MessagesBlock
+                dialogData={dialogs[0]}
                 messages={messages}
-                dialog={dialogs[0]}
-                addAppAlert={addAppAlert}
+                authData={authData}
                 addMessage={addMessage}
+                addAppAlert={addAppAlert}
             />
         </StyledMessages>
     )

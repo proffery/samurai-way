@@ -206,7 +206,7 @@ export type MessageResponseType = {
     senderId: number
     senderName: string
     translatedBody: string | null
-    viewed: false
+    viewed: boolean
 }
 export type GetMessagesResponseType = {
     error: string | null
