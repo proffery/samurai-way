@@ -54,8 +54,9 @@ export const GlobalStyle = createGlobalStyle`
     ////////////////SCROLLBAR///////////////
     /* width */
     ::-webkit-scrollbar {
-        width: 1px;
-        border: 1px solid transparent;
+        width: 2px;
+        height: 2px;
+        border: 2px solid transparent;
     }
 
     /* Track */

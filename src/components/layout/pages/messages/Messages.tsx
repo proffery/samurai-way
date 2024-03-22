@@ -7,6 +7,8 @@ import { MessagesBlock } from 'components/blocks/messagesBlock/MessagesBlock'
 import { AlertType } from 'store/app/appReducer'
 import { DialogResponseType, MessageResponseType } from 'api/social-network-api'
 import { AuthStateType } from 'store/auth/authReducer'
+import { FlexWrapper } from 'components/common/FlexWrapper.styled'
+import { DialogsBlock } from 'components/blocks/dialogsBlock/DialogsBlock'
 
 type MessagesPropsType = {
     className?: string
@@ -25,13 +27,16 @@ export const Messages: React.FC<MessagesPropsType> = memo((props) => {
         <StyledMessages id="messages">
             <ToTop anchor_id='messages-block' />
             <StyledFriends />
-            <MessagesBlock
-                dialogData={dialogs[0]}
-                messages={messages}
-                authData={authData}
-                addMessage={addMessage}
-                addAppAlert={addAppAlert}
-            />
+            <MessagesWrapper direction={'column'}>
+                <DialogsBlock dialogs={dialogs} />
+                <MessagesBlock
+                    dialogData={dialogs[0]}
+                    messages={messages}
+                    authData={authData}
+                    addMessage={addMessage}
+                    addAppAlert={addAppAlert}
+                />
+            </MessagesWrapper>
         </StyledMessages>
     )
 })
@@ -45,6 +50,13 @@ const StyledMessages = styled.main`
 `
 const StyledFriends = styled(FriendsBlockContainer)`
     width: 20%;
+    @media ${theme.media.mobile} {
+        display: none;
+    }
+`
+const MessagesWrapper = styled(FlexWrapper)`
+    width: 80%;
+    gap: min(30px, 2vw);
     @media ${theme.media.mobile} {
         width: 100%;
     }
