@@ -1,7 +1,7 @@
 import { DialogResponseType, MessageResponseType } from 'api/dialogsAPI'
 import { BlockHeader } from 'components/blocks/BlockHeader.styled'
 import { BlockSection } from 'components/blocks/BlockSection.styled'
-import { Message } from 'components/blocks/messagesBlock/message/Message'
+import { MessagesList } from 'components/blocks/messagesBlock/messagesList/MessagesList'
 import { Avatar } from 'components/common/avatar/Avatar'
 import { Button } from 'components/common/button/Button'
 import { FlexWrapper } from 'components/common/FlexWrapper.styled'
@@ -25,7 +25,7 @@ type FormikErrorType = {
     message?: string
 }
 export const MessagesBlock: React.FC<MessagesBlockPropsType> = memo((props) => {
-    const { addMessage, addAppAlert, messages, dialogData, authData } = props
+    const { addMessage, addAppAlert, messages, dialogData, authData, className } = props
 
     const addMessageCtrlEnterHandler = (e: KeyboardEvent<HTMLFormElement>) => {
         if (e.key === 'Enter' && e.ctrlKey) {
@@ -54,10 +54,11 @@ export const MessagesBlock: React.FC<MessagesBlockPropsType> = memo((props) => {
     })
 
     return (
-        <StyledMessagesBlock id="messages-block">
-            <StyledBlockHeader >Messages with {dialogData?.userName}
+        <StyledMessagesBlock id="messages-block" className={className}>
+            <StyledBlockHeader >
                 <AvatarLink to={'/profile/' + dialogData?.id}>
                     <Avatar avatarURL={dialogData?.photos.small} />
+                    {dialogData?.userName}:
                 </AvatarLink>
             </StyledBlockHeader>
             <MessagesList
@@ -94,7 +95,7 @@ export const MessagesBlock: React.FC<MessagesBlockPropsType> = memo((props) => {
 const StyledMessagesBlock = styled(BlockSection)`
     width: 100%;
     min-width: 75%;
-    height: fit-content;
+    min-height: 100vh;
     justify-content: space-between;
     min-height: 50%;
     overflow-y: scroll;
@@ -102,10 +103,11 @@ const StyledMessagesBlock = styled(BlockSection)`
 const StyledBlockHeader = styled(BlockHeader)`
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: start;
 `
 const AvatarLink = styled(NavLink)`
     display: flex;
+    align-items: center;
     width: min(40px, 8vw);
 `
 const Form = styled.form`
@@ -118,39 +120,3 @@ const Form = styled.form`
     }
 `
 
-type MessagesListPropsType = {
-    messages: MessageResponseType[]
-    dialogData?: DialogResponseType
-    authData: AuthStateType
-}
-const MessagesList: React.FC<MessagesListPropsType> = (props) => {
-    const { dialogData, authData, messages } = props
-    return (
-        <StyledMessagesList>
-            {messages.length ?
-                messages.map(message =>
-                    <Message
-                        key={message.id}
-                        authId={authData.id}
-                        messageData={message}
-                        authPhoto={authData.photoUrl}
-                        opponentPhoto={dialogData?.photos.small}
-                    />
-                ) : <EmptyMessages>No messages...</EmptyMessages>
-            }
-        </StyledMessagesList>
-    )
-}
-
-const StyledMessagesList = styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: min(15px, 1vw);
-    overflow-y: auto;
-`
-const EmptyMessages = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow-y: hidden;
-`

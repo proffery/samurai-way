@@ -53,6 +53,7 @@ export const Message: React.FC<MessagePropsType> = memo((props) => {
                 }
                 <MessageText
                     justify={messageData.senderId === authId ? 'start' : 'end'}
+                    align={'center'}
                 >
                     {messageData.body}
                 </MessageText>
@@ -82,6 +83,7 @@ const MessageText = styled(FlexWrapper)`
     word-wrap: break-word;
     width: 100%;
     height: 100%;
+    color: ${theme.color.text.primary_dark};
 `
 const MessageDate = styled.span`
     align-self: center;

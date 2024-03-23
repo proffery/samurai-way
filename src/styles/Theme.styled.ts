@@ -6,9 +6,10 @@ export const theme = {
             second: '#A303A0',
             menu: ' #490057',
             block: ' #FFFFFF',
-            status_error: '#FF8080',
+            status_error: 'red',
             status_info: '#79CFE0',
             status_success: '#7DDF7C',
+            status_busy: '#FF8F6B',
         },
         text: {
             primary: '#A303A0',

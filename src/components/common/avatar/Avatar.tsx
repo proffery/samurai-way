@@ -2,28 +2,35 @@ import { memo } from 'react'
 import styled from 'styled-components'
 import { theme } from 'styles/Theme.styled'
 import { Icon } from 'components/common/icon/Icon'
+import { OnlineMarker } from 'components/common/avatar/onlineMarker/OnlineMarker'
 
 type AvatarPropsType = {
     className?: string
     avatarURL?: string
+    lastUserActivityDate?: string
 }
 
-export const Avatar: React.FC<AvatarPropsType> = memo((props) => {
+export const Avatar: React.FC<AvatarPropsType> = memo(({avatarURL, lastUserActivityDate, className}) => {
     return (
-        <AvaterContainer className={props.className}>
-            {props.avatarURL
-                ? <AvatarImage src={props.avatarURL} alt='Avatar' />
+        <AvaterContainer className={className}>
+            {avatarURL
+                ? <AvatarImage src={avatarURL} alt='Avatar' />
                 : <DefaultImage
                     iconId={'avatarDefault'}
                     viewBox="0 0 1024 1024"
                     height={'100%'}
                     width={'100%'}
                 />}
+            {lastUserActivityDate && <OnlineMarker
+                className={className}
+                lastUserActivityDate={lastUserActivityDate}
+             />}
         </AvaterContainer>
     )
 })
 
 const AvaterContainer = styled.div`
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;

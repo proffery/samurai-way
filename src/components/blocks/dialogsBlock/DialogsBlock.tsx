@@ -1,6 +1,7 @@
 import { DialogResponseType } from 'api/dialogsAPI'
 import { BlockHeader } from 'components/blocks/BlockHeader.styled'
 import { BlockSection } from 'components/blocks/BlockSection.styled'
+import { OnlineMarker } from 'components/common/avatar/onlineMarker/OnlineMarker'
 import { Avatar } from 'components/common/avatar/Avatar'
 import { FlexWrapper } from 'components/common/FlexWrapper.styled'
 import { memo, useEffect, useRef } from 'react'
@@ -25,7 +26,7 @@ export const DialogsBlock: React.FC<DialogsBlockPtopsType> = memo(({ dialogs, cl
     }, [dialogs])
 
     return <BlockSection className={className}>
-        <BlockHeader>Dialogs {dialogs.length}</BlockHeader>
+        <BlockHeader>Dialogs: {dialogs.length}</BlockHeader>
         <DialogWrapper ref={draggRef} {...events}>
             {dialogs.map((dialog, index) =>
                 <Dialog
@@ -33,7 +34,10 @@ export const DialogsBlock: React.FC<DialogsBlockPtopsType> = memo(({ dialogs, cl
                     ref={index === 0 ? scrollIntoViewRef : null}
                     to={'/messages/' + dialog.id}
                 >
-                    <StyledAvatar avatarURL={dialog.photos.small} />
+                    <StyledAvatar
+                        avatarURL={dialog.photos.small}
+                        lastUserActivityDate={dialog.lastUserActivityDate}
+                    />
                     <StyledName>{dialog.userName}</StyledName>
                 </Dialog>
             )}
@@ -42,6 +46,7 @@ export const DialogsBlock: React.FC<DialogsBlockPtopsType> = memo(({ dialogs, cl
 })
 
 const Dialog = styled(NavLink)`
+    position: relative;
     display: flex;
     height: 60%;
     align-items: center;

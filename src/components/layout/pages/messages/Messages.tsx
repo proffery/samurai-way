@@ -9,6 +9,7 @@ import { AuthStateType } from 'store/auth/authReducer'
 import { FlexWrapper } from 'components/common/FlexWrapper.styled'
 import { DialogsBlock } from 'components/blocks/dialogsBlock/DialogsBlock'
 import { DialogResponseType, MessageResponseType } from 'api/dialogsAPI'
+import { PossibleFriendsBlockContainer } from 'components/containers/PossibleFriendsBlockContainer'
 
 type MessagesPropsType = {
     className?: string
@@ -21,15 +22,18 @@ type MessagesPropsType = {
 }
 
 export const Messages: React.FC<MessagesPropsType> = memo((props) => {
-    const { messages, dialogs, authData, addMessage, addAppAlert } = props
+    const {className, messages, dialogs, authData, addMessage, addAppAlert } = props
 
     return (
-        <StyledMessages id="messages">
+        <StyledMessages id="messages" className={className}>
             <ToTop anchor_id='messages-block' />
-            <StyledFriends />
+            <StyledFriendsWrapper direction={'column'} gap={'min(30px, 2vw)'}>
+                <FriendsBlockContainer />
+                <PossibleFriendsBlockContainer />
+            </StyledFriendsWrapper>
             <MessagesWrapper direction={'column'}>
                 <DialogsBlock dialogs={dialogs} />
-                <MessagesBlock
+                <StyledMessagesBlock
                     dialogData={dialogs[0]}
                     messages={messages}
                     authData={authData}
@@ -48,7 +52,10 @@ const StyledMessages = styled.main`
         flex-direction: column;
     }
 `
-const StyledFriends = styled(FriendsBlockContainer)`
+const StyledMessagesBlock = styled(MessagesBlock)`
+    min-height: 100%;
+`
+const StyledFriendsWrapper = styled(FlexWrapper)`
     width: 20%;
     @media ${theme.media.mobile} {
         display: none;
