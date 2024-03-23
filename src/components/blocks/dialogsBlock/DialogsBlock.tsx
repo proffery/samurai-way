@@ -25,7 +25,7 @@ export const DialogsBlock: React.FC<DialogsBlockPtopsType> = memo(({ dialogs, cl
         scrollIntoViewRef.current?.scrollIntoView({ behavior: 'smooth' })
     }, [dialogs])
 
-    return <BlockSection className={className}>
+    return <BlockSection id="dialogs-block" className={className}>
         <BlockHeader>Dialogs: {dialogs.length}</BlockHeader>
         <DialogWrapper ref={draggRef} {...events}>
             {dialogs.map((dialog, index) =>

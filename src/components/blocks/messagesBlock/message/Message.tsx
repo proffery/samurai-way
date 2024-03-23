@@ -71,8 +71,8 @@ export const Message: React.FC<MessagePropsType> = memo((props) => {
 })
 
 const StyledMessage = styled(FlexWrapper)`
-    gap: min(15px, 1vw);
     display: flex;
+    gap: min(15px, 1vw);
     ${font({ weight: 300, Fmin: 10, Fmax: 16 })}
     border-bottom: 1px solid;
     border-color: ${theme.color.background.primary};

@@ -11,8 +11,9 @@ import { DialogResponseType, dialogsAPI, MessageResponseType } from 'api/dialogs
 const initialState = {
     dialogs: [] as DialogResponseType[],
     messages: [] as MessageResponseType[],
-    pageNumber: 1 as number,
-    messagesCount: 10 as number
+    currentPage: 1 as number,
+    messagesOnPage: 10 as number,
+    totalMessagesCount: 0 as number
 }
 //SLICE
 const slice = createSlice({
@@ -32,7 +33,8 @@ const slice = createSlice({
                 state.messages.push(action.payload)
             })
             .addCase(getMessages.fulfilled, (state, action) => {
-                state.messages = action.payload
+                state.messages = action.payload.messages
+                state.totalMessagesCount = action.payload.totalCount
             })
     }
 })
@@ -98,15 +100,15 @@ export const sendMessage = createAppAsyncThunk<MessageResponseType, SendMessageA
         }
     })
 
-export const getMessages = createAppAsyncThunk<MessageResponseType[], number>
+export const getMessages = createAppAsyncThunk<{ messages: MessageResponseType[], totalCount: number }, number>
     (`${slice.name}/getMessages`, async (userId, thunkAPI) => {
         const { dispatch, rejectWithValue, getState } = thunkAPI
 
         try {
             dispatch(appActions.setAppIsLoading(true))
             const state = getState().messages
-            const res = await dialogsAPI.getMessages(userId, state.pageNumber, state.messagesCount)
-            return res.data.items
+            const res = await dialogsAPI.getMessages(userId, state.currentPage, state.messagesOnPage)
+            return { messages: res.data.items, totalCount: res.data.totalCount }
         } catch (err) {
             handleServerNetworkError(err, dispatch)
             return rejectWithValue(null)

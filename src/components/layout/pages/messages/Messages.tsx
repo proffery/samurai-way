@@ -26,7 +26,7 @@ export const Messages: React.FC<MessagesPropsType> = memo((props) => {
 
     return (
         <StyledMessages id="messages" className={className}>
-            <ToTop anchor_id='messages-block' />
+            <ToTop anchor_id='dialogs-block' />
             <StyledFriendsWrapper direction={'column'} gap={'min(30px, 2vw)'}>
                 <FriendsBlockContainer />
                 <PossibleFriendsBlockContainer />

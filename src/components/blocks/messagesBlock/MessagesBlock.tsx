@@ -61,33 +61,35 @@ export const MessagesBlock: React.FC<MessagesBlockPropsType> = memo((props) => {
                     {dialogData?.userName}:
                 </AvatarLink>
             </StyledBlockHeader>
-            <MessagesList
-                messages={messages}
-                dialogData={dialogData}
-                authData={authData}
-            />
-            <Form onSubmit={formik.handleSubmit}
-                onKeyDown={addMessageCtrlEnterHandler}
-            >
-                <Input
-                    as={"textarea"}
-                    aria-label="enter your message"
-                    placeholder="Enter your message"
-                    bordered={'true'}
-                    id={'message'}
-                    error={!!formik.errors.message ? 'true' : 'false'}
-                    {...formik.getFieldProps('message')}
-                    autoFocus
+            <MessagesListWrapper direction={'column'}>
+                <MessagesList
+                    messages={messages}
+                    dialogData={dialogData}
+                    authData={authData}
                 />
-                <FlexWrapper>
-                    <Button
-                        type={'submit'}
-                        variant={'primary'}
-                        disabled={!!formik.errors.message}
-                        ariaLabel={'Submit button'}
-                    >{'Send'}</Button>
-                </FlexWrapper>
-            </Form>
+                <Form onSubmit={formik.handleSubmit}
+                    onKeyDown={addMessageCtrlEnterHandler}
+                >
+                    <Input
+                        as={"textarea"}
+                        aria-label="enter your message"
+                        placeholder="Enter your message"
+                        bordered={'true'}
+                        id={'message'}
+                        error={!!formik.errors.message ? 'true' : 'false'}
+                        {...formik.getFieldProps('message')}
+                        autoFocus
+                    />
+                    <FlexWrapper>
+                        <Button
+                            type={'submit'}
+                            variant={'primary'}
+                            disabled={!!formik.errors.message}
+                            ariaLabel={'Submit button'}
+                        >{'Send'}</Button>
+                    </FlexWrapper>
+                </Form>
+            </MessagesListWrapper>
         </StyledMessagesBlock>
     )
 })
@@ -95,10 +97,9 @@ export const MessagesBlock: React.FC<MessagesBlockPropsType> = memo((props) => {
 const StyledMessagesBlock = styled(BlockSection)`
     width: 100%;
     min-width: 75%;
-    min-height: 100vh;
+    min-height: fit-content;
+    max-height: 114.5vh;
     justify-content: space-between;
-    min-height: 50%;
-    overflow-y: scroll;
 `
 const StyledBlockHeader = styled(BlockHeader)`
     display: flex;
@@ -107,8 +108,12 @@ const StyledBlockHeader = styled(BlockHeader)`
 `
 const AvatarLink = styled(NavLink)`
     display: flex;
+    gap: 10px;
     align-items: center;
     width: min(40px, 8vw);
+`
+const MessagesListWrapper = styled(FlexWrapper)`
+    overflow-y: scroll;
 `
 const Form = styled.form`
     display: flex;
