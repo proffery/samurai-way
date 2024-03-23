@@ -5,10 +5,10 @@ import { ToTop } from 'components/common/toTop/ToTop'
 import { FriendsBlockContainer } from 'components/containers/FriendsBlockContainer'
 import { MessagesBlock } from 'components/blocks/messagesBlock/MessagesBlock'
 import { AlertType } from 'store/app/appReducer'
-import { DialogResponseType, MessageResponseType } from 'api/social-network-api'
 import { AuthStateType } from 'store/auth/authReducer'
 import { FlexWrapper } from 'components/common/FlexWrapper.styled'
 import { DialogsBlock } from 'components/blocks/dialogsBlock/DialogsBlock'
+import { DialogResponseType, MessageResponseType } from 'api/dialogsAPI'
 
 type MessagesPropsType = {
     className?: string

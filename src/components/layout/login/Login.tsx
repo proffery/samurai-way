@@ -1,4 +1,4 @@
-import { LoginDataType } from 'api/social-network-api'
+import { LoginDataType } from 'api/authAPI'
 import { BlockHeader } from 'components/blocks/BlockHeader.styled'
 import { BlockSection } from 'components/blocks/BlockSection.styled'
 import { FlexWrapper } from 'components/common/FlexWrapper.styled'

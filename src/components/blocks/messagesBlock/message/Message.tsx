@@ -1,5 +1,5 @@
 
-import { MessageResponseType } from 'api/social-network-api'
+import { MessageResponseType } from 'api/dialogsAPI'
 import { Avatar } from 'components/common/avatar/Avatar'
 import { FlexWrapper } from 'components/common/FlexWrapper.styled'
 import { Icon } from 'components/common/icon/Icon'
@@ -32,7 +32,7 @@ export const Message: React.FC<MessagePropsType> = memo((props) => {
             <MessageDate>
                 {date(messageData.addedAt)}
             </MessageDate>
-            <FlexWrapper 
+            <FlexWrapper
                 style={{
                     backgroundColor: messageData.viewed ? 'none' : theme.color.background.primary,
                     borderRadius: '10px',
@@ -64,7 +64,7 @@ export const Message: React.FC<MessagePropsType> = memo((props) => {
                     <Icon width='80%' iconId='readed' />
                 </FlexWrapper>
             </FlexWrapper>
-                <div style={{padding:0, margin:0}} ref={bottomRef} />
+            <div style={{ padding: 0, margin: 0 }} ref={bottomRef} />
         </StyledMessage>
     )
 })

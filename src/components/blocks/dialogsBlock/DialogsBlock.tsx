@@ -1,4 +1,4 @@
-import { DialogResponseType } from 'api/social-network-api'
+import { DialogResponseType } from 'api/dialogsAPI'
 import { BlockHeader } from 'components/blocks/BlockHeader.styled'
 import { BlockSection } from 'components/blocks/BlockSection.styled'
 import { Avatar } from 'components/common/avatar/Avatar'
@@ -17,16 +17,16 @@ type DialogsBlockPtopsType = {
 
 export const DialogsBlock: React.FC<DialogsBlockPtopsType> = memo(({ dialogs, className }) => {
     const scrollIntoViewRef = useRef<null | HTMLAnchorElement>(null)
-    const ref = useRef<HTMLDivElement>() as React.MutableRefObject<HTMLInputElement>
-    const { events } = useDraggable(ref, { isMounted: true })
+    const draggRef = useRef<HTMLDivElement>() as React.MutableRefObject<HTMLInputElement>
+    const { events } = useDraggable(draggRef, { isMounted: true })
 
     useEffect(() => {
         scrollIntoViewRef.current?.scrollIntoView({ behavior: 'smooth' })
     }, [dialogs])
 
-    return <StyledDialogsBlock className={className}>
-        <BlockHeader>Dialogs</BlockHeader>
-        <DialogWrapper ref={ref} {...events}>
+    return <BlockSection className={className}>
+        <BlockHeader>Dialogs {dialogs.length}</BlockHeader>
+        <DialogWrapper ref={draggRef} {...events}>
             {dialogs.map((dialog, index) =>
                 <Dialog
                     key={dialog.id}
@@ -38,16 +38,12 @@ export const DialogsBlock: React.FC<DialogsBlockPtopsType> = memo(({ dialogs, cl
                 </Dialog>
             )}
         </DialogWrapper>
-    </StyledDialogsBlock>
+    </BlockSection>
 })
 
-const StyledDialogsBlock = styled(BlockSection)`
-    display: flex;
-    flex-direction: column;
-`
 const Dialog = styled(NavLink)`
     display: flex;
-    height: 50%;
+    height: 60%;
     align-items: center;
     justify-content: space-between;
     text-align: center;
@@ -72,7 +68,8 @@ const DialogWrapper = styled(FlexWrapper)`
     min-height: 100%;
 `
 const StyledAvatar = styled(Avatar)`
+    width: 70%;
 `
 const StyledName = styled.span`
-
+    color: ${theme.color.text.primary_dark}
 `

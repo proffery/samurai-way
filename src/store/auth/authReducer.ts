@@ -1,9 +1,11 @@
-import { GetMeDataType, profileAPI, LoginDataType, authAPI, ResultCode } from 'api/social-network-api'
+import { authAPI, GetMeDataType, LoginDataType } from 'api/authAPI'
+import { profileAPI } from 'api/profileAPI'
+import { ResultCode } from 'api/socialNetworkInstance'
+import { AppDispatchType } from 'store/redux-store'
 import {
     initializeApp, addAppAlert, SetAppIsLoadingActionType,
     SetAppIsInitializedType, setAppIsLoading
 } from 'store/app/appReducer'
-import { AppDispatchType } from 'store/redux-store'
 
 
 //CONSTANTS

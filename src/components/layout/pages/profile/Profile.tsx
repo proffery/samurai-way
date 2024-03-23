@@ -1,4 +1,4 @@
-import { GetProfileResponseContactsType } from 'api/social-network-api'
+import { GetProfileResponseContactsType } from 'api/profileAPI'
 import { AboutMeBlock } from 'components/blocks/aboutMeBlock/AboutMeBlock'
 import { ContactsBlock } from 'components/blocks/contactsBlock/ContactsBlock'
 import { HeaderBlock } from 'components/blocks/headerBlock/HeaderBlock'

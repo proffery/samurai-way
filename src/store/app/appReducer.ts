@@ -1,8 +1,9 @@
 import { v1 } from 'uuid'
 import { storageAvailable } from 'utils/storage'
-import { authAPI, ResultCode } from 'api/social-network-api'
+import {  ResultCode } from 'api/socialNetworkInstance'
 import { AppDispatchType, AppRootStateType } from 'store/redux-store'
 import { setAuthUserData, setIsLoggedIn, CleanReducerType, getAuthPhoto } from 'store/auth/authReducer'
+import { authAPI } from 'api/authAPI'
 
 //CONSTANTS
 const APP_ADD_ALERT = 'APP/ADD-ALERT'

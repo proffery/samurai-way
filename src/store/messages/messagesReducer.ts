@@ -3,10 +3,8 @@ import { appActions } from 'store/app/appReducer'
 import { clearReducers } from 'store/common.actions'
 import { createAppAsyncThunk } from 'utils/create-app-async-thunk'
 import { handleServerNetworkError } from 'utils/handle-server-network-error'
-import {
-    DialogResponseType, dialogsAPI, MessageResponseType,
-    ResultCode
-} from 'api/social-network-api'
+import { ResultCode } from 'api/socialNetworkInstance'
+import { DialogResponseType, dialogsAPI, MessageResponseType } from 'api/dialogsAPI'
 
 
 //INITIAL STATE
@@ -103,7 +101,7 @@ export const sendMessage = createAppAsyncThunk<MessageResponseType, SendMessageA
 export const getMessages = createAppAsyncThunk<MessageResponseType[], number>
     (`${slice.name}/getMessages`, async (userId, thunkAPI) => {
         const { dispatch, rejectWithValue, getState } = thunkAPI
-        
+
         try {
             dispatch(appActions.setAppIsLoading(true))
             const state = getState().messages

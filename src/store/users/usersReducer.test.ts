@@ -1,7 +1,7 @@
-import { UserResponseType } from 'api/social-network-api'
 import { UserStateType, UsersFilterType, UsersReducerActionsType, UsersStateType, changeUserIsLoading, changeUsersFilter, initialState, setFollowUser, setTotalUsersCount, setUnfollowUser, setUsers, setUsersOnPage, setUsersSearchTerm, usersReducer } from './usersReducer'
 import { v1 } from 'uuid'
 import { cleanReducer } from 'store/auth/authReducer'
+import { UserResponseType } from 'api/usersAPI'
 
 describe('Users reducer', () => {
     it('user reducer should return the initial state', () => {

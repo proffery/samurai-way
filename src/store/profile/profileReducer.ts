@@ -1,8 +1,9 @@
+import { ChangeProfileDataType, GetProfileResponseContactsType, GetProfileResponseType, profileAPI } from 'api/profileAPI'
 import {
-    GetProfileResponseType, ResultCode, GetProfileResponseContactsType,
-    ChangeProfileDataType, profileAPI, usersAPI,
-    PhotosResponseType
-} from 'api/social-network-api'
+    PhotosResponseType,
+    ResultCode
+} from 'api/socialNetworkInstance'
+import { usersAPI } from 'api/usersAPI'
 import { setAppIsLoading, addAppAlert, SetAppIsLoadingActionType, AddAlertActionType } from 'store/app/appReducer'
 import { CLEAR_REDUCER, CleanReducerType, setAuthUserPhoto } from 'store/auth/authReducer'
 import { AppDispatchType, AppRootStateType } from 'store/redux-store'
@@ -155,7 +156,7 @@ export const setFollowStatus = (isFollow: boolean) => (
     { type: SET_FOLLOW_STATUS, payload: { isFollow } }) as const
 export const setStatus = (status: string) => (
     { type: SET_STATUS, payload: { status } }) as const
-export const setPhotos = (data: PhotosResponseType) => (
+export const setPhotos = (data: {photos: PhotosResponseType}) => (
     { type: SET_PHOTOS, payload: { data } }) as const
 
 //THUNKS

@@ -5,7 +5,7 @@ import {
     setPossibleFriends, setPossibleFriendsOnPage, setPossibleFriendsPage,
     setPossibleTotalFriendsCount, setTotalFriendsCount
 } from './friendsReducer'
-import { UserResponseType } from 'api/social-network-api'
+import { UserResponseType } from 'api/usersAPI'
 
 describe('Friends reducer', () => {
     it('friends reducer should return the initial state', () => {

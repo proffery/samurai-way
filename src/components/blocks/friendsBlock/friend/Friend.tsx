@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { NavLink } from 'react-router-dom'
 import { theme } from 'styles/Theme.styled'
 import { Avatar } from 'components/common/avatar/Avatar'
-import { UserResponseType } from 'api/social-network-api'
+import { UserResponseType } from 'api/usersAPI'
 
 type FriendPropsType = {
     friendData: UserResponseType

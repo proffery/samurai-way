@@ -1,7 +1,7 @@
 import { AppDispatchType } from 'store/redux-store'
-import { UserResponseType, usersAPI } from 'api/social-network-api'
 import { CLEAR_REDUCER, CleanReducerType } from 'store/auth/authReducer'
 import { addAppAlert, setAppIsLoading, SetAppIsLoadingActionType } from 'store/app/appReducer'
+import { UserResponseType, usersAPI } from 'api/usersAPI'
 
 
 //CONSTANTS

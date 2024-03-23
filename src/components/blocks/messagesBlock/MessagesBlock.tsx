@@ -1,4 +1,4 @@
-import { DialogResponseType, MessageResponseType } from 'api/social-network-api'
+import { DialogResponseType, MessageResponseType } from 'api/dialogsAPI'
 import { BlockHeader } from 'components/blocks/BlockHeader.styled'
 import { BlockSection } from 'components/blocks/BlockSection.styled'
 import { Message } from 'components/blocks/messagesBlock/message/Message'
@@ -136,7 +136,7 @@ const MessagesList: React.FC<MessagesListPropsType> = (props) => {
                         authPhoto={authData.photoUrl}
                         opponentPhoto={dialogData?.photos.small}
                     />
-                ): <EmptyMessages>No messages...</EmptyMessages>
+                ) : <EmptyMessages>No messages...</EmptyMessages>
             }
         </StyledMessagesList>
     )

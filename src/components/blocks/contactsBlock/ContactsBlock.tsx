@@ -8,9 +8,9 @@ import { Icon } from 'components/common/icon/Icon'
 import { AuthStateType } from 'store/auth/authReducer'
 import { BlockHeader } from 'components/blocks/BlockHeader.styled'
 import { BlockSection } from 'components/blocks/BlockSection.styled'
-import { GetProfileResponseContactsType } from 'api/social-network-api'
 import { EditableSpan } from 'components/common/editableSpan/EditableSpan'
 import { ProfileStateType, ContactsIconsType } from 'store/profile/profileReducer'
+import { GetProfileResponseContactsType } from 'api/profileAPI'
 
 type ContactsBlockPropsType = {
     authStateData: AuthStateType

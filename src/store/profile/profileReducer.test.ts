@@ -1,4 +1,3 @@
-import { PhotosResponseType, GetProfileResponseType } from 'api/social-network-api'
 import {
     profileReducer,
     initialState,
@@ -11,6 +10,8 @@ import {
 } from './profileReducer'
 import { v1 } from 'uuid'
 import { cleanReducer } from 'store/auth/authReducer'
+import { GetProfileResponseType } from 'api/profileAPI'
+import { PhotosResponseType } from 'api/socialNetworkInstance'
 
 describe('Profile reducer', () => {
     it('profile reducer should return the initial state', () => {
@@ -78,7 +79,7 @@ describe('Profile reducer', () => {
         expect(expectedState.data.status).toBe(status)
     })
     it('should update the photos', () => {
-        const photosData: PhotosResponseType = {
+        const photosData: { photos: PhotosResponseType } = {
             photos: {
                 large: 'https://example.com/photo-large.jpg',
                 small: 'https://example.com/photo-small.jpg'

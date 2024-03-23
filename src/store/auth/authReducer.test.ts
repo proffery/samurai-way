@@ -1,4 +1,5 @@
-import { GetMeDataType } from 'api/social-network-api'
+
+import { GetMeDataType } from 'api/authAPI'
 import {
     AuthReducerActionsType, AuthStateType, authReducer,
     cleanReducer, initialState, setAuthUserData,

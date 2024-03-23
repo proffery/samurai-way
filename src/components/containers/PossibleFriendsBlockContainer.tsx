@@ -3,13 +3,13 @@ import { connect } from 'react-redux'
 import { memo, useEffect } from "react"
 import { AppRootStateType } from 'store/redux-store'
 import { selectIsLoading } from 'store/app/appSelectors'
-import { UserResponseType } from 'api/social-network-api'
 import { getFriends } from 'store/friends/friendsReducer'
 import { FriendsBlock } from 'components/blocks/friendsBlock/FriendsBlock'
 import {
     selectPossibleFriends, selectPossibleFriendsCurrentPage, selectPossibleFriendsOnPage,
     selectTotalPossibleFriendsCount
 } from 'store/friends/friendsSelectors'
+import { UserResponseType } from 'api/usersAPI'
 
 export const PossibleFriendsBlockAPI: React.FC<PossibleFriendsBlockAPIPropsType> = memo((props) => {
     const { totalUsersCount, usersOnPage, friends, currentPage, isLoading } = props

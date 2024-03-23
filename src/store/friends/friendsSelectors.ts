@@ -1,5 +1,5 @@
+import { UserResponseType } from 'api/usersAPI'
 import { AppRootStateType } from 'store/redux-store'
-import { UserResponseType } from 'api/social-network-api'
 
 export const selectPossibleFriends = (state: AppRootStateType): UserResponseType[] => state.friends.possibleFriends.users
 export const selectTotalPossibleFriendsCount = (state: AppRootStateType): number => state.friends.possibleFriends.totalUsersCount

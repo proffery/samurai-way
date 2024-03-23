@@ -9,7 +9,6 @@ import { AlertType, addAppAlert } from 'store/app/appReducer'
 import { Profile } from 'components/layout/pages/profile/Profile'
 import { selectProfileData } from 'store/profile/profileSelectors'
 import { RouteComponentProps, withRouter } from 'react-router-dom'
-import { GetProfileResponseContactsType } from 'api/social-network-api'
 import {
     ChangeAboutProfileType, ProfileStateType, addPost,
     changeProfileAbout, changeProfileContacts,
@@ -17,6 +16,7 @@ import {
     changeProfileStatus, followProfile, getProfileData,
     postOnChange, unfollowProfile
 } from 'store/profile/profileReducer'
+import { GetProfileResponseContactsType } from 'api/profileAPI'
 
 const ProfileAPI: React.FC<ProfileAPIPropsType> = memo((props) => {
     const { id: authId } = props.authData
