@@ -6,7 +6,7 @@ import { selectIsloggedIn } from 'store/auth/authSelectors'
 import { RouteComponentProps, withRouter } from 'react-router-dom'
 import { initializeApp, savePathToStorage } from 'store/app/appReducer'
 import {
-    selectNavbarCollapsed, selectIsLoading, selectIsInitialized,
+    selectNavbarCollapsed, selectAppIsLoading, selectIsInitialized,
     selectStoragePath
 } from 'store/app/appSelectors'
 
@@ -38,7 +38,7 @@ const mapStateToProps = (state: AppRootStateType) => {
     return {
         isLoggedIn: selectIsloggedIn(state),
         navbarCollapsed: selectNavbarCollapsed(state),
-        isLoading: selectIsLoading(state),
+        isLoading: selectAppIsLoading(state),
         isInitialized: selectIsInitialized(state),
         storagePath: selectStoragePath(state)
     }

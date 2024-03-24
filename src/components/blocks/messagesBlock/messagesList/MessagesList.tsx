@@ -37,7 +37,8 @@ const StyledMessagesList = styled.div`
 `
 const EmptyMessages = styled.div`
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
+    align-self: center;
+    padding-bottom: min(15px, 1vw);;
     overflow-y: hidden;
 `

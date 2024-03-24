@@ -2,8 +2,7 @@ import { instance, PhotosResponseType, ResponseType } from 'api/socialNetworkIns
 
 export const usersAPI = {
     getUsers(pageNumber: number, usersOnPage: number, isFriend: boolean | null, searchTerm: string) {
-        return instance.get<GetUsersResponseType>
-            (`/users?page=${pageNumber}&count=${usersOnPage}&friend=${isFriend}&term=${searchTerm}`)
+        return instance.get<GetUsersResponseType>(`/users?page=${pageNumber}&count=${usersOnPage}&friend=${isFriend}&term=${searchTerm}`)
     },
     isFollow(userId: number) {
         return instance.get<boolean>(`/follow/${userId}`)

@@ -2,7 +2,7 @@ import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { memo, useEffect } from 'react'
 import { AppRootStateType } from 'store/redux-store'
-import { selectIsLoading } from 'store/app/appSelectors'
+import { selectAppIsLoading } from 'store/app/appSelectors'
 import { getFriends } from 'store/friends/friendsReducer'
 import { FriendsBlock } from 'components/blocks/friendsBlock/FriendsBlock'
 import {
@@ -50,7 +50,7 @@ export const FriendsBlockAPI: React.FC<FriendsBlockAPIPropsType> = memo((props) 
 const mapStateToProps = (state: AppRootStateType) => {
     return {
         friends: selectFriends(state),
-        isLoading: selectIsLoading(state),
+        isLoading: selectAppIsLoading(state),
         usersOnPage: selectFriendsOnPage(state),
         currentPage: selectFriendsCurrentPage(state),
         totalUsersCount: selectTotalFriendsCount(state),

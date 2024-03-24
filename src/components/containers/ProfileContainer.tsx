@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { memo, useEffect } from 'react'
 import { AppRootStateType } from 'store/redux-store'
 import { AuthStateType } from 'store/auth/authReducer'
-import { selectIsLoading } from 'store/app/appSelectors'
+import { selectAppIsLoading } from 'store/app/appSelectors'
 import { selectAuthData } from 'store/auth/authSelectors'
 import { AlertType, addAppAlert } from 'store/app/appReducer'
 import { Profile } from 'components/layout/pages/profile/Profile'
@@ -45,7 +45,7 @@ const ProfileAPI: React.FC<ProfileAPIPropsType> = memo((props) => {
 const mapStateToProps = (state: AppRootStateType) => {
     return {
         authData: selectAuthData(state),
-        appIsLoading: selectIsLoading(state),
+        appIsLoading: selectAppIsLoading(state),
         profileData: selectProfileData(state),
     }
 }

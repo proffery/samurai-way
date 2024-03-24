@@ -2,17 +2,20 @@ import { Messages } from 'components/layout/pages/messages/Messages'
 import { memo, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useHistory, useParams } from 'react-router-dom'
+import { selectAppIsLoading } from 'store/app/appSelectors'
 import { selectAuthData } from 'store/auth/authSelectors'
-import { selectDialogs, selectMessages } from 'store/messages/messagesSelectors'
+import { selectMessagesState } from 'store/messages/messagesSelectors'
 import { useActions } from 'utils/customHooks/useActions'
 
 export const MessagesContainer: React.FC = memo(() => {
-    const messages = useSelector(selectMessages)
-    const dialogs = useSelector(selectDialogs)
+    const messagesState = useSelector(selectMessagesState)
+    const appIsLoading = useSelector(selectAppIsLoading)
     const authData = useSelector(selectAuthData)
-    const { addAppAlert, startDialog, getDialogs, sendMessage } = useActions()
+    const { addAppAlert, startDialog, getDialogs, sendMessage, getMessages } = useActions()
     const params = useParams<{ userId: string }>()
     const history = useHistory()
+
+    const { currentPage, messagesOnPage } = messagesState
 
     useEffect(() => {
         if (!params.userId) {
@@ -27,20 +30,24 @@ export const MessagesContainer: React.FC = memo(() => {
         }
         else {
             startDialog(+params.userId)
+            getMessages({ userId: +params.userId, currentPage, messagesOnPage })
         }
+    }, [params.userId, currentPage, messagesOnPage])
 
-
-    }, [params.userId])
+    const onPageChangeHandler = (pageNumber: number) => {
+        getMessages({ userId: +params.userId, currentPage: pageNumber, messagesOnPage })
+    }
 
     const addMessage = (message: string) => {
         params.userId && sendMessage({ userId: +params.userId, message })
     }
     return <Messages
-        userId={+params.userId}
-        dialogs={dialogs}
-        messages={messages}
         authData={authData}
-        addAppAlert={addAppAlert}
+        userId={+params.userId}
+        appIsLoading={appIsLoading}
+        messagesState={messagesState}
         addMessage={addMessage}
+        addAppAlert={addAppAlert}
+        onPageChangeHandler={onPageChangeHandler}
     />
 })

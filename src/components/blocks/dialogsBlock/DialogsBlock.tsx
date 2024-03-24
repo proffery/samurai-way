@@ -1,7 +1,6 @@
 import { DialogResponseType } from 'api/dialogsAPI'
 import { BlockHeader } from 'components/blocks/BlockHeader.styled'
 import { BlockSection } from 'components/blocks/BlockSection.styled'
-import { OnlineMarker } from 'components/common/avatar/onlineMarker/OnlineMarker'
 import { Avatar } from 'components/common/avatar/Avatar'
 import { FlexWrapper } from 'components/common/FlexWrapper.styled'
 import { memo, useEffect, useRef } from 'react'

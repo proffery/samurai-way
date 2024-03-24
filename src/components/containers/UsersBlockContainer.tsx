@@ -3,7 +3,7 @@ import { UsersBlock } from 'components/blocks/usersBlock/UsersBlock'
 import { memo, useEffect } from "react"
 import { connect } from "react-redux"
 import { compose } from "redux"
-import { selectIsLoading } from 'store/app/appSelectors'
+import { selectAppIsLoading } from 'store/app/appSelectors'
 import { AppRootStateType } from 'store/redux-store'
 import {
     UsersFilterType,
@@ -69,7 +69,7 @@ const UsersBlockAPI: React.FC<UsersBlockAPIPropsType> = memo((props) => {
 const mapStateToProps = (state: AppRootStateType) => {
     return {
         usersData: selectUsersData(state),
-        appIsLoading: selectIsLoading(state)
+        appIsLoading: selectAppIsLoading(state)
     }
 }
 

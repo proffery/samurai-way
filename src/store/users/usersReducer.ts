@@ -1,8 +1,8 @@
 import { AppDispatchType } from 'store/redux-store'
 import { CLEAR_REDUCER, CleanReducerType } from 'store/auth/authReducer'
 import { setAppIsLoading, addAppAlert, SetAppIsLoadingActionType, AddAlertActionType } from 'store/app/appReducer'
-import { UserResponseType, usersAPI } from 'api/usersAPI'
 import { ResultCode } from 'api/socialNetworkInstance'
+import { UserResponseType, usersAPI } from 'api/usersAPI'
 
 //CONSTANTS
 const FOLLOW = 'USERS/FOLLOW'

@@ -12,7 +12,7 @@ const initialState = {
     dialogs: [] as DialogResponseType[],
     messages: [] as MessageResponseType[],
     currentPage: 1 as number,
-    messagesOnPage: 10 as number,
+    messagesOnPage: 5 as number,
     totalMessagesCount: 0 as number
 }
 //SLICE
@@ -35,6 +35,8 @@ const slice = createSlice({
             .addCase(getMessages.fulfilled, (state, action) => {
                 state.messages = action.payload.messages
                 state.totalMessagesCount = action.payload.totalCount
+                state.currentPage = action.payload.currentPage
+                state.messagesOnPage = action.payload.mesagesOnPage
             })
     }
 })
@@ -44,7 +46,6 @@ export const getDialogs = createAppAsyncThunk<{ dialogs: DialogResponseType[] }>
     try {
         dispatch(appActions.setAppIsLoading(true))
         const res = await dialogsAPI.getDialogs()
-        dispatch(messagesThunk.getMessages(res.data[0].id))
         return { dialogs: res.data }
     } catch (err) {
         handleServerNetworkError(err, dispatch)
@@ -100,15 +101,29 @@ export const sendMessage = createAppAsyncThunk<MessageResponseType, SendMessageA
         }
     })
 
-export const getMessages = createAppAsyncThunk<{ messages: MessageResponseType[], totalCount: number }, number>
-    (`${slice.name}/getMessages`, async (userId, thunkAPI) => {
-        const { dispatch, rejectWithValue, getState } = thunkAPI
+export const getMessages = createAppAsyncThunk<{
+    messages: MessageResponseType[],
+    totalCount: number,
+    currentPage: number,
+    mesagesOnPage: number
+},
+    {
+        userId: number,
+        currentPage: number,
+        messagesOnPage: number
+    }>
+    (`${slice.name}/getMessages`, async (arg, thunkAPI) => {
+        const { dispatch, rejectWithValue } = thunkAPI
 
         try {
             dispatch(appActions.setAppIsLoading(true))
-            const state = getState().messages
-            const res = await dialogsAPI.getMessages(userId, state.currentPage, state.messagesOnPage)
-            return { messages: res.data.items, totalCount: res.data.totalCount }
+            const res = await dialogsAPI.getMessages(arg.userId, arg.currentPage, arg.messagesOnPage)
+            return {
+                messages: res.data.items,
+                totalCount: res.data.totalCount,
+                currentPage: arg.currentPage,
+                mesagesOnPage: arg.messagesOnPage
+            }
         } catch (err) {
             handleServerNetworkError(err, dispatch)
             return rejectWithValue(null)

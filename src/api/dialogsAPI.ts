@@ -7,8 +7,8 @@ export const dialogsAPI = {
     startDialog(userId: number) {
         return instance.put<ResponseType>(`dialogs/${userId}`)
     },
-    getMessages(userId: number, pageNumber: number, messagesOnPage: number) {
-        return instance.get<GetMessagesResponseType>(`dialogs/${userId}/messages?page=${pageNumber}&count=${messagesOnPage}`)
+    getMessages(userId: number, currentPage: number, messagesOnPage: number) {
+        return instance.get<GetMessagesResponseType>(`dialogs/${userId}/messages?page=${currentPage}&count=${messagesOnPage}`)
     },
     sendMessage(userId: number, message: string) {
         return instance.post<ResponseType<{ message: AddMessageResponseType }>>(`dialogs/${userId}/messages`, { body: message })

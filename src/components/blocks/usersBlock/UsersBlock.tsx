@@ -73,12 +73,12 @@ export const UsersBlock: React.FC<UsersBlockPropsType> = memo((props) => {
             </FlexWrapper>
             {usersList()}
             <Pagination
-                totalUsersCount={totalUsersCount}
+                pagesNumber={8}
                 usersOnPage={usersOnPage}
                 currentPage={currentPage}
+                totalUsersCount={totalUsersCount}
                 appIsLoading={props.appIsLoading}
                 onPageChangeHandler={props.onPageChangeHandler}
-                pagesNumber={8}
             />
         </StyledUsersBlock>
     )

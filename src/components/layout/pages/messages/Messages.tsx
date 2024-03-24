@@ -1,28 +1,30 @@
-import React, { memo } from "react"
-import styled from "styled-components"
-import { theme } from 'styles/Theme.styled'
+import { DialogsBlock } from 'components/blocks/dialogsBlock/DialogsBlock'
+import { MessagesBlock } from 'components/blocks/messagesBlock/MessagesBlock'
+import { FlexWrapper } from 'components/common/FlexWrapper.styled'
 import { ToTop } from 'components/common/toTop/ToTop'
 import { FriendsBlockContainer } from 'components/containers/FriendsBlockContainer'
-import { MessagesBlock } from 'components/blocks/messagesBlock/MessagesBlock'
+import { PossibleFriendsBlockContainer } from 'components/containers/PossibleFriendsBlockContainer'
+import React, { memo } from "react"
 import { AlertType } from 'store/app/appReducer'
 import { AuthStateType } from 'store/auth/authReducer'
-import { FlexWrapper } from 'components/common/FlexWrapper.styled'
-import { DialogsBlock } from 'components/blocks/dialogsBlock/DialogsBlock'
-import { DialogResponseType, MessageResponseType } from 'api/dialogsAPI'
-import { PossibleFriendsBlockContainer } from 'components/containers/PossibleFriendsBlockContainer'
+import { MessagesStateType } from 'store/messages/messagesReducer'
+import styled from "styled-components"
+import { theme } from 'styles/Theme.styled'
 
 type MessagesPropsType = {
     className?: string
     userId: number
     authData: AuthStateType
-    dialogs: DialogResponseType[]
-    messages: MessageResponseType[]
+    appIsLoading: boolean
+    messagesState: MessagesStateType
     addMessage: (message: string) => void
+    onPageChangeHandler: (pageNumber: number) => void
     addAppAlert: (type: AlertType, message: string) => void
 }
 
 export const Messages: React.FC<MessagesPropsType> = memo((props) => {
-    const {className, messages, dialogs, authData, addMessage, addAppAlert } = props
+    const {className, authData, appIsLoading, addMessage, addAppAlert, onPageChangeHandler } = props
+    const {messages, dialogs, currentPage, totalMessagesCount, messagesOnPage} = props.messagesState
 
     return (
         <StyledMessages id="messages" className={className}>
@@ -37,6 +39,11 @@ export const Messages: React.FC<MessagesPropsType> = memo((props) => {
                     dialogData={dialogs[0]}
                     messages={messages}
                     authData={authData}
+                    currentPage={currentPage}
+                    usersOnPage={messagesOnPage}
+                    totalUsersCount={totalMessagesCount}
+                    onPageChangeHandler={onPageChangeHandler}
+                    appIsLoading={appIsLoading}
                     addMessage={addMessage}
                     addAppAlert={addAppAlert}
                 />
