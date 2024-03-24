@@ -12,7 +12,7 @@ const initialState = {
     dialogs: [] as DialogResponseType[],
     messages: [] as MessageResponseType[],
     currentPage: 1 as number,
-    messagesOnPage: 5 as number,
+    messagesOnPage: 10 as number,
     totalMessagesCount: 0 as number
 }
 //SLICE

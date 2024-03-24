@@ -11,23 +11,23 @@ import { MessagesStateType } from 'store/messages/messagesReducer'
 import styled from "styled-components"
 import { theme } from 'styles/Theme.styled'
 
-type MessagesPropsType = {
+type Props = {
     className?: string
     userId: number
     authData: AuthStateType
     appIsLoading: boolean
     messagesState: MessagesStateType
     addMessage: (message: string) => void
-    onPageChangeHandler: (pageNumber: number) => void
+    usersOnPageChangeHandler: () => void
     addAppAlert: (type: AlertType, message: string) => void
 }
 
-export const Messages: React.FC<MessagesPropsType> = memo((props) => {
-    const {className, authData, appIsLoading, addMessage, addAppAlert, onPageChangeHandler } = props
-    const {messages, dialogs, currentPage, totalMessagesCount, messagesOnPage} = props.messagesState
+export const Messages: React.FC<Props> = memo((props) => {
+    const { authData, appIsLoading, addMessage, addAppAlert, usersOnPageChangeHandler } = props
+    const { messages, dialogs, totalMessagesCount, messagesOnPage } = props.messagesState
 
     return (
-        <StyledMessages id="messages" className={className}>
+        <StyledMessages id="messages">
             <ToTop anchor_id='dialogs-block' />
             <StyledFriendsWrapper direction={'column'} gap={'min(30px, 2vw)'}>
                 <FriendsBlockContainer />
@@ -35,17 +35,16 @@ export const Messages: React.FC<MessagesPropsType> = memo((props) => {
             </StyledFriendsWrapper>
             <MessagesWrapper direction={'column'}>
                 <DialogsBlock dialogs={dialogs} />
-                <StyledMessagesBlock
-                    dialogData={dialogs[0]}
+                <MessagesBlock
                     messages={messages}
                     authData={authData}
-                    currentPage={currentPage}
-                    usersOnPage={messagesOnPage}
-                    totalUsersCount={totalMessagesCount}
-                    onPageChangeHandler={onPageChangeHandler}
+                    dialogData={dialogs[0]}
                     appIsLoading={appIsLoading}
+                    messagesOnPage={messagesOnPage}
+                    totalMessagesCount={totalMessagesCount}
                     addMessage={addMessage}
                     addAppAlert={addAppAlert}
+                    usersOnPageChangeHandler={usersOnPageChangeHandler}
                 />
             </MessagesWrapper>
         </StyledMessages>
@@ -53,14 +52,13 @@ export const Messages: React.FC<MessagesPropsType> = memo((props) => {
 })
 
 const StyledMessages = styled.main`
+    height: 100%;
+    gap: min(30px, 2vw);
     display: flex;
     overflow-x: hidden;
     @media ${theme.media.mobile} {
         flex-direction: column;
     }
-`
-const StyledMessagesBlock = styled(MessagesBlock)`
-    min-height: 100%;
 `
 const StyledFriendsWrapper = styled(FlexWrapper)`
     width: 20%;
@@ -69,7 +67,8 @@ const StyledFriendsWrapper = styled(FlexWrapper)`
     }
 `
 const MessagesWrapper = styled(FlexWrapper)`
-    width: 80%;
+    width: 77%;
+    flex: 1;
     gap: min(30px, 2vw);
     @media ${theme.media.mobile} {
         width: 100%;

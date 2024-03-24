@@ -11,7 +11,7 @@ import { Pagination } from 'components/common/pagination/Pagination'
 import { Friend } from 'components/blocks/friendsBlock/friend/Friend'
 import { UserResponseType } from 'api/usersAPI'
 
-type FriendsBlockPropsType = {
+type Props = {
     className?: string
     isLoading: boolean
     users: UserResponseType[]
@@ -23,9 +23,11 @@ type FriendsBlockPropsType = {
     onPageChangeHandler: (pageNumber: number) => void
 }
 
-export const FriendsBlock: React.FC<FriendsBlockPropsType> = memo((props) => {
-    const { users, currentPage, totalUsersCount, usersOnPage } = props
-    const { isLoading, onPageChangeHandler } = props
+export const FriendsBlock: React.FC<Props> = memo((props) => {
+    const { users, currentPage, totalUsersCount, usersOnPage,
+        className, isLoading, onPageChangeHandler,
+        blockHeaderName, refreshFriends } = props
+        
     const friendsList = () => {
         return (
             <StyledFriendsList>
@@ -36,21 +38,20 @@ export const FriendsBlock: React.FC<FriendsBlockPropsType> = memo((props) => {
 
     return (
         <StyledFriends
-            id={props.blockHeaderName.toLowerCase().replaceAll(' ', '-')}
-            className={props.className}
+            id={blockHeaderName.toLowerCase().replaceAll(' ', '-')}
+            className={className}
         >
             <FlexWrapper justify={'space-between'}>
-                <BlockHeader>
-                    {props.blockHeaderName}
-                </BlockHeader>
-                <RefreshButton
-                    onClick={props.refreshFriends}
+                <Button
+                    onClick={refreshFriends}
                     variant={'link'}
-                    className={props.className}
+                    className={className}
                     ariaLabel={'Refresh button'}
                 >
-                    <Icon iconId={'refresh'} viewBox='0 -6 32 32' />
-                </RefreshButton>
+                    <BlockHeader>
+                        {blockHeaderName}
+                    </BlockHeader>
+                </Button>
             </FlexWrapper>
             {friendsList()}
             <FlexWrapper justify={'center'} direction={'row'}>
@@ -60,7 +61,7 @@ export const FriendsBlock: React.FC<FriendsBlockPropsType> = memo((props) => {
                     totalUsersCount={totalUsersCount}
                     usersOnPage={usersOnPage}
                     onPageChangeHandler={onPageChangeHandler}
-                    pagesNumber={3}
+                    pagesNumber={2}
                 />
             </FlexWrapper>
         </StyledFriends>
@@ -83,9 +84,7 @@ const StyledFriendsList = styled.div`
     }
 `
 const StyledPagination = styled(Pagination)`
-    ${font({ weight: 400, Fmin: 11, Fmax: 16 })}
-`
-const RefreshButton = styled(Button)`
-    max-width: 24px;
-    max-height: 24px;
+    ${font({ weight: 700, Fmin: 10, Fmax: 12 })}
+    height: 1em;
+
 `

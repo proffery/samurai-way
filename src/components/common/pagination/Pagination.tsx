@@ -7,7 +7,7 @@ import { Button } from 'components/common/button/Button'
 import { Input } from 'components/common/input/Input.styled'
 import { FlexWrapper } from 'components/common/FlexWrapper.styled'
 
-type PaginationPropsType = {
+type Props = {
     className?: string
     currentPage: number
     usersOnPage: number
@@ -17,8 +17,11 @@ type PaginationPropsType = {
     onPageChangeHandler: (pageNumber: number) => void
 }
 
-export const Pagination: React.FC<PaginationPropsType> = memo((props) => {
-    const { currentPage, usersOnPage, totalUsersCount, appIsLoading, pagesNumber, onPageChangeHandler } = props
+export const Pagination: React.FC<Props> = memo((props) => {
+    const {
+        currentPage, usersOnPage, totalUsersCount, className,
+        appIsLoading, pagesNumber, onPageChangeHandler
+    } = props
 
     const rangesCount = Math.ceil(totalUsersCount / usersOnPage)
     const rangesArray = Array.from({ length: rangesCount }, (_, i) => i + 1)
@@ -83,20 +86,27 @@ export const Pagination: React.FC<PaginationPropsType> = memo((props) => {
     }
 
     return (
-        <FlexWrapper direction={'column'} justify='center'>
+        <StyledPagination direction={'column'} justify='center' align='center'>
             <FlexWrapper justify='center'>
                 {rangesCount > pagesNumber &&
                     <Button
+                        className={props.className}
                         ariaLabel={'Change pages range - button'}
                         variant={'link'}
                         disabled={props.appIsLoading}
                         onClick={pagesRangeDec}
-                    ><Icon iconId="leftArrow" viewBox="-5 3 24 24" /></Button>
+                    >
+                        <Icon
+                            iconId="leftArrow"
+                            viewBox="-5 7 20 20"
+                            height='100%'
+                            width='100%' />
+                    </Button>
                 }
-                <FlexWrapper gap='6px' justify='center'>
+                <FlexWrapper justify='center' align='center' className={props.className}>
                     {rangesArray
                         .filter((el, index) => (index >= minPageIndex && index < maxPageIndex))
-                        .map(el =>
+                        .map((el, index, arr) =>
                             <Button
                                 ariaLabel={'Go to page button'}
                                 key={el}
@@ -105,64 +115,82 @@ export const Pagination: React.FC<PaginationPropsType> = memo((props) => {
                                 disabled={currentPage === el || props.appIsLoading}
                                 isActive={currentPage === el}
                                 onClick={() => { onPageChangeHandler(el) }}
-                            >{el.toString()}</Button>
+                            >
+                                {index === arr.length - 1 ? el.toString() : el.toString() + ','}
+                            </Button>
                         )
                     }
                 </FlexWrapper>
+                <FlexWrapper justify='center' align='center' className={props.className}>
+                    {rangesCount > pagesNumber && showInput &&
+                        <form onSubmit={formik.handleSubmit}>
+                            <SyledInput
+                                type='number'
+                                placeholder={`1-${rangesCount}`}
+                                error={!!formik.errors.page && !!formik.touched.page ? 'true' : 'false'}
+                                name='page'
+                                min={'1'}
+                                max={rangesCount}
+                                value={formik.values.page}
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                                    formik.handleChange(e)
+                                }}
+                                onBlur={(e: React.ChangeEvent<HTMLInputElement>) => {
+                                    formik.handleBlur(e)
+                                    formBlurHandle(e)
+                                }}
+                                autoFocus
+                            />
+                        </form>
+                    }
+                    {maxPageIndex < rangesCount && <>
+                        <Button
+                            className={className}
+                            ariaLabel={'Show pages input button'}
+                            variant='link'
+                            onClick={showInputHandler}
+                        >&nbsp;...&nbsp;</Button>
+                        <Button
+                            ariaLabel={'Go to page button'}
+                            className={className}
+                            variant={'link'}
+                            disabled={currentPage === rangesCount || props.appIsLoading}
+                            isActive={currentPage === rangesCount}
+                            onClick={() => { onPageChangeHandler(rangesCount) }}
+                        >{rangesCount.toString()}</Button>
+                    </>
+                    }
+                </FlexWrapper>
                 {rangesCount > pagesNumber &&
-                    <Button variant={'link'}
+                    <Button
+                        className={className}
+                        variant={'link'}
                         ariaLabel={'Change pages range + button'}
                         disabled={appIsLoading}
                         onClick={pagesRangeInc}
-                    ><Icon iconId="rightArrow" viewBox="15 3 24 24" /></Button>
+                    >
+                        <Icon
+                            iconId="rightArrow"
+                            height='100%' width='100%'
+                            viewBox="15 7 20 20"
+                        />
+                    </Button>
                 }
             </FlexWrapper>
-            <InputWrapper justify='center' align='center' direction='column'>
-                {rangesCount > pagesNumber && showInput &&
-                    <form onSubmit={formik.handleSubmit}>
-                        <SyledInput
-                            type='number'
-                            placeholder={`1-${rangesCount}`}
-                            error={!!formik.errors.page && !!formik.touched.page ? 'true' : 'false'}
-                            name='page'
-                            min={'1'}
-                            max={rangesCount}
-                            value={formik.values.page}
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                                formik.handleChange(e)
-                                // formChangeHandle(e)
-                            }}
-                            onBlur={(e: React.ChangeEvent<HTMLInputElement>) => {
-                                formik.handleBlur(e)
-                                formBlurHandle(e)
-                            }}
-                            autoFocus
-                        />
-                    </form>
-                }
-                {rangesCount > pagesNumber &&
-                    <Button
-                        ariaLabel={'Show pages input button'}
-                        variant='link'
-                        onClick={showInputHandler}
-                    ><Icon iconId='dots' /></Button>}
-            </InputWrapper>
-        </FlexWrapper>
+        </StyledPagination>
     )
 })
 
 const SyledInput = styled(Input)`
     display: flex;
     position: absolute;
-    top: -150%;
+    top: 50%;
     left: 50%;
-    width: 90px;
-    transform: translateX(-50%);
+    transform: translate(-50%, -50%);
     box-shadow: ${theme.shadow.text};
     color: ${theme.color.text.primary};
-    &::placeholder {
-    }
+    z-index: 999;
 `
-const InputWrapper = styled(FlexWrapper)`
+const StyledPagination = styled(FlexWrapper)`
     position: relative;
 `

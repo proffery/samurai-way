@@ -9,7 +9,7 @@ import { UsersFilterType, UsersStateType } from 'store/users/usersReducer'
 import styled from 'styled-components'
 import { theme } from 'styles/Theme.styled'
 
-export type UsersBlockPropsType = {
+export type Props = {
     usersData: UsersStateType
     appIsLoading: boolean
     follow: (userId: number) => void
@@ -18,8 +18,10 @@ export type UsersBlockPropsType = {
     filterChangeHandler: (filter: UsersFilterType) => void
 }
 
-export const UsersBlock: React.FC<UsersBlockPropsType> = memo((props) => {
-    const { usersFilter, totalUsersCount, usersOnPage, currentPage } = props.usersData
+export const UsersBlock: React.FC<Props> = memo((props) => {
+    const { usersFilter, totalUsersCount, usersOnPage,
+        currentPage } = props.usersData
+    const { appIsLoading, onPageChangeHandler, filterChangeHandler, unfollow, follow } = props
     const usersList = () => {
         return (
             <>
@@ -27,22 +29,12 @@ export const UsersBlock: React.FC<UsersBlockPropsType> = memo((props) => {
                     <User
                         key={user.id}
                         user={user}
-                        follow={props.follow}
-                        unfollow={props.unfollow}
+                        follow={follow}
+                        unfollow={unfollow}
                     />
                 )}
             </>
         )
-    }
-
-    const onAllFilterChangeHandler = () => {
-        props.filterChangeHandler("all")
-    }
-    const onFriendsFilterChangeHandler = () => {
-        props.filterChangeHandler("followed")
-    }
-    const onPossibleFilterChangeHandler = () => {
-        props.filterChangeHandler("unfollowed")
     }
 
     return (
@@ -53,32 +45,32 @@ export const UsersBlock: React.FC<UsersBlockPropsType> = memo((props) => {
                     ariaLabel={'All filter button'}
                     variant={'link'}
                     isActive={usersFilter === 'all'}
-                    disabled={props.appIsLoading}
-                    onClick={onAllFilterChangeHandler}
+                    disabled={appIsLoading}
+                    onClick={() => filterChangeHandler("all")}
                 >{'All'}</Button>
                 <Button
                     ariaLabel={'Followed filter button'}
                     variant={'link'}
                     isActive={usersFilter === 'followed'}
-                    disabled={props.appIsLoading}
-                    onClick={onFriendsFilterChangeHandler}
+                    disabled={appIsLoading}
+                    onClick={() => filterChangeHandler("followed")}
                 >{'Followed'}</Button>
                 <Button
                     ariaLabel={'Unfollowed filter button'}
                     variant={'link'}
                     isActive={usersFilter === 'unfollowed'}
-                    disabled={props.appIsLoading}
-                    onClick={onPossibleFilterChangeHandler}
+                    disabled={appIsLoading}
+                    onClick={() => filterChangeHandler("unfollowed")}
                 >{'Unfollowed'}</Button>
             </FlexWrapper>
             {usersList()}
-            <Pagination
-                pagesNumber={8}
+            <UsersPagination
+                pagesNumber={3}
                 usersOnPage={usersOnPage}
                 currentPage={currentPage}
                 totalUsersCount={totalUsersCount}
-                appIsLoading={props.appIsLoading}
-                onPageChangeHandler={props.onPageChangeHandler}
+                appIsLoading={appIsLoading}
+                onPageChangeHandler={onPageChangeHandler}
             />
         </StyledUsersBlock>
     )
@@ -94,4 +86,7 @@ const StyledUsersBlock = styled(BlockSection)`
     @media ${theme.media.mobile} {
         width: 100%;
     }
+`
+const UsersPagination = styled(Pagination)`
+    height: 1em;
 `

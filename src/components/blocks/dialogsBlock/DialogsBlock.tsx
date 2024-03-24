@@ -24,7 +24,7 @@ export const DialogsBlock: React.FC<DialogsBlockPtopsType> = memo(({ dialogs, cl
         scrollIntoViewRef.current?.scrollIntoView({ behavior: 'smooth' })
     }, [dialogs])
 
-    return <BlockSection id="dialogs-block" className={className}>
+    return <StyledDialogsBlock id="dialogs-block" className={className}>
         <BlockHeader>Dialogs: {dialogs.length}</BlockHeader>
         <DialogWrapper ref={draggRef} {...events}>
             {dialogs.map((dialog, index) =>
@@ -41,9 +41,11 @@ export const DialogsBlock: React.FC<DialogsBlockPtopsType> = memo(({ dialogs, cl
                 </Dialog>
             )}
         </DialogWrapper>
-    </BlockSection>
+    </StyledDialogsBlock>
 })
-
+const StyledDialogsBlock = styled(BlockSection)`
+    width: 100%;
+`
 const Dialog = styled(NavLink)`
     position: relative;
     display: flex;

@@ -15,14 +15,14 @@ import { Settings } from './components/layout/pages/settings/Settings'
 import { Users } from './components/layout/pages/users/Users'
 import { theme } from './styles/Theme.styled'
 
-type AppPropsType = {
+type Props = {
   isLoading: boolean
   storagePath: string
   isLoggedIn: boolean
   isInitialized: boolean
   navbarCollapsed: boolean
 }
-function App(props: AppPropsType) {
+function App(props: Props) {
   const { isLoggedIn, navbarCollapsed, isLoading, isInitialized, storagePath } = props
 
   if (!isLoggedIn) {
@@ -49,8 +49,8 @@ function App(props: AppPropsType) {
       <NavbarContainer />
       <HeaderContainer />
       <Switch>
-        <Route path='/' exact render={() => <ProfileContainer />} />
-        <Route path='/profile/:userId?' render={() => <ProfileContainer />} />
+        <Route path='/' exact component={ProfileContainer} />
+        <Route path='/profile/:userId?' component={ProfileContainer} />
         <Route path='/users' component={Users} />
         <Route path='/messages/:userId?' component={MessagesContainer} />
         <Route path='/notifications' component={Notifications} />
@@ -95,6 +95,7 @@ const Wrapper = styled.div<ContainerPropsType>`
     main {
       grid-area: 2 / 1 / 3 / 6 ;
       padding-left: min(45px, 12vw);
+      height: 100%;
     }
     nav {
       grid-area: 1 / 1 / 3 / 1 ;

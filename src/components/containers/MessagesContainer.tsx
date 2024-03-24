@@ -15,8 +15,8 @@ export const MessagesContainer: React.FC = memo(() => {
     const params = useParams<{ userId: string }>()
     const history = useHistory()
 
-    const { currentPage, messagesOnPage } = messagesState
-
+    const { currentPage, messagesOnPage, totalMessagesCount } = messagesState
+    const DOWNLOAD_MESSAGES_PORTION = 3
     useEffect(() => {
         if (!params.userId) {
             getDialogs()
@@ -34,8 +34,12 @@ export const MessagesContainer: React.FC = memo(() => {
         }
     }, [params.userId, currentPage, messagesOnPage])
 
-    const onPageChangeHandler = (pageNumber: number) => {
-        getMessages({ userId: +params.userId, currentPage: pageNumber, messagesOnPage })
+    const usersOnPageChangeHandler = () => {
+        let newMessagesNumber = messagesOnPage
+        if (messagesOnPage < totalMessagesCount){
+            newMessagesNumber += DOWNLOAD_MESSAGES_PORTION
+            getMessages({ userId: +params.userId, currentPage: 1, messagesOnPage: newMessagesNumber })
+        }
     }
 
     const addMessage = (message: string) => {
@@ -48,6 +52,6 @@ export const MessagesContainer: React.FC = memo(() => {
         messagesState={messagesState}
         addMessage={addMessage}
         addAppAlert={addAppAlert}
-        onPageChangeHandler={onPageChangeHandler}
+        usersOnPageChangeHandler={usersOnPageChangeHandler}
     />
 })

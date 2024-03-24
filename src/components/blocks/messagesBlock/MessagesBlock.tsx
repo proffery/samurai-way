@@ -6,7 +6,6 @@ import { Avatar } from 'components/common/avatar/Avatar'
 import { Button } from 'components/common/button/Button'
 import { FlexWrapper } from 'components/common/FlexWrapper.styled'
 import { Input } from 'components/common/input/Input.styled'
-import { Pagination } from 'components/common/pagination/Pagination'
 import { useFormik } from 'formik'
 import { KeyboardEvent, memo } from 'react'
 import { NavLink } from 'react-router-dom'
@@ -14,27 +13,26 @@ import { AlertType } from 'store/app/appReducer'
 import { AuthStateType } from 'store/auth/authReducer'
 import styled from 'styled-components'
 
-type MessagesBlockPropsType = {
+type Props = {
     messages: MessageResponseType[]
     className?: string
-    usersOnPage: number
-    currentPage: number
-    totalUsersCount: number
+    messagesOnPage: number
+    totalMessagesCount: number
     appIsLoading: boolean
     authData: AuthStateType
     dialogData?: DialogResponseType
     addMessage: (message: string) => void
-    onPageChangeHandler: (pageNumber: number) => void
+    usersOnPageChangeHandler: () => void
     addAppAlert: (type: AlertType, message: string) => void
 }
 type FormikErrorType = {
     message?: string
 }
-export const MessagesBlock: React.FC<MessagesBlockPropsType> = memo((props) => {
-    const { addMessage, addAppAlert, onPageChangeHandler,
+export const MessagesBlock: React.FC<Props> = memo((props) => {
+    const { addMessage, addAppAlert, usersOnPageChangeHandler,
         messages, dialogData, authData,
-        className, totalUsersCount, appIsLoading,
-        currentPage, usersOnPage } = props
+        className, totalMessagesCount, appIsLoading,
+        messagesOnPage } = props
 
     const addMessageCtrlEnterHandler = (e: KeyboardEvent<HTMLFormElement>) => {
         if (e.key === 'Enter' && e.ctrlKey) {
@@ -72,17 +70,13 @@ export const MessagesBlock: React.FC<MessagesBlockPropsType> = memo((props) => {
             </StyledBlockHeader>
             <MessagesListWrapper direction={'column'}>
                 <MessagesList
+                    authData={authData}
                     messages={messages}
                     dialogData={dialogData}
-                    authData={authData}
-                />
-                <Pagination
-                    pagesNumber={8}
-                    usersOnPage={usersOnPage}
-                    currentPage={currentPage}
-                    totalUsersCount={totalUsersCount}
                     appIsLoading={appIsLoading}
-                    onPageChangeHandler={onPageChangeHandler}
+                    messagesOnPage={messagesOnPage}
+                    totalMessagesCount={totalMessagesCount}
+                    usersOnPageChangeHandler={usersOnPageChangeHandler}
                 />
                 <Form onSubmit={formik.handleSubmit}
                     onKeyDown={addMessageCtrlEnterHandler}
@@ -107,13 +101,12 @@ export const MessagesBlock: React.FC<MessagesBlockPropsType> = memo((props) => {
                     </FlexWrapper>
                 </Form>
             </MessagesListWrapper>
-        </StyledMessagesBlock>
+        </StyledMessagesBlock >
     )
 })
 
 const StyledMessagesBlock = styled(BlockSection)`
     width: 100%;
-    min-width: 75%;
     min-height: fit-content;
     max-height: 124.5vh;
     justify-content: space-between;
