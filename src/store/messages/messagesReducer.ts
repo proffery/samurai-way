@@ -61,7 +61,7 @@ export const startDialog = createAppAsyncThunk<undefined, number>(`${slice.name}
         dispatch(appActions.setAppIsLoading(true))
         const res = await dialogsAPI.startDialog(userId)
         if (res.data.resultCode === ResultCode.success) {
-            dispatch(messagesThunk.getDialogs())
+            dispatch(messagesThunks.getDialogs())
             return undefined
         }
         else rejectWithValue(null)
@@ -136,4 +136,4 @@ export type MessagesStateType = typeof initialState
 type SendMessageArgType = { userId: number, message: string }
 
 export const messagesReducer = slice.reducer
-export const messagesThunk = { startDialog, getDialogs, sendMessage, getMessages }
+export const messagesThunks = { startDialog, getDialogs, sendMessage, getMessages }

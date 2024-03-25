@@ -7,19 +7,18 @@ import { useHistory } from 'react-router-dom'
 import styled from "styled-components"
 import { font } from 'styles/Font'
 
-export const NotFound: React.FC = memo((props) => {
+export const NotFound: React.FC = memo(() => {
     const history = useHistory()
 
     const handleHome = () => {
         history.push("/")
     }
-
     const handleBack = () => {
         history.goBack()
     }
 
     return (
-        <StyledNotFound id='404'>
+        <main id='404'>
             <StyledBlockSection>
                 <BlockHeader>Error 404</BlockHeader>
                 <TextWrapper>
@@ -39,13 +38,10 @@ export const NotFound: React.FC = memo((props) => {
                     </FlexWrapper>
                 </TextWrapper>
             </StyledBlockSection>
-        </StyledNotFound>
+        </main>
     )
 })
 
-const StyledNotFound = styled.main`
-    
-`
 const StyledBlockSection = styled(BlockSection)`
     height: 100%;
     

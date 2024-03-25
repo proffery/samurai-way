@@ -5,14 +5,14 @@ import { IconLinksStateType } from 'store/app/appReducer'
 import { theme } from 'styles/Theme.styled'
 import { Link } from 'components/common/link/Link.styled'
 
-type SocialMedeaLinksPropsType = {
+type Props = {
     footerLinks: IconLinksStateType[]
 }
 
-export const SocialMedeaLinks: React.FC<SocialMedeaLinksPropsType> = memo((props) => {
+export const SocialMedeaLinks: React.FC<Props> = memo(({ footerLinks }) => {
     return (
         <LinksContainer>
-            {props.footerLinks.map(link => {
+            {footerLinks.map(link => {
                 return (
                     <Link key={link.id}
                         href={link.href}

@@ -7,11 +7,7 @@ import React, { memo } from "react"
 import styled from 'styled-components'
 import { theme } from 'styles/Theme.styled'
 
-type UsersPropsType = {
-
-}
-
-export const Users: React.FC<UsersPropsType> = memo((props) => {
+export const Users: React.FC = memo(() => {
     return (
         <StyledUsers id="users">
             <ToTop anchor_id='users-block' />

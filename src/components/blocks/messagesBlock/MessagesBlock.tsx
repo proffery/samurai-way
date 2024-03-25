@@ -1,4 +1,3 @@
-import { DialogResponseType, MessageResponseType } from 'api/dialogsAPI'
 import { BlockHeader } from 'components/blocks/BlockHeader.styled'
 import { BlockSection } from 'components/blocks/BlockSection.styled'
 import { MessagesList } from 'components/blocks/messagesBlock/messagesList/MessagesList'
@@ -11,16 +10,14 @@ import { KeyboardEvent, memo } from 'react'
 import { NavLink } from 'react-router-dom'
 import { AlertType } from 'store/app/appReducer'
 import { AuthStateType } from 'store/auth/authReducer'
+import { MessagesStateType } from 'store/messages/messagesReducer'
 import styled from 'styled-components'
 
 type Props = {
-    messages: MessageResponseType[]
     className?: string
-    messagesOnPage: number
-    totalMessagesCount: number
+    messagesState: MessagesStateType
     appIsLoading: boolean
     authData: AuthStateType
-    dialogData?: DialogResponseType
     addMessage: (message: string) => void
     usersOnPageChangeHandler: () => void
     addAppAlert: (type: AlertType, message: string) => void
@@ -30,9 +27,7 @@ type FormikErrorType = {
 }
 export const MessagesBlock: React.FC<Props> = memo((props) => {
     const { addMessage, addAppAlert, usersOnPageChangeHandler,
-        messages, dialogData, authData,
-        className, totalMessagesCount, appIsLoading,
-        messagesOnPage } = props
+        authData, className, appIsLoading, messagesState } = props
 
     const addMessageCtrlEnterHandler = (e: KeyboardEvent<HTMLFormElement>) => {
         if (e.key === 'Enter' && e.ctrlKey) {
@@ -63,19 +58,16 @@ export const MessagesBlock: React.FC<Props> = memo((props) => {
     return (
         <StyledMessagesBlock id="messages-block" className={className}>
             <StyledBlockHeader >
-                <AvatarLink to={'/profile/' + dialogData?.id}>
-                    <Avatar avatarURL={dialogData?.photos.small} />
-                    {dialogData?.userName}:
+                <AvatarLink to={'/profile/' + messagesState.dialogs[0]?.id}>
+                    <Avatar avatarURL={messagesState.dialogs[0]?.photos.small} />
+                    {messagesState.dialogs[0]?.userName}:
                 </AvatarLink>
             </StyledBlockHeader>
             <MessagesListWrapper direction={'column'}>
                 <MessagesList
                     authData={authData}
-                    messages={messages}
-                    dialogData={dialogData}
                     appIsLoading={appIsLoading}
-                    messagesOnPage={messagesOnPage}
-                    totalMessagesCount={totalMessagesCount}
+                    messagesState={messagesState}
                     usersOnPageChangeHandler={usersOnPageChangeHandler}
                 />
                 <Form onSubmit={formik.handleSubmit}

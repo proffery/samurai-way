@@ -6,7 +6,7 @@ import { font } from 'styles/Font'
 import { theme } from 'styles/Theme.styled'
 import { Button } from 'components/common/button/Button'
 
-type LogoutPropsType = {
+type Props = {
     className?: string
     login: string
     email: string
@@ -14,12 +14,8 @@ type LogoutPropsType = {
     logOut: () => void
 }
 
-export const Logout: React.FC<LogoutPropsType> = memo((props) => {
-    const { login, email, photoUrl } = props
-
-    const logOutHandeler = () => {
-        props.logOut()
-    }
+export const Logout: React.FC<Props> = memo((props) => {
+    const { login, email, photoUrl, logOut } = props
 
     return (
         <StyledLogout>
@@ -32,7 +28,7 @@ export const Logout: React.FC<LogoutPropsType> = memo((props) => {
                 <LogoutButton
                     ariaLabel={'Log Out button'}
                     variant={'link'}
-                    onClick={logOutHandeler}
+                    onClick={logOut}
                 >Log out</LogoutButton>
             </AvatarContainer>
         </StyledLogout>

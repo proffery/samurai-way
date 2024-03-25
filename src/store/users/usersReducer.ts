@@ -85,62 +85,57 @@ export const changeUserIsLoading = (userId: number, isLoading: boolean) =>
 
 //THUNKS
 export const getUsers = (pageNumber: number, usersOnPage: number, isFriend: boolean | null, searchTerm: string) =>
-    (dispatch: AppDispatchType) => {
+    async (dispatch: AppDispatchType) => {
         dispatch(setAppIsLoading(true))
-        usersAPI.getUsers(pageNumber, usersOnPage, isFriend, searchTerm)
-            .then(res => {
-                dispatch(setTotalUsersCount(res.data.totalCount))
-                dispatch(setCurrentPage(pageNumber))
-                dispatch(setUsersOnPage(usersOnPage))
-                dispatch(setUsers(res.data.items))
-            })
-            .catch(error => {
-                dispatch(addAppAlert('failed', error.message))
-            })
-            .finally(() => dispatch(setAppIsLoading(false)))
+        try {
+            const res = await usersAPI.getUsers(pageNumber, usersOnPage, isFriend, searchTerm)
+            dispatch(setTotalUsersCount(res.data.totalCount))
+            dispatch(setCurrentPage(pageNumber))
+            dispatch(setUsersOnPage(usersOnPage))
+            dispatch(setUsers(res.data.items))
+        } catch (error: any) {
+            dispatch(addAppAlert('failed', error.message))
+        } finally { dispatch(setAppIsLoading(false)) }
     }
 
-export const followUser = (userId: number) => (dispatch: AppDispatchType) => {
+export const followUser = (userId: number) => async (dispatch: AppDispatchType) => {
     dispatch(changeUserIsLoading(userId, true))
     dispatch(setAppIsLoading(true))
-    usersAPI.followUser(userId)
-        .then(res => {
-            if (res.data.resultCode === ResultCode.success) {
-                dispatch(setFollowUser(userId))
-                dispatch(addAppAlert('succeeded', 'Followed!'))
-            }
-            else {
-                dispatch(addAppAlert('failed', res.data.messages[0]))
-            }
-        })
-        .catch(error => {
-            dispatch(addAppAlert('failed', error.message))
-        })
-        .finally(() => {
-            dispatch(setAppIsLoading(false))
-            dispatch(changeUserIsLoading(userId, false))
-        })
+    try {
+        const res = await usersAPI.followUser(userId)
+        if (res.data.resultCode === ResultCode.success) {
+            dispatch(setFollowUser(userId))
+            dispatch(addAppAlert('succeeded', 'Followed!'))
+        }
+        else {
+            dispatch(addAppAlert('failed', res.data.messages[0]))
+        }
+    } catch (error: any) {
+        dispatch(addAppAlert('failed', error.message))
+    } finally {
+        dispatch(setAppIsLoading(false))
+        dispatch(changeUserIsLoading(userId, false))
+    }
 }
-export const unfollowUser = (userId: number) => (dispatch: AppDispatchType) => {
+
+export const unfollowUser = (userId: number) => async (dispatch: AppDispatchType) => {
     dispatch(changeUserIsLoading(userId, true))
     dispatch(setAppIsLoading(true))
-    usersAPI.unfollowUser(userId)
-        .then(res => {
-            if (res.data.resultCode === ResultCode.success) {
-                dispatch(setUnfollowUser(userId))
-                dispatch(addAppAlert('succeeded', 'Unfollowed!'))
-            }
-            else {
-                dispatch(addAppAlert('failed', res.data.messages[0]))
-            }
-        })
-        .catch(error => {
-            dispatch(addAppAlert('failed', error.message))
-        })
-        .finally(() => {
-            dispatch(setAppIsLoading(false))
-            dispatch(changeUserIsLoading(userId, false))
-        })
+    try {
+        const res = await usersAPI.unfollowUser(userId)
+        if (res.data.resultCode === ResultCode.success) {
+            dispatch(setUnfollowUser(userId))
+            dispatch(addAppAlert('succeeded', 'Unfollowed!'))
+        }
+        else {
+            dispatch(addAppAlert('failed', res.data.messages[0]))
+        }
+    } catch (error: any) {
+        dispatch(addAppAlert('failed', error.message))
+    } finally {
+        dispatch(setAppIsLoading(false))
+        dispatch(changeUserIsLoading(userId, false))
+    }
 }
 
 //TYPES

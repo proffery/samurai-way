@@ -1,23 +1,19 @@
-import { DialogResponseType, MessageResponseType } from 'api/dialogsAPI'
 import { Message } from 'components/blocks/messagesBlock/message/Message'
 import { Button } from 'components/common/button/Button'
 import { AuthStateType } from 'store/auth/authReducer'
+import { MessagesStateType } from 'store/messages/messagesReducer'
 import styled from 'styled-components'
 
 type MessagesListPropsType = {
     className?: string
-    messages: MessageResponseType[]
-    dialogData?: DialogResponseType
+    messagesState: MessagesStateType
     appIsLoading: boolean
     authData: AuthStateType
-    messagesOnPage: number
-    totalMessagesCount: number
     usersOnPageChangeHandler: () => void
 }
 export const MessagesList: React.FC<MessagesListPropsType> = (props) => {
-    const { dialogData, authData, messages, appIsLoading,
-        messagesOnPage, totalMessagesCount, usersOnPageChangeHandler
-    } = props
+    const { authData, appIsLoading, usersOnPageChangeHandler } = props
+    const { messagesOnPage, totalMessagesCount, messages, dialogs } = props.messagesState
     return <StyledMessagesList>
         {messagesOnPage < totalMessagesCount &&
             <LoadMessgesButton
@@ -36,7 +32,7 @@ export const MessagesList: React.FC<MessagesListPropsType> = (props) => {
                     authId={authData.id}
                     messageData={message}
                     authPhoto={authData.photoUrl}
-                    opponentPhoto={dialogData?.photos.small}
+                    opponentPhoto={dialogs[0]?.photos.small}
                 />
             ) : <EmptyMessages>No messages...</EmptyMessages>
         }

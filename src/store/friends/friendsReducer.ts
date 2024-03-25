@@ -77,26 +77,24 @@ export const setPossibleTotalFriendsCount = (totalUsersCount: number) =>
 
 //THUNKS
 export const getFriends = (pageNumber: number, usersOnPage: number, isFriend: boolean) =>
-    (dispatch: AppDispatchType) => {
+    async (dispatch: AppDispatchType) => {
         dispatch(setAppIsLoading(true))
-        usersAPI.getUsers(pageNumber, usersOnPage, isFriend, '')
-            .then(res => {
-                if (isFriend) {
-                    dispatch(setTotalFriendsCount(res.data.totalCount))
-                    dispatch(setFriendsPage(pageNumber))
-                    dispatch(setFriendsOnPage(usersOnPage))
-                    dispatch(setFriends(res.data.items))
-                } else {
-                    dispatch(setPossibleTotalFriendsCount(res.data.totalCount))
-                    dispatch(setPossibleFriendsPage(pageNumber))
-                    dispatch(setPossibleFriendsOnPage(usersOnPage))
-                    dispatch(setPossibleFriends(res.data.items))
-                }
-            })
-            .catch(error => {
-                dispatch(addAppAlert('failed', error.message))
-            })
-            .finally(() => dispatch(setAppIsLoading(false)))
+        try {
+            const res = await usersAPI.getUsers(pageNumber, usersOnPage, isFriend, '')
+            if (isFriend) {
+                dispatch(setTotalFriendsCount(res.data.totalCount))
+                dispatch(setFriendsPage(pageNumber))
+                dispatch(setFriendsOnPage(usersOnPage))
+                dispatch(setFriends(res.data.items))
+            } else {
+                dispatch(setPossibleTotalFriendsCount(res.data.totalCount))
+                dispatch(setPossibleFriendsPage(pageNumber))
+                dispatch(setPossibleFriendsOnPage(usersOnPage))
+                dispatch(setPossibleFriends(res.data.items))
+            }
+        } catch (error: any) {
+            dispatch(addAppAlert('failed', error.message))
+        } finally { dispatch(setAppIsLoading(false)) }
     }
 
 //TYPES

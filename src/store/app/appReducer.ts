@@ -1,9 +1,9 @@
-import { v1 } from 'uuid'
-import { storageAvailable } from 'utils/storage'
-import {  ResultCode } from 'api/socialNetworkInstance'
-import { AppDispatchType, AppRootStateType } from 'store/redux-store'
-import { setAuthUserData, setIsLoggedIn, CleanReducerType, getAuthPhoto } from 'store/auth/authReducer'
 import { authAPI } from 'api/authAPI'
+import { ResultCode } from 'api/socialNetworkInstance'
+import { CleanReducerType, getAuthPhoto, setAuthUserData, setIsLoggedIn } from 'store/auth/authReducer'
+import { AppDispatchType, AppRootStateType } from 'store/redux-store'
+import { storageAvailable } from 'utils/storage'
+import { v1 } from 'uuid'
 
 //CONSTANTS
 const APP_ADD_ALERT = 'APP/ADD-ALERT'
@@ -138,32 +138,26 @@ export const setCurrentPath = (currentPath: string) =>
     ({ type: APP_SET_CURRENT_PATH, payload: { currentPath } } as const)
 
 //THUNKS
-export const initializeApp = () =>
-    (dispatch: AppDispatchType) => {
-        dispatch(setAppIsLoading(true))
-        return authAPI.getMe()
-            .then(res => {
-                if (res.data.resultCode === ResultCode.success) {
-                    Promise.all([
-                        dispatch(setAuthUserData(res.data.data)),
-                        dispatch(getAuthPhoto(res.data.data.id)),
-                        dispatch(loadPathFromStorage()),
-                        dispatch(setIsLoggedIn(true))
-                    ]).then(() => dispatch(setAppIsInitialized(true)))
-                }
-                else {
-                    // dispatch(addAppAlert('failed', res.data.messages[0]))
-                }
-            })
-            .catch(error => {
-                dispatch(addAppAlert('failed', error.message))
-            })
-            .finally(() => {
-                dispatch(setAppIsLoading(false))
-                dispatch(setAppIsInitialized(true))
-            })
-
+export const initializeApp = () => async (dispatch: AppDispatchType) => {
+    dispatch(setAppIsLoading(true))
+    try {
+        const res = await authAPI.getMe()
+        if (res.data.resultCode === ResultCode.success) {
+            Promise.all([
+                dispatch(setAuthUserData(res.data.data)),
+                dispatch(getAuthPhoto(res.data.data.id)),
+                dispatch(loadPathFromStorage()),
+                dispatch(setIsLoggedIn(true))
+            ]).then(() => dispatch(setAppIsInitialized(true)))
+        }
+    } catch (error: any) {
+        dispatch(addAppAlert('failed', error.message))
+    } finally {
+        dispatch(setAppIsLoading(false))
+        dispatch(setAppIsInitialized(true))
     }
+
+}
 
 export const addAppAlert = (type: AlertType, message: string) =>
     (dispatch: AppDispatchType, getState: () => AppRootStateType) => {

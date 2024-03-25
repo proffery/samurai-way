@@ -1,4 +1,3 @@
-import { LoginDataType } from 'api/authAPI'
 import { BlockHeader } from 'components/blocks/BlockHeader.styled'
 import { BlockSection } from 'components/blocks/BlockSection.styled'
 import { FlexWrapper } from 'components/common/FlexWrapper.styled'
@@ -7,21 +6,17 @@ import { Checkbox } from 'components/common/checkbox/Checkbox'
 import { Input } from 'components/common/input/Input.styled'
 import { useFormik } from 'formik'
 import React, { memo } from "react"
-import { AlertType } from 'store/app/appReducer'
 import styled from 'styled-components'
 import { theme } from 'styles/Theme.styled'
+import { useActions } from 'utils/customHooks/useActions'
 
-type LoginPagePropsType = {
-    login: (loginData: LoginDataType) => void
-    addAppAlert: (type: AlertType, message: string) => void
-    isLoggedIn: boolean
-}
 type FormikErrorType = {
     email?: string
     password?: string
 }
 
-export const Login: React.FC<LoginPagePropsType> = memo((props) => {
+export const Login: React.FC = memo(() => {
+    const {login, addAppAlert} = useActions()
     const formik = useFormik({
         initialValues: {
             email: 'free@samuraijs.com',
@@ -29,24 +24,23 @@ export const Login: React.FC<LoginPagePropsType> = memo((props) => {
             remember: false
         },
         onSubmit: (values) => {
-            props.login(values)
+            login(values)
         },
         validate: (values) => {
             const errors: FormikErrorType = {}
             if (!values.email) {
                 errors.email = 'Email required'
-                props.addAppAlert('failed', errors.email)
+                addAppAlert('failed', errors.email)
             } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
                 errors.email = 'Invalid email address'
-                props.addAppAlert('failed', errors.email)
+                addAppAlert('failed', errors.email)
             }
-
             if (!values.password) {
                 errors.password = 'Password required'
-                props.addAppAlert('failed', errors.password)
+                addAppAlert('failed', errors.password)
             } else if (values.password.length < 4) {
                 errors.password = 'Password must be longer than 3'
-                props.addAppAlert('failed', errors.password)
+                addAppAlert('failed', errors.password)
             }
             return errors
         },

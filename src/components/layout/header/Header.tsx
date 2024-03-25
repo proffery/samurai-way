@@ -8,7 +8,7 @@ import { theme } from 'styles/Theme.styled'
 import search from '../../../assets/images/Search.svg'
 import { AlertType } from 'store/app/appReducer'
 
-type HeaderPropsType = {
+type Props = {
     logout: () => void
     setUsersSearchTerm: (searchTerm: string) => void
     addAppAlert: (type: AlertType, message: string) => void
@@ -16,7 +16,7 @@ type HeaderPropsType = {
     authData: AuthStateType
 }
 
-export const Header: React.FC<HeaderPropsType> = memo((props) => {
+export const Header: React.FC<Props> = memo((props) => {
     const { login, email, photoUrl } = props.authData
     const { searchTerm, setUsersSearchTerm, logout } = props
     const [timerId, setTimerId] = useState<number | undefined>(undefined)
@@ -39,7 +39,7 @@ export const Header: React.FC<HeaderPropsType> = memo((props) => {
         }
     })
 
-    const onSearchChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const searchChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.currentTarget.value === '') {
             setUsersSearchTerm('')
         }
@@ -55,7 +55,7 @@ export const Header: React.FC<HeaderPropsType> = memo((props) => {
                 <StyledField search={search}
                     bordered="false"
                     placeholder={"Search"}
-                    onChange={onSearchChangeHandler}
+                    onChange={searchChangeHandler}
                     name='searchTerm'
                     value={formik.values.searchTerm}
                     error={!!formik.errors.searchTerm ? 'true' : 'false'}

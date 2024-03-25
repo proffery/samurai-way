@@ -1,12 +1,13 @@
 import { useMemo } from "react"
 import { ActionCreatorsMapObject, bindActionCreators } from "redux"
 import { appThunks } from 'store/app/appReducer'
-import { messagesThunk } from 'store/messages/messagesReducer'
+import { authThunks } from 'store/auth/authReducer'
+import { messagesThunks } from 'store/messages/messagesReducer'
 import { useAppDispatch } from 'utils/customHooks/useAppDispatch'
 
 // ❗ упаковываем actions и соответсвенно при вызове хука не нужно
 // будет передавать actions
-const actionsAll = { ...appThunks, ...messagesThunk }
+const actionsAll = { ...appThunks, ...messagesThunks, ...authThunks }
 
 type AllActions = typeof actionsAll
 

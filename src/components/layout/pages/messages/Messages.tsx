@@ -12,19 +12,20 @@ import styled from "styled-components"
 import { theme } from 'styles/Theme.styled'
 
 type Props = {
-    className?: string
     userId: number
-    authData: AuthStateType
+    className?: string
     appIsLoading: boolean
+    authData: AuthStateType
     messagesState: MessagesStateType
-    addMessage: (message: string) => void
     usersOnPageChangeHandler: () => void
+    addMessage: (message: string) => void
     addAppAlert: (type: AlertType, message: string) => void
 }
 
 export const Messages: React.FC<Props> = memo((props) => {
-    const { authData, appIsLoading, addMessage, addAppAlert, usersOnPageChangeHandler } = props
-    const { messages, dialogs, totalMessagesCount, messagesOnPage } = props.messagesState
+    const { authData, appIsLoading, messagesState,
+        addMessage, addAppAlert, usersOnPageChangeHandler
+    } = props
 
     return (
         <StyledMessages id="messages">
@@ -34,14 +35,11 @@ export const Messages: React.FC<Props> = memo((props) => {
                 <PossibleFriendsBlockContainer />
             </StyledFriendsWrapper>
             <MessagesWrapper direction={'column'}>
-                <DialogsBlock dialogs={dialogs} />
+                <DialogsBlock dialogs={messagesState.dialogs} />
                 <MessagesBlock
-                    messages={messages}
                     authData={authData}
-                    dialogData={dialogs[0]}
                     appIsLoading={appIsLoading}
-                    messagesOnPage={messagesOnPage}
-                    totalMessagesCount={totalMessagesCount}
+                    messagesState={messagesState}
                     addMessage={addMessage}
                     addAppAlert={addAppAlert}
                     usersOnPageChangeHandler={usersOnPageChangeHandler}

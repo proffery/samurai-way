@@ -56,7 +56,7 @@ type ConnectPropsType = {
     isLoading: boolean
     storagePath: string
     isInitialized: boolean
-    initializeApp: () => Promise<void>
+    initializeApp: () => void
     savePathToStorage: (currentPatch: string) => void
 }
 

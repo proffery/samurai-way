@@ -9,12 +9,12 @@ import { theme } from 'styles/Theme.styled'
 import { Menu } from 'components/common/menu/Menu'
 import { Link } from 'components/common/link/Link.styled'
 
-type FooterPropsType = {
+type Props = {
     menuItems: IconLinksStateType[]
     footerLinks: IconLinksStateType[]
 }
 
-export const Footer: React.FC<FooterPropsType> = memo((props) => {
+export const Footer: React.FC<Props> = memo(({ menuItems, footerLinks }) => {
     return (
         <StyledFooter>
             <TopWrapper align="start" direction="row" wrap="wrap" justify="space-between">
@@ -37,7 +37,7 @@ export const Footer: React.FC<FooterPropsType> = memo((props) => {
                         </IconWrapper>
                     </FlexWrapper>
                     <FlexWrapper>
-                        <SocialMedeaLinks footerLinks={props.footerLinks} />
+                        <SocialMedeaLinks footerLinks={footerLinks} />
                     </FlexWrapper>
                 </ContactsHalf>
             </TopWrapper>
@@ -46,9 +46,12 @@ export const Footer: React.FC<FooterPropsType> = memo((props) => {
                     direction="row"
                     icons={false}
                     name={true}
-                    menuItems={props.menuItems}
+                    menuItems={menuItems}
                 />
-                <Copyright><span>Copyright © {new Date().getFullYear()}&nbsp;</span><Link variant="primary">Dmitry Shamko</Link></Copyright>
+                <Copyright>
+                    <span>Copyright © {new Date().getFullYear()}&nbsp;</span>
+                    <Link variant="primary">Dmitry Shamko</Link>
+                </Copyright>
             </BottomWrapper>
         </StyledFooter>
     )
@@ -68,7 +71,6 @@ const StyledFooter = styled.footer`
         padding: 25px;
     }
 `
-
 const ContactsHalf = styled(FlexWrapper)`
     width: 50%;
     height: 100%;
@@ -96,7 +98,6 @@ const TopWrapper = styled(FlexWrapper)`
         background-color: ${theme.color.text.placeholder};
     }
 `
-
 const BottomWrapper = styled(FlexWrapper)`
     width: 100%;
     gap: 32px;
@@ -104,7 +105,6 @@ const BottomWrapper = styled(FlexWrapper)`
         gap: 25px;
     }
 `
-
 const IconWrapper = styled(FlexWrapper)`
     color: ${theme.color.text.placeholder};
     svg {
@@ -122,7 +122,6 @@ const IconWrapper = styled(FlexWrapper)`
     }
 
 `
-
 const Copyright = styled.div`
     display: flex;
     flex-wrap: wrap;

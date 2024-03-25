@@ -156,7 +156,7 @@ export const setFollowStatus = (isFollow: boolean) => (
     { type: SET_FOLLOW_STATUS, payload: { isFollow } }) as const
 export const setStatus = (status: string) => (
     { type: SET_STATUS, payload: { status } }) as const
-export const setPhotos = (data: {photos: PhotosResponseType}) => (
+export const setPhotos = (data: { photos: PhotosResponseType }) => (
     { type: SET_PHOTOS, payload: { data } }) as const
 
 //THUNKS
@@ -166,7 +166,7 @@ export const addPost = () => (dispatch: AppDispatchType, getState: () => AppRoot
     dispatch(postOnChange(''))
 }
 export const getProfileData = (userId: number) =>
-    (dispatch: AppDispatchType, getState: () => AppRootStateType) => {
+    async (dispatch: AppDispatchType, getState: () => AppRootStateType) => {
         dispatch(setAppIsLoading(true))
         profileAPI.getProfile(userId)
             .then(res => {
@@ -187,62 +187,60 @@ export const getProfileData = (userId: number) =>
             })
             .finally(() => dispatch(setAppIsLoading(false)))
     }
-export const followProfile = (userId: number) => (dispatch: AppDispatchType) => {
+
+export const followProfile = (userId: number) => async (dispatch: AppDispatchType) => {
     dispatch(setAppIsLoading(true))
-    usersAPI.followUser(userId)
-        .then(res => {
-            if (res.data.resultCode === ResultCode.success) {
-                dispatch(setFollowStatus(true))
-                dispatch(addAppAlert('succeeded', 'Followed!'))
-            }
-            else {
-                dispatch(addAppAlert('failed', res.data.messages[0]))
-            }
-        })
-        .catch(error => {
-            dispatch(addAppAlert('failed', error.message))
-        })
-        .finally(() => dispatch(setAppIsLoading(false)))
-}
-export const unfollowProfile = (userId: number) => (dispatch: AppDispatchType) => {
-    dispatch(setAppIsLoading(true))
-    usersAPI.unfollowUser(userId)
-        .then(res => {
-            if (res.data.resultCode === ResultCode.success) {
-                dispatch(setFollowStatus(false))
-                dispatch(addAppAlert('succeeded', 'Unfollowed!'))
-            }
-            else {
-                dispatch(addAppAlert('failed', res.data.messages[0]))
-            }
-        })
-        .catch(error => {
-            dispatch(addAppAlert('failed', error.message))
-        })
-        .finally(() => dispatch(setAppIsLoading(false)))
-}
-export const changeProfileStatus = (newStatus: string) =>
-    (dispatch: AppDispatchType, getState: () => AppRootStateType) => {
-        if (newStatus !== getState().profile.data.status) {
-            dispatch(setAppIsLoading(true))
-            profileAPI.changeStatus(newStatus)
-                .then(res => {
-                    if (res.data.resultCode === ResultCode.success) {
-                        dispatch(setStatus(newStatus))
-                        dispatch(addAppAlert('succeeded', 'Status changed!'))
-                    }
-                    else {
-                        dispatch(addAppAlert('failed', res.data.messages[0]))
-                    }
-                })
-                .catch(error => {
-                    dispatch(addAppAlert('failed', error.message))
-                })
-                .finally(() => dispatch(setAppIsLoading(false)))
+    try {
+        const res = await usersAPI.followUser(userId)
+        if (res.data.resultCode === ResultCode.success) {
+            dispatch(setFollowStatus(true))
+            dispatch(addAppAlert('succeeded', 'Followed!'))
         }
+        else {
+            dispatch(addAppAlert('failed', res.data.messages[0]))
+        }
+    } catch (error: any) {
+        dispatch(addAppAlert('failed', error.message))
+    } finally { dispatch(setAppIsLoading(false)) }
+}
+
+export const unfollowProfile = (userId: number) => async (dispatch: AppDispatchType) => {
+    dispatch(setAppIsLoading(true))
+    try {
+        const res = await usersAPI.unfollowUser(userId)
+        if (res.data.resultCode === ResultCode.success) {
+            dispatch(setFollowStatus(false))
+            dispatch(addAppAlert('succeeded', 'Unfollowed!'))
+        }
+        else {
+            dispatch(addAppAlert('failed', res.data.messages[0]))
+        }
+    } catch (error: any) {
+        dispatch(addAppAlert('failed', error.message))
+    } finally { dispatch(setAppIsLoading(false)) }
+}
+
+export const changeProfileStatus = (newStatus: string) =>
+    async (dispatch: AppDispatchType, getState: () => AppRootStateType) => {
+        try {
+            if (newStatus !== getState().profile.data.status) {
+                dispatch(setAppIsLoading(true))
+                const res = await profileAPI.changeStatus(newStatus)
+                if (res.data.resultCode === ResultCode.success) {
+                    dispatch(setStatus(newStatus))
+                    dispatch(addAppAlert('succeeded', 'Status changed!'))
+                }
+                else {
+                    dispatch(addAppAlert('failed', res.data.messages[0]))
+                }
+            }
+        } catch (error: any) {
+            dispatch(addAppAlert('failed', error.message))
+        } finally { dispatch(setAppIsLoading(false)) }
     }
+
 export const changeProfileContacts = (contacts: GetProfileResponseContactsType) =>
-    (dispatch: AppDispatchType, getState: () => AppRootStateType) => {
+    async (dispatch: AppDispatchType, getState: () => AppRootStateType) => {
         const { aboutMe, fullName, lookingForAJob, lookingForAJobDescription } = getState().profile.data
         const model: ChangeProfileDataType = {
             aboutMe: aboutMe || 'no info',
@@ -252,26 +250,25 @@ export const changeProfileContacts = (contacts: GetProfileResponseContactsType) 
             lookingForAJobDescription: lookingForAJobDescription || 'no info'
         }
         dispatch(setAppIsLoading(true))
-        profileAPI.changeProfile(model)
-            .then(res => {
-                if (res.data.resultCode === ResultCode.success) {
-                    const oldProfileData = getState().profile.data
-                    const oldStatus = getState().profile.data.status
-                    dispatch(setProfileData({ ...oldProfileData, ...model }))
-                    dispatch(setStatus(oldStatus))
-                    dispatch(addAppAlert('succeeded', 'Contacts are changed!'))
-                }
-                else {
-                    dispatch(addAppAlert('failed', res.data.messages[0]))
-                }
-            })
-            .catch(error => {
-                dispatch(addAppAlert('failed', error.message))
-            })
-            .finally(() => dispatch(setAppIsLoading(false)))
+        try {
+            const res = await profileAPI.changeProfile(model)
+            if (res.data.resultCode === ResultCode.success) {
+                const oldProfileData = getState().profile.data
+                const oldStatus = getState().profile.data.status
+                dispatch(setProfileData({ ...oldProfileData, ...model }))
+                dispatch(setStatus(oldStatus))
+                dispatch(addAppAlert('succeeded', 'Contacts are changed!'))
+            }
+            else {
+                dispatch(addAppAlert('failed', res.data.messages[0]))
+            }
+        } catch (error: any) {
+            dispatch(addAppAlert('failed', error.message))
+        } finally { dispatch(setAppIsLoading(false)) }
     }
+
 export const changeProfileAbout = (about: ChangeAboutProfileType) =>
-    (dispatch: AppDispatchType, getState: () => AppRootStateType) => {
+    async (dispatch: AppDispatchType, getState: () => AppRootStateType) => {
         const { contacts } = getState().profile.data
         const model: ChangeProfileDataType = {
             aboutMe: about.aboutMe || 'no info',
@@ -281,43 +278,39 @@ export const changeProfileAbout = (about: ChangeAboutProfileType) =>
             lookingForAJobDescription: about.lookingForAJobDescription || 'no info'
         }
         dispatch(setAppIsLoading(true))
-        profileAPI.changeProfile(model)
-            .then(res => {
-                if (res.data.resultCode === ResultCode.success) {
-                    const oldProfileData = getState().profile.data
-                    const oldStatus = getState().profile.data.status
-                    dispatch(setProfileData({ ...oldProfileData, ...model }))
-                    dispatch(setStatus(oldStatus))
-                    dispatch(addAppAlert('succeeded', 'About is changed!'))
-                }
-                else {
-                    dispatch(addAppAlert('failed', res.data.messages[0]))
-                }
-            })
-            .catch(error => {
-                dispatch(addAppAlert('failed', error.message))
-            })
-            .finally(() => dispatch(setAppIsLoading(false)))
+        try {
+            const res = await profileAPI.changeProfile(model)
+            if (res.data.resultCode === ResultCode.success) {
+                const oldProfileData = getState().profile.data
+                const oldStatus = getState().profile.data.status
+                dispatch(setProfileData({ ...oldProfileData, ...model }))
+                dispatch(setStatus(oldStatus))
+                dispatch(addAppAlert('succeeded', 'About is changed!'))
+            }
+            else {
+                dispatch(addAppAlert('failed', res.data.messages[0]))
+            }
+        } catch (error: any) {
+            dispatch(addAppAlert('failed', error.message))
+        } finally { dispatch(setAppIsLoading(false)) }
     }
-export const changeProfilePhotos = (image: File) =>
-    (dispatch: AppDispatchType) => {
-        dispatch(setAppIsLoading(true))
-        profileAPI.changePhoto(image)
-            .then(res => {
-                if (res.data.resultCode === ResultCode.success) {
-                    dispatch(setPhotos(res.data.data))
-                    dispatch(setAuthUserPhoto(res.data.data.photos.small))
-                    dispatch(addAppAlert('succeeded', 'Photo is changed!'))
-                }
-                else {
-                    dispatch(addAppAlert('failed', res.data.messages[0]))
-                }
-            })
-            .catch(error => {
-                dispatch(addAppAlert('failed', error.message))
-            })
-            .finally(() => dispatch(setAppIsLoading(false)))
-    }
+
+export const changeProfilePhotos = (image: File) => async (dispatch: AppDispatchType) => {
+    dispatch(setAppIsLoading(true))
+    try {
+        const res = await profileAPI.changePhoto(image)
+        if (res.data.resultCode === ResultCode.success) {
+            dispatch(setPhotos(res.data.data))
+            dispatch(setAuthUserPhoto(res.data.data.photos.small))
+            dispatch(addAppAlert('succeeded', 'Photo is changed!'))
+        }
+        else {
+            dispatch(addAppAlert('failed', res.data.messages[0]))
+        }
+    } catch (error: any) {
+        dispatch(addAppAlert('failed', error.message))
+    } finally { dispatch(setAppIsLoading(false)) }
+}
 
 //TYPES
 export type ProfileActionsType =

@@ -1,5 +1,5 @@
 import { GetProfileResponseContactsType } from 'api/profileAPI'
-import { AboutMeBlock } from 'components/blocks/aboutMeBlock/AboutMeBlock'
+import { AboutBlock } from 'components/blocks/aboutBlock/AboutBlock'
 import { ContactsBlock } from 'components/blocks/contactsBlock/ContactsBlock'
 import { HeaderBlock } from 'components/blocks/headerBlock/HeaderBlock'
 import { PostsBlock } from 'components/blocks/postsBlock/PostsBlock'
@@ -13,7 +13,7 @@ import { ChangeAboutProfileType, ProfileStateType } from 'store/profile/profileR
 import styled from "styled-components"
 import { theme } from 'styles/Theme.styled'
 
-type ProfilePropsType = {
+type Props = {
     className?: string
     appIsLoading: boolean
     authStateData: AuthStateType
@@ -29,7 +29,7 @@ type ProfilePropsType = {
     changeProfileContacts: (contacts: GetProfileResponseContactsType) => void
 }
 
-export const Profile: React.FC<ProfilePropsType> = memo((props) => {
+export const Profile: React.FC<Props> = memo((props) => {
     return (
         <StyledProfile id='profile' >
             <ToTop anchor_id='profile-header' />
@@ -83,7 +83,7 @@ const ProfileHeaderBlock = styled(HeaderBlock)`
         grid-area: 1 / 1 / 2 / 3 ;
     }
 `
-const ProfileAboutBlock = styled(AboutMeBlock)`
+const ProfileAboutBlock = styled(AboutBlock)`
     grid-area: 2 / 1 / 3 / 2 ;
     @media ${theme.media.mobile} {
         grid-area: 2 / 1 / 3 / 2 ;

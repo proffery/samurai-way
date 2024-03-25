@@ -1,4 +1,5 @@
 import { MessagesContainer } from 'components/containers/MessagesContainer'
+import { Login } from 'components/layout/login/Login'
 import { Redirect, Route, Switch } from 'react-router-dom'
 import styled, { css } from 'styled-components'
 import { InitializationLoader } from './components/common/loaders/IniatializationLoader'
@@ -6,7 +7,6 @@ import { LoadingLoader } from './components/common/loaders/LoadingLoader.styled'
 import { AlertsContainer } from './components/containers/AlertsContainer'
 import { FooterContainer } from './components/containers/FooterContainer'
 import { HeaderContainer } from './components/containers/HeaderContainer'
-import { LoginContainer } from './components/containers/LoginContainer'
 import { NavbarContainer } from './components/containers/NavbarContainer'
 import { ProfileContainer } from './components/containers/ProfileContainer'
 import { NotFound } from './components/layout/pages/notFound/NotFound'
@@ -33,7 +33,7 @@ function App(props: Props) {
         <AlertsContainer />
         <Switch>
           <Route path='/' exact render={() => <Redirect to={'/login'} />} />
-          <Route path='/login' render={() => <LoginContainer />} />
+          <Route path='/login' render={() => <Login />} />
           <Route path='*' render={() => <Redirect to={'/login'} />} />
         </Switch>
         <FooterContainer />
@@ -66,10 +66,10 @@ function App(props: Props) {
 
 export default App
 
-type ContainerPropsType = {
+type Container = {
   collapsed: string
 }
-const Wrapper = styled.div<ContainerPropsType>`
+const Wrapper = styled.div<Container>`
   display: grid;
   grid-template-rows: 104px 93vh 1fr;
   grid-template-columns: repeat(5, 1fr);
@@ -90,7 +90,7 @@ const Wrapper = styled.div<ContainerPropsType>`
   footer {
     grid-area: 3 / 1 / 4 / 6 ;
   }
-  ${props => props.collapsed === 'false' ? css<ContainerPropsType>`
+  ${props => props.collapsed === 'false' ? css<Container>`
     grid-template-columns: 5px repeat(4, 1fr);
     main {
       grid-area: 2 / 1 / 3 / 6 ;

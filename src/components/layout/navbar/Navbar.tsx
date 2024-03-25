@@ -5,14 +5,13 @@ import { IconLinksStateType } from 'store/app/appReducer'
 import styled from "styled-components"
 import { theme } from 'styles/Theme.styled'
 
-type NavbarPropsType = {
+type Props = {
     menuItems: IconLinksStateType[]
     navbarCollapsed: boolean
     setAppNavbarCollapsed: (value: boolean) => void
 }
 
-export const Navbar: React.FC<NavbarPropsType> = memo((props) => {
-
+export const Navbar: React.FC<Props> = memo(({ menuItems, navbarCollapsed, setAppNavbarCollapsed }) => {
     const [width, setWidth] = useState(window.innerWidth)
     const breakpoint = 768
 
@@ -24,25 +23,25 @@ export const Navbar: React.FC<NavbarPropsType> = memo((props) => {
     }, [])
 
     const navbarCollapseHandler = (e: MouseEvent<HTMLButtonElement>) => {
-        props.setAppNavbarCollapsed(!props.navbarCollapsed)
+        setAppNavbarCollapsed(!navbarCollapsed)
     }
 
     useEffect(() => {
         width < breakpoint
-            ? props.setAppNavbarCollapsed(false)
-            : props.setAppNavbarCollapsed(true)
+            ? setAppNavbarCollapsed(false)
+            : setAppNavbarCollapsed(true)
     }, [width])
 
     return (
         <StyledNavbar onClick={navbarCollapseHandler}>
             <Logo variant={'secondary'}
-                type={props.navbarCollapsed ? 'text' : 'logo'}
+                type={navbarCollapsed ? 'text' : 'logo'}
             />
             <Menu type={'secondary'}
                 icons={true}
-                name={props.navbarCollapsed}
+                name={navbarCollapsed}
                 direction={'column'}
-                menuItems={props.menuItems}
+                menuItems={menuItems}
             />
         </StyledNavbar>
     )

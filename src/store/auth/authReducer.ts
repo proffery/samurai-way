@@ -51,47 +51,46 @@ export const cleanReducer = () =>
     ({ type: CLEAR_REDUCER }) as const
 
 //THUNKS
-
-export const getAuthPhoto = (authId: number) => (dispatch: AppDispatchType) => {
-    return profileAPI.getProfile(authId)
-        .then(res => {
-            dispatch(setAuthUserPhoto(res.data.photos.small))
-        })
+export const getAuthPhoto = (authId: number) => async (dispatch: AppDispatchType) => {
+    try {
+        const res = await profileAPI.getProfile(authId)
+        dispatch(setAuthUserPhoto(res.data.photos.small))
+    } catch (error: any) {
+        dispatch(addAppAlert('failed', error.message))
+    } finally {
+        dispatch(setAppIsLoading(false))
+    }
 }
 
-export const login = (loginData: LoginDataType) => (dispatch: AppDispatchType) => {
+export const login = (loginData: LoginDataType) => async (dispatch: AppDispatchType) => {
     dispatch(setAppIsLoading(true))
-    return authAPI.login(loginData)
-        .then(res => {
-            if (res.data.resultCode === ResultCode.success) {
-                dispatch(initializeApp())
-            }
-            else {
-                dispatch(addAppAlert('failed', res.data.messages[0]))
-            }
-        })
-        .catch(error => {
-            dispatch(addAppAlert('failed', error.message))
-        })
-        .finally(() => dispatch(setAppIsLoading(false)))
+    try {
+        const res = await authAPI.login(loginData)
+        if (res.data.resultCode === ResultCode.success) {
+            dispatch(initializeApp())
+        }
+        else {
+            dispatch(addAppAlert('failed', res.data.messages[0]))
+        }
+    } catch (error: any) {
+        dispatch(addAppAlert('failed', error.message))
+    } finally { dispatch(setAppIsLoading(false)) }
 }
 
-export const logout = () => (dispatch: AppDispatchType) => {
+export const logout = () => async (dispatch: AppDispatchType) => {
     dispatch(setAppIsLoading(true))
-    authAPI.logout()
-        .then(res => {
-            if (res.data.resultCode === ResultCode.success) {
-                dispatch(setIsLoggedIn(false))
-                dispatch(cleanReducer())
-            }
-            else {
-                dispatch(addAppAlert('failed', res.data.messages[0]))
-            }
-        })
-        .catch(error => {
-            dispatch(addAppAlert('failed', error.message))
-        })
-        .finally(() => dispatch(setAppIsLoading(false)))
+    try {
+        const res = await authAPI.logout()
+        if (res.data.resultCode === ResultCode.success) {
+            dispatch(setIsLoggedIn(false))
+            dispatch(cleanReducer())
+        }
+        else {
+            dispatch(addAppAlert('failed', res.data.messages[0]))
+        }
+    } catch (error: any) {
+        dispatch(addAppAlert('failed', error.message))
+    } finally { dispatch(setAppIsLoading(false)) }
 }
 
 //TYPES
@@ -106,3 +105,5 @@ export interface AuthStateType extends GetMeDataType {
     isLoggedIn: boolean
     photoUrl: string
 }
+
+export const authThunks = {logout, login, getAuthPhoto}

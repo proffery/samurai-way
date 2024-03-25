@@ -2,7 +2,6 @@ import { memo } from 'react'
 import { font } from 'styles/Font'
 import styled from 'styled-components'
 import { theme } from 'styles/Theme.styled'
-import { Icon } from 'components/common/icon/Icon'
 import { Button } from 'components/common/button/Button'
 import { FlexWrapper } from 'components/common/FlexWrapper.styled'
 import { BlockHeader } from 'components/blocks/BlockHeader.styled'
@@ -61,7 +60,6 @@ export const FriendsBlock: React.FC<Props> = memo((props) => {
                     totalUsersCount={totalUsersCount}
                     usersOnPage={usersOnPage}
                     onPageChangeHandler={onPageChangeHandler}
-                    pagesNumber={2}
                 />
             </FlexWrapper>
         </StyledFriends>
@@ -84,7 +82,6 @@ const StyledFriendsList = styled.div`
     }
 `
 const StyledPagination = styled(Pagination)`
-    ${font({ weight: 700, Fmin: 10, Fmax: 12 })}
+    ${font({ weight: 700, Fmin: 10, Fmax: 13 })}
     height: 1em;
-
 `
