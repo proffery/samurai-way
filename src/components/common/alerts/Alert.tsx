@@ -80,27 +80,24 @@ const AlertContainer = styled.div<StyledAlertPropsType>`
     `}
     @media ${theme.media.mobile} {
         padding: 6px;
-  }
+    }
     &::before {
         content: "";
         position: absolute;
-        top: 0;
+        bottom: 0%;
         left: 0;
         width: 100%;
-        height: 100%;
-        transform: translateY(100%);
+        height: 0%;
         background: ${theme.gradient.banner};
         animation: moveColor ${props => props.delay / 1000}s linear;
         animation-fill-mode: forwards;
-        z-index: 2;
-        }
-
-        @keyframes moveColor {
-        0% {
-            transform: translateY(100%);
-        }
+    }
+    @keyframes moveColor {
         100% {
-            transform: translateY(0);
+            height: 100%;
+        }
+        0% {
+            height: 0%;
         }
     }
 `

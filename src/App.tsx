@@ -14,6 +14,7 @@ import { Notifications } from './components/layout/pages/notifications/Notificat
 import { Settings } from './components/layout/pages/settings/Settings'
 import { Users } from './components/layout/pages/users/Users'
 import { theme } from './styles/Theme.styled'
+import { Patch } from 'AppRoutingNames'
 
 type Props = {
   isLoading: boolean
@@ -32,9 +33,9 @@ function App(props: Props) {
         {!isInitialized && <InitializationLoader />}
         <AlertsContainer />
         <Switch>
-          <Route path='/' exact render={() => <Redirect to={'/login'} />} />
-          <Route path='/login' render={() => <Login />} />
-          <Route path='*' render={() => <Redirect to={'/login'} />} />
+          <Route path={Patch.Home} exact render={() => <Redirect to={Patch.Login} />} />
+          <Route path={Patch.Login} render={() => <Login />} />
+          <Route path={Patch.Other} render={() => <Redirect to={Patch.Login} />} />
         </Switch>
         <FooterContainer />
       </LoginWrapper>
@@ -49,15 +50,15 @@ function App(props: Props) {
       <NavbarContainer />
       <HeaderContainer />
       <Switch>
-        <Route path='/' exact component={ProfileContainer} />
-        <Route path='/profile/:userId?' component={ProfileContainer} />
-        <Route path='/users' component={Users} />
-        <Route path='/messages/:userId?' component={MessagesContainer} />
-        <Route path='/notifications' component={Notifications} />
-        <Route path='/settings' component={Settings} />
-        <Route path='/404' component={NotFound} />
-        <Route path='/login' render={() => <Redirect to={`${storagePath}`} />} />
-        <Route path='*' render={() => <Redirect to={'/404'} />} />
+        <Route path={Patch.Home} exact component={ProfileContainer} />
+        <Route path={Patch.ProfileParams} component={ProfileContainer} />
+        <Route path={Patch.Users} component={Users} />
+        <Route path={Patch.MessagesParams} component={MessagesContainer} />
+        <Route path={Patch.Notifications} component={Notifications} />
+        <Route path={Patch.Settings} component={Settings} />
+        <Route path={Patch.NotFound} component={NotFound} />
+        <Route path={Patch.Login} render={() => <Redirect to={`${storagePath}`} />} />
+        <Route path={Patch.Other} render={() => <Redirect to={Patch.NotFound} />} />
       </Switch>
       <FooterContainer />
     </Wrapper>

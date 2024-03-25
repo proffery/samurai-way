@@ -58,7 +58,7 @@ export const Profile: React.FC<Props> = memo((props) => {
             <ProfilePostsBlock
                 profileStateData={props.profileStateData}
                 addPost={props.addPost}
-                onChangeNewPostText={props.postOnChange}
+                addNewPost={props.postOnChange}
             />
             <ProfileFriendsBlock />
             <ProfilePossibleFriendsBlock />

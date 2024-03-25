@@ -40,8 +40,8 @@ export const FriendsBlockAPI: React.FC<FriendsBlockAPIPropsType> = memo((props) 
             blockHeaderName={"Friends"}
             className={props.className}
             totalUsersCount={totalUsersCount}
-            refreshFriends={refreshFriends}
-            onPageChangeHandler={onPageChangeHandler}
+            randomizeFriends={refreshFriends}
+            pageChangeHandler={onPageChangeHandler}
         />
     )
 })

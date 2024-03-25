@@ -40,8 +40,8 @@ export const PossibleFriendsBlockAPI: React.FC<PossibleFriendsBlockAPIPropsType>
             className={props.className}
             totalUsersCount={totalUsersCount}
             blockHeaderName={"Might know"}
-            refreshFriends={refreshFriends}
-            onPageChangeHandler={onPageChangeHandler}
+            randomizeFriends={refreshFriends}
+            pageChangeHandler={onPageChangeHandler}
         />
     )
 })

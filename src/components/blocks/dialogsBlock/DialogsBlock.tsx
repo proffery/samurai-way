@@ -4,6 +4,7 @@ import { BlockSection } from 'components/blocks/BlockSection.styled'
 import { memo, useEffect, useRef } from 'react'
 import { useDraggable } from 'react-use-draggable-scroll'
 import { S } from './DialogsBlock_Styles'
+import { Patch } from 'AppRoutingNames'
 
 type Props = {
     dialogs: DialogResponseType[]
@@ -25,7 +26,7 @@ export const DialogsBlock: React.FC<Props> = memo(({ dialogs }) => {
                 <S.Dialog
                     key={dialog.id}
                     ref={index === 0 ? scrollIntoViewRef : null}
-                    to={'/messages/' + dialog.id}
+                    to={Patch.Messages + dialog.id}
                 >
                     <S.Photo
                         avatarURL={dialog.photos.small}

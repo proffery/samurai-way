@@ -42,7 +42,7 @@ export const Messages: React.FC<Props> = memo((props) => {
                     messagesState={messagesState}
                     addMessage={addMessage}
                     addAppAlert={addAppAlert}
-                    usersOnPageChangeHandler={usersOnPageChangeHandler}
+                    pageChangeHandler={usersOnPageChangeHandler}
                 />
             </MessagesWrapper>
         </StyledMessages>

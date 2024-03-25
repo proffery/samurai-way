@@ -1,30 +1,28 @@
 import { Message } from 'components/blocks/messagesBlock/message/Message'
-import { Button } from 'components/common/button/Button'
 import { AuthStateType } from 'store/auth/authReducer'
 import { MessagesStateType } from 'store/messages/messagesReducer'
-import styled from 'styled-components'
+import { S } from './MessagesList_Styles'
 
-type MessagesListPropsType = {
-    className?: string
+type Props = {
     messagesState: MessagesStateType
     appIsLoading: boolean
     authData: AuthStateType
-    usersOnPageChangeHandler: () => void
+    pageChangeHandler: () => void
 }
-export const MessagesList: React.FC<MessagesListPropsType> = (props) => {
-    const { authData, appIsLoading, usersOnPageChangeHandler } = props
+
+export const MessagesList: React.FC<Props> = (props) => {
+    const { authData, appIsLoading, pageChangeHandler: usersOnPageChangeHandler } = props
     const { messagesOnPage, totalMessagesCount, messages, dialogs } = props.messagesState
-    return <StyledMessagesList>
-        {messagesOnPage < totalMessagesCount &&
-            <LoadMessgesButton
-                variant={'outlined'}
-                ariaLabel={'Load more messages'}
-                disabled={appIsLoading}
-                onClick={usersOnPageChangeHandler}
-            >
-                load more messages...
-            </LoadMessgesButton>
-        }
+    return <S.MessagesList>{messagesOnPage < totalMessagesCount &&
+        <S.LoadMessgesButton
+            variant={'outlined'}
+            ariaLabel={'Load more messages'}
+            disabled={appIsLoading}
+            onClick={usersOnPageChangeHandler}
+        >
+            load more messages...
+        </S.LoadMessgesButton>
+    }
         {messages.length ?
             messages.map(message =>
                 <Message
@@ -34,27 +32,7 @@ export const MessagesList: React.FC<MessagesListPropsType> = (props) => {
                     authPhoto={authData.photoUrl}
                     opponentPhoto={dialogs[0]?.photos.small}
                 />
-            ) : <EmptyMessages>No messages...</EmptyMessages>
+            ) : <S.EmptyMessages>No messages...</S.EmptyMessages>
         }
-    </StyledMessagesList>
+    </S.MessagesList>
 }
-
-const StyledMessagesList = styled.div`
-    display: flex;
-    min-height: fit-content;
-    flex-direction: column;
-    gap: min(15px, 1vw);
-    overflow-y: auto;
-`
-const EmptyMessages = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-self: center;
-    padding-bottom: min(15px, 1vw);
-    overflow-y: hidden;
-`
-const LoadMessgesButton = styled(Button)`
-    display: flex;
-    min-width: 100%;
-    justify-content: center;
-`

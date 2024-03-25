@@ -1,101 +1,39 @@
-import { font } from 'styles/Font'
-import styled from 'styled-components'
-import { memo, MouseEvent } from 'react'
-import { NavLink } from 'react-router-dom'
-import { theme } from 'styles/Theme.styled'
 import { Avatar } from 'components/common/avatar/Avatar'
 import { Button } from 'components/common/button/Button'
+import { memo, MouseEvent } from 'react'
 import { UserStateType } from 'store/users/usersReducer'
-import { FlexWrapper } from 'components/common/FlexWrapper.styled'
+import { S } from './User_Styles'
+import { Patch } from 'AppRoutingNames'
 
-type UserPropsType = {
+type Props = {
     user: UserStateType
     follow: (userId: number) => void
     unfollow: (userId: number) => void
 }
 
-export const User: React.FC<UserPropsType> = memo((props) => {
+export const User: React.FC<Props> = memo((props) => {
     const { id: userId, followed, status, isLoading, name, photos } = props.user
     const { follow, unfollow } = props
 
-    const userOnClickFollowHandler = (e: MouseEvent<HTMLButtonElement>) => {
+    const followUnfollowHandler = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
         return followed ? unfollow(userId) : follow(userId)
     }
-    return (
-        <StyledUser to={"/profile/" + userId}>
-            <UserInfo >
-                <StyledAvatar>
-                    <Avatar avatarURL={photos.small} />
-                    <UserName>{name + ' '}</UserName>
-                </StyledAvatar>
-                {status ? <UserStatus>{status + ' '}</UserStatus> : <UserStatus></UserStatus>}
-            </UserInfo>
-            <ButtonContainer>
-                <Button
-                    ariaLabel={'Follow/Unfollow button'}
-                    variant={followed ? 'primary' : 'outlined'}
-                    onClick={userOnClickFollowHandler}
-                    disabled={isLoading}
-                >{followed ? 'UNFOLLOW' : 'FOLLOW'}</Button>
-            </ButtonContainer>
-        </StyledUser>
-    )
+    return <S.User to={Patch.Profile + userId}>
+        <S.Info >
+            <S.Photo>
+                <Avatar avatarURL={photos.small} />
+                <S.Name>{name + ' '}</S.Name>
+            </S.Photo>
+            {status ? <S.Status>{status + ' '}</S.Status> : <S.Status></S.Status>}
+        </S.Info>
+        <S.Container>
+            <Button
+                ariaLabel={`${followed ? 'Unfollow' : 'Follow'} button`}
+                variant={followed ? 'primary' : 'outlined'}
+                onClick={followUnfollowHandler}
+                disabled={isLoading}
+            >{followed ? 'UNFOLLOW' : 'FOLLOW'}</Button>
+        </S.Container>
+    </S.User>
 })
-
-const StyledUser = styled(NavLink)`
-    display: flex;
-    position: relative;
-    width: 100%;
-    justify-content: space-between;
-    ${font({ weight: 300, Fmin: 10, Fmax: 16 })}
-    gap: 20px;
-    padding: 20px 0;
-    &::after {
-        position: absolute;
-        content: '';
-        width: 100%;
-        height: 1px;
-        background-color: ${theme.color.background.primary};
-        bottom: 0;
-    }
-    &:hover {
-        outline: 1px solid ${theme.color.background.primary};
-        background-color: ${theme.color.background.primary};
-        border-radius: 10px;
-    }
-`
-const UserInfo = styled.div`
-    width: 65%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    color: ${theme.color.text.primary_dark};
-    gap: 15px;
-`
-const StyledAvatar = styled(FlexWrapper)`
-    flex-direction: column;
-   border-radius: 50% 50%;
-   object-fit: cover;
-   aspect-ratio: 1/1;
-   width: 54px;
-   justify-self: center;
-`
-const UserName = styled.p`
-    text-align: center;
-    overflow-wrap: anywhere;
-    ${font({ weight: 600, Fmin: 10, Fmax: 16 })}
-    color: ${theme.color.text.primary_dark};
-`
-const UserStatus = styled.p`
-    text-align: start;
-    white-space: normal;
-    width: 80%;
-    ${font({ weight: 400, Fmin: 12, Fmax: 16 })}
-    color: ${theme.color.text.primary_dark};
-`
-const ButtonContainer = styled(FlexWrapper)`
-    width: 30%;
-    align-items: center;
-    justify-content: center;
-`

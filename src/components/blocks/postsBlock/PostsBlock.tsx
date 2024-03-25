@@ -8,19 +8,18 @@ import { BlockHeader } from 'components/blocks/BlockHeader.styled'
 import { BlockSection } from 'components/blocks/BlockSection.styled'
 import React, { ChangeEvent, MouseEvent, KeyboardEvent, useState, memo } from "react"
 
-type PostsBlockPropsType = {
+type Props = {
     className?: string
     profileStateData: ProfileStateType
-    onChangeNewPostText: (text: string) => void
+    addNewPost: (text: string) => void
     addPost: () => void
 }
 
-export const PostsBlock: React.FC<PostsBlockPropsType> = memo((props) => {
-
+export const PostsBlock: React.FC<Props> = memo((props) => {
     const [error, setError] = useState<string | null>('Enter your post')
 
     const onChangeNewPostHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.onChangeNewPostText(e.currentTarget.value)
+        props.addNewPost(e.currentTarget.value)
     }
     const addPostOnCtrlEnterHandler = (e: KeyboardEvent<HTMLFormElement>) => {
         if (error) setError(null)
