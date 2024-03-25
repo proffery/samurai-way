@@ -1,23 +1,23 @@
-import { instance, ResponseType } from 'api/socialNetworkInstance'
+import { instance, Response } from 'api/socialNetworkInstance'
 
 export const authAPI = {
     getMe() {
-        return instance.get<ResponseType<GetMeDataType>>('/auth/me')
+        return instance.get<Response<GetMeData>>('/auth/me')
     },
     logout() {
-        return instance.delete<ResponseType>('/auth/login')
+        return instance.delete<Response>('/auth/login')
     },
-    login(loginData: LoginDataType) {
-        return instance.post<ResponseType<{ userId: number }>>('/auth/login', loginData)
+    login(loginData: LoginData) {
+        return instance.post<Response<{ userId: number }>>('/auth/login', loginData)
     }
 }
 
-export type GetMeDataType = {
+export type GetMeData = {
     id: number
     email: string
     login: string
 }
-export type LoginDataType = {
+export type LoginData = {
     email: string
     password: string
     remember: boolean

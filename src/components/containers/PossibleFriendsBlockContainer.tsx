@@ -9,7 +9,7 @@ import {
     selectPossibleFriends, selectPossibleFriendsCurrentPage, selectPossibleFriendsOnPage,
     selectTotalPossibleFriendsCount
 } from 'store/friends/friendsSelectors'
-import { UserResponseType } from 'api/usersAPI'
+import { UserResponse } from 'api/usersAPI'
 
 export const PossibleFriendsBlockAPI: React.FC<PossibleFriendsBlockAPIPropsType> = memo((props) => {
     const { totalUsersCount, usersOnPage, friends, currentPage, isLoading } = props
@@ -67,6 +67,6 @@ type PossibleFriendsBlockAPIPropsType = {
     currentPage: number
     usersOnPage: number
     totalUsersCount: number
-    friends: UserResponseType[]
+    friends: UserResponse[]
     getFriends: (pageNumber: number, usersOnPage: number, isFriend: boolean) => void
 }

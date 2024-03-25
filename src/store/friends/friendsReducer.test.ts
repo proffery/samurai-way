@@ -5,7 +5,7 @@ import {
     setPossibleFriends, setPossibleFriendsOnPage, setPossibleFriendsPage,
     setPossibleTotalFriendsCount, setTotalFriendsCount
 } from './friendsReducer'
-import { UserResponseType } from 'api/usersAPI'
+import { UserResponse } from 'api/usersAPI'
 
 describe('Friends reducer', () => {
     it('friends reducer should return the initial state', () => {
@@ -19,7 +19,7 @@ describe('Friends reducer', () => {
                 ...initialState.friends, users: []
             }
         }
-        const users: UserResponseType[] = [
+        const users: UserResponse[] = [
             {
                 id: 1,
                 name: "John Doe",
@@ -117,7 +117,7 @@ describe('Friends reducer', () => {
                 ...initialState.possibleFriends, users: []
             }
         }
-        const users: UserResponseType[] = [
+        const users: UserResponse[] = [
             {
                 id: 1,
                 name: "John Doe",

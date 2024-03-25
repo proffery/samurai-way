@@ -1,4 +1,4 @@
-import { DialogResponseType } from 'api/dialogsAPI'
+import { DialogResponse } from 'api/dialogsAPI'
 import { BlockHeader } from 'components/blocks/BlockHeader.styled'
 import { BlockSection } from 'components/blocks/BlockSection.styled'
 import { memo, useEffect, useRef } from 'react'
@@ -7,7 +7,7 @@ import { S } from './DialogsBlock_Styles'
 import { Patch } from 'AppRoutingNames'
 
 type Props = {
-    dialogs: DialogResponseType[]
+    dialogs: DialogResponse[]
 }
 
 export const DialogsBlock: React.FC<Props> = memo(({ dialogs }) => {

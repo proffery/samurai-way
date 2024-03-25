@@ -1,3 +1,5 @@
+import { MessageResponse } from 'api/dialogsAPI'
+import { UserResponse } from 'api/usersAPI'
 import axios, { AxiosError } from "axios"
 
 export const instance = axios.create({
@@ -16,14 +18,19 @@ export const ResultCode = {
 } as const
 
 //TYPES
-export type ResponseType<D = {}> = {
+export type Response<D = {}> = {
     data: D
     resultCode: number
     fieldsErrors: string[]
     messages: string[]
 }
-export type PhotosResponseType = {
+export type PhotosResponse = {
     small: string,
     large: string
 }
-export type ServerNetworkErrorType = Error | AxiosError<{ error: string }>
+
+export type ItemsResponse<D = []> = {
+    error: string | null
+    items: D
+    totalCount: number
+}

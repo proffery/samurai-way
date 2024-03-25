@@ -1,7 +1,7 @@
 import { UserStateType, UsersFilterType, UsersReducerActionsType, UsersStateType, changeUserIsLoading, changeUsersFilter, initialState, setFollowUser, setTotalUsersCount, setUnfollowUser, setUsers, setUsersOnPage, setUsersSearchTerm, usersReducer } from './usersReducer'
 import { v1 } from 'uuid'
 import { cleanReducer } from 'store/auth/authReducer'
-import { UserResponseType } from 'api/usersAPI'
+import { UserResponse } from 'api/usersAPI'
 
 describe('Users reducer', () => {
     it('user reducer should return the initial state', () => {
@@ -77,7 +77,7 @@ describe('Users reducer', () => {
     })
 
     it('should correctly update the users list', () => {
-        const users: UserResponseType[] = [
+        const users: UserResponse[] = [
             {
                 id: 1,
                 name: "John Doe",

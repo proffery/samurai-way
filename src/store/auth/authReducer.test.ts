@@ -1,5 +1,5 @@
 
-import { GetMeDataType } from 'api/authAPI'
+import { GetMeData } from 'api/authAPI'
 import {
     AuthReducerActionsType, AuthStateType, authReducer,
     cleanReducer, initialState, setAuthUserData,
@@ -14,7 +14,7 @@ describe('Auth reducer', () => {
 
     it('correct data should be in state', () => {
         const startState: AuthStateType = { ...initialState, id: 9999, email: v1(), login: v1() }
-        const userData: GetMeDataType = {
+        const userData: GetMeData = {
             id: 1,
             email: 'test@example.com',
             login: 'testuser',

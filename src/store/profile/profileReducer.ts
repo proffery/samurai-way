@@ -1,6 +1,6 @@
-import { ChangeProfileDataType, GetProfileResponseContactsType, GetProfileResponseType, profileAPI } from 'api/profileAPI'
+import { ChangeProfileData, GetProfileContacts, GetProfileResponse, profileAPI } from 'api/profileAPI'
 import {
-    PhotosResponseType,
+    PhotosResponse,
     ResultCode
 } from 'api/socialNetworkInstance'
 import { usersAPI } from 'api/usersAPI'
@@ -8,6 +8,7 @@ import { setAppIsLoading, addAppAlert, SetAppIsLoadingActionType, AddAlertAction
 import { CLEAR_REDUCER, CleanReducerType, setAuthUserPhoto } from 'store/auth/authReducer'
 import { AppDispatchType, AppRootStateType } from 'store/redux-store'
 import { FollowUserActionType, UnfollowUserActionType } from 'store/users/usersReducer'
+import { handleServerNetworkError } from 'utils/handle-server-network-error'
 import { v1 } from 'uuid'
 
 
@@ -150,13 +151,13 @@ export const updatePost = (postId: string, newPost: string) => (
     { type: UPDATE_POST, payload: { newPost, postId } }) as const
 export const postOnChange = (newPost: string) => (
     { type: ON_CHANGE_POST, payload: { newPost } }) as const
-export const setProfileData = (data: GetProfileResponseType) => (
+export const setProfileData = (data: GetProfileResponse) => (
     { type: SET_PROFILE_DATA, payload: { data } }) as const
 export const setFollowStatus = (isFollow: boolean) => (
     { type: SET_FOLLOW_STATUS, payload: { isFollow } }) as const
 export const setStatus = (status: string) => (
     { type: SET_STATUS, payload: { status } }) as const
-export const setPhotos = (data: { photos: PhotosResponseType }) => (
+export const setPhotos = (data: { photos: PhotosResponse }) => (
     { type: SET_PHOTOS, payload: { data } }) as const
 
 //THUNKS
@@ -183,7 +184,7 @@ export const getProfileData = (userId: number) =>
                 dispatch(setStatus(res.data))
             })
             .catch(error => {
-                dispatch(addAppAlert('failed', error.message))
+                handleServerNetworkError(error, dispatch)
             })
             .finally(() => dispatch(setAppIsLoading(false)))
     }
@@ -199,8 +200,8 @@ export const followProfile = (userId: number) => async (dispatch: AppDispatchTyp
         else {
             dispatch(addAppAlert('failed', res.data.messages[0]))
         }
-    } catch (error: any) {
-        dispatch(addAppAlert('failed', error.message))
+    } catch (error) {
+        handleServerNetworkError(error, dispatch)
     } finally { dispatch(setAppIsLoading(false)) }
 }
 
@@ -215,8 +216,8 @@ export const unfollowProfile = (userId: number) => async (dispatch: AppDispatchT
         else {
             dispatch(addAppAlert('failed', res.data.messages[0]))
         }
-    } catch (error: any) {
-        dispatch(addAppAlert('failed', error.message))
+    } catch (error) {
+        handleServerNetworkError(error, dispatch)
     } finally { dispatch(setAppIsLoading(false)) }
 }
 
@@ -234,15 +235,15 @@ export const changeProfileStatus = (newStatus: string) =>
                     dispatch(addAppAlert('failed', res.data.messages[0]))
                 }
             }
-        } catch (error: any) {
-            dispatch(addAppAlert('failed', error.message))
+        } catch (error) {
+            handleServerNetworkError(error, dispatch)
         } finally { dispatch(setAppIsLoading(false)) }
     }
 
-export const changeProfileContacts = (contacts: GetProfileResponseContactsType) =>
+export const changeProfileContacts = (contacts: GetProfileContacts) =>
     async (dispatch: AppDispatchType, getState: () => AppRootStateType) => {
         const { aboutMe, fullName, lookingForAJob, lookingForAJobDescription } = getState().profile.data
-        const model: ChangeProfileDataType = {
+        const model: ChangeProfileData = {
             aboutMe: aboutMe || 'no info',
             contacts: contacts,
             fullName: fullName,
@@ -262,15 +263,15 @@ export const changeProfileContacts = (contacts: GetProfileResponseContactsType) 
             else {
                 dispatch(addAppAlert('failed', res.data.messages[0]))
             }
-        } catch (error: any) {
-            dispatch(addAppAlert('failed', error.message))
+        } catch (error) {
+            handleServerNetworkError(error, dispatch)
         } finally { dispatch(setAppIsLoading(false)) }
     }
 
 export const changeProfileAbout = (about: ChangeAboutProfileType) =>
     async (dispatch: AppDispatchType, getState: () => AppRootStateType) => {
         const { contacts } = getState().profile.data
-        const model: ChangeProfileDataType = {
+        const model: ChangeProfileData = {
             aboutMe: about.aboutMe || 'no info',
             contacts: contacts,
             fullName: about.fullName,
@@ -290,8 +291,8 @@ export const changeProfileAbout = (about: ChangeAboutProfileType) =>
             else {
                 dispatch(addAppAlert('failed', res.data.messages[0]))
             }
-        } catch (error: any) {
-            dispatch(addAppAlert('failed', error.message))
+        } catch (error) {
+            handleServerNetworkError(error, dispatch)
         } finally { dispatch(setAppIsLoading(false)) }
     }
 
@@ -307,8 +308,8 @@ export const changeProfilePhotos = (image: File) => async (dispatch: AppDispatch
         else {
             dispatch(addAppAlert('failed', res.data.messages[0]))
         }
-    } catch (error: any) {
-        dispatch(addAppAlert('failed', error.message))
+    } catch (error) {
+        handleServerNetworkError(error, dispatch)
     } finally { dispatch(setAppIsLoading(false)) }
 }
 
@@ -333,7 +334,7 @@ export type PostStateType = {
     likeCount: number
     commentsCount: number
 }
-export interface ProfileDataType extends GetProfileResponseType {
+export interface ProfileDataType extends GetProfileResponse {
     isFollow: boolean
     status: string
 }

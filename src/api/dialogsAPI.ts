@@ -1,48 +1,48 @@
-import { instance, PhotosResponseType, ResponseType } from 'api/socialNetworkInstance'
+import { instance, ItemsResponse, PhotosResponse, Response } from 'api/socialNetworkInstance'
 
 export const dialogsAPI = {
     getDialogs() {
-        return instance.get<DialogResponseType[]>('dialogs')
+        return instance.get<DialogResponse[]>('dialogs')
     },
     startDialog(userId: number) {
-        return instance.put<ResponseType>(`dialogs/${userId}`)
+        return instance.put<Response>(`dialogs/${userId}`)
     },
     getMessages(userId: number, currentPage: number, messagesOnPage: number) {
-        return instance.get<GetMessagesResponseType>(`dialogs/${userId}/messages?page=${currentPage}&count=${messagesOnPage}`)
+        return instance.get<ItemsResponse<MessageResponse[]>>(`dialogs/${userId}/messages?page=${currentPage}&count=${messagesOnPage}`)
     },
     sendMessage(userId: number, message: string) {
-        return instance.post<ResponseType<{ message: AddMessageResponseType }>>(`dialogs/${userId}/messages`, { body: message })
+        return instance.post<Response<{ message: AddMessageResponse }>>(`dialogs/${userId}/messages`, { body: message })
     },
     checkIsMessageReaded(messageId: number) {
-        return instance.get<ResponseType>(`dialogs/messages/${messageId}/viewed`)
+        return instance.get<Response>(`dialogs/messages/${messageId}/viewed`)
     },
     sendMessageToSpam(messageId: number) {
-        return instance.post<ResponseType>(`dialogs/messages/${messageId}/spam`)
+        return instance.post<Response>(`dialogs/messages/${messageId}/spam`)
     },
     deleteMessage(messageId: number) {
-        return instance.delete<ResponseType>(`dialogs/messages/${messageId}`)
+        return instance.delete<Response>(`dialogs/messages/${messageId}`)
     },
     restoreMessage(messageId: number) {
-        return instance.put<ResponseType>(`dialogs/messages/${messageId}/restore`)
+        return instance.put<Response>(`dialogs/messages/${messageId}/restore`)
     },
     getMessagesByDate(userId: number, date: string) {
-        return instance.get<ResponseType>(`dialogs/${userId}/messages/new?newerThen=${date}`)
+        return instance.get<Response>(`dialogs/${userId}/messages/new?newerThen=${date}`)
     },
     getNewMessages() {
-        return instance.get<ResponseType>('dialogs/messages/new/count')
+        return instance.get<Response>('dialogs/messages/new/count')
     }
 }
 
-export type DialogResponseType = {
+export type DialogResponse = {
     id: number
     userName: string
     hasNewMessages: boolean
     newMessagesCount: number
-    photos: PhotosResponseType
+    photos: PhotosResponse
     lastUserActivityDate: string
     lastDialogActivityDate: string
 }
-export type AddMessageResponseType = {
+export type AddMessageResponse = {
     id: string
     body: string
     translatedBody: string | null
@@ -58,7 +58,7 @@ export type AddMessageResponseType = {
     distributionId: number | null
 }
 
-export type MessageResponseType = {
+export type MessageResponse = {
     addedAt: string
     body: string
     id: string
@@ -67,9 +67,4 @@ export type MessageResponseType = {
     senderName: string
     translatedBody: string | null
     viewed: boolean
-}
-export type GetMessagesResponseType = {
-    error: string | null
-    items: MessageResponseType[]
-    totalCount: number
 }

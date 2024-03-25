@@ -2,7 +2,8 @@ import { authAPI } from 'api/authAPI'
 import { ResultCode } from 'api/socialNetworkInstance'
 import { CleanReducerType, getAuthPhoto, setAuthUserData, setIsLoggedIn } from 'store/auth/authReducer'
 import { AppDispatchType, AppRootStateType } from 'store/redux-store'
-import { storageAvailable } from 'utils/storage'
+import { handleServerNetworkError } from 'utils/handle-server-network-error'
+import { storageAvailable } from 'utils/storageAvailable'
 import { v1 } from 'uuid'
 
 //CONSTANTS
@@ -150,8 +151,8 @@ export const initializeApp = () => async (dispatch: AppDispatchType) => {
                 dispatch(setIsLoggedIn(true))
             ]).then(() => dispatch(setAppIsInitialized(true)))
         }
-    } catch (error: any) {
-        dispatch(addAppAlert('failed', error.message))
+    } catch (error) {
+        handleServerNetworkError(error, dispatch)
     } finally {
         dispatch(setAppIsLoading(false))
         dispatch(setAppIsInitialized(true))

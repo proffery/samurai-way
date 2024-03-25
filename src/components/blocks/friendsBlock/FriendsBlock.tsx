@@ -1,4 +1,4 @@
-import { UserResponseType } from 'api/usersAPI'
+import { UserResponse } from 'api/usersAPI'
 import { BlockHeader } from 'components/blocks/BlockHeader.styled'
 import { Friend } from 'components/blocks/friendsBlock/friend/Friend'
 import { Button } from 'components/common/button/Button'
@@ -9,7 +9,7 @@ import { S } from './FriendsBlock_Styles'
 type Props = {
     className?: string
     isLoading: boolean
-    users: UserResponseType[]
+    users: UserResponse[]
     usersOnPage: number
     totalUsersCount: number
     currentPage: number

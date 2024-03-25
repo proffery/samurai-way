@@ -4,13 +4,13 @@ import { clearReducers } from 'store/common.actions'
 import { createAppAsyncThunk } from 'utils/create-app-async-thunk'
 import { handleServerNetworkError } from 'utils/handle-server-network-error'
 import { ResultCode } from 'api/socialNetworkInstance'
-import { DialogResponseType, dialogsAPI, MessageResponseType } from 'api/dialogsAPI'
+import { DialogResponse, dialogsAPI, MessageResponse } from 'api/dialogsAPI'
 
 
 //INITIAL STATE
 const initialState = {
-    dialogs: [] as DialogResponseType[],
-    messages: [] as MessageResponseType[],
+    dialogs: [] as DialogResponse[],
+    messages: [] as MessageResponse[],
     currentPage: 1 as number,
     messagesOnPage: 10 as number,
     totalMessagesCount: 0 as number
@@ -41,7 +41,7 @@ const slice = createSlice({
     }
 })
 
-export const getDialogs = createAppAsyncThunk<{ dialogs: DialogResponseType[] }>(`${slice.name}/getDialogs`, async (_, thunkAPI) => {
+export const getDialogs = createAppAsyncThunk<{ dialogs: DialogResponse[] }>(`${slice.name}/getDialogs`, async (_, thunkAPI) => {
     const { dispatch, rejectWithValue } = thunkAPI
     try {
         dispatch(appActions.setAppIsLoading(true))
@@ -73,7 +73,7 @@ export const startDialog = createAppAsyncThunk<undefined, number>(`${slice.name}
     }
 })
 
-export const sendMessage = createAppAsyncThunk<MessageResponseType, SendMessageArgType>
+export const sendMessage = createAppAsyncThunk<MessageResponse, SendMessageArgType>
     (`${slice.name}/sendMessage`, async (arg, thunkAPI) => {
         const { dispatch, rejectWithValue } = thunkAPI
         try {
@@ -81,7 +81,7 @@ export const sendMessage = createAppAsyncThunk<MessageResponseType, SendMessageA
             const res = await dialogsAPI.sendMessage(arg.userId, arg.message)
             if (res.data.resultCode === ResultCode.success) {
                 const { message } = res.data.data
-                const model: MessageResponseType = {
+                const model: MessageResponse = {
                     addedAt: message.addedAt,
                     body: message.body,
                     id: message.id,
@@ -102,7 +102,7 @@ export const sendMessage = createAppAsyncThunk<MessageResponseType, SendMessageA
     })
 
 export const getMessages = createAppAsyncThunk<{
-    messages: MessageResponseType[],
+    messages: MessageResponse[],
     totalCount: number,
     currentPage: number,
     mesagesOnPage: number

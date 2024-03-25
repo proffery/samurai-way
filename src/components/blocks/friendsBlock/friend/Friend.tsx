@@ -1,10 +1,10 @@
-import { UserResponseType } from 'api/usersAPI'
+import { UserResponse } from 'api/usersAPI'
 import { Patch } from 'AppRoutingNames'
 import { memo } from 'react'
 import { S } from './Friend_Styles'
 
 type Props = {
-    friendData: UserResponseType
+    friendData: UserResponse
 }
 
 export const Friend: React.FC<Props> = memo((props) => {

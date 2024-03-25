@@ -1,4 +1,4 @@
-import { GetProfileResponseContactsType } from 'api/profileAPI'
+import { GetProfileContacts } from 'api/profileAPI'
 import { useFormik } from 'formik'
 import { memo } from 'react'
 import { AlertType } from 'store/app/appReducer'
@@ -6,10 +6,10 @@ import { ContactsIconsType } from 'store/profile/profileReducer'
 import { S } from './Contacts_Styles'
 
 type Props = {
-    contactsData: GetProfileResponseContactsType
+    contactsData: GetProfileContacts
     contactsIcons: ContactsIconsType
     addAppAlert: (type: AlertType, message: string) => void
-    changeProfileContacts: (contacts: GetProfileResponseContactsType) => void
+    changeProfileContacts: (contacts: GetProfileContacts) => void
 }
 type FormikError = {
     facebook?: string
@@ -85,7 +85,7 @@ export const ContactsForm: React.FC<Props> = memo(({ contactsIcons, ...props }) 
                         viewBox={icon.viewBox}
                     />
                     <S.DescriptionEditable
-                        actualValue={props.contactsData[icon.name as keyof GetProfileResponseContactsType]}
+                        actualValue={props.contactsData[icon.name as keyof GetProfileContacts]}
                         onSand={formik.handleSubmit}
                         {...formik.getFieldProps(icon.name)}
                     />

@@ -1,4 +1,4 @@
-import { authAPI, GetMeDataType, LoginDataType } from 'api/authAPI'
+import { authAPI, GetMeData, LoginData } from 'api/authAPI'
 import { profileAPI } from 'api/profileAPI'
 import { ResultCode } from 'api/socialNetworkInstance'
 import { AppDispatchType } from 'store/redux-store'
@@ -6,6 +6,7 @@ import {
     initializeApp, addAppAlert, SetAppIsLoadingActionType,
     SetAppIsInitializedType, setAppIsLoading
 } from 'store/app/appReducer'
+import { handleServerNetworkError } from 'utils/handle-server-network-error'
 
 
 //CONSTANTS
@@ -41,7 +42,7 @@ export const authReducer = (state: AuthStateType = initialState, action: AuthRed
 
 //ACTIONS
 export type CleanReducerType = ReturnType<typeof cleanReducer>
-export const setAuthUserData = (data: GetMeDataType) =>
+export const setAuthUserData = (data: GetMeData) =>
     ({ type: SET_AUTH_DATA, payload: { data } }) as const
 export const setIsLoggedIn = (value: boolean) =>
     ({ type: SET_IS_LOGGED_IN, payload: { value } }) as const
@@ -55,14 +56,14 @@ export const getAuthPhoto = (authId: number) => async (dispatch: AppDispatchType
     try {
         const res = await profileAPI.getProfile(authId)
         dispatch(setAuthUserPhoto(res.data.photos.small))
-    } catch (error: any) {
-        dispatch(addAppAlert('failed', error.message))
+    } catch (error) {
+        handleServerNetworkError(error, dispatch)
     } finally {
         dispatch(setAppIsLoading(false))
     }
 }
 
-export const login = (loginData: LoginDataType) => async (dispatch: AppDispatchType) => {
+export const login = (loginData: LoginData) => async (dispatch: AppDispatchType) => {
     dispatch(setAppIsLoading(true))
     try {
         const res = await authAPI.login(loginData)
@@ -72,8 +73,8 @@ export const login = (loginData: LoginDataType) => async (dispatch: AppDispatchT
         else {
             dispatch(addAppAlert('failed', res.data.messages[0]))
         }
-    } catch (error: any) {
-        dispatch(addAppAlert('failed', error.message))
+    } catch (error) {
+        handleServerNetworkError(error, dispatch)
     } finally { dispatch(setAppIsLoading(false)) }
 }
 
@@ -88,8 +89,8 @@ export const logout = () => async (dispatch: AppDispatchType) => {
         else {
             dispatch(addAppAlert('failed', res.data.messages[0]))
         }
-    } catch (error: any) {
-        dispatch(addAppAlert('failed', error.message))
+    } catch (error) {
+        handleServerNetworkError(error, dispatch)
     } finally { dispatch(setAppIsLoading(false)) }
 }
 
@@ -101,9 +102,9 @@ export type AuthReducerActionsType =
     | SetAppIsLoadingActionType
     | SetAppIsInitializedType
     | CleanReducerType
-export interface AuthStateType extends GetMeDataType {
+export interface AuthStateType extends GetMeData {
     isLoggedIn: boolean
     photoUrl: string
 }
 
-export const authThunks = {logout, login, getAuthPhoto}
+export const authThunks = { logout, login, getAuthPhoto }

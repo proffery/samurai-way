@@ -1,7 +1,8 @@
 import { AppDispatchType } from 'store/redux-store'
 import { CLEAR_REDUCER, CleanReducerType } from 'store/auth/authReducer'
 import { addAppAlert, setAppIsLoading, SetAppIsLoadingActionType } from 'store/app/appReducer'
-import { UserResponseType, usersAPI } from 'api/usersAPI'
+import { UserResponse, usersAPI } from 'api/usersAPI'
+import { handleServerNetworkError } from 'utils/handle-server-network-error'
 
 
 //CONSTANTS
@@ -18,13 +19,13 @@ const SET_POSSIBLE_FRIENDS_CURRENT_PAGE = 'FRIENDS/SET-POSSIBLE-FRIENDS-CURRENT-
 //INITIAL STATE
 export const initialState = {
     friends: {
-        users: [] as UserResponseType[],
+        users: [] as UserResponse[],
         usersOnPage: 5,
         totalUsersCount: 0,
         currentPage: 1,
     },
     possibleFriends: {
-        users: [] as UserResponseType[],
+        users: [] as UserResponse[],
         usersOnPage: 5,
         totalUsersCount: 0,
         currentPage: 1,
@@ -58,7 +59,7 @@ export const friendsReducer = (state: FriendsStateType = initialState, action: F
 }
 
 //ACTIONS
-export const setFriends = (users: UserResponseType[]) =>
+export const setFriends = (users: UserResponse[]) =>
     ({ type: SET_FRIENDS, payload: { users } }) as const
 export const setFriendsPage = (currentPage: number) =>
     ({ type: SET_CURRENT_FRIENDS_PAGE, payload: { currentPage } }) as const
@@ -66,7 +67,7 @@ export const setFriendsOnPage = (usersOnPage: number) =>
     ({ type: SET_FRIENDS_ON_PAGE, payload: { usersOnPage } }) as const
 export const setTotalFriendsCount = (totalUsersCount: number) =>
     ({ type: SET_TOTAL_FRIENDS_COUNT, payload: { totalUsersCount } }) as const
-export const setPossibleFriends = (users: UserResponseType[]) =>
+export const setPossibleFriends = (users: UserResponse[]) =>
     ({ type: SET_POSSIBLE_FRIENDS, payload: { users } }) as const
 export const setPossibleFriendsPage = (currentPage: number) =>
     ({ type: SET_POSSIBLE_FRIENDS_CURRENT_PAGE, payload: { currentPage } }) as const
@@ -92,8 +93,8 @@ export const getFriends = (pageNumber: number, usersOnPage: number, isFriend: bo
                 dispatch(setPossibleFriendsOnPage(usersOnPage))
                 dispatch(setPossibleFriends(res.data.items))
             }
-        } catch (error: any) {
-            dispatch(addAppAlert('failed', error.message))
+        } catch (error) {
+            handleServerNetworkError(error, dispatch)
         } finally { dispatch(setAppIsLoading(false)) }
     }
 

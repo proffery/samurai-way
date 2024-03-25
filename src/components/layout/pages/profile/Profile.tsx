@@ -1,4 +1,4 @@
-import { GetProfileResponseContactsType } from 'api/profileAPI'
+import { GetProfileContacts } from 'api/profileAPI'
 import { AboutBlock } from 'components/blocks/aboutBlock/AboutBlock'
 import { ContactsBlock } from 'components/blocks/contactsBlock/ContactsBlock'
 import { HeaderBlock } from 'components/blocks/headerBlock/HeaderBlock'
@@ -26,7 +26,7 @@ type Props = {
     changeProfileStatus: (newStatus: string) => void
     addAppAlert: (type: AlertType, message: string) => void
     changeProfileAbout: (about: ChangeAboutProfileType) => void
-    changeProfileContacts: (contacts: GetProfileResponseContactsType) => void
+    changeProfileContacts: (contacts: GetProfileContacts) => void
 }
 
 export const Profile: React.FC<Props> = memo((props) => {

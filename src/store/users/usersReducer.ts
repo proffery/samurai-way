@@ -2,7 +2,8 @@ import { AppDispatchType } from 'store/redux-store'
 import { CLEAR_REDUCER, CleanReducerType } from 'store/auth/authReducer'
 import { setAppIsLoading, addAppAlert, SetAppIsLoadingActionType, AddAlertActionType } from 'store/app/appReducer'
 import { ResultCode } from 'api/socialNetworkInstance'
-import { UserResponseType, usersAPI } from 'api/usersAPI'
+import { UserResponse, usersAPI } from 'api/usersAPI'
+import { handleServerNetworkError } from 'utils/handle-server-network-error'
 
 //CONSTANTS
 const FOLLOW = 'USERS/FOLLOW'
@@ -68,7 +69,7 @@ export const setFollowUser = (userId: number) =>
     ({ type: FOLLOW, payload: { userId } }) as const
 export const setUnfollowUser = (userId: number) =>
     ({ type: UNFOLLOW, payload: { userId } }) as const
-export const setUsers = (users: UserResponseType[]) =>
+export const setUsers = (users: UserResponse[]) =>
     ({ type: SET_USERS, payload: { users } }) as const
 export const setCurrentPage = (currentPage: number) =>
     ({ type: SET_CURRENT_PAGE, payload: { currentPage } }) as const
@@ -93,8 +94,8 @@ export const getUsers = (pageNumber: number, usersOnPage: number, isFriend: bool
             dispatch(setCurrentPage(pageNumber))
             dispatch(setUsersOnPage(usersOnPage))
             dispatch(setUsers(res.data.items))
-        } catch (error: any) {
-            dispatch(addAppAlert('failed', error.message))
+        } catch (error) {
+            handleServerNetworkError(error, dispatch)
         } finally { dispatch(setAppIsLoading(false)) }
     }
 
@@ -110,8 +111,8 @@ export const followUser = (userId: number) => async (dispatch: AppDispatchType) 
         else {
             dispatch(addAppAlert('failed', res.data.messages[0]))
         }
-    } catch (error: any) {
-        dispatch(addAppAlert('failed', error.message))
+    } catch (error) {
+        handleServerNetworkError(error, dispatch)
     } finally {
         dispatch(setAppIsLoading(false))
         dispatch(changeUserIsLoading(userId, false))
@@ -130,8 +131,8 @@ export const unfollowUser = (userId: number) => async (dispatch: AppDispatchType
         else {
             dispatch(addAppAlert('failed', res.data.messages[0]))
         }
-    } catch (error: any) {
-        dispatch(addAppAlert('failed', error.message))
+    } catch (error) {
+        handleServerNetworkError(error, dispatch)
     } finally {
         dispatch(setAppIsLoading(false))
         dispatch(changeUserIsLoading(userId, false))
@@ -154,7 +155,7 @@ export type UsersReducerActionsType =
     | CleanReducerType
 export type FollowUserActionType = ReturnType<typeof setFollowUser>
 export type UnfollowUserActionType = ReturnType<typeof setUnfollowUser>
-export interface UserStateType extends UserResponseType {
+export interface UserStateType extends UserResponse {
     isLoading: boolean
 }
 export type UsersStateType = typeof initialState

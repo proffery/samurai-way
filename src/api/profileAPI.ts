@@ -1,22 +1,22 @@
-import { instance, PhotosResponseType, ResponseType } from 'api/socialNetworkInstance'
+import { instance, PhotosResponse, Response } from 'api/socialNetworkInstance'
 
 export const profileAPI = {
     getProfile(userId: number) {
-        return instance.get<GetProfileResponseType>(`/profile/${userId}`)
+        return instance.get<GetProfileResponse>(`/profile/${userId}`)
     },
     getProfileStatus(userId: number) {
         return instance.get<string>(`/profile/status/${userId}`)
     },
     changeStatus(newStatus: string) {
-        return instance.put<ResponseType>('/profile/status', { status: newStatus })
+        return instance.put<Response>('/profile/status', { status: newStatus })
     },
-    changeProfile(newData: ChangeProfileDataType) {
-        return instance.put<ResponseType>('/profile', newData)
+    changeProfile(newData: ChangeProfileData) {
+        return instance.put<Response>('/profile', newData)
     },
     changePhoto(image: File) {
         const formData = new FormData()
         formData.append('image', image)
-        return instance.put<ResponseType<{ photos: PhotosResponseType }>>('/profile/photo', formData, {
+        return instance.put<Response<{ photos: PhotosResponse }>>('/profile/photo', formData, {
             headers: {
                 'content-type': 'multipart/form-data'
             }
@@ -24,17 +24,17 @@ export const profileAPI = {
     }
 }
 
-export type GetProfileResponseType = {
+export type GetProfileResponse = {
     userId: number
     aboutMe: string
     fullName: string
     lookingForAJob: boolean
     lookingForAJobDescription: string
-    contacts: GetProfileResponseContactsType,
-    photos: PhotosResponseType
+    contacts: GetProfileContacts,
+    photos: PhotosResponse
 }
 
-export type GetProfileResponseContactsType = {
+export type GetProfileContacts = {
     vk: string
     github: string
     website: string
@@ -45,10 +45,10 @@ export type GetProfileResponseContactsType = {
     instagram: string
 }
 
-export type ChangeProfileDataType = {
+export type ChangeProfileData = {
     aboutMe: string
     fullName: string
     lookingForAJob: boolean
     lookingForAJobDescription: string
-    contacts: GetProfileResponseContactsType
+    contacts: GetProfileContacts
 }

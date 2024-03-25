@@ -34,10 +34,9 @@ export const Post: React.FC<PostPropsType> = memo((props) => {
                 </AuthorInfo>
                 <MoreButton
                     variant={"link"}
-                    name={'...'}
                     onClick={moreButtonOnClickHandler}
                     ariaLabel={'Go to page open/close button'}
-                />
+                >...</MoreButton>
             </Author>
             <Picture>
 

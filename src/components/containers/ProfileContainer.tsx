@@ -16,7 +16,7 @@ import {
     changeProfileStatus, followProfile, getProfileData,
     postOnChange, unfollowProfile
 } from 'store/profile/profileReducer'
-import { GetProfileResponseContactsType } from 'api/profileAPI'
+import { GetProfileContacts } from 'api/profileAPI'
 
 const ProfileAPI: React.FC<ProfileAPIPropsType> = memo((props) => {
     const { id: authId } = props.authData
@@ -74,7 +74,7 @@ type ConnectPropsType = {
     changeProfileStatus: (newStatus: string) => void
     addAppAlert: (type: AlertType, message: string) => void
     changeProfileAbout: (about: ChangeAboutProfileType) => void
-    changeProfileContacts: (contacts: GetProfileResponseContactsType) => void
+    changeProfileContacts: (contacts: GetProfileContacts) => void
 }
 type PathParamType = {
     userId: string

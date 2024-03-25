@@ -1,5 +1,5 @@
 
-import { MessageResponseType } from 'api/dialogsAPI'
+import { MessageResponse } from 'api/dialogsAPI'
 import { FlexWrapper } from 'components/common/FlexWrapper.styled'
 import { Icon } from 'components/common/icon/Icon'
 import { memo, useEffect, useRef } from 'react'
@@ -7,7 +7,7 @@ import { theme } from 'styles/Theme.styled'
 import { S } from './Message_Styles'
 
 type Props = {
-    messageData: MessageResponseType
+    messageData: MessageResponse
     opponentPhoto?: string
     authPhoto: string
     authId: number
