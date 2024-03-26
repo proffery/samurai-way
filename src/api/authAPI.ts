@@ -1,4 +1,4 @@
-import { instance, Response } from 'api/socialNetworkInstance'
+import { instance, Response } from 'api/api-instance'
 
 export const authAPI = {
     getMe() {

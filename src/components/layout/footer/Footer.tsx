@@ -4,17 +4,18 @@ import { FlexWrapper } from 'components/common/FlexWrapper.styled'
 import { Icon } from 'components/common/icon/Icon'
 import { Logo } from 'components/common/logo/Logo'
 import { SocialMedeaLinks } from 'components/layout/footer/socialMedeaLinks/SocialMedeaLinks'
-import { IconLinksStateType } from 'store/app/appReducer'
 import { theme } from 'styles/Theme.styled'
 import { Menu } from 'components/common/menu/Menu'
 import { Link } from 'components/common/link/Link.styled'
+import { useSelector } from 'react-redux'
+import { selectFooterLinks, selectMenuItems } from 'store/app/appSelectors'
+import { selectIsloggedIn } from 'store/auth/authSelectors'
 
-type Props = {
-    menuItems: IconLinksStateType[]
-    footerLinks: IconLinksStateType[]
-}
+export const Footer: React.FC = memo(() => {
+    const menuItems = useSelector(selectMenuItems)
+    const isLoggedIn = useSelector(selectIsloggedIn)
+    const footerLinks = useSelector(selectFooterLinks)
 
-export const Footer: React.FC<Props> = memo(({ menuItems, footerLinks }) => {
     return (
         <StyledFooter>
             <TopWrapper align="start" direction="row" wrap="wrap" justify="space-between">
@@ -46,7 +47,7 @@ export const Footer: React.FC<Props> = memo(({ menuItems, footerLinks }) => {
                     direction="row"
                     icons={false}
                     name={true}
-                    menuItems={menuItems}
+                    menuItems={isLoggedIn ? menuItems : []}
                 />
                 <Copyright>
                     <span>Copyright © {new Date().getFullYear()}&nbsp;</span>

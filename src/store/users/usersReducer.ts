@@ -1,9 +1,9 @@
 import { AppDispatchType } from 'store/redux-store'
 import { CLEAR_REDUCER, CleanReducerType } from 'store/auth/authReducer'
 import { setAppIsLoading, addAppAlert, SetAppIsLoadingActionType, AddAlertActionType } from 'store/app/appReducer'
-import { ResultCode } from 'api/socialNetworkInstance'
+import { ResultCode } from 'api/api-instance'
 import { UserResponse, usersAPI } from 'api/usersAPI'
-import { handleServerNetworkError } from 'utils/handle-server-network-error'
+import { handleServerNetworkError } from 'utils/handleServerNetworkError'
 
 //CONSTANTS
 const FOLLOW = 'USERS/FOLLOW'

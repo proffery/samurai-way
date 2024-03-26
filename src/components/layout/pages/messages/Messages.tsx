@@ -1,9 +1,8 @@
 import { DialogsBlock } from 'components/blocks/dialogsBlock/DialogsBlock'
+import { FriendsBlock } from 'components/blocks/friendsBlock/FriendsBlock'
 import { MessagesBlock } from 'components/blocks/messagesBlock/MessagesBlock'
 import { FlexWrapper } from 'components/common/FlexWrapper.styled'
 import { ToTop } from 'components/common/toTop/ToTop'
-import { FriendsBlockContainer } from 'components/containers/FriendsBlockContainer'
-import { PossibleFriendsBlockContainer } from 'components/containers/PossibleFriendsBlockContainer'
 import React, { memo } from "react"
 import { AlertType } from 'store/app/appReducer'
 import { AuthStateType } from 'store/auth/authReducer'
@@ -23,7 +22,7 @@ type Props = {
 }
 
 export const Messages: React.FC<Props> = memo((props) => {
-    const { authData, appIsLoading, messagesState,
+    const { authData, appIsLoading, messagesState, className,
         addMessage, addAppAlert, usersOnPageChangeHandler
     } = props
 
@@ -31,8 +30,8 @@ export const Messages: React.FC<Props> = memo((props) => {
         <StyledMessages id="messages">
             <ToTop anchor_id='dialogs-block' />
             <StyledFriendsWrapper direction={'column'} gap={'min(30px, 2vw)'}>
-                <FriendsBlockContainer />
-                <PossibleFriendsBlockContainer />
+                <FriendsBlock className={className} blockHeaderName='Friens' />
+                <FriendsBlock className={className} blockHeaderName='Might know' isFriends={false} />
             </StyledFriendsWrapper>
             <MessagesWrapper direction={'column'}>
                 <DialogsBlock dialogs={messagesState.dialogs} />

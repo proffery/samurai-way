@@ -11,7 +11,7 @@ import {
 import { v1 } from 'uuid'
 import { cleanReducer } from 'store/auth/authReducer'
 import { GetProfileResponse } from 'api/profileAPI'
-import { PhotosResponse } from 'api/socialNetworkInstance'
+import { PhotosResponse } from 'api/api-instance'
 
 describe('Profile reducer', () => {
     it('profile reducer should return the initial state', () => {

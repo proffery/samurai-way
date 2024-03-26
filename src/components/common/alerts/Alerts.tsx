@@ -1,25 +1,23 @@
 import { Alert } from 'components/common/alerts/Alert'
 import { memo } from 'react'
-import { AlertObjectType } from 'store/app/appReducer'
+import { useSelector } from 'react-redux'
+import { selectAlerts } from 'store/app/appSelectors'
 import styled from 'styled-components'
+import { useActions } from 'utils/customHooks/useActions'
 
-type AlertsPropsType = {
-    alerts: AlertObjectType[]
-    removeAppAlert: (alertId: string) => void
-}
-export const Alerts: React.FC<AlertsPropsType> = memo((props) => {
-    return (
-        <AlertsWrapper>
-            {props.alerts.map(alert =>
-                <Alert
-                    key={alert.id}
-                    alertId={alert.id}
-                    alertMessage={alert.message}
-                    alertType={alert.type}
-                    removeAlert={props.removeAppAlert}
-                />)}
-        </AlertsWrapper>
-    )
+export const Alerts: React.FC = memo(() => {
+    const alerts = useSelector(selectAlerts)
+    const { removeAppAlert } = useActions()
+    return <AlertsWrapper>
+        {alerts.map(alert =>
+            <Alert
+                key={alert.id}
+                alertId={alert.id}
+                alertMessage={alert.message}
+                alertType={alert.type}
+                removeAlert={removeAppAlert}
+            />)}
+    </AlertsWrapper>
 })
 
 const AlertsWrapper = styled.div`

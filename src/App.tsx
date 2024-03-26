@@ -1,43 +1,58 @@
-import { MessagesContainer } from 'components/containers/MessagesContainer'
-import { Login } from 'components/layout/login/Login'
-import { Redirect, Route, Switch } from 'react-router-dom'
+import { useEffect } from 'react'
+import { Patch } from 'AppRoutingNames'
+import { useSelector } from 'react-redux'
+import { theme } from './styles/Theme.styled'
 import styled, { css } from 'styled-components'
-import { InitializationLoader } from './components/common/loaders/IniatializationLoader'
-import { LoadingLoader } from './components/common/loaders/LoadingLoader.styled'
-import { AlertsContainer } from './components/containers/AlertsContainer'
-import { FooterContainer } from './components/containers/FooterContainer'
+import { Login } from 'components/layout/login/Login'
+import { useActions } from 'utils/customHooks/useActions'
+import { selectIsloggedIn } from 'store/auth/authSelectors'
+import { Users } from './components/layout/pages/users/Users'
+import { Settings } from './components/layout/pages/settings/Settings'
+import { NotFound } from './components/layout/pages/notFound/NotFound'
+import { Redirect, Route, Switch, useHistory } from 'react-router-dom'
 import { HeaderContainer } from './components/containers/HeaderContainer'
 import { NavbarContainer } from './components/containers/NavbarContainer'
 import { ProfileContainer } from './components/containers/ProfileContainer'
-import { NotFound } from './components/layout/pages/notFound/NotFound'
+import { MessagesContainer } from 'components/containers/MessagesContainer'
+import { LoadingLoader } from './components/common/loaders/LoadingLoader.styled'
 import { Notifications } from './components/layout/pages/notifications/Notifications'
-import { Settings } from './components/layout/pages/settings/Settings'
-import { Users } from './components/layout/pages/users/Users'
-import { theme } from './styles/Theme.styled'
-import { Patch } from 'AppRoutingNames'
+import { InitializationLoader } from './components/common/loaders/IniatializationLoader'
+import {
+  selectAppIsLoading, selectIsInitialized, selectNavbarCollapsed,
+  selectStoragePath
+} from 'store/app/appSelectors'
+import { Alerts } from 'components/common/alerts/Alerts'
+import { Footer } from 'components/layout/footer/Footer'
 
-type Props = {
-  isLoading: boolean
-  storagePath: string
-  isLoggedIn: boolean
-  isInitialized: boolean
-  navbarCollapsed: boolean
-}
-function App(props: Props) {
-  const { isLoggedIn, navbarCollapsed, isLoading, isInitialized, storagePath } = props
+function App() {
+  const isLoggedIn = useSelector(selectIsloggedIn)
+  const navbarCollapsed = useSelector(selectNavbarCollapsed)
+  const isLoading = useSelector(selectAppIsLoading)
+  const isInitialized = useSelector(selectIsInitialized)
+  const storagePath = useSelector(selectStoragePath)
+  const { savePathToStorage, initializeApp } = useActions()
+  const { pathname } = useHistory().location
+
+  useEffect(() => {
+    initializeApp()
+  }, [])
+
+  useEffect(() => {
+    pathname !== Patch.Login && savePathToStorage(pathname)
+  }, [pathname])
 
   if (!isLoggedIn) {
     return (
       <LoginWrapper>
         {isLoading && <LoadingLoader />}
         {!isInitialized && <InitializationLoader />}
-        <AlertsContainer />
+        <Alerts />
         <Switch>
           <Route path={Patch.Home} exact render={() => <Redirect to={Patch.Login} />} />
           <Route path={Patch.Login} render={() => <Login />} />
           <Route path={Patch.Other} render={() => <Redirect to={Patch.Login} />} />
         </Switch>
-        <FooterContainer />
+        <Footer />
       </LoginWrapper>
     )
   }
@@ -46,7 +61,7 @@ function App(props: Props) {
     <Wrapper collapsed={navbarCollapsed.toString()}>
       {isLoading && <LoadingLoader />}
       {!isInitialized && <InitializationLoader />}
-      <AlertsContainer />
+      <Alerts />
       <NavbarContainer />
       <HeaderContainer />
       <Switch>
@@ -60,7 +75,7 @@ function App(props: Props) {
         <Route path={Patch.Login} render={() => <Redirect to={`${storagePath}`} />} />
         <Route path={Patch.Other} render={() => <Redirect to={Patch.NotFound} />} />
       </Switch>
-      <FooterContainer />
+      <Footer />
     </Wrapper>
   )
 }

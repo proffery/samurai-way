@@ -1,4 +1,4 @@
-import { instance, ItemsResponse, PhotosResponse, Response } from 'api/socialNetworkInstance'
+import { instance, ItemsResponse, PhotosResponse, Response } from 'api/api-instance'
 
 export const usersAPI = {
     getUsers(pageNumber: number, usersOnPage: number, isFriend: boolean | null, searchTerm: string) {

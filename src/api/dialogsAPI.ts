@@ -1,4 +1,4 @@
-import { instance, ItemsResponse, PhotosResponse, Response } from 'api/socialNetworkInstance'
+import { instance, ItemsResponse, PhotosResponse, Response } from 'api/api-instance'
 
 export const dialogsAPI = {
     getDialogs() {

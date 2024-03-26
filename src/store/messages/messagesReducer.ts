@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { appActions } from 'store/app/appReducer'
 import { clearReducers } from 'store/common.actions'
-import { createAppAsyncThunk } from 'utils/create-app-async-thunk'
-import { handleServerNetworkError } from 'utils/handle-server-network-error'
-import { ResultCode } from 'api/socialNetworkInstance'
+import { createAppAsyncThunk } from 'utils/createAppAsyncThunk'
+import { handleServerNetworkError } from 'utils/handleServerNetworkError'
+import { ResultCode } from 'api/api-instance'
 import { DialogResponse, dialogsAPI, MessageResponse } from 'api/dialogsAPI'
 
 

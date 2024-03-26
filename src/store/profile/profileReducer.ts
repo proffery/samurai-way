@@ -2,13 +2,13 @@ import { ChangeProfileData, GetProfileContacts, GetProfileResponse, profileAPI }
 import {
     PhotosResponse,
     ResultCode
-} from 'api/socialNetworkInstance'
+} from 'api/api-instance'
 import { usersAPI } from 'api/usersAPI'
 import { setAppIsLoading, addAppAlert, SetAppIsLoadingActionType, AddAlertActionType } from 'store/app/appReducer'
 import { CLEAR_REDUCER, CleanReducerType, setAuthUserPhoto } from 'store/auth/authReducer'
 import { AppDispatchType, AppRootStateType } from 'store/redux-store'
 import { FollowUserActionType, UnfollowUserActionType } from 'store/users/usersReducer'
-import { handleServerNetworkError } from 'utils/handle-server-network-error'
+import { handleServerNetworkError } from 'utils/handleServerNetworkError'
 import { v1 } from 'uuid'
 
 

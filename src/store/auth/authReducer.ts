@@ -1,12 +1,12 @@
 import { authAPI, GetMeData, LoginData } from 'api/authAPI'
 import { profileAPI } from 'api/profileAPI'
-import { ResultCode } from 'api/socialNetworkInstance'
+import { ResultCode } from 'api/api-instance'
 import { AppDispatchType } from 'store/redux-store'
 import {
     initializeApp, addAppAlert, SetAppIsLoadingActionType,
     SetAppIsInitializedType, setAppIsLoading
 } from 'store/app/appReducer'
-import { handleServerNetworkError } from 'utils/handle-server-network-error'
+import { handleServerNetworkError } from 'utils/handleServerNetworkError'
 
 
 //CONSTANTS

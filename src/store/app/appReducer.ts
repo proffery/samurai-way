@@ -1,8 +1,8 @@
 import { authAPI } from 'api/authAPI'
-import { ResultCode } from 'api/socialNetworkInstance'
+import { ResultCode } from 'api/api-instance'
 import { CleanReducerType, getAuthPhoto, setAuthUserData, setIsLoggedIn } from 'store/auth/authReducer'
 import { AppDispatchType, AppRootStateType } from 'store/redux-store'
-import { handleServerNetworkError } from 'utils/handle-server-network-error'
+import { handleServerNetworkError } from 'utils/handleServerNetworkError'
 import { storageAvailable } from 'utils/storageAvailable'
 import { v1 } from 'uuid'
 
@@ -225,4 +225,4 @@ export type AlertObjectType = {
 export type AppReducerStateType = typeof initialState
 
 export const appThunks = { loadPathFromStorage, savePathToStorage, addAppAlert, initializeApp }
-export const appActions = { setAppIsLoading }
+export const appActions = { setAppIsLoading, removeAppAlert }

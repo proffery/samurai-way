@@ -1,4 +1,4 @@
-import { instance, PhotosResponse, Response } from 'api/socialNetworkInstance'
+import { instance, PhotosResponse, Response } from 'api/api-instance'
 
 export const profileAPI = {
     getProfile(userId: number) {

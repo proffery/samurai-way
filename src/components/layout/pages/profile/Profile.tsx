@@ -1,11 +1,10 @@
 import { GetProfileContacts } from 'api/profileAPI'
 import { AboutBlock } from 'components/blocks/aboutBlock/AboutBlock'
 import { ContactsBlock } from 'components/blocks/contactsBlock/ContactsBlock'
+import { FriendsBlock } from 'components/blocks/friendsBlock/FriendsBlock'
 import { HeaderBlock } from 'components/blocks/headerBlock/HeaderBlock'
 import { PostsBlock } from 'components/blocks/postsBlock/PostsBlock'
 import { ToTop } from 'components/common/toTop/ToTop'
-import { FriendsBlockContainer } from 'components/containers/FriendsBlockContainer'
-import { PossibleFriendsBlockContainer } from 'components/containers/PossibleFriendsBlockContainer'
 import React, { memo } from "react"
 import { AlertType } from 'store/app/appReducer'
 import { AuthStateType } from 'store/auth/authReducer'
@@ -60,8 +59,8 @@ export const Profile: React.FC<Props> = memo((props) => {
                 addPost={props.addPost}
                 addNewPost={props.postOnChange}
             />
-            <ProfileFriendsBlock />
-            <ProfilePossibleFriendsBlock />
+            <ProfileFriendsBlock blockHeaderName={'Friends'} />
+            <ProfilePossibleFriendsBlock blockHeaderName={'Might know'} isFriends={false} />
         </StyledProfile>
     )
 })
@@ -101,13 +100,13 @@ const ProfilePostsBlock = styled(PostsBlock)`
         grid-area: 3 / 1 / 7 / 3 ;
     }
 `
-const ProfileFriendsBlock = styled(FriendsBlockContainer)`
+const ProfileFriendsBlock = styled(FriendsBlock)`
     grid-area: 2 / 5 / 3 / 6 ;
     @media ${theme.media.mobile} {
         display: none;
     }
 `
-const ProfilePossibleFriendsBlock = styled(PossibleFriendsBlockContainer)`
+const ProfilePossibleFriendsBlock = styled(FriendsBlock)`
     grid-area: 3 / 5 / 4 / 6 ;
     @media ${theme.media.mobile} {
         display: none;

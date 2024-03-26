@@ -2,7 +2,7 @@ import { UserResponse, usersAPI } from 'api/usersAPI'
 import { setAppIsLoading, SetAppIsLoadingActionType } from 'store/app/appReducer'
 import { CleanReducerType, CLEAR_REDUCER } from 'store/auth/authReducer'
 import { AppDispatchType } from 'store/redux-store'
-import { handleServerNetworkError } from 'utils/handle-server-network-error'
+import { handleServerNetworkError } from 'utils/handleServerNetworkError'
 
 
 //CONSTANTS
@@ -112,3 +112,5 @@ export type FriendsActionsType =
     | CleanReducerType
 
 export type FriendsStateType = typeof initialState
+
+export const friendsThunks = { getFriends } 

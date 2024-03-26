@@ -77,7 +77,7 @@ export const Pagination: React.FC<Props> = memo((props) => {
         setShowInput(false)
     }
 
-    return <StyledPagination direction={'column'} justify='center' align='center'>
+    return <StyledPagination direction={'column'} justify='center' align='center' className={className}>
         <FlexWrapper justify='center'>
             {rangesCount > PAGES_NUMBER &&
                 <Button
@@ -94,7 +94,7 @@ export const Pagination: React.FC<Props> = memo((props) => {
                         width='100%' />
                 </Button>
             }
-            <FlexWrapper justify='center' align='center' className={props.className}>
+            <FlexWrapper justify='center' align='center'>
                 {rangesArray
                     .filter((el, index) => (index >= minPageIndex && index < maxPageIndex))
                     .map((el, index, arr) =>
@@ -112,7 +112,7 @@ export const Pagination: React.FC<Props> = memo((props) => {
                     )
                 }
             </FlexWrapper>
-            <FlexWrapper justify='center' align='center' className={props.className}>
+            <FlexWrapper justify='center' align='center'>
                 {rangesCount > PAGES_NUMBER && showInput &&
                     <form onSubmit={formik.handleSubmit}>
                         <SyledInput
@@ -173,6 +173,8 @@ export const Pagination: React.FC<Props> = memo((props) => {
 
 const SyledInput = styled(Input)`
     display: flex;
+    align-items: center;
+    justify-content: center;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -183,4 +185,8 @@ const SyledInput = styled(Input)`
 `
 const StyledPagination = styled(FlexWrapper)`
     position: relative;
+    button {
+        min-height: 15px;
+        min-width: 15px;
+    }
 `
