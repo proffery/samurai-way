@@ -1,10 +1,7 @@
-
-import styled from 'styled-components'
-import { theme } from 'styles/Theme.styled'
 import React, { memo, useEffect, useState } from 'react'
-import { Input } from 'components/common/input/Input.styled'
+import { S } from './EditableSpan_Styles'
 
-type EditableSpanPropsType = {
+type Props = {
     name?: string
     value: string
     className?: string
@@ -15,7 +12,7 @@ type EditableSpanPropsType = {
     onSand: (e?: React.FormEvent<HTMLFormElement> | undefined) => void
 }
 
-export const EditableSpan: React.FC<EditableSpanPropsType> = memo((props) => {
+export const EditableSpan: React.FC<Props> = memo((props) => {
     const { value, error, actualValue, emptyText, name, onChange, onSand } = props
     const [editMode, setEditMode] = useState(false)
     const [localValue, setLocalValue] = useState(value)
@@ -44,33 +41,18 @@ export const EditableSpan: React.FC<EditableSpanPropsType> = memo((props) => {
         }
     }
 
-    return editMode
-        ? <StyledInput
-            value={value}
-            bordered={'false'}
-            onChange={onChange}
-            autoFocus
-            onBlur={activateViewModeonBlur}
-            onKeyPress={activateViewModeonEnter}
-            error={error}
-            name={name}
-            className={props.className}
-        />
-        : <StyledSpan className={props.className} onClick={activateEditMode}>{localValue || emptyText}</StyledSpan>
+    return editMode ? <S.EditableInput
+        value={value}
+        bordered={'false'}
+        onChange={onChange}
+        autoFocus
+        onBlur={activateViewModeonBlur}
+        onKeyPress={activateViewModeonEnter}
+        error={error}
+        name={name}
+        className={props.className}
+    /> : <S.EditableSpan
+        className={props.className}
+        onClick={activateEditMode}>{localValue || emptyText}
+    </S.EditableSpan>
 })
-
-const StyledInput = styled(Input)`
-    width: 100%;
-    color: ${theme.color.background.second};
-    font-size: inherit;
-    font-weight: inherit;
-    border-radius: 0;
-    padding: min(10px, 1vw) 0;
-`
-const StyledSpan = styled.p`
-    display: flex;
-    width: 100%;
-    font-size: inherit;
-    font-weight: inherit;
-    padding: min(10px, 1vw) 0;
-`

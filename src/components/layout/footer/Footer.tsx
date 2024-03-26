@@ -1,132 +1,56 @@
-import styled from "styled-components"
 import { memo } from 'react'
-import { FlexWrapper } from 'components/common/FlexWrapper.styled'
+import { S } from './Footer_Styles'
+import { useSelector } from 'react-redux'
 import { Icon } from 'components/common/icon/Icon'
 import { Logo } from 'components/common/logo/Logo'
-import { SocialMedeaLinks } from 'components/layout/footer/socialMedeaLinks/SocialMedeaLinks'
-import { theme } from 'styles/Theme.styled'
 import { Menu } from 'components/common/menu/Menu'
 import { Link } from 'components/common/link/Link.styled'
-import { useSelector } from 'react-redux'
-import { selectFooterLinks, selectMenuItems } from 'store/app/appSelectors'
 import { selectIsloggedIn } from 'store/auth/authSelectors'
+import { FlexWrapper } from 'components/common/FlexWrapper.styled'
+import { selectFooterLinks, selectMenuItems } from 'store/app/appSelectors'
+import { SocialMedeaLinksList } from './SocialMedeaLinksList/SocialMedeaLinksList'
 
 export const Footer: React.FC = memo(() => {
     const menuItems = useSelector(selectMenuItems)
     const isLoggedIn = useSelector(selectIsloggedIn)
     const footerLinks = useSelector(selectFooterLinks)
 
-    return (
-        <StyledFooter>
-            <TopWrapper align="start" direction="row" wrap="wrap" justify="space-between">
-                <ContactsHalf>
-                    <Logo variant="primary" type='text' />
-                </ContactsHalf>
-                <ContactsHalf direction="column">
-                    <IconWrapper align="center">
-                        <Icon iconId="location" />
-                        <span>Belarus, Gomel</span>
-                    </IconWrapper>
-                    <FlexWrapper wrap="wrap" justify="space-between" gap="22px">
-                        <IconWrapper align="center">
-                            <Icon iconId="phone" />
-                            <span>+375 25 6979075</span>
-                        </IconWrapper>
-                        <IconWrapper align="center">
-                            <Icon iconId="fax" />
-                            <span>proffery@gmail.com</span>
-                        </IconWrapper>
-                    </FlexWrapper>
-                    <FlexWrapper>
-                        <SocialMedeaLinks footerLinks={footerLinks} />
-                    </FlexWrapper>
-                </ContactsHalf>
-            </TopWrapper>
-            <BottomWrapper align="start" direction="row" wrap="wrap" justify="space-between">
-                <Menu type="primary"
-                    direction="row"
-                    icons={false}
-                    name={true}
-                    menuItems={isLoggedIn ? menuItems : []}
-                />
-                <Copyright>
-                    <span>Copyright © {new Date().getFullYear()}&nbsp;</span>
-                    <Link variant="primary">Dmitry Shamko</Link>
-                </Copyright>
-            </BottomWrapper>
-        </StyledFooter>
-    )
+    return <S.Footer>
+        <S.TopWrapper align="start" direction="row" wrap="wrap" justify="space-between">
+            <S.Contacts>
+                <Logo variant="primary" type='text' />
+            </S.Contacts>
+            <S.Contacts direction="column">
+                <S.IconWrapper >
+                    <Icon iconId="location" />
+                    <span>Belarus, Gomel</span>
+                </S.IconWrapper>
+                <FlexWrapper wrap="wrap" justify="space-between" gap="22px">
+                    <S.IconWrapper >
+                        <Icon iconId="phone" />
+                        <span>+375 25 6979075</span>
+                    </S.IconWrapper>
+                    <S.IconWrapper >
+                        <Icon iconId="fax" />
+                        <span>proffery@gmail.com</span>
+                    </S.IconWrapper>
+                </FlexWrapper>
+                <FlexWrapper>
+                    <SocialMedeaLinksList footerLinks={footerLinks} />
+                </FlexWrapper>
+            </S.Contacts>
+        </S.TopWrapper>
+        <S.BottomWrapper align="start" direction="row" wrap="wrap" justify="space-between">
+            <Menu type="primary"
+                direction="row"
+                icons={false}
+                name={true}
+                menuItems={isLoggedIn ? menuItems : []}
+            />
+            <S.Copyright>
+                <span>Copyright © {new Date().getFullYear()}&nbsp;</span>
+                <Link variant="primary">Dmitry Shamko</Link>
+            </S.Copyright>
+        </S.BottomWrapper>
+    </S.Footer>
 })
-
-const StyledFooter = styled.footer`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 50px;
-    gap: 20px;
-    background-color: ${theme.color.background.primary};
-    z-index: 1;
-    @media ${theme.media.mobile} {
-        padding: 25px;
-    }
-`
-const ContactsHalf = styled(FlexWrapper)`
-    width: 50%;
-    height: 100%;
-    padding: 50px 20px;
-    gap: 22px
-`
-const TopWrapper = styled(FlexWrapper)`
-    position: relative;
-    height: 100%;
-    width: 100%;
-    &::before {
-        position: absolute;
-        content: '';
-        width: 100%;
-        height: 2px;
-        top: 0;
-        background-color: ${theme.color.background.second};
-    }
-    &::after {
-        position: absolute;
-        content: '';
-        width: 100%;
-        height: 1px;
-        bottom: 0;
-        background-color: ${theme.color.text.placeholder};
-    }
-`
-const BottomWrapper = styled(FlexWrapper)`
-    width: 100%;
-    gap: 32px;
-    @media ${theme.media.mobile} {
-        gap: 25px;
-    }
-`
-const IconWrapper = styled(FlexWrapper)`
-    color: ${theme.color.text.placeholder};
-    svg {
-        color: ${theme.color.text.primary};
-    }
-    span {
-        white-space: nowrap;
-    }
-    gap: 10px;
-    @media ${theme.media.mobile} {
-        svg {
-            min-width: 18px;
-            width: 18px;
-        }
-    }
-
-`
-const Copyright = styled.div`
-    display: flex;
-    flex-wrap: wrap;
-    span {
-        white-space: nowrap;
-    }
-`

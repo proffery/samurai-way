@@ -1,11 +1,9 @@
-import { useFormik } from 'formik'
-import styled from 'styled-components'
-import { theme } from 'styles/Theme.styled'
-import { memo, useEffect, useState } from 'react'
-import { Icon } from 'components/common/icon/Icon'
 import { Button } from 'components/common/button/Button'
-import { Input } from 'components/common/input/Input.styled'
 import { FlexWrapper } from 'components/common/FlexWrapper.styled'
+import { Icon } from 'components/common/icon/Icon'
+import { useFormik } from 'formik'
+import { memo, useEffect, useState } from 'react'
+import { S } from './Pagination_Styles'
 
 type Props = {
     className?: string
@@ -17,17 +15,13 @@ type Props = {
 }
 const PAGES_NUMBER = 2 //number of pages to show before last page. Exemple for PAGES_NUMBER = 2:  <1,2...3>
 export const Pagination: React.FC<Props> = memo((props) => {
-    const {
-        currentPage, usersOnPage, totalUsersCount, className,
-        appIsLoading, pageChangeHandler
-    } = props
-
+    const { currentPage, usersOnPage, totalUsersCount,
+        className, appIsLoading, pageChangeHandler } = props
     const rangesCount = Math.ceil(totalUsersCount / usersOnPage)
     const rangesArray = Array.from({ length: rangesCount }, (_, i) => i + 1)
     const pagesRange = Math.ceil(rangesArray.length / PAGES_NUMBER)
     const [currentRange, setCurrentRange] = useState(Math.ceil(currentPage / PAGES_NUMBER))
     const [showInput, setShowInput] = useState(false)
-
     const minPageIndex = currentRange * PAGES_NUMBER - PAGES_NUMBER
     const maxPageIndex = currentRange * PAGES_NUMBER
 
@@ -77,7 +71,7 @@ export const Pagination: React.FC<Props> = memo((props) => {
         setShowInput(false)
     }
 
-    return <StyledPagination direction={'column'} justify='center' align='center' className={className}>
+    return <S.Pagination direction={'column'} justify='center' align='center' className={className}>
         <FlexWrapper justify='center'>
             {rangesCount > PAGES_NUMBER &&
                 <Button
@@ -115,7 +109,7 @@ export const Pagination: React.FC<Props> = memo((props) => {
             <FlexWrapper justify='center' align='center'>
                 {rangesCount > PAGES_NUMBER && showInput &&
                     <form onSubmit={formik.handleSubmit}>
-                        <SyledInput
+                        <S.PaginationInput
                             type='number'
                             placeholder={`1-${rangesCount}`}
                             error={!!formik.errors.page && !!formik.touched.page ? 'true' : 'false'}
@@ -168,25 +162,5 @@ export const Pagination: React.FC<Props> = memo((props) => {
                 </Button>
             }
         </FlexWrapper>
-    </StyledPagination>
+    </S.Pagination>
 })
-
-const SyledInput = styled(Input)`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    box-shadow: ${theme.shadow.text};
-    color: ${theme.color.text.primary};
-    z-index: 999;
-`
-const StyledPagination = styled(FlexWrapper)`
-    position: relative;
-    button {
-        min-height: 15px;
-        min-width: 15px;
-    }
-`

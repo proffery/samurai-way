@@ -58,7 +58,7 @@ export const initialState = {
             icon_id: "rss",
             viewBox: "0 0 24 24",
         },
-    ] as IconLinksStateType[],
+    ] as IconsLinks[],
     menuItems: [
         {
             id: 1,
@@ -95,7 +95,7 @@ export const initialState = {
             icon_id: "settings",
             viewBox: "-2 -2 30 30",
         }
-    ] as IconLinksStateType[],
+    ] as IconsLinks[],
     isLoading: false as boolean,
     alerts: [] as AlertObjectType[],
     isInitialized: false as boolean,
@@ -201,7 +201,7 @@ export type AppActionsType =
     | RemoveAlertActionType
     | AddAlertActionType
     | CleanReducerType
-export type IconLinksStateType = {
+export type IconsLinks = {
     id: number
     name: string
     href: string

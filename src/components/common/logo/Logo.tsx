@@ -1,57 +1,20 @@
 
 import { memo } from 'react'
-import { font } from 'styles/Font'
-import { NavLink } from 'react-router-dom'
-import { theme } from 'styles/Theme.styled'
-import { Icon } from 'components/common/icon/Icon'
-import styled, { css } from 'styled-components'
+import { S } from './Logo_Styles'
+import { Patch } from 'components/app/Router/routeNames'
 
-type LogoPropsType = {
+type Props = {
     variant: 'primary' | 'secondary'
     type: 'text' | 'logo'
 }
 
-export const Logo: React.FC<LogoPropsType> = memo((props) => {
-    return (props.type === 'text' ?
-        <LogoLink variant={props.variant} to="/">
-            <>
-                <p>Social</p>
-                <p>Network</p>
-            </>
-        </LogoLink>
-        : <StyledIcon iconId={'burgerMenu'} viewBox='0 0 24 24' />
+export const Logo: React.FC<Props> = memo(({ variant, type }) => {
+    return (type === 'text' ?
+        <S.Link variant={variant} to={Patch.Home}>
+            <p>Social</p>
+            <p>Network</p>
+        </S.Link>
+        : <S.BurgerIcon iconId={'burgerMenu'} viewBox='0 0 24 24' />
     )
 })
 
-type LinkPropsType = {
-    variant: 'primary' | 'secondary'
-}
-const LogoLink = styled(NavLink) <LinkPropsType>`
-    flex-direction: column;
-    align-items: start;
-    color: inherit;
-    opacity: 1;
-    ${font({ family: 'Orbitron', weight: 700, Fmin: 18, Fmax: 30 })}
-    ${props => props.variant === 'primary'
-        ? css<LinkPropsType>`
-        color: ${theme.color.text.primary};
-    `: css<LinkPropsType>`
-    color: ${theme.color.text.second};
-    `
-    }
-`
-const StyledIcon = styled(Icon) <LinkPropsType>`
-    flex-direction: column;
-    align-items: start;
-    color: inherit;
-    cursor: pointer;
-    opacity: 1;
-    ${font({ family: 'Orbitron', weight: 700, Fmin: 18, Fmax: 30 })}
-    ${props => props.variant === 'primary'
-        ? css<LinkPropsType>`
-        color: ${theme.color.text.primary};
-    `: css<LinkPropsType>`
-    color: ${theme.color.text.second};
-    `
-    }
-`

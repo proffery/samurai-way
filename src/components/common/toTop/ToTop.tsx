@@ -1,15 +1,13 @@
-import styled from 'styled-components'
-import { Link } from 'react-router-dom'
-import { theme } from 'styles/Theme.styled'
-import { useLocation } from 'react-router-dom'
 import { Icon } from 'components/common/icon/Icon'
 import { memo, useEffect, useRef, useState } from 'react'
+import { useLocation } from 'react-router-dom'
+import { S } from './ToTop_Styles'
 
-type ToTopLinkPropsType = {
+type Props = {
     anchor_id: string
 }
 
-export const ToTop: React.FC<ToTopLinkPropsType> = memo((props) => {
+export const ToTop: React.FC<Props> = memo(({ anchor_id }) => {
     const [scrolled, setScrolled] = useState(false)
     const location = useLocation()
     const lastHash = useRef('')
@@ -42,36 +40,15 @@ export const ToTop: React.FC<ToTopLinkPropsType> = memo((props) => {
             }, 100)
         }
     }, [location])
+
     const onClickHandler = () => {
-        document.location = '#' + props.anchor_id
+        document.location = '#' + anchor_id
     }
-    return (
-        scrolled ?
-            <StyledToTopLink
-                to={'#' + props.anchor_id}
-                onClick={onClickHandler}
-            ><Icon iconId="leftArrow" viewBox="-1 9 14 14" />
-            </StyledToTopLink> :
-            null
-    )
+
+    return scrolled ? <S.ToTop
+        to={'#' + anchor_id}
+        onClick={onClickHandler}
+    ><Icon iconId="leftArrow" viewBox="-1 9 14 14" />
+    </S.ToTop> : null
 })
 
-const StyledToTopLink = styled(Link)`
-    position: fixed;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid;
-    background-color: ${theme.color.background.primary};
-    height: 30px;
-    width: 30px;
-    top: 95%;
-    left: 95%;
-    padding: 5px;
-    border-radius: 50%;
-    transform: translate(-95%, -95%) rotate(90deg);
-    z-index: 99999;
-    &:hover {
-        box-shadow: ${theme.shadow.block};
-    }
-`

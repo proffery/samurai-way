@@ -1,14 +1,9 @@
-import { memo } from 'react'
 import styled from 'styled-components'
 import { theme } from 'styles/Theme.styled'
 
-export const InitializationLoader: React.FC = memo(() => {
-  return (
-    <Background>
-      <Loader />
-    </Background>
-  )
-})
+export const InitializationLoader: React.FC = () => {
+  return <Background><Loader /></Background>
+}
 
 const Background = styled.div`
   position: fixed;
@@ -28,7 +23,8 @@ const Loader = styled.div`
     background-color: #FFF;
     border: 1px solid #FFF;
     border-radius: 4px;
-    background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.25) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0, 0.25) 50%, rgba(0, 0, 0, 0.25) 75%, transparent 75%, transparent);
+    background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.25) 25%, transparent 25%, transparent 50%, 
+      rgba(0, 0, 0, 0.25) 50%, rgba(0, 0, 0, 0.25) 75%, transparent 75%, transparent);
     font-size: 30px;
     background-size: 1em 1em;
     box-sizing: border-box;
