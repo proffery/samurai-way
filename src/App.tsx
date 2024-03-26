@@ -10,7 +10,6 @@ import { Users } from './components/layout/pages/users/Users'
 import { Settings } from './components/layout/pages/settings/Settings'
 import { NotFound } from './components/layout/pages/notFound/NotFound'
 import { Redirect, Route, Switch, useHistory } from 'react-router-dom'
-import { HeaderContainer } from './components/containers/HeaderContainer'
 import { NavbarContainer } from './components/containers/NavbarContainer'
 import { ProfileContainer } from './components/containers/ProfileContainer'
 import { MessagesContainer } from 'components/containers/MessagesContainer'
@@ -23,6 +22,7 @@ import {
 } from 'store/app/appSelectors'
 import { Alerts } from 'components/common/alerts/Alerts'
 import { Footer } from 'components/layout/footer/Footer'
+import { Header } from 'components/layout/header/Header'
 
 function App() {
   const isLoggedIn = useSelector(selectIsloggedIn)
@@ -63,7 +63,7 @@ function App() {
       {!isInitialized && <InitializationLoader />}
       <Alerts />
       <NavbarContainer />
-      <HeaderContainer />
+      <Header />
       <Switch>
         <Route path={Patch.Home} exact component={ProfileContainer} />
         <Route path={Patch.ProfileParams} component={ProfileContainer} />

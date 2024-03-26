@@ -1,29 +1,26 @@
+import { Patch } from 'AppRoutingNames'
 import { Input } from 'components/common/input/Input.styled'
 import { Logout } from 'components/layout/header/Logout'
 import { useFormik } from 'formik'
-import { memo, useState } from 'react'
-import { AuthStateType } from 'store/auth/authReducer'
+import { memo, useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
+import { selectAuthData } from 'store/auth/authSelectors'
 import styled from "styled-components"
 import { theme } from 'styles/Theme.styled'
+import { useActions } from 'utils/customHooks/useActions'
 import search from '../../../assets/images/Search.svg'
-import { AlertType } from 'store/app/appReducer'
 
-type Props = {
-    logout: () => void
-    setUsersSearchTerm: (searchTerm: string) => void
-    addAppAlert: (type: AlertType, message: string) => void
-    searchTerm: string
-    authData: AuthStateType
-}
+export const Header: React.FC = memo(() => {
 
-export const Header: React.FC<Props> = memo((props) => {
-    const { login, email, photoUrl } = props.authData
-    const { searchTerm, setUsersSearchTerm, logout } = props
+    const { login, email, photoUrl } = useSelector(selectAuthData)
+    const { setUsersSearchTerm, logout, addAppAlert } = useActions()
     const [timerId, setTimerId] = useState<number | undefined>(undefined)
+    const history = useHistory()
 
     const formik = useFormik({
         initialValues: {
-            searchTerm: searchTerm,
+            searchTerm: '',
         },
         enableReinitialize: true,
         onSubmit: (values) => {
@@ -33,11 +30,17 @@ export const Header: React.FC<Props> = memo((props) => {
             const errors: { searchTerm?: string } = {}
             if (!/^[A-Za-zА-Яа-я_0-9)(;:!@-]*$/i.test(values.searchTerm)) {
                 errors.searchTerm = 'Wrong symbol!'
-                props.addAppAlert('failed', errors.searchTerm)
+                addAppAlert('failed', errors.searchTerm)
             }
             return errors
         }
     })
+
+    useEffect(() => {
+        if (formik.values.searchTerm && history.location.pathname !== Patch.Users) {
+            history.push(Patch.Users)
+        }
+    }, [formik.values.searchTerm])
 
     const searchChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.currentTarget.value === '') {

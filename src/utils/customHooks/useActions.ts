@@ -4,13 +4,15 @@ import { appActions, appThunks } from 'store/app/appReducer'
 import { authThunks } from 'store/auth/authReducer'
 import { friendsThunks } from 'store/friends/friendsReducer'
 import { messagesThunks } from 'store/messages/messagesReducer'
+import { usersActions, usersThunks } from 'store/users/usersReducer'
 import { useAppDispatch } from 'utils/customHooks/useAppDispatch'
 
 // ❗ упаковываем actions и соответсвенно при вызове хука не нужно
 // будет передавать actions
 const actionsAll = {
   ...appThunks, ...appActions, ...messagesThunks,
-  ...authThunks, ...friendsThunks
+  ...authThunks, ...friendsThunks, ...usersThunks,
+  ...usersActions
 }
 
 type AllActions = typeof actionsAll
