@@ -1,6 +1,5 @@
 import { GetProfileContacts } from 'api/profileAPI'
 import { BlockHeader } from 'components/blocks/BlockHeader.styled'
-import { BlockSection } from 'components/blocks/BlockSection.styled'
 import { Contacts } from 'components/blocks/contactsBlock/contacts/Contacts'
 import { ContactsForm } from 'components/blocks/contactsBlock/contacts/ContactsForm'
 import { memo } from 'react'

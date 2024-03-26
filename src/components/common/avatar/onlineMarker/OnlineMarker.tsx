@@ -9,24 +9,31 @@ type OnlineStatus = 'online' | 'busy' | 'offline'
 
 const ONLINE = 10 //in min
 const BUSY = 30 //in min
+const MIN_IN_HOUR = 60
+const MIN_IN_DAY = MIN_IN_HOUR * 24
+const MIN_IN_YEAR = MIN_IN_DAY * 365
 
 export const OnlineMarker: React.FC<Props> = ({ lastUserActivityDate, className }) => {
-    const status = (date: string): OnlineStatus => {
-        const nowDate = new Date()
-        const newDate = new Date(date)
-        if (Math.abs(nowDate.getUTCMinutes() - newDate.getUTCMinutes()) <= ONLINE) return 'online'
-        else if (Math.abs(nowDate.getUTCMinutes() - newDate.getUTCMinutes()) <= BUSY) return 'busy'
+    const lastActivityInMin = Math.ceil((Date.now() - Date.parse(lastUserActivityDate)) / 1000 / 60)
+
+    const status = (): OnlineStatus => {
+        if (lastActivityInMin <= ONLINE) return 'online'
+        else if (lastActivityInMin <= BUSY) return 'busy'
         else return 'offline'
     }
-    const activity = (date: string): number => {
-        const nowDate = new Date()
-        const newDate = new Date(date)
-        return Math.abs(nowDate.getUTCMinutes() - newDate.getUTCMinutes())
+    const activityTime = (): string => {
+        if (lastActivityInMin < MIN_IN_HOUR) {
+            return lastActivityInMin + ' min'
+        } else if (lastActivityInMin < MIN_IN_DAY) {
+            return Math.ceil(lastActivityInMin / MIN_IN_HOUR) + ' hours'
+        } else if (lastActivityInMin < MIN_IN_YEAR) {
+            return Math.ceil(lastActivityInMin / MIN_IN_DAY) + ' days'
+        } else return Math.ceil(lastActivityInMin / MIN_IN_YEAR) + ' years'
     }
     return <Marker
         className={className}
-        title={`Last activity: ${activity(lastUserActivityDate)} min ago`}
-        status={status(lastUserActivityDate)}
+        title={`Last activity: ${activityTime()} ago`}
+        status={status()}
     />
 }
 

@@ -1,7 +1,7 @@
-import { AppDispatchType } from 'store/redux-store'
-import { CLEAR_REDUCER, CleanReducerType } from 'store/auth/authReducer'
-import { addAppAlert, setAppIsLoading, SetAppIsLoadingActionType } from 'store/app/appReducer'
 import { UserResponse, usersAPI } from 'api/usersAPI'
+import { setAppIsLoading, SetAppIsLoadingActionType } from 'store/app/appReducer'
+import { CleanReducerType, CLEAR_REDUCER } from 'store/auth/authReducer'
+import { AppDispatchType } from 'store/redux-store'
 import { handleServerNetworkError } from 'utils/handle-server-network-error'
 
 

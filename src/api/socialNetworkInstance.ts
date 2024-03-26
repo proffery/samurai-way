@@ -1,6 +1,4 @@
-import { MessageResponse } from 'api/dialogsAPI'
-import { UserResponse } from 'api/usersAPI'
-import axios, { AxiosError } from "axios"
+import axios from "axios"
 
 export const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.0',
