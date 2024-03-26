@@ -5,8 +5,8 @@ import { PostStateType } from 'store/profile/profileReducer'
 import styled from 'styled-components'
 import { font } from 'styles/Font'
 import { theme } from 'styles/Theme.styled'
-import avatarImg from '../../../../assets/images/Author.webp'
 import { Button } from 'components/common/button/Button'
+import { Avatar } from 'components/common/avatar/Avatar'
 
 type PostPropsType = {
     postData: PostStateType
@@ -26,7 +26,7 @@ export const Post: React.FC<PostPropsType> = memo((props) => {
         <StyledPost>
             <Author>
                 <AuthorInfo>
-                    <AuthorAvatar src={avatarImg} />
+                    <AuthorAvatar />
                     <FlexWrapper direction="column">
                         <AuthorName>Dmitry Shamko</AuthorName>
                         <PostDate>15mins ago</PostDate>
@@ -90,7 +90,7 @@ const AuthorInfo = styled.div`
     gap: 5px;
 `
 
-const AuthorAvatar = styled.img`
+const AuthorAvatar = styled(Avatar)`
    border-radius: 50% 50%;
    width: 20%;
    max-width: 60px;

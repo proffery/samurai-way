@@ -12,7 +12,6 @@ const APP_REMOVE_ALERT = 'APP/REMOVE-ALERT'
 const APP_SET_IS_LOADING = 'APP/SET-IS_LOADING'
 const APP_SET_CURRENT_PATH = 'APP/SET-CURRENT-PATH'
 const APP_SET_IS_INITIALIZED = 'APP/SET-IS_INITIALIZED'
-const APP_SET_NAVBAR_COLLAPSED = 'APP/SET-NAVBAR-COLLAPSED'
 
 //INITIAL STATE
 export const initialState = {
@@ -98,7 +97,6 @@ export const initialState = {
         }
     ] as IconLinksStateType[],
     isLoading: false as boolean,
-    navbarCollapsed: true as boolean,
     alerts: [] as AlertObjectType[],
     isInitialized: false as boolean,
     currentPath: '/' as string
@@ -113,8 +111,6 @@ export const appReducer = (state: AppReducerStateType = initialState, action: Ap
             return { ...state, alerts: [...state.alerts, action.payload.newAlert] }
         case APP_REMOVE_ALERT:
             return { ...state, alerts: state.alerts.filter(alert => alert.id !== action.payload.id) }
-        case APP_SET_NAVBAR_COLLAPSED:
-            return { ...state, navbarCollapsed: action.payload.navbarCollapsed }
         case APP_SET_IS_INITIALIZED:
             return { ...state, isInitialized: action.payload.isInitialized }
         case APP_SET_CURRENT_PATH:
@@ -131,8 +127,6 @@ export const setAppAlert = (newAlert: AlertObjectType) =>
     ({ type: APP_ADD_ALERT, payload: { newAlert } } as const)
 export const removeAppAlert = (id: string) =>
     ({ type: APP_REMOVE_ALERT, payload: { id } } as const)
-export const setAppNavbarCollapsed = (navbarCollapsed: boolean) =>
-    ({ type: APP_SET_NAVBAR_COLLAPSED, payload: { navbarCollapsed } } as const)
 export const setAppIsInitialized = (isInitialized: boolean) =>
     ({ type: APP_SET_IS_INITIALIZED, payload: { isInitialized } } as const)
 export const setCurrentPath = (currentPath: string) =>
@@ -199,10 +193,8 @@ type RemoveAlertActionType = ReturnType<typeof removeAppAlert>
 export type AddAlertActionType = ReturnType<typeof setAppAlert>
 type SetCurrentPathActionType = ReturnType<typeof setCurrentPath>
 export type SetAppIsLoadingActionType = ReturnType<typeof setAppIsLoading>
-type SetNavbarCollapsedActionType = ReturnType<typeof setAppNavbarCollapsed>
 export type SetAppIsInitializedType = ReturnType<typeof setAppIsInitialized>
 export type AppActionsType =
-    | SetNavbarCollapsedActionType
     | SetAppIsLoadingActionType
     | SetCurrentPathActionType
     | SetAppIsInitializedType

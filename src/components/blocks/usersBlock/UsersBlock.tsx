@@ -2,31 +2,58 @@ import { BlockHeader } from 'components/blocks/BlockHeader.styled'
 import { User } from 'components/blocks/usersBlock/user/User'
 import { FlexWrapper } from 'components/common/FlexWrapper.styled'
 import { Button } from 'components/common/button/Button'
-import { memo } from 'react'
-import { UsersFilterType, UsersStateType } from 'store/users/usersReducer'
+import { memo, useEffect } from 'react'
+import { useSelector } from 'react-redux'
+import { selectAppIsLoading } from 'store/app/appSelectors'
+import { selectUsersData } from 'store/users/usersSelectors'
+import { useActions } from 'utils/customHooks/useActions'
 import { S } from './UsersBlock_Styles'
 
-export type Props = {
-    usersData: UsersStateType
-    appIsLoading: boolean
-    follow: (userId: number) => void
-    unfollow: (userId: number) => void
-    onPageChangeHandler: (pageNumber: number) => void
-    filterChangeHandler: (filter: UsersFilterType) => void
-}
+export const UsersBlock: React.FC = memo(() => {
+    const usersData = useSelector(selectUsersData)
+    const { usersFilter, usersOnPage, searchTerm, currentPage, totalUsersCount } = usersData
+    const appIsLoading = useSelector(selectAppIsLoading)
+    const {getUsers, changeUsersFilter, followUser, unfollowUser} = useActions()
 
-export const UsersBlock: React.FC<Props> = memo((props) => {
-    const { usersFilter, totalUsersCount, usersOnPage, currentPage } = props.usersData
-    const { appIsLoading, onPageChangeHandler, filterChangeHandler, unfollow, follow } = props
+    useEffect(() => {
+        switch (usersFilter) {
+            case "all":
+                getUsers(1, usersOnPage, null, searchTerm)
+                break
+            case "followed":
+                getUsers(1, usersOnPage, true, searchTerm)
+                break
+            case "unfollowed":
+                getUsers(1, usersOnPage, false, searchTerm)
+                break
+            default:
+                getUsers(1, usersOnPage, null, searchTerm)
+        }
+    }, [usersFilter, searchTerm])
 
+    const pageChangeHandler = (pageNumber: number) => {
+        switch (usersFilter) {
+            case "all":
+                getUsers(pageNumber, usersOnPage, null, searchTerm)
+                break
+            case "followed":
+                getUsers(pageNumber, usersOnPage, true, searchTerm)
+                break
+            case "unfollowed":
+                getUsers(pageNumber, usersOnPage, false, searchTerm)
+                break
+            default:
+                getUsers(pageNumber, usersOnPage, null, searchTerm)
+        }
+    }
     const usersList = () => {
         return <>
-            {props.usersData.users.map(user =>
+            {usersData.users.map(user =>
                 <User
                     key={user.id}
                     user={user}
-                    follow={follow}
-                    unfollow={unfollow}
+                    follow={followUser}
+                    unfollow={unfollowUser}
                 />
             )}
         </>
@@ -40,21 +67,21 @@ export const UsersBlock: React.FC<Props> = memo((props) => {
                 variant={'link'}
                 isActive={usersFilter === 'all'}
                 disabled={appIsLoading}
-                onClick={() => filterChangeHandler("all")}
+                onClick={() => changeUsersFilter("all")}
             >{'All'}</Button>
             <Button
                 ariaLabel={'Followed filter button'}
                 variant={'link'}
                 isActive={usersFilter === 'followed'}
                 disabled={appIsLoading}
-                onClick={() => filterChangeHandler("followed")}
+                onClick={() => changeUsersFilter("followed")}
             >{'Followed'}</Button>
             <Button
                 ariaLabel={'Unfollowed filter button'}
                 variant={'link'}
                 isActive={usersFilter === 'unfollowed'}
                 disabled={appIsLoading}
-                onClick={() => filterChangeHandler("unfollowed")}
+                onClick={() => changeUsersFilter("unfollowed")}
             >{'Unfollowed'}</Button>
         </FlexWrapper>
         {usersList()}
@@ -63,7 +90,7 @@ export const UsersBlock: React.FC<Props> = memo((props) => {
             currentPage={currentPage}
             totalUsersCount={totalUsersCount}
             appIsLoading={appIsLoading}
-            pageChangeHandler={onPageChangeHandler}
+            pageChangeHandler={pageChangeHandler}
         />
     </S.UsersBlock>
 })

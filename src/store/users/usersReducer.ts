@@ -162,4 +162,4 @@ export type UsersStateType = typeof initialState
 export type UsersFilterType = 'all' | 'followed' | 'unfollowed'
 
 export const usersThunks = { followUser, unfollowUser, getUsers }
-export const usersActions = { setUsersSearchTerm }
+export const usersActions = { setUsersSearchTerm, changeUsersFilter }

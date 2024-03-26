@@ -1,63 +1,64 @@
-import { GetProfileContacts } from 'api/profileAPI'
 import { AboutBlock } from 'components/blocks/aboutBlock/AboutBlock'
 import { ContactsBlock } from 'components/blocks/contactsBlock/ContactsBlock'
 import { FriendsBlock } from 'components/blocks/friendsBlock/FriendsBlock'
 import { HeaderBlock } from 'components/blocks/headerBlock/HeaderBlock'
 import { PostsBlock } from 'components/blocks/postsBlock/PostsBlock'
 import { ToTop } from 'components/common/toTop/ToTop'
-import React, { memo } from "react"
-import { AlertType } from 'store/app/appReducer'
-import { AuthStateType } from 'store/auth/authReducer'
-import { ChangeAboutProfileType, ProfileStateType } from 'store/profile/profileReducer'
+import React, { memo, useEffect } from "react"
+import { useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
+import { selectAppIsLoading } from 'store/app/appSelectors'
+import { selectAuthData } from 'store/auth/authSelectors'
+import { selectProfileData } from 'store/profile/profileSelectors'
 import styled from "styled-components"
 import { theme } from 'styles/Theme.styled'
+import { useActions } from 'utils/customHooks/useActions'
 
-type Props = {
-    className?: string
-    appIsLoading: boolean
-    authStateData: AuthStateType
-    profileStateData: ProfileStateType
-    addPost: () => void
-    followProfile: (userId: number) => void
-    postOnChange: (newPost: string) => void
-    unfollowProfile: (userId: number) => void
-    changeProfilePhotos: (image: File) => void
-    changeProfileStatus: (newStatus: string) => void
-    addAppAlert: (type: AlertType, message: string) => void
-    changeProfileAbout: (about: ChangeAboutProfileType) => void
-    changeProfileContacts: (contacts: GetProfileContacts) => void
-}
+export const Profile: React.FC = memo(() => {
+    const appIsLoading = useSelector(selectAppIsLoading)
+    const authStateData = useSelector(selectAuthData)
+    const profileStateData = useSelector(selectProfileData)
+    const {followProfile, unfollowProfile, changeProfileStatus, 
+        addAppAlert, changeProfilePhotos, addPost, getProfileData,
+        changeProfileAbout, changeProfileContacts, postOnChange
+    } = useActions()
+    const params = useParams<{userId: string}>()
+    const { id: authId } = authStateData
+    const { userId } = params
 
-export const Profile: React.FC<Props> = memo((props) => {
+    useEffect(() => {
+        getProfileData(Number(userId ? userId : authId))
+    }, [userId])
+
     return (
         <StyledProfile id='profile' >
             <ToTop anchor_id='profile-header' />
             <ProfileHeaderBlock
-                authStateData={props.authStateData}
-                profileStateData={props.profileStateData}
-                appIsLoading={props.appIsLoading}
-                follow={props.followProfile}
-                unfollow={props.unfollowProfile}
-                changeProfileStatus={props.changeProfileStatus}
-                addAppAlert={props.addAppAlert}
-                changeProfilePhotos={props.changeProfilePhotos}
+                authStateData={authStateData}
+                profileStateData={profileStateData}
+                appIsLoading={appIsLoading}
+                follow={followProfile}
+                unfollow={unfollowProfile}
+                changeProfileStatus={changeProfileStatus}
+                addAppAlert={addAppAlert}
+                changeProfilePhotos={changeProfilePhotos}
             />
             <ProfileAboutBlock
-                profileData={props.profileStateData.data}
-                authStateData={props.authStateData}
-                addAppAlert={props.addAppAlert}
-                changeProfileAbout={props.changeProfileAbout}
+                profileData={profileStateData.data}
+                authStateData={authStateData}
+                addAppAlert={addAppAlert}
+                changeProfileAbout={changeProfileAbout}
             />
             <ProfileContactsBlock
-                profileStateData={props.profileStateData}
-                authStateData={props.authStateData}
-                addAppAlert={props.addAppAlert}
-                changeProfileContacts={props.changeProfileContacts}
+                profileStateData={profileStateData}
+                authStateData={authStateData}
+                addAppAlert={addAppAlert}
+                changeProfileContacts={changeProfileContacts}
             />
             <ProfilePostsBlock
-                profileStateData={props.profileStateData}
-                addPost={props.addPost}
-                addNewPost={props.postOnChange}
+                profileStateData={profileStateData}
+                addPost={addPost}
+                addNewPost={postOnChange}
             />
             <ProfileFriendsBlock blockHeaderName={'Friends'} />
             <ProfilePossibleFriendsBlock blockHeaderName={'Might know'} isFriends={false} />

@@ -4,7 +4,7 @@ import { BlockSection } from 'components/blocks/BlockSection.styled'
 import { memo, useEffect, useRef } from 'react'
 import { useDraggable } from 'react-use-draggable-scroll'
 import { S } from './DialogsBlock_Styles'
-import { Patch } from 'AppRoutingNames'
+import { Patch } from 'components/app/Router/routeNames'
 
 type Props = {
     dialogs: DialogResponse[]

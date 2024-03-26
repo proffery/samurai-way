@@ -2,8 +2,7 @@ import {
     AlertObjectType,
     AppActionsType, AppReducerStateType, appReducer,
     initialState, removeAppAlert, setAppAlert,
-    setAppIsInitialized, setAppIsLoading, setAppNavbarCollapsed,
-    setCurrentPath
+    setAppIsInitialized, setAppIsLoading, setCurrentPath
 } from './appReducer'
 
 describe('App reducer', () => {
@@ -49,14 +48,6 @@ describe('App reducer', () => {
         const action = removeAppAlert(idToRemove)
         expect(appReducer(startState, action)).toEqual(expectedState)
         expect(startState.alerts[1].id).toBe(expectedState.alerts[0].id)
-    })
-
-    it('property "navbarCollapsed" should change to false', () => {
-        const startState: AppReducerStateType = { ...initialState, navbarCollapsed: true }
-        const expectedState: AppReducerStateType = { ...initialState, navbarCollapsed: false }
-        const action = setAppNavbarCollapsed(false)
-        expect(appReducer(startState, action)).toEqual(expectedState)
-        expect(appReducer(startState, action).navbarCollapsed).toBe(expectedState.navbarCollapsed)
     })
 
     it('property "isInitialized" should change to false', () => {

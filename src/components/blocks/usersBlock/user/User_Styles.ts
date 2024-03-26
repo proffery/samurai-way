@@ -45,7 +45,7 @@ const Photo = styled.div`
 const Name = styled.p`
     text-align: center;
     overflow-wrap: anywhere;
-    ${font({ weight: 600, Fmin: 10, Fmax: 16 })}
+    ${font({ weight: 400, Fmin: 10, Fmax: 14 })}
     color: ${theme.color.text.primary_dark};
 `
 const Status = styled.p`

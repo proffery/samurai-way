@@ -1,4 +1,4 @@
-import { Patch } from 'AppRoutingNames'
+import { Patch } from 'components/app/Router/routeNames'
 import { Input } from 'components/common/input/Input.styled'
 import { Logout } from 'components/layout/header/Logout'
 import { useFormik } from 'formik'

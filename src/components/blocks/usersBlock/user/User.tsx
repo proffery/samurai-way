@@ -3,7 +3,7 @@ import { Button } from 'components/common/button/Button'
 import { memo, MouseEvent } from 'react'
 import { UserStateType } from 'store/users/usersReducer'
 import { S } from './User_Styles'
-import { Patch } from 'AppRoutingNames'
+import { Patch } from 'components/app/Router/routeNames'
 
 type Props = {
     user: UserStateType

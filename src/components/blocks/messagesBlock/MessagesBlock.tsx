@@ -1,4 +1,4 @@
-import { Patch } from 'AppRoutingNames'
+import { Patch } from 'components/app/Router/routeNames'
 import { MessagesForm } from 'components/blocks/messagesBlock/messagesForm/MessagesForm'
 import { MessagesList } from 'components/blocks/messagesBlock/messagesList/MessagesList'
 import { Avatar } from 'components/common/avatar/Avatar'

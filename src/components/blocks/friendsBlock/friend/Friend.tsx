@@ -1,5 +1,5 @@
 import { UserResponse } from 'api/usersAPI'
-import { Patch } from 'AppRoutingNames'
+import { Patch } from 'components/app/Router/routeNames'
 import { memo } from 'react'
 import { S } from './Friend_Styles'
 

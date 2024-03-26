@@ -351,3 +351,10 @@ export type ChangeAboutProfileType = {
     lookingForAJobDescription: string
 }
 export type ContactsIconsType = typeof initialState.contactsIcons
+
+export const profileThunks = {
+    followProfile, unfollowProfile, changeProfileStatus,
+    changeProfilePhotos, addPost, getProfileData,
+    changeProfileAbout, changeProfileContacts
+}
+export const profileActions = { postOnChange }

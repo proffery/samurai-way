@@ -1,30 +1,59 @@
+import { Patch } from 'components/app/Router/routeNames'
 import { DialogsBlock } from 'components/blocks/dialogsBlock/DialogsBlock'
 import { FriendsBlock } from 'components/blocks/friendsBlock/FriendsBlock'
 import { MessagesBlock } from 'components/blocks/messagesBlock/MessagesBlock'
 import { FlexWrapper } from 'components/common/FlexWrapper.styled'
 import { ToTop } from 'components/common/toTop/ToTop'
-import React, { memo } from "react"
-import { AlertType } from 'store/app/appReducer'
-import { AuthStateType } from 'store/auth/authReducer'
-import { MessagesStateType } from 'store/messages/messagesReducer'
+import React, { memo, useEffect } from "react"
+import { useSelector } from 'react-redux'
+import { useHistory, useParams } from 'react-router-dom'
+import { selectAppIsLoading } from 'store/app/appSelectors'
+import { selectAuthData } from 'store/auth/authSelectors'
+import { selectMessagesState } from 'store/messages/messagesSelectors'
 import styled from "styled-components"
 import { theme } from 'styles/Theme.styled'
+import { useActions } from 'utils/customHooks/useActions'
 
-type Props = {
-    userId: number
-    className?: string
-    appIsLoading: boolean
-    authData: AuthStateType
-    messagesState: MessagesStateType
-    usersOnPageChangeHandler: () => void
-    addMessage: (message: string) => void
-    addAppAlert: (type: AlertType, message: string) => void
-}
+type Props = { className?: string }
 
-export const Messages: React.FC<Props> = memo((props) => {
-    const { authData, appIsLoading, messagesState, className,
-        addMessage, addAppAlert, usersOnPageChangeHandler
-    } = props
+export const Messages: React.FC<Props> = memo(({ className }) => {
+    const messagesState = useSelector(selectMessagesState)
+    const appIsLoading = useSelector(selectAppIsLoading)
+    const authData = useSelector(selectAuthData)
+    const { addAppAlert, startDialog, getDialogs, sendMessage, getMessages } = useActions()
+    const params = useParams<{ userId: string }>()
+    const history = useHistory()
+    const { currentPage, messagesOnPage, totalMessagesCount } = messagesState
+    const DOWNLOAD_MESSAGES_PORTION = 3
+
+    useEffect(() => {
+        if (!params.userId) {
+            getDialogs()
+                .then(res => {
+                    if (res.payload?.dialogs[0]) {
+                        history.push(Patch.Messages + res.payload.dialogs[0].id)
+                    } else addAppAlert('info', 'Dialogs is emty... Start chatting with someone.')
+                }).catch(err => {
+                    addAppAlert('failed', err)
+                })
+        }
+        else {
+            startDialog(+params.userId)
+            getMessages({ userId: +params.userId, currentPage, messagesOnPage })
+        }
+    }, [params.userId, currentPage, messagesOnPage])
+
+    const pageChangeHandler = () => {
+        let newMessagesNumber = messagesOnPage
+        if (messagesOnPage < totalMessagesCount) {
+            newMessagesNumber += DOWNLOAD_MESSAGES_PORTION
+            getMessages({ userId: +params.userId, currentPage: 1, messagesOnPage: newMessagesNumber })
+        }
+    }
+
+    const addMessage = (message: string) => {
+        params.userId && sendMessage({ userId: +params.userId, message })
+    }
 
     return (
         <StyledMessages id="messages">
@@ -41,7 +70,7 @@ export const Messages: React.FC<Props> = memo((props) => {
                     messagesState={messagesState}
                     addMessage={addMessage}
                     addAppAlert={addAppAlert}
-                    pageChangeHandler={usersOnPageChangeHandler}
+                    pageChangeHandler={pageChangeHandler}
                 />
             </MessagesWrapper>
         </StyledMessages>
