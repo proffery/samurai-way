@@ -5,7 +5,7 @@ import React, { memo } from "react"
 import styled from 'styled-components'
 import { theme } from 'styles/Theme.styled'
 
-export const Users: React.FC = memo(() => {
+const Users: React.FC = memo(() => {
     return <StyledUsers id="users">
         <ToTop anchor_id='users-block' />
         <UsersBlock />
@@ -16,6 +16,7 @@ export const Users: React.FC = memo(() => {
     </StyledUsers>
 })
 
+export default Users
 const StyledUsers = styled.main`
     display: flex;
     justify-content: space-between;

@@ -1,26 +1,32 @@
 import { Patch } from 'components/app/Router/routeNames'
-import { Messages } from 'components/layout/pages/messages/Messages'
-import { NotFound } from 'components/layout/pages/notFound/NotFound'
 import { Notifications } from 'components/layout/pages/notifications/Notifications'
-import { Profile } from 'components/layout/pages/profile/Profile'
+import { lazy, Suspense } from 'react'
 import { Settings } from 'components/layout/pages/settings/Settings'
-import { Users } from 'components/layout/pages/users/Users'
-import React from 'react'
 import { useSelector } from 'react-redux'
 import { Redirect, Route, Switch } from 'react-router-dom'
 import { selectStoragePath } from 'store/app/appSelectors'
+import { InitializationLoader } from 'components/common/loaders/IniatializationLoader'
+const Profile = lazy(() => import('components/layout/pages/profile/Profile'))
+const Users = lazy(() => import('components/layout/pages/users/Users'))
+const Messages = lazy(() => import('components/layout/pages/messages/Messages'))
+const NotFound = lazy(() => import('components/layout/pages/notFound/NotFound'))
 
 export const AppRouteSwich: React.FC = () => {
     const storagePath = useSelector(selectStoragePath)
 
     return <Switch>
-        <Route path={Patch.Home} exact component={Profile} />
-        <Route path={Patch.ProfileParams} component={Profile} />
-        <Route path={Patch.Users} component={Users} />
-        <Route path={Patch.MessagesParams} component={Messages} />
+        <Route path={Patch.Home} exact render={() =>
+            <Suspense fallback={<InitializationLoader />}><Profile /></Suspense>} />
+        <Route path={Patch.ProfileParams} render={() =>
+            <Suspense fallback={<InitializationLoader />}><Profile /></Suspense>} />
+        <Route path={Patch.Users} render={() =>
+            <Suspense fallback={<InitializationLoader />}><Users /></Suspense>} />
+        <Route path={Patch.MessagesParams} render={() =>
+            <Suspense fallback={<InitializationLoader />}><Messages /></Suspense>} />
+        <Route path={Patch.NotFound} render={() =>
+            <Suspense fallback={<InitializationLoader />}><NotFound /></Suspense>} />
         <Route path={Patch.Notifications} component={Notifications} />
         <Route path={Patch.Settings} component={Settings} />
-        <Route path={Patch.NotFound} component={NotFound} />
         <Route path={Patch.Login} render={() => <Redirect to={`${storagePath}`} />} />
         <Route path={Patch.Other} render={() => <Redirect to={Patch.NotFound} />} />
     </Switch>

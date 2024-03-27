@@ -86,11 +86,11 @@ export const UsersBlock: React.FC = memo(() => {
         </FlexWrapper>
         {usersList()}
         <S.UsersPagination
+            pagesPortion={7}
             usersOnPage={usersOnPage}
             currentPage={currentPage}
-            totalUsersCount={totalUsersCount}
             appIsLoading={appIsLoading}
-            pagesPortion={7}
+            totalUsersCount={totalUsersCount}
             pageChangeHandler={pageChangeHandler}
         />
     </S.UsersBlock>

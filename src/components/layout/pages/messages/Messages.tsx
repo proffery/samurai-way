@@ -16,7 +16,7 @@ import { useActions } from 'utils/customHooks/useActions'
 
 type Props = { className?: string }
 
-export const Messages: React.FC<Props> = memo(({ className }) => {
+const Messages: React.FC<Props> = memo(({ className }) => {
     const messagesState = useSelector(selectMessagesState)
     const appIsLoading = useSelector(selectAppIsLoading)
     const authData = useSelector(selectAuthData)
@@ -76,6 +76,8 @@ export const Messages: React.FC<Props> = memo(({ className }) => {
         </StyledMessages>
     )
 })
+
+export default Messages
 
 const StyledMessages = styled.main`
     height: 100%;

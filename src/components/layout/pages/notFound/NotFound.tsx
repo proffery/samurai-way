@@ -7,7 +7,7 @@ import { useHistory } from 'react-router-dom'
 import styled from "styled-components"
 import { font } from 'styles/Font'
 
-export const NotFound: React.FC = memo(() => {
+const NotFound: React.FC = memo(() => {
     const history = useHistory()
 
     const handleHome = () => {
@@ -41,6 +41,8 @@ export const NotFound: React.FC = memo(() => {
         </main>
     )
 })
+
+export default NotFound
 
 const StyledBlockSection = styled(BlockSection)`
     height: 100%;

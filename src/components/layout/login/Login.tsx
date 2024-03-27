@@ -13,7 +13,7 @@ type FormikError = {
     password?: string
 }
 
-export const Login: React.FC = memo(() => {
+const Login: React.FC = memo(() => {
     const { login, addAppAlert } = useActions()
     const formik = useFormik({
         initialValues: {
@@ -98,3 +98,4 @@ export const Login: React.FC = memo(() => {
     </S.Login>
 })
 
+export default Login

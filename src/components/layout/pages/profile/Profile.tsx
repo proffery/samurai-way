@@ -14,7 +14,7 @@ import styled from "styled-components"
 import { theme } from 'styles/Theme.styled'
 import { useActions } from 'utils/customHooks/useActions'
 
-export const Profile: React.FC = memo(() => {
+const Profile: React.FC = memo(() => {
     const appIsLoading = useSelector(selectAppIsLoading)
     const authStateData = useSelector(selectAuthData)
     const profileStateData = useSelector(selectProfileData)
@@ -65,6 +65,8 @@ export const Profile: React.FC = memo(() => {
         </StyledProfile>
     )
 })
+
+export default Profile
 
 const StyledProfile = styled.main`
     display: grid;
