@@ -1,4 +1,4 @@
-import { AppRootStateType } from 'store/redux-store'
-import { ProfileStateType } from './profileReducer'
+import { AppRootState } from 'store/redux-store'
+import { ProfileState } from './profileReducer'
 
-export const selectProfileData = (state: AppRootStateType): ProfileStateType => state.profile
+export const selectProfileData = (state: AppRootState): ProfileState => state.profile

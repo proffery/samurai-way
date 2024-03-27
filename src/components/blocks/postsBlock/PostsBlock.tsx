@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { Button } from 'components/common/button/Button'
 import { Input } from 'components/common/input/Input.styled'
 import { Post } from 'components/blocks/postsBlock/post/Post'
-import { ProfileStateType } from 'store/profile/profileReducer'
+import { ProfileState } from 'store/profile/profileReducer'
 import { FlexWrapper } from 'components/common/FlexWrapper.styled'
 import { BlockHeader } from 'components/blocks/BlockHeader.styled'
 import { BlockSection } from 'components/blocks/BlockSection.styled'
@@ -10,7 +10,7 @@ import React, { ChangeEvent, MouseEvent, KeyboardEvent, useState, memo } from "r
 
 type Props = {
     className?: string
-    profileStateData: ProfileStateType
+    profileStateData: ProfileState
     addNewPost: (text: string) => void
     addPost: () => void
 }

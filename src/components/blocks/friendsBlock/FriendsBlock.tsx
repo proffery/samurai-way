@@ -12,10 +12,10 @@ import { selectAppIsLoading } from 'store/app/appSelectors'
 type Props = {
     className?: string
     isFriends?: boolean
-    blockHeaderName: string
+    headerName: string
 }
 
-export const FriendsBlock: React.FC<Props> = memo(({ blockHeaderName, className, isFriends = true }) => {
+export const FriendsBlock: React.FC<Props> = memo(({ headerName: blockHeaderName, className, isFriends = true }) => {
     const { getFriends } = useActions()
     const { totalUsersCount, currentPage, usersOnPage, users } = useSelector(isFriends ? selectFriendsData : selectPossibleFriendsData)
     const isLoading = useSelector(selectAppIsLoading)

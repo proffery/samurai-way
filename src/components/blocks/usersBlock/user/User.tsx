@@ -1,12 +1,12 @@
 import { Avatar } from 'components/common/avatar/Avatar'
 import { Button } from 'components/common/button/Button'
 import { memo, MouseEvent } from 'react'
-import { UserStateType } from 'store/users/usersReducer'
+import { UserState } from 'store/users/usersReducer'
 import { S } from './User_Styles'
 import { Patch } from 'components/app/Router/routeNames'
 
 type Props = {
-    user: UserStateType
+    user: UserState
     follow: (userId: number) => void
     unfollow: (userId: number) => void
 }

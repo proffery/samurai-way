@@ -1,6 +1,6 @@
-import { AppDispatchType } from 'store/redux-store'
-import { CLEAR_REDUCER, CleanReducerType } from 'store/auth/authReducer'
-import { setAppIsLoading, addAppAlert, SetAppIsLoadingActionType, AddAlertActionType } from 'store/app/appReducer'
+import { AppDispatch } from 'store/redux-store'
+import { CLEAR_REDUCER, CleanReducers } from 'store/auth/authReducer'
+import { setAppIsLoading, addAppAlert, SetAppIsLoading, AddAlert } from 'store/app/appReducer'
 import { ResultCode } from 'api/api-instance'
 import { UserResponse, usersAPI } from 'api/usersAPI'
 import { handleServerNetworkError } from 'utils/handleServerNetworkError'
@@ -22,12 +22,12 @@ export const initialState = {
     currentPage: 1,
     usersOnPage: 15,
     totalUsersCount: 0,
-    users: [] as UserStateType[],
-    usersFilter: 'all' as UsersFilterType,
+    users: [] as UserState[],
+    usersFilter: 'all' as UsersFilter,
 }
 
 //REDUCER
-export const usersReducer = (state: UsersStateType = initialState, action: UsersReducerActionsType): UsersStateType => {
+export const usersReducer = (state: UsersState = initialState, action: UsersReducerActions): UsersState => {
     switch (action.type) {
         case FOLLOW:
             return {
@@ -79,14 +79,14 @@ export const setTotalUsersCount = (totalUsersCount: number) =>
     ({ type: SET_TOTAL_USERS_COUNT, payload: { totalUsersCount } }) as const
 export const setUsersSearchTerm = (searchTerm: string) =>
     ({ type: CHANGE_SEARCH_TERM, payload: { searchTerm } }) as const
-export const changeUsersFilter = (usersFilter: UsersFilterType) =>
+export const changeUsersFilter = (usersFilter: UsersFilter) =>
     ({ type: CHANGE_USERS_FILTER, payload: { usersFilter } }) as const
 export const changeUserIsLoading = (userId: number, isLoading: boolean) =>
     ({ type: CHANGE_USER_IS_LOADING, payload: { userId, isLoading } }) as const
 
 //THUNKS
 export const getUsers = (pageNumber: number, usersOnPage: number, isFriend: boolean | null, searchTerm: string) =>
-    async (dispatch: AppDispatchType) => {
+    async (dispatch: AppDispatch) => {
         dispatch(setAppIsLoading(true))
         try {
             const res = await usersAPI.getUsers(pageNumber, usersOnPage, isFriend, searchTerm)
@@ -99,7 +99,7 @@ export const getUsers = (pageNumber: number, usersOnPage: number, isFriend: bool
         } finally { dispatch(setAppIsLoading(false)) }
     }
 
-export const followUser = (userId: number) => async (dispatch: AppDispatchType) => {
+export const followUser = (userId: number) => async (dispatch: AppDispatch) => {
     dispatch(changeUserIsLoading(userId, true))
     dispatch(setAppIsLoading(true))
     try {
@@ -119,7 +119,7 @@ export const followUser = (userId: number) => async (dispatch: AppDispatchType) 
     }
 }
 
-export const unfollowUser = (userId: number) => async (dispatch: AppDispatchType) => {
+export const unfollowUser = (userId: number) => async (dispatch: AppDispatch) => {
     dispatch(changeUserIsLoading(userId, true))
     dispatch(setAppIsLoading(true))
     try {
@@ -140,7 +140,7 @@ export const unfollowUser = (userId: number) => async (dispatch: AppDispatchType
 }
 
 //TYPES
-export type UsersReducerActionsType =
+export type UsersReducerActions =
     | ReturnType<typeof setUsers>
     | ReturnType<typeof setCurrentPage>
     | ReturnType<typeof setUsersOnPage>
@@ -148,18 +148,18 @@ export type UsersReducerActionsType =
     | ReturnType<typeof setTotalUsersCount>
     | ReturnType<typeof setUsersSearchTerm>
     | ReturnType<typeof changeUserIsLoading>
-    | SetAppIsLoadingActionType
-    | UnfollowUserActionType
-    | FollowUserActionType
-    | AddAlertActionType
-    | CleanReducerType
-export type FollowUserActionType = ReturnType<typeof setFollowUser>
-export type UnfollowUserActionType = ReturnType<typeof setUnfollowUser>
-export interface UserStateType extends UserResponse {
+    | SetAppIsLoading
+    | UnfollowUser
+    | FollowUser
+    | AddAlert
+    | CleanReducers
+export type FollowUser = ReturnType<typeof setFollowUser>
+export type UnfollowUser = ReturnType<typeof setUnfollowUser>
+export interface UserState extends UserResponse {
     isLoading: boolean
 }
-export type UsersStateType = typeof initialState
-export type UsersFilterType = 'all' | 'followed' | 'unfollowed'
+export type UsersState = typeof initialState
+export type UsersFilter = 'all' | 'followed' | 'unfollowed'
 
 export const usersThunks = { followUser, unfollowUser, getUsers }
 export const usersActions = { setUsersSearchTerm, changeUsersFilter }

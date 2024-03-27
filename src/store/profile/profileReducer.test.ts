@@ -4,8 +4,8 @@ import {
     setProfileData,
     setFollowStatus,
     setStatus,
-    ProfileStateType,
-    ProfileActionsType,
+    ProfileState,
+    ProfileActions,
     setPhotos
 } from './profileReducer'
 import { v1 } from 'uuid'
@@ -15,11 +15,11 @@ import { PhotosResponse } from 'api/api-instance'
 
 describe('Profile reducer', () => {
     it('profile reducer should return the initial state', () => {
-        expect(profileReducer(undefined, {} as ProfileActionsType)).toEqual(initialState)
+        expect(profileReducer(undefined, {} as ProfileActions)).toEqual(initialState)
     })
 
     it('should correctly update the profile data', () => {
-        const startState: ProfileStateType = { ...initialState }
+        const startState: ProfileState = { ...initialState }
         const data: GetProfileResponse = {
             aboutMe: 'Updated about me',
             contacts: {
@@ -68,7 +68,7 @@ describe('Profile reducer', () => {
 
     it('should update the status', () => {
         const status = 'Updated status'
-        const startState: ProfileStateType = {
+        const startState: ProfileState = {
             ...initialState, data: {
                 ...initialState.data,
                 status: ''
@@ -85,7 +85,7 @@ describe('Profile reducer', () => {
                 small: 'https://example.com/photo-small.jpg'
             }
         }
-        const startState: ProfileStateType = {
+        const startState: ProfileState = {
             ...initialState, data: {
                 ...initialState.data,
                 photos: {
@@ -95,14 +95,14 @@ describe('Profile reducer', () => {
             }
         }
         const action = setPhotos(photosData)
-        const expectedState: ProfileStateType = profileReducer(startState, action)
+        const expectedState: ProfileState = profileReducer(startState, action)
         expect(expectedState.data.photos).toEqual(photosData.photos)
         expect(expectedState.data.photos.large).toBe(photosData.photos.large)
         expect(expectedState.data.photos.small).toBe(photosData.photos.small)
     })
 
     it('should reset profile state to the initial', () => {
-        const startState: ProfileStateType = {
+        const startState: ProfileState = {
             posts: [
                 { id: '1', message: 'Hello, world!', likeCount: 0, commentsCount: 0 },
             ],

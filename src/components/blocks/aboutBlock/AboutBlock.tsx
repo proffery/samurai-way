@@ -2,17 +2,17 @@ import { About } from 'components/blocks/aboutBlock/about/About'
 import { AboutForm } from 'components/blocks/aboutBlock/about/AboutForm'
 import { BlockHeader } from 'components/blocks/BlockHeader.styled'
 import { memo } from 'react'
-import { AlertType } from 'store/app/appReducer'
-import { AuthStateType } from 'store/auth/authReducer'
-import { ChangeAboutProfileType, ProfileDataType } from 'store/profile/profileReducer'
+import { AuthState } from 'store/auth/authReducer'
+import { ChangeAbout, ProfileData } from 'store/profile/profileReducer'
 import { S } from './AboutBlock_Styles'
+import { AlertType } from 'store/app/appReducer'
 
 type Props = {
-    className?:string
-    profileData: ProfileDataType
-    authStateData: AuthStateType
+    className?: string
+    profileData: ProfileData
+    authStateData: AuthState
     addAppAlert: (type: AlertType, message: string) => void
-    changeProfileAbout: (about: ChangeAboutProfileType) => void
+    changeProfileAbout: (about: ChangeAbout) => void
 }
 
 export const AboutBlock: React.FC<Props> = memo(({ className, profileData, authStateData, addAppAlert, changeProfileAbout }) => {

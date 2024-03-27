@@ -1,6 +1,6 @@
 
 import { createAsyncThunk } from "@reduxjs/toolkit"
-import { AppDispatchType, AppRootStateType } from 'store/redux-store'
+import { AppDispatch, AppRootState } from 'store/redux-store'
 /**
  * Функция-оберека для типизации createAsyncThunk
  * https://redux-toolkit.js.org/usage/usage-with-typescript
@@ -23,7 +23,7 @@ import { AppDispatchType, AppRootStateType } from 'store/redux-store'
  * rejectedMeta?: unknown
  */
 export const createAppAsyncThunk = createAsyncThunk.withTypes<{
-  state: AppRootStateType
-  dispatch: AppDispatchType
+  state: AppRootState
+  dispatch: AppDispatch
   rejectValue: null
 }>()

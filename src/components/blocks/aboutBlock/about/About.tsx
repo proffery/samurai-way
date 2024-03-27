@@ -1,10 +1,10 @@
 import { memo } from 'react'
-import { ProfileDataType } from 'store/profile/profileReducer'
+import { ProfileData } from 'store/profile/profileReducer'
 import { S } from './About_Styles'
 import { Checkbox } from 'components/common/checkbox/Checkbox'
 
 type Props = {
-    profileData: ProfileDataType
+    profileData: ProfileData
 }
 export const About: React.FC<Props> = memo(({ profileData }) => {
     const { fullName, aboutMe, lookingForAJob, lookingForAJobDescription } = profileData

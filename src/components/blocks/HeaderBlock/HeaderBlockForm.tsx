@@ -30,7 +30,7 @@ export const HeaderBlockForm: React.FC<Props> = ({ changeProfileStatus, addAppAl
             return errors
         }
     })
-    
+
     return <form onSubmit={formik.handleSubmit}>
         <EditableSpan
             onSand={formik.handleSubmit}

@@ -3,8 +3,8 @@ import { FlexWrapper } from 'components/common/FlexWrapper.styled'
 import { Input } from 'components/common/input/Input.styled'
 import { KeyboardEvent } from 'react'
 import { useFormik } from 'formik'
-import { AlertType } from 'store/app/appReducer'
 import { S } from './MessagesForm_Styles'
+import { AlertType } from 'store/app/appReducer'
 
 type Props = {
     addMessage: (message: string) => void

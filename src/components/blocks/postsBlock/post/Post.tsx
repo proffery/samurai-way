@@ -1,7 +1,7 @@
 import { FlexWrapper } from 'components/common/FlexWrapper.styled'
 import { Icon } from 'components/common/icon/Icon'
 import { memo } from 'react'
-import { PostStateType } from 'store/profile/profileReducer'
+import { PostObject } from 'store/profile/profileReducer'
 import styled from 'styled-components'
 import { font } from 'styles/Font'
 import { theme } from 'styles/Theme.styled'
@@ -9,7 +9,7 @@ import { Button } from 'components/common/button/Button'
 import { Avatar } from 'components/common/avatar/Avatar'
 
 type PostPropsType = {
-    postData: PostStateType
+    postData: PostObject
 }
 
 export const Post: React.FC<PostPropsType> = memo((props) => {

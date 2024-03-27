@@ -2,7 +2,6 @@ import { Patch } from 'components/app/Router/routeNames'
 import { DialogsBlock } from 'components/blocks/dialogsBlock/DialogsBlock'
 import { FriendsBlock } from 'components/blocks/friendsBlock/FriendsBlock'
 import { MessagesBlock } from 'components/blocks/messagesBlock/MessagesBlock'
-import { FlexWrapper } from 'components/common/FlexWrapper.styled'
 import { ToTop } from 'components/common/toTop/ToTop'
 import React, { memo, useEffect } from "react"
 import { useSelector } from 'react-redux'
@@ -10,10 +9,8 @@ import { useHistory, useParams } from 'react-router-dom'
 import { selectAppIsLoading } from 'store/app/appSelectors'
 import { selectAuthData } from 'store/auth/authSelectors'
 import { selectMessagesState } from 'store/messages/messagesSelectors'
-import styled from "styled-components"
-import { theme } from 'styles/Theme.styled'
 import { useActions } from 'utils/customHooks/useActions'
-
+import { S } from './Messages_Styles'
 type Props = { className?: string }
 
 const Messages: React.FC<Props> = memo(({ className }) => {
@@ -55,48 +52,25 @@ const Messages: React.FC<Props> = memo(({ className }) => {
         params.userId && sendMessage({ userId: +params.userId, message })
     }
 
-    return <StyledMessages id="messages">
-            <ToTop anchor_id='dialogs-block' />
-            <StyledFriendsWrapper direction={'column'} gap={'min(30px, 2vw)'}>
-                <FriendsBlock className={className} blockHeaderName='Friens' />
-                <FriendsBlock className={className} blockHeaderName='Might know' isFriends={false} />
-            </StyledFriendsWrapper>
-            <MessagesWrapper direction={'column'}>
-                <DialogsBlock dialogs={messagesState.dialogs} />
-                <MessagesBlock
-                    authData={authData}
-                    appIsLoading={appIsLoading}
-                    messagesState={messagesState}
-                    addMessage={addMessage}
-                    addAppAlert={addAppAlert}
-                    pageChangeHandler={pageChangeHandler}
-                />
-            </MessagesWrapper>
-        </StyledMessages>
+    return <S.Messages id="messages">
+        <ToTop anchor_id='dialogs-block' />
+        <S.FriendsWrapper>
+            <FriendsBlock className={className} headerName='Friens' />
+            <FriendsBlock className={className} headerName='Might know' isFriends={false} />
+        </S.FriendsWrapper>
+        <S.MessagesWrapper>
+            <DialogsBlock dialogs={messagesState.dialogs} />
+            <MessagesBlock
+                authData={authData}
+                appIsLoading={appIsLoading}
+                messagesState={messagesState}
+                addMessage={addMessage}
+                addAppAlert={addAppAlert}
+                pageChangeHandler={pageChangeHandler}
+            />
+        </S.MessagesWrapper>
+    </S.Messages>
 })
 
 export default Messages
 
-const StyledMessages = styled.main`
-    height: 100%;
-    gap: min(30px, 2vw);
-    display: flex;
-    overflow-x: hidden;
-    @media ${theme.media.mobile} {
-        flex-direction: column;
-    }
-    `
-const StyledFriendsWrapper = styled(FlexWrapper)`
-    min-width: 170px;
-    max-width: 20%;
-    @media ${theme.media.mobile} {
-        display: none;
-    }
-    `
-const MessagesWrapper = styled(FlexWrapper)`
-    width: 80%;
-    gap: min(30px, 2vw);
-    @media ${theme.media.mobile} {
-        width: 100%;
-    }
-`

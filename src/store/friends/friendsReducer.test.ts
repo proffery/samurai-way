@@ -1,6 +1,6 @@
 import { cleanReducer } from 'store/auth/authReducer'
 import {
-    FriendsActionsType, FriendsStateType, friendsReducer,
+    FriendsActions, FriendsState, friendsReducer,
     initialState, setFriends, setFriendsOnPage, setFriendsPage,
     setPossibleFriends, setPossibleFriendsOnPage, setPossibleFriendsPage,
     setPossibleTotalFriendsCount, setTotalFriendsCount
@@ -9,11 +9,11 @@ import { UserResponse } from 'api/usersAPI'
 
 describe('Friends reducer', () => {
     it('friends reducer should return the initial state', () => {
-        expect(friendsReducer(undefined, {} as FriendsActionsType)).toEqual(initialState)
+        expect(friendsReducer(undefined, {} as FriendsActions)).toEqual(initialState)
     })
 
     it('users should corectly added to friends state', () => {
-        const startState: FriendsStateType = {
+        const startState: FriendsState = {
             ...initialState,
             friends: {
                 ...initialState.friends, users: []
@@ -43,14 +43,14 @@ describe('Friends reducer', () => {
             }
         ]
         const action = setFriends(users)
-        const expectedState: FriendsStateType = { ...initialState, friends: { ...initialState.friends, users } }
+        const expectedState: FriendsState = { ...initialState, friends: { ...initialState.friends, users } }
         expect(friendsReducer(startState, action)).toEqual(expectedState)
         expect(friendsReducer(startState, action).friends.users[0].name).toBe("John Doe")
         expect(friendsReducer(startState, action).friends.users[1].photos.small).toBe("https://example.com/user2_small.jpg")
     })
 
     it('current page should should corectly added to friends state', () => {
-        const startState: FriendsStateType = {
+        const startState: FriendsState = {
             ...initialState,
             friends: {
                 ...initialState.friends, currentPage: 0
@@ -58,7 +58,7 @@ describe('Friends reducer', () => {
         }
         const currentPage = 2
         const action = setFriendsPage(currentPage)
-        const expectedState: FriendsStateType = {
+        const expectedState: FriendsState = {
             ...initialState,
             friends: {
                 ...initialState.friends, currentPage
@@ -69,7 +69,7 @@ describe('Friends reducer', () => {
     })
 
     it('correct number of users on the page page should added to friends state', () => {
-        const startState: FriendsStateType = {
+        const startState: FriendsState = {
             ...initialState,
             friends: {
                 ...initialState.friends, usersOnPage: 0
@@ -77,7 +77,7 @@ describe('Friends reducer', () => {
         }
         const usersOnPage = 10
         const action = setFriendsOnPage(usersOnPage)
-        const expectedState: FriendsStateType = {
+        const expectedState: FriendsState = {
             ...initialState,
             friends: {
                 ...initialState.friends, usersOnPage
@@ -91,7 +91,7 @@ describe('Friends reducer', () => {
     it('correct number of total users page should added to friends state', () => {
 
 
-        const startState: FriendsStateType = {
+        const startState: FriendsState = {
             ...initialState,
             friends: {
                 ...initialState.friends, totalUsersCount: 100
@@ -99,7 +99,7 @@ describe('Friends reducer', () => {
         }
         const totalUsersCount = 50
         const action = setTotalFriendsCount(totalUsersCount)
-        const expectedState: FriendsStateType = {
+        const expectedState: FriendsState = {
             ...initialState,
             friends: {
                 ...initialState.friends, totalUsersCount
@@ -111,7 +111,7 @@ describe('Friends reducer', () => {
     })
 
     it('users should corectly added possible friends state', () => {
-        const startState: FriendsStateType = {
+        const startState: FriendsState = {
             ...initialState,
             possibleFriends: {
                 ...initialState.possibleFriends, users: []
@@ -141,7 +141,7 @@ describe('Friends reducer', () => {
             }
         ]
         const action = setPossibleFriends(users)
-        const expectedState: FriendsStateType = {
+        const expectedState: FriendsState = {
             ...initialState,
             possibleFriends: {
                 ...initialState.possibleFriends, users
@@ -153,7 +153,7 @@ describe('Friends reducer', () => {
     })
 
     it('current page should should corectly added to possible friends state', () => {
-        const startState: FriendsStateType = {
+        const startState: FriendsState = {
             ...initialState,
             possibleFriends: {
                 ...initialState.possibleFriends, currentPage: 0
@@ -161,7 +161,7 @@ describe('Friends reducer', () => {
         }
         const currentPage = 2
         const action = setPossibleFriendsPage(currentPage)
-        const expectedState: FriendsStateType = {
+        const expectedState: FriendsState = {
             ...initialState,
             possibleFriends: {
                 ...initialState.possibleFriends, currentPage
@@ -172,7 +172,7 @@ describe('Friends reducer', () => {
     })
 
     it('correct number of users on the page page should added to possible friends state', () => {
-        const startState: FriendsStateType = {
+        const startState: FriendsState = {
             ...initialState,
             possibleFriends: {
                 ...initialState.possibleFriends, usersOnPage: 5
@@ -180,7 +180,7 @@ describe('Friends reducer', () => {
         }
         const usersOnPage = 99
         const action = setPossibleFriendsOnPage(usersOnPage)
-        const expectedState: FriendsStateType = {
+        const expectedState: FriendsState = {
             ...initialState,
             possibleFriends: {
                 ...initialState.possibleFriends, usersOnPage
@@ -192,7 +192,7 @@ describe('Friends reducer', () => {
     })
 
     it('correct number of total users page should added to possible friends state', () => {
-        const startState: FriendsStateType = {
+        const startState: FriendsState = {
             ...initialState,
             possibleFriends: {
                 ...initialState.possibleFriends, totalUsersCount: 552
@@ -200,7 +200,7 @@ describe('Friends reducer', () => {
         }
         const totalUsersCount = 18
         const action = setPossibleTotalFriendsCount(totalUsersCount)
-        const expectedState: FriendsStateType = {
+        const expectedState: FriendsState = {
             ...initialState,
             possibleFriends: {
                 ...initialState.possibleFriends, totalUsersCount
@@ -212,7 +212,7 @@ describe('Friends reducer', () => {
     })
 
     it('friends reducer state should be restored to initial state', () => {
-        const startState: FriendsStateType = {
+        const startState: FriendsState = {
             friends: { ...initialState.possibleFriends },
             possibleFriends: { ...initialState.friends }
         }

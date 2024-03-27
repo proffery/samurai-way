@@ -21,9 +21,5 @@ export const store = configureStore({
     reducer: rootReducer
 })
 
-//export const store = createStore(rootReducer, applyMiddleware(thunk))
-export type AppRootStateType = ReturnType<typeof rootReducer>
-export type AppDispatchType = typeof store.dispatch
-//export type AppDispatchType = ThunkDispatch<AppRootStateType, unknown, AnyAction>
-// @ts-ignore
-window.store = store
+export type AppRootState = ReturnType<typeof rootReducer>
+export type AppDispatch = typeof store.dispatch

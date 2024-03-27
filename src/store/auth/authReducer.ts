@@ -1,10 +1,10 @@
 import { authAPI, GetMeData, LoginData } from 'api/authAPI'
 import { profileAPI } from 'api/profileAPI'
 import { ResultCode } from 'api/api-instance'
-import { AppDispatchType } from 'store/redux-store'
+import { AppDispatch } from 'store/redux-store'
 import {
-    initializeApp, addAppAlert, SetAppIsLoadingActionType,
-    SetAppIsInitializedType, setAppIsLoading
+    initializeApp, addAppAlert, SetAppIsLoading,
+    SetAppIsInitialized, setAppIsLoading
 } from 'store/app/appReducer'
 import { handleServerNetworkError } from 'utils/handleServerNetworkError'
 
@@ -16,7 +16,7 @@ const SET_PHOTO_URL = 'AUTH/SET-PHOTO-URL'
 export const CLEAR_REDUCER = 'AUTH/CLEAR-REDUCER'
 
 //INITIAL STATE
-export const initialState: AuthStateType = {
+export const initialState: AuthState = {
     id: 2,
     email: '',
     login: '',
@@ -25,7 +25,7 @@ export const initialState: AuthStateType = {
 }
 
 //REDUCER
-export const authReducer = (state: AuthStateType = initialState, action: AuthReducerActionsType): AuthStateType => {
+export const authReducer = (state: AuthState = initialState, action: AuthReducerActions): AuthState => {
     switch (action.type) {
         case SET_AUTH_DATA:
             return { ...state, ...action.payload.data }
@@ -41,7 +41,7 @@ export const authReducer = (state: AuthStateType = initialState, action: AuthRed
 }
 
 //ACTIONS
-export type CleanReducerType = ReturnType<typeof cleanReducer>
+export type CleanReducers = ReturnType<typeof cleanReducer>
 export const setAuthUserData = (data: GetMeData) =>
     ({ type: SET_AUTH_DATA, payload: { data } }) as const
 export const setIsLoggedIn = (value: boolean) =>
@@ -52,7 +52,7 @@ export const cleanReducer = () =>
     ({ type: CLEAR_REDUCER }) as const
 
 //THUNKS
-export const getAuthPhoto = (authId: number) => async (dispatch: AppDispatchType) => {
+export const getAuthPhoto = (authId: number) => async (dispatch: AppDispatch) => {
     try {
         const res = await profileAPI.getProfile(authId)
         dispatch(setAuthUserPhoto(res.data.photos.small))
@@ -63,7 +63,7 @@ export const getAuthPhoto = (authId: number) => async (dispatch: AppDispatchType
     }
 }
 
-export const login = (loginData: LoginData) => async (dispatch: AppDispatchType) => {
+export const login = (loginData: LoginData) => async (dispatch: AppDispatch) => {
     dispatch(setAppIsLoading(true))
     try {
         const res = await authAPI.login(loginData)
@@ -78,7 +78,7 @@ export const login = (loginData: LoginData) => async (dispatch: AppDispatchType)
     } finally { dispatch(setAppIsLoading(false)) }
 }
 
-export const logout = () => async (dispatch: AppDispatchType) => {
+export const logout = () => async (dispatch: AppDispatch) => {
     dispatch(setAppIsLoading(true))
     try {
         const res = await authAPI.logout()
@@ -95,14 +95,14 @@ export const logout = () => async (dispatch: AppDispatchType) => {
 }
 
 //TYPES
-export type AuthReducerActionsType =
+export type AuthReducerActions =
     | ReturnType<typeof setAuthUserData>
     | ReturnType<typeof setIsLoggedIn>
     | ReturnType<typeof setAuthUserPhoto>
-    | SetAppIsLoadingActionType
-    | SetAppIsInitializedType
-    | CleanReducerType
-export interface AuthStateType extends GetMeData {
+    | SetAppIsLoading
+    | SetAppIsInitialized
+    | CleanReducers
+export interface AuthState extends GetMeData {
     isLoggedIn: boolean
     photoUrl: string
 }

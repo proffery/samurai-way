@@ -1,7 +1,7 @@
 import { UserResponse, usersAPI } from 'api/usersAPI'
-import { setAppIsLoading, SetAppIsLoadingActionType } from 'store/app/appReducer'
-import { CleanReducerType, CLEAR_REDUCER } from 'store/auth/authReducer'
-import { AppDispatchType } from 'store/redux-store'
+import { setAppIsLoading, SetAppIsLoading } from 'store/app/appReducer'
+import { CleanReducers, CLEAR_REDUCER } from 'store/auth/authReducer'
+import { AppDispatch } from 'store/redux-store'
 import { handleServerNetworkError } from 'utils/handleServerNetworkError'
 
 
@@ -33,7 +33,7 @@ export const initialState = {
 }
 
 //REDUCER
-export const friendsReducer = (state: FriendsStateType = initialState, action: FriendsActionsType): FriendsStateType => {
+export const friendsReducer = (state: FriendsState = initialState, action: FriendsActions): FriendsState => {
     switch (action.type) {
         case SET_FRIENDS:
             return { ...state, friends: { ...state.friends, users: [...action.payload.users] } }
@@ -78,7 +78,7 @@ export const setPossibleTotalFriendsCount = (totalUsersCount: number) =>
 
 //THUNKS
 export const getFriends = (pageNumber: number, usersOnPage: number, isFriend: boolean) =>
-    async (dispatch: AppDispatchType) => {
+    async (dispatch: AppDispatch) => {
         dispatch(setAppIsLoading(true))
         try {
             const res = await usersAPI.getUsers(pageNumber, usersOnPage, isFriend, '')
@@ -99,7 +99,7 @@ export const getFriends = (pageNumber: number, usersOnPage: number, isFriend: bo
     }
 
 //TYPES
-export type FriendsActionsType =
+export type FriendsActions =
     | ReturnType<typeof setFriends>
     | ReturnType<typeof setFriendsPage>
     | ReturnType<typeof setFriendsOnPage>
@@ -108,9 +108,9 @@ export type FriendsActionsType =
     | ReturnType<typeof setPossibleFriendsPage>
     | ReturnType<typeof setPossibleFriendsOnPage>
     | ReturnType<typeof setPossibleTotalFriendsCount>
-    | SetAppIsLoadingActionType
-    | CleanReducerType
+    | SetAppIsLoading
+    | CleanReducers
 
-export type FriendsStateType = typeof initialState
+export type FriendsState = typeof initialState
 
 export const friendsThunks = { getFriends } 

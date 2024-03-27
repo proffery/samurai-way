@@ -1,12 +1,12 @@
 import { Message } from 'components/blocks/messagesBlock/message/Message'
-import { AuthStateType } from 'store/auth/authReducer'
-import { MessagesStateType } from 'store/messages/messagesReducer'
+import { AuthState } from 'store/auth/authReducer'
+import { MessagesState } from 'store/messages/messagesReducer'
 import { S } from './MessagesList_Styles'
 
 type Props = {
-    messagesState: MessagesStateType
+    messagesState: MessagesState
     appIsLoading: boolean
-    authData: AuthStateType
+    authData: AuthState
     pageChangeHandler: () => void
 }
 

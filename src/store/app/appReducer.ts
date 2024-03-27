@@ -1,7 +1,7 @@
 import { authAPI } from 'api/authAPI'
 import { ResultCode } from 'api/api-instance'
-import { CleanReducerType, getAuthPhoto, setAuthUserData, setIsLoggedIn } from 'store/auth/authReducer'
-import { AppDispatchType, AppRootStateType } from 'store/redux-store'
+import { CleanReducers, getAuthPhoto, setAuthUserData, setIsLoggedIn } from 'store/auth/authReducer'
+import { AppDispatch, AppRootState } from 'store/redux-store'
 import { handleServerNetworkError } from 'utils/handleServerNetworkError'
 import { storageAvailable } from 'utils/storageAvailable'
 import { v1 } from 'uuid'
@@ -97,13 +97,13 @@ export const initialState = {
         }
     ] as IconsLinks[],
     isLoading: false as boolean,
-    alerts: [] as AlertObjectType[],
+    alerts: [] as AlertObject[],
     isInitialized: false as boolean,
     currentPath: '/' as string
 }
 
 //REDUCER
-export const appReducer = (state: AppReducerStateType = initialState, action: AppActionsType): AppReducerStateType => {
+export const appReducer = (state: AppState = initialState, action: AppActions): AppState => {
     switch (action.type) {
         case APP_SET_IS_LOADING:
             return { ...state, isLoading: action.payload.isLoading }
@@ -123,7 +123,7 @@ export const appReducer = (state: AppReducerStateType = initialState, action: Ap
 //ACTIONS
 export const setAppIsLoading = (isLoading: boolean) =>
     ({ type: APP_SET_IS_LOADING, payload: { isLoading } } as const)
-export const setAppAlert = (newAlert: AlertObjectType) =>
+export const setAppAlert = (newAlert: AlertObject) =>
     ({ type: APP_ADD_ALERT, payload: { newAlert } } as const)
 export const removeAppAlert = (id: string) =>
     ({ type: APP_REMOVE_ALERT, payload: { id } } as const)
@@ -133,7 +133,7 @@ export const setCurrentPath = (currentPath: string) =>
     ({ type: APP_SET_CURRENT_PATH, payload: { currentPath } } as const)
 
 //THUNKS
-export const initializeApp = () => async (dispatch: AppDispatchType) => {
+export const initializeApp = () => async (dispatch: AppDispatch) => {
     dispatch(setAppIsLoading(true))
     try {
         const res = await authAPI.getMe()
@@ -155,11 +155,11 @@ export const initializeApp = () => async (dispatch: AppDispatchType) => {
 }
 
 export const addAppAlert = (type: AlertType, message: string) =>
-    (dispatch: AppDispatchType, getState: () => AppRootStateType) => {
-        const alerts: AlertObjectType[] = getState().app.alerts
+    (dispatch: AppDispatch, getState: () => AppRootState) => {
+        const alerts: AlertObject[] = getState().app.alerts
         const alertDuplicat = alerts.find(alert => alert.message === message && alert.type === type)
         if (alertDuplicat) return
-        const newAlert: AlertObjectType = {
+        const newAlert: AlertObject = {
             id: v1(),
             message,
             type
@@ -167,7 +167,7 @@ export const addAppAlert = (type: AlertType, message: string) =>
         dispatch(setAppAlert(newAlert))
     }
 
-export const savePathToStorage = (currentPath: string) => (dispatch: AppDispatchType) => {
+export const savePathToStorage = (currentPath: string) => (dispatch: AppDispatch) => {
     if (storageAvailable('sessionStorage')) {
         sessionStorage.setItem('currentPath', currentPath)
     } else {
@@ -175,7 +175,7 @@ export const savePathToStorage = (currentPath: string) => (dispatch: AppDispatch
     }
 }
 
-export const loadPathFromStorage = () => (dispatch: AppDispatchType, getState: () => AppRootStateType) => {
+export const loadPathFromStorage = () => (dispatch: AppDispatch, getState: () => AppRootState) => {
     if (storageAvailable('sessionStorage')) {
         const currentPath = sessionStorage.getItem('currentPath')
         if (!currentPath) {
@@ -189,18 +189,18 @@ export const loadPathFromStorage = () => (dispatch: AppDispatchType, getState: (
 }
 
 //TYPES
-type RemoveAlertActionType = ReturnType<typeof removeAppAlert>
-export type AddAlertActionType = ReturnType<typeof setAppAlert>
-type SetCurrentPathActionType = ReturnType<typeof setCurrentPath>
-export type SetAppIsLoadingActionType = ReturnType<typeof setAppIsLoading>
-export type SetAppIsInitializedType = ReturnType<typeof setAppIsInitialized>
-export type AppActionsType =
-    | SetAppIsLoadingActionType
-    | SetCurrentPathActionType
-    | SetAppIsInitializedType
-    | RemoveAlertActionType
-    | AddAlertActionType
-    | CleanReducerType
+type RemoveAlert = ReturnType<typeof removeAppAlert>
+export type AddAlert = ReturnType<typeof setAppAlert>
+type SetCurrentPath = ReturnType<typeof setCurrentPath>
+export type SetAppIsLoading = ReturnType<typeof setAppIsLoading>
+export type SetAppIsInitialized = ReturnType<typeof setAppIsInitialized>
+export type AppActions =
+    | SetAppIsLoading
+    | SetCurrentPath
+    | SetAppIsInitialized
+    | RemoveAlert
+    | AddAlert
+    | CleanReducers
 export type IconsLinks = {
     id: number
     name: string
@@ -209,12 +209,12 @@ export type IconsLinks = {
     viewBox: string
 }
 export type AlertType = 'succeeded' | 'failed' | 'info'
-export type AlertObjectType = {
+export type AlertObject = {
     id: string
     type: AlertType
     message: string
 }
-export type AppReducerStateType = typeof initialState
+export type AppState = typeof initialState
 
 export const appThunks = { loadPathFromStorage, savePathToStorage, addAppAlert, initializeApp }
 export const appActions = { setAppIsLoading, removeAppAlert }

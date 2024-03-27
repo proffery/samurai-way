@@ -73,7 +73,7 @@ export const startDialog = createAppAsyncThunk<undefined, number>(`${slice.name}
     }
 })
 
-export const sendMessage = createAppAsyncThunk<MessageResponse, SendMessageArgType>
+export const sendMessage = createAppAsyncThunk<MessageResponse, SendMessageArgs>
     (`${slice.name}/sendMessage`, async (arg, thunkAPI) => {
         const { dispatch, rejectWithValue } = thunkAPI
         try {
@@ -132,8 +132,8 @@ export const getMessages = createAppAsyncThunk<{
         }
     })
 
-export type MessagesStateType = typeof initialState
-type SendMessageArgType = { userId: number, message: string }
+export type MessagesState = typeof initialState
+type SendMessageArgs = { userId: number, message: string }
 
 export const messagesReducer = slice.reducer
 export const messagesThunks = { startDialog, getDialogs, sendMessage, getMessages }

@@ -3,16 +3,16 @@ import { MessagesForm } from 'components/blocks/messagesBlock/messagesForm/Messa
 import { MessagesList } from 'components/blocks/messagesBlock/messagesList/MessagesList'
 import { Avatar } from 'components/common/avatar/Avatar'
 import { memo } from 'react'
-import { AlertType } from 'store/app/appReducer'
-import { AuthStateType } from 'store/auth/authReducer'
-import { MessagesStateType } from 'store/messages/messagesReducer'
+import { AuthState } from 'store/auth/authReducer'
+import { MessagesState } from 'store/messages/messagesReducer'
 import { S } from './MessagesBlock_Styles'
+import { AlertType } from 'store/app/appReducer'
 
 type Props = {
-    className?:string
-    messagesState: MessagesStateType
+    className?: string
+    messagesState: MessagesState
     appIsLoading: boolean
-    authData: AuthStateType
+    authData: AuthState
     addMessage: (message: string) => void
     pageChangeHandler: () => void
     addAppAlert: (type: AlertType, message: string) => void

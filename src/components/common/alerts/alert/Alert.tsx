@@ -1,8 +1,8 @@
 import { FlexWrapper } from 'components/common/FlexWrapper.styled'
 import { Icon } from 'components/common/icon/Icon'
 import { memo, useEffect } from 'react'
-import { AlertType } from 'store/app/appReducer'
 import { S } from './Alert_Styles'
+import { AlertType } from 'store/app/appReducer'
 
 type Props = {
     alertType: AlertType

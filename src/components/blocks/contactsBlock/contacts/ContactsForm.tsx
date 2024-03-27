@@ -2,12 +2,12 @@ import { GetProfileContacts } from 'api/profileAPI'
 import { useFormik } from 'formik'
 import { memo } from 'react'
 import { AlertType } from 'store/app/appReducer'
-import { ContactsIconsType } from 'store/profile/profileReducer'
+import { IconsType } from 'store/profile/profileReducer'
 import { S } from './Contacts_Styles'
 
 type Props = {
     contactsData: GetProfileContacts
-    contactsIcons: ContactsIconsType
+    contactsIcons: IconsType
     addAppAlert: (type: AlertType, message: string) => void
     changeProfileContacts: (contacts: GetProfileContacts) => void
 }

@@ -1,14 +1,14 @@
 import { useFormik } from 'formik'
 import { memo } from 'react'
-import { AlertType } from 'store/app/appReducer'
-import { ChangeAboutProfileType, ProfileDataType } from 'store/profile/profileReducer'
+import { ChangeAbout, ProfileData } from 'store/profile/profileReducer'
 import { S } from './About_Styles'
 import { Checkbox } from 'components/common/checkbox/Checkbox'
+import { AlertType } from 'store/app/appReducer'
 
 type Props = {
-    profileData: ProfileDataType
+    profileData: ProfileData
     addAppAlert: (type: AlertType, message: string) => void
-    changeProfileAbout: (about: ChangeAboutProfileType) => void
+    changeProfileAbout: (about: ChangeAbout) => void
 }
 
 type FormikError = {
@@ -74,18 +74,16 @@ export const AboutForm: React.FC<Props> = memo((props) => {
                     {...formik.getFieldProps('lookingForAJob')}
                 />
             </S.Category>
-            {lookingForAJob &&
-                <S.Category>
-                    <S.ContactIcon
-                        iconId={'info'}
-                    />
-                    <S.DescriptionEditable
-                        actualValue={lookingForAJobDescription}
-                        onSand={formik.handleSubmit}
-                        {...formik.getFieldProps('lookingForAJobDescription')}
-                    />
-                </S.Category>
-            }
+            {lookingForAJob && <S.Category>
+                <S.ContactIcon
+                    iconId={'info'}
+                />
+                <S.DescriptionEditable
+                    actualValue={lookingForAJobDescription}
+                    onSand={formik.handleSubmit}
+                    {...formik.getFieldProps('lookingForAJobDescription')}
+                />
+            </S.Category>}
         </form>
     </S.Wrapper>
 })

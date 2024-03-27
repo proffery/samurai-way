@@ -1,5 +1,5 @@
-import { AppRootStateType } from 'store/redux-store'
-import { UsersStateType } from './usersReducer'
+import { AppRootState } from 'store/redux-store'
+import { UsersState } from './usersReducer'
 
-export const selectUsersData = (state: AppRootStateType): UsersStateType => state.users 
-export const selectUsersSearchTerm = (state: AppRootStateType): string => state.users.searchTerm 
+export const selectUsersData = (state: AppRootState): UsersState => state.users
+export const selectUsersSearchTerm = (state: AppRootState): string => state.users.searchTerm 

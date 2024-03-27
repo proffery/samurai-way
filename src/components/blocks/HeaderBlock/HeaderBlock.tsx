@@ -2,15 +2,15 @@ import { HeaderBlockForm } from 'components/blocks/headerBlock/HeaderBlockForm'
 import { Button } from 'components/common/button/Button'
 import { Icon } from 'components/common/icon/Icon'
 import { ChangeEvent, memo } from 'react'
-import { AlertType } from 'store/app/appReducer'
-import { AuthStateType } from 'store/auth/authReducer'
-import { ProfileStateType } from 'store/profile/profileReducer'
+import { AuthState } from 'store/auth/authReducer'
+import { ProfileState } from 'store/profile/profileReducer'
 import { S } from './HeaderBlock_Styles'
+import { AlertType } from 'store/app/appReducer'
 
 type Props = {
     className?: string
-    authStateData: AuthStateType
-    profileStateData: ProfileStateType
+    authStateData: AuthState
+    profileStateData: ProfileState
     appIsLoading: boolean
     follow: (userId: number) => void
     unfollow: (userId: number) => void

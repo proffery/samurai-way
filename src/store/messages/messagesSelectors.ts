@@ -1,10 +1,10 @@
 import { DialogResponse, MessageResponse } from 'api/dialogsAPI'
-import { MessagesStateType } from 'store/messages/messagesReducer'
-import { AppRootStateType } from 'store/redux-store'
+import { MessagesState } from 'store/messages/messagesReducer'
+import { AppRootState } from 'store/redux-store'
 
-export const selectMessagesState = (state: AppRootStateType): MessagesStateType => state.messages
-export const selectMessages = (state: AppRootStateType): MessageResponse[] => state.messages.messages
-export const selectDialogs = (state: AppRootStateType): DialogResponse[] => state.messages.dialogs
-export const selectMessagesCurrentPage = (state: AppRootStateType): number => state.messages.currentPage
-export const selectMessagesOnPage = (state: AppRootStateType): number => state.messages.messagesOnPage
-export const selectTotalMessagesCount = (state: AppRootStateType): number => state.messages.totalMessagesCount
+export const selectMessagesState = (state: AppRootState): MessagesState => state.messages
+export const selectMessages = (state: AppRootState): MessageResponse[] => state.messages.messages
+export const selectDialogs = (state: AppRootState): DialogResponse[] => state.messages.dialogs
+export const selectMessagesCurrentPage = (state: AppRootState): number => state.messages.currentPage
+export const selectMessagesOnPage = (state: AppRootState): number => state.messages.messagesOnPage
+export const selectTotalMessagesCount = (state: AppRootState): number => state.messages.totalMessagesCount

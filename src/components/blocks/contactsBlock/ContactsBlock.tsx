@@ -4,14 +4,14 @@ import { Contacts } from 'components/blocks/contactsBlock/contacts/Contacts'
 import { ContactsForm } from 'components/blocks/contactsBlock/contacts/ContactsForm'
 import { memo } from 'react'
 import { AlertType } from 'store/app/appReducer'
-import { AuthStateType } from 'store/auth/authReducer'
-import { ProfileStateType } from 'store/profile/profileReducer'
+import { AuthState } from 'store/auth/authReducer'
+import { ProfileState } from 'store/profile/profileReducer'
 import { S } from './Contacts_Styles'
 
 type Props = {
     className?: string
-    authStateData: AuthStateType
-    profileStateData: ProfileStateType
+    authStateData: AuthState
+    profileStateData: ProfileState
     addAppAlert: (type: AlertType, message: string) => void
     changeProfileContacts: (contacts: GetProfileContacts) => void
 }

@@ -4,10 +4,10 @@ import {
     ResultCode
 } from 'api/api-instance'
 import { usersAPI } from 'api/usersAPI'
-import { setAppIsLoading, addAppAlert, SetAppIsLoadingActionType, AddAlertActionType } from 'store/app/appReducer'
-import { CLEAR_REDUCER, CleanReducerType, setAuthUserPhoto } from 'store/auth/authReducer'
-import { AppDispatchType, AppRootStateType } from 'store/redux-store'
-import { FollowUserActionType, UnfollowUserActionType } from 'store/users/usersReducer'
+import { setAppIsLoading, addAppAlert, SetAppIsLoading, AddAlert } from 'store/app/appReducer'
+import { CLEAR_REDUCER, CleanReducers, setAuthUserPhoto } from 'store/auth/authReducer'
+import { AppDispatch, AppRootState } from 'store/redux-store'
+import { FollowUser as FollowUser, UnfollowUser as UnfollowUser } from 'store/users/usersReducer'
 import { handleServerNetworkError } from 'utils/handleServerNetworkError'
 import { v1 } from 'uuid'
 
@@ -23,8 +23,8 @@ const SET_PHOTOS = 'PROFILE/SET-PHOTOS'
 
 //INITIAL STATE
 export const initialState = {
-    posts: [],
-    newPostForm: '',
+    posts: [] as PostObject[],
+    newPostForm: '' as string,
     data: {
         aboutMe: 'Human',
         contacts: {
@@ -47,7 +47,7 @@ export const initialState = {
         },
         isFollow: false,
         status: '',
-    },
+    } as ProfileData,
     contactsIcons: [
         {
             id: 1,
@@ -109,7 +109,7 @@ export const initialState = {
 }
 
 //REDUCER
-export const profileReducer = (state: ProfileStateType = initialState, action: ProfileActionsType): ProfileStateType => {
+export const profileReducer = (state: ProfileState = initialState, action: ProfileActions): ProfileState => {
     switch (action.type) {
         case ADD_POST:
             return { ...state, posts: [action.payload.newPost, ...state.posts] }
@@ -139,7 +139,7 @@ export const profileReducer = (state: ProfileStateType = initialState, action: P
 
 //ACTIONS
 export const setPost = (postMessage: string) => {
-    const newPost: PostStateType = {
+    const newPost: PostObject = {
         id: v1(),
         message: postMessage,
         likeCount: 0,
@@ -161,13 +161,13 @@ export const setPhotos = (data: { photos: PhotosResponse }) => (
     { type: SET_PHOTOS, payload: { data } }) as const
 
 //THUNKS
-export const addPost = () => (dispatch: AppDispatchType, getState: () => AppRootStateType) => {
+export const addPost = () => (dispatch: AppDispatch, getState: () => AppRootState) => {
     const newPost = getState().profile.newPostForm
     dispatch(setPost(newPost))
     dispatch(postOnChange(''))
 }
 export const getProfileData = (userId: number) =>
-    async (dispatch: AppDispatchType, getState: () => AppRootStateType) => {
+    async (dispatch: AppDispatch, getState: () => AppRootState) => {
         dispatch(setAppIsLoading(true))
         profileAPI.getProfile(userId)
             .then(res => {
@@ -189,7 +189,7 @@ export const getProfileData = (userId: number) =>
             .finally(() => dispatch(setAppIsLoading(false)))
     }
 
-export const followProfile = (userId: number) => async (dispatch: AppDispatchType) => {
+export const followProfile = (userId: number) => async (dispatch: AppDispatch) => {
     dispatch(setAppIsLoading(true))
     try {
         const res = await usersAPI.followUser(userId)
@@ -205,7 +205,7 @@ export const followProfile = (userId: number) => async (dispatch: AppDispatchTyp
     } finally { dispatch(setAppIsLoading(false)) }
 }
 
-export const unfollowProfile = (userId: number) => async (dispatch: AppDispatchType) => {
+export const unfollowProfile = (userId: number) => async (dispatch: AppDispatch) => {
     dispatch(setAppIsLoading(true))
     try {
         const res = await usersAPI.unfollowUser(userId)
@@ -222,7 +222,7 @@ export const unfollowProfile = (userId: number) => async (dispatch: AppDispatchT
 }
 
 export const changeProfileStatus = (newStatus: string) =>
-    async (dispatch: AppDispatchType, getState: () => AppRootStateType) => {
+    async (dispatch: AppDispatch, getState: () => AppRootState) => {
         try {
             if (newStatus !== getState().profile.data.status) {
                 dispatch(setAppIsLoading(true))
@@ -241,7 +241,7 @@ export const changeProfileStatus = (newStatus: string) =>
     }
 
 export const changeProfileContacts = (contacts: GetProfileContacts) =>
-    async (dispatch: AppDispatchType, getState: () => AppRootStateType) => {
+    async (dispatch: AppDispatch, getState: () => AppRootState) => {
         const { aboutMe, fullName, lookingForAJob, lookingForAJobDescription } = getState().profile.data
         const model: ChangeProfileData = {
             aboutMe: aboutMe || 'no info',
@@ -268,8 +268,8 @@ export const changeProfileContacts = (contacts: GetProfileContacts) =>
         } finally { dispatch(setAppIsLoading(false)) }
     }
 
-export const changeProfileAbout = (about: ChangeAboutProfileType) =>
-    async (dispatch: AppDispatchType, getState: () => AppRootStateType) => {
+export const changeProfileAbout = (about: ChangeAbout) =>
+    async (dispatch: AppDispatch, getState: () => AppRootState) => {
         const { contacts } = getState().profile.data
         const model: ChangeProfileData = {
             aboutMe: about.aboutMe || 'no info',
@@ -296,7 +296,7 @@ export const changeProfileAbout = (about: ChangeAboutProfileType) =>
         } finally { dispatch(setAppIsLoading(false)) }
     }
 
-export const changeProfilePhotos = (image: File) => async (dispatch: AppDispatchType) => {
+export const changeProfilePhotos = (image: File) => async (dispatch: AppDispatch) => {
     dispatch(setAppIsLoading(true))
     try {
         const res = await profileAPI.changePhoto(image)
@@ -314,7 +314,7 @@ export const changeProfilePhotos = (image: File) => async (dispatch: AppDispatch
 }
 
 //TYPES
-export type ProfileActionsType =
+export type ProfileActions =
     | ReturnType<typeof setPost>
     | ReturnType<typeof setPhotos>
     | ReturnType<typeof setStatus>
@@ -322,35 +322,31 @@ export type ProfileActionsType =
     | ReturnType<typeof postOnChange>
     | ReturnType<typeof setProfileData>
     | ReturnType<typeof setFollowStatus>
-    | SetAppIsLoadingActionType
-    | UnfollowUserActionType
-    | FollowUserActionType
-    | AddAlertActionType
-    | CleanReducerType
+    | SetAppIsLoading
+    | UnfollowUser
+    | FollowUser
+    | AddAlert
+    | CleanReducers
 
-export type PostStateType = {
+export type PostObject = {
     id: string
     message: string
     likeCount: number
     commentsCount: number
 }
-export interface ProfileDataType extends GetProfileResponse {
+export interface ProfileData extends GetProfileResponse {
     isFollow: boolean
     status: string
 }
-export type ProfileStateType = {
-    posts: PostStateType[]
-    newPostForm: string
-    data: ProfileDataType
-    contactsIcons: typeof initialState.contactsIcons
-}
-export type ChangeAboutProfileType = {
+export type ProfileState = typeof initialState
+
+export type ChangeAbout = {
     aboutMe: string
     fullName: string
     lookingForAJob: boolean
     lookingForAJobDescription: string
 }
-export type ContactsIconsType = typeof initialState.contactsIcons
+export type IconsType = typeof initialState.contactsIcons
 
 export const profileThunks = {
     followProfile, unfollowProfile, changeProfileStatus,
