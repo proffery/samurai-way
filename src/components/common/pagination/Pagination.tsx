@@ -11,22 +11,23 @@ type Props = {
     usersOnPage: number
     totalUsersCount: number
     appIsLoading: boolean
+    pagesPortion: number
     pageChangeHandler: (pageNumber: number) => void
 }
-const PAGES_NUMBER = 2 //number of pages to show before last page. Exemple for PAGES_NUMBER = 2:  <1,2...3>
+
 export const Pagination: React.FC<Props> = memo((props) => {
-    const { currentPage, usersOnPage, totalUsersCount,
+    const { currentPage, usersOnPage, totalUsersCount, pagesPortion,
         className, appIsLoading, pageChangeHandler } = props
     const rangesCount = Math.ceil(totalUsersCount / usersOnPage)
     const rangesArray = Array.from({ length: rangesCount }, (_, i) => i + 1)
-    const pagesRange = Math.ceil(rangesArray.length / PAGES_NUMBER)
-    const [currentRange, setCurrentRange] = useState(Math.ceil(currentPage / PAGES_NUMBER))
+    const pagesRange = Math.ceil(rangesArray.length / pagesPortion)
+    const [currentRange, setCurrentRange] = useState(Math.ceil(currentPage / pagesPortion))
     const [showInput, setShowInput] = useState(false)
-    const minPageIndex = currentRange * PAGES_NUMBER - PAGES_NUMBER
-    const maxPageIndex = currentRange * PAGES_NUMBER
+    const minPageIndex = currentRange * pagesPortion - pagesPortion
+    const maxPageIndex = currentRange * pagesPortion
 
     useEffect(() => {
-        setCurrentRange(Math.ceil(currentPage / PAGES_NUMBER))
+        setCurrentRange(Math.ceil(currentPage / pagesPortion))
     }, [currentPage])
 
     const pagesRangeInc = () => {
@@ -73,7 +74,7 @@ export const Pagination: React.FC<Props> = memo((props) => {
 
     return <S.Pagination direction={'column'} justify='center' align='center' className={className}>
         <FlexWrapper justify='center'>
-            {rangesCount > PAGES_NUMBER &&
+            {rangesCount > pagesPortion &&
                 <Button
                     className={props.className}
                     ariaLabel={'Change pages range - button'}
@@ -107,7 +108,7 @@ export const Pagination: React.FC<Props> = memo((props) => {
                 }
             </FlexWrapper>
             <FlexWrapper justify='center' align='center'>
-                {rangesCount > PAGES_NUMBER && showInput &&
+                {rangesCount > pagesPortion && showInput &&
                     <form onSubmit={formik.handleSubmit}>
                         <S.PaginationInput
                             type='number'
@@ -146,7 +147,7 @@ export const Pagination: React.FC<Props> = memo((props) => {
                 </>
                 }
             </FlexWrapper>
-            {rangesCount > PAGES_NUMBER &&
+            {rangesCount > pagesPortion &&
                 <Button
                     className={className}
                     variant={'link'}

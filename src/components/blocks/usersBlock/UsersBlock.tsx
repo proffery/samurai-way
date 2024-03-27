@@ -90,6 +90,7 @@ export const UsersBlock: React.FC = memo(() => {
             currentPage={currentPage}
             totalUsersCount={totalUsersCount}
             appIsLoading={appIsLoading}
+            pagesPortion={7}
             pageChangeHandler={pageChangeHandler}
         />
     </S.UsersBlock>

@@ -62,6 +62,7 @@ export const FriendsBlock: React.FC<Props> = memo(({ blockHeaderName, className,
                 currentPage={currentPage}
                 totalUsersCount={totalUsersCount}
                 usersOnPage={usersOnPage}
+                pagesPortion={2}
                 pageChangeHandler={pageChangeHandler}
             />
         </FlexWrapper>
