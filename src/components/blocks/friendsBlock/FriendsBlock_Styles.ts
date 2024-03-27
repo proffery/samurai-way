@@ -5,7 +5,6 @@ import { font } from 'styles/Font'
 import { theme } from 'styles/Theme.styled'
 
 const FriendsBlock = styled(BlockSection)`
-    width: 100%;
     display: flex;
 `
 const FriendsList = styled.div`

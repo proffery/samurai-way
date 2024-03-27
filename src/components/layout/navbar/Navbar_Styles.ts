@@ -1,12 +1,17 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { theme } from 'styles/Theme.styled'
 
-const Navbar = styled.nav`
+type Props = {
+    collapsed?: string
+}
+const Navbar = styled.nav<Props>`
     position: relative;
+    width: fit-content;
+    align-items: center;
     display: flex;
     flex-direction: column;
     background-color: ${theme.color.background.menu};
-    padding: 54px 32px;
+    padding: 54px min(30px, 2vw);
     gap: 54px;
     z-index: 1000;
     transition: all ease-out .2s;
@@ -14,9 +19,10 @@ const Navbar = styled.nav`
         box-shadow: ${theme.shadow.navbar};
         background-image: ${theme.gradient.banner};
     }
-    @media ${theme.media.mobile} {
-        gap: 40px;
-        padding: 60px 20px;
-    }
+    ${props => props.collapsed === 'false' && css<Props>`
+        & a {
+            justify-content: center;
+        }
+    `}
 `
 export const S = { Navbar }

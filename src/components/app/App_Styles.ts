@@ -11,7 +11,6 @@ const AppWrapper = styled.div<Container>`
     max-width: 1440px;
     height: 100%;
     margin: 0 auto;
-    padding: 0;
     transition: all ease-in-out .2s;
     main {
       grid-area: 2 / 2 / 3 / 6 ;
@@ -26,20 +25,13 @@ const AppWrapper = styled.div<Container>`
       grid-area: 3 / 1 / 4 / 6 ;
     }
     ${props => props.collapsed === 'false' ? css<Container>`
-      grid-template-columns: 5px repeat(4, 1fr);
+      grid-template-columns: 30px repeat(4, 1fr);
       main {
-        grid-area: 2 / 1 / 3 / 6 ;
-        padding-left: min(45px, 12vw);
         height: 100%;
       }
       nav {
-        grid-area: 1 / 1 / 3 / 1 ;
-        width: 32px;
-        padding: min(45px, 16vw) 4px;
-      }
-      header {
-        grid-area: 1 / 1 / 2 / 6 ;
-        padding-left: min(45px, 12vw);
+        width: 30px;
+        padding: 54px 0;
       }
     `: undefined}
     @media ${theme.media.mobile} {

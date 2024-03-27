@@ -31,6 +31,7 @@ const Wrapper = styled.div`
     display: flex;
     overflow-x: auto;
     min-height: 100%;
+    width: 100%;
 `
 const Photo = styled(Avatar)`
     width: 70%;

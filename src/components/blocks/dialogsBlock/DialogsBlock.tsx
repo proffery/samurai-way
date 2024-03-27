@@ -7,6 +7,7 @@ import { S } from './DialogsBlock_Styles'
 import { Patch } from 'components/app/Router/routeNames'
 
 type Props = {
+    className?:string
     dialogs: DialogResponse[]
 }
 

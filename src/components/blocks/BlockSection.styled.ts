@@ -9,7 +9,6 @@ export const BlockSection = styled.section`
     color: ${theme.color.text.primary_dark};
     padding: min(30px, 2vw);
     height: fit-content;
-    min-width: 150px;
     gap: min(30px, 2vw);
     box-shadow: ${theme.shadow.block};
 `

@@ -10,8 +10,12 @@ type Props = {
 
 const Button = styled.button<Props>`
     cursor: pointer;
+    display: flex;
+    justify-content: center;
     white-space: nowrap;
     max-width: 172px;
+    max-height: 45px; 
+    align-items: center;
     transition: all ease-in-out .2s;
     &:hover {
         background-image: ${theme.gradient.banner};
@@ -28,10 +32,10 @@ const Button = styled.button<Props>`
         border-radius: 10px;
         border-width: 1px;
         border-style: solid;
-        padding: 12px 24px;
+        padding: min(30px, 2vw) 24px;
         @media ${theme.media.mobile} {
             border-radius: 8px ;
-            padding: 8px 16px;
+            padding: min(30px, 2vw) 16px;
         }
         &:active {
             background-color: ${theme.color.background.primary};
@@ -46,10 +50,10 @@ const Button = styled.button<Props>`
         border-radius: 10px;
         border-width: 1px;
         border-style: solid;
-        padding: 12px 24px;
+        padding: min(30px, 2vw) 24px;
         @media ${theme.media.mobile} {
             border-radius: 8px ;
-            padding: 8px 16px;
+            padding: min(30px, 2vw) 16px;
         }
         &:active {
             background-color: ${theme.color.background.second};

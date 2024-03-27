@@ -9,6 +9,7 @@ import { MessagesStateType } from 'store/messages/messagesReducer'
 import { S } from './MessagesBlock_Styles'
 
 type Props = {
+    className?:string
     messagesState: MessagesStateType
     appIsLoading: boolean
     authData: AuthStateType

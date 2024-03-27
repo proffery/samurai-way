@@ -55,8 +55,7 @@ const Messages: React.FC<Props> = memo(({ className }) => {
         params.userId && sendMessage({ userId: +params.userId, message })
     }
 
-    return (
-        <StyledMessages id="messages">
+    return <StyledMessages id="messages">
             <ToTop anchor_id='dialogs-block' />
             <StyledFriendsWrapper direction={'column'} gap={'min(30px, 2vw)'}>
                 <FriendsBlock className={className} blockHeaderName='Friens' />
@@ -74,7 +73,6 @@ const Messages: React.FC<Props> = memo(({ className }) => {
                 />
             </MessagesWrapper>
         </StyledMessages>
-    )
 })
 
 export default Messages
@@ -87,16 +85,16 @@ const StyledMessages = styled.main`
     @media ${theme.media.mobile} {
         flex-direction: column;
     }
-`
+    `
 const StyledFriendsWrapper = styled(FlexWrapper)`
-    width: 20%;
+    min-width: 170px;
+    max-width: 20%;
     @media ${theme.media.mobile} {
         display: none;
     }
-`
+    `
 const MessagesWrapper = styled(FlexWrapper)`
-    width: 77%;
-    flex: 1;
+    width: 80%;
     gap: min(30px, 2vw);
     @media ${theme.media.mobile} {
         width: 100%;

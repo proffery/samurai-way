@@ -8,18 +8,19 @@ import { ChangeAboutProfileType, ProfileDataType } from 'store/profile/profileRe
 import { S } from './AboutBlock_Styles'
 
 type Props = {
+    className?:string
     profileData: ProfileDataType
     authStateData: AuthStateType
     addAppAlert: (type: AlertType, message: string) => void
     changeProfileAbout: (about: ChangeAboutProfileType) => void
 }
 
-export const AboutBlock: React.FC<Props> = memo(({ profileData, authStateData, addAppAlert, changeProfileAbout }) => {
+export const AboutBlock: React.FC<Props> = memo(({ className, profileData, authStateData, addAppAlert, changeProfileAbout }) => {
     const { id: authId } = authStateData
     const { userId } = profileData
 
     return (
-        <S.AboutBlock id="contacts" >
+        <S.AboutBlock id="contacts" className={className}>
             <BlockHeader>About</BlockHeader>
             {userId === authId ?
                 <AboutForm

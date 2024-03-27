@@ -50,7 +50,7 @@ const Name = styled.span`
     white-space: nowrap;
     ${font({ weight: 700, Fmin: 16, Fmax: 30 })}
     @media ${theme.media.mobile} {
-        ${font({ weight: 700, Fmin: 26, Fmax: 30 })}
+        ${font({ family: 'Orbitron', weight: 700, Fmin: 22, Fmax: 36 })}
         position: absolute;
         top: 12%;
         right: 5%;
@@ -59,25 +59,22 @@ const Name = styled.span`
 `
 const ButtonsContainer = styled.div`
     display: flex;
+    align-items: center;
+    position: relative;
     width: 35%;
-    gap: 10px;
+    gap: min(30px, 2vw);
     justify-content: end;
-    max-height: 50px;
 `
 const MessagesButton = styled(NavLink)`
     display: flex;
-    max-height: 50px;
-    min-width: 30px;
+    width: 50%;
     align-items: center;
-    justify-content: center;
-    border-radius: 50% 50%; 
-    aspect-ratio: 1 / 1;
-    padding: 0;
-    background-color: ${theme.color.background.second};
-    color: ${theme.color.text.second};
-    border-width: 1px;
-    border-style: solid;
-    border-color: ${theme.color.background.second};
+    justify-content: end;
+    svg {
+        min-width: 24px;
+        min-height: 24px;
+    }
+    
     &:active {
         background-color: ${theme.color.background.primary};
         color: ${theme.color.text.primary};
@@ -94,6 +91,8 @@ const UploadForm = styled.form`
 `
 const UploadButton = styled.label`
     display: flex;
+    align-items: center;
+    justify-content: end;
     height: 100%;
     color: ${theme.color.text.primary};
     cursor: copy;

@@ -60,10 +60,9 @@ export const HeaderBlock: React.FC<Props> = memo((props) => {
                     <S.MessagesButton
                         aria-label={`Go to chat with ${fullName}`}
                         to={`/messages/${userId}`}
-                    ><Icon iconId={'messages'}
-                        viewBox="-2 -3 24 24"
-                        height={'50%'}
-                        width={'50%'}
+                    ><Icon iconId={'messages'} viewBox="-2 -3 24 24"
+                        height='40%'
+                        width='40%'
                         />
                     </S.MessagesButton>
                     <Button
@@ -83,8 +82,8 @@ export const HeaderBlock: React.FC<Props> = memo((props) => {
                                 onChange={uploadPhotoHandler}
                             /><Icon iconId={'addPhoto'}
                                 viewBox='-3 -2 30 30'
-                                height='100%'
-                                width='100%'
+                                height='40%'
+                                width='40%'
                             />
                         </S.UploadButton>
                     </S.UploadForm>

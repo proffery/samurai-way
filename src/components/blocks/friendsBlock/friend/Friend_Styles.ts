@@ -9,6 +9,7 @@ const Friend = styled(NavLink)`
     position: relative;
     align-items: center;
     justify-content: center;
+    flex-wrap: wrap;
     height: 100%;
     width: 100%;
     gap: 6px;

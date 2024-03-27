@@ -9,6 +9,7 @@ import { ProfileStateType } from 'store/profile/profileReducer'
 import { S } from './Contacts_Styles'
 
 type Props = {
+    className?: string
     authStateData: AuthStateType
     profileStateData: ProfileStateType
     addAppAlert: (type: AlertType, message: string) => void
@@ -16,12 +17,12 @@ type Props = {
 }
 
 export const ContactsBlock: React.FC<Props> = memo((
-    { authStateData, profileStateData, addAppAlert, changeProfileContacts }) => {
+    { authStateData, profileStateData, className, addAppAlert, changeProfileContacts }) => {
     const { id: authId } = authStateData
     const { userId, contacts } = profileStateData.data
     const { contactsIcons } = profileStateData
 
-    return <S.ContactsBlock id="contacts">
+    return <S.ContactsBlock id="contacts" className={className}>
         <BlockHeader>Contacts</BlockHeader>
         {userId === authId
             ? <ContactsForm

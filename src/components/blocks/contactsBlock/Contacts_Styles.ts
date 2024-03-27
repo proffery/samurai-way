@@ -4,7 +4,6 @@ import styled from 'styled-components'
 import { theme } from 'styles/Theme.styled'
 
 const ContactsBlock = styled(BlockSection)`
-    width: 100%;
     display: flex;
     flex-direction: column;
     color: ${theme.color.text.primary};

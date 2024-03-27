@@ -32,7 +32,7 @@ export const Navbar: React.FC<Props> = memo(({ setIsCollapsed, isCollapsed }) =>
             : setIsCollapsed(true)
     }, [width])
 
-    return <S.Navbar onClick={navbarCollapseHandler}>
+    return <S.Navbar onClick={navbarCollapseHandler} collapsed={isCollapsed.toString()}>
         <Logo variant={'secondary'}
             type={isCollapsed ? 'text' : 'logo'}
         />

@@ -4,7 +4,6 @@ import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 
 const MessagesBlock = styled(BlockSection)`
-    width: 100%;
     min-height: fit-content;
     max-height: 124.5vh;
     justify-content: space-between;

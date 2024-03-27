@@ -18,11 +18,11 @@ const Profile: React.FC = memo(() => {
     const appIsLoading = useSelector(selectAppIsLoading)
     const authStateData = useSelector(selectAuthData)
     const profileStateData = useSelector(selectProfileData)
-    const {followProfile, unfollowProfile, changeProfileStatus, 
+    const { followProfile, unfollowProfile, changeProfileStatus,
         addAppAlert, changeProfilePhotos, addPost, getProfileData,
         changeProfileAbout, changeProfileContacts, postOnChange
     } = useActions()
-    const params = useParams<{userId: string}>()
+    const params = useParams<{ userId: string }>()
     const { id: authId } = authStateData
     const { userId } = params
 
@@ -61,7 +61,7 @@ const Profile: React.FC = memo(() => {
                 addNewPost={postOnChange}
             />
             <ProfileFriendsBlock blockHeaderName={'Friends'} />
-            <ProfilePossibleFriendsBlock blockHeaderName={'Might know'} isFriends={false} />
+            <ProfilePossibleFriendsBlock blockHeaderName={'Might know'} />
         </StyledProfile>
     )
 })
@@ -73,7 +73,7 @@ const StyledProfile = styled.main`
     overflow-y: auto;
     overflow-x: hidden;
     grid-template-rows: auto auto repeat(4, .5fr);
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(5, 18%);
     @media ${theme.media.mobile} {
         grid-template-rows: auto auto 1fr 1fr;
         grid-template-columns: 1fr 1fr;
