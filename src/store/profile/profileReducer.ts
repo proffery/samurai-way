@@ -7,7 +7,7 @@ import { usersAPI } from 'api/usersAPI'
 import { setAppIsLoading, addAppAlert, SetAppIsLoading, AddAlert } from 'store/app/appReducer'
 import { CLEAR_REDUCER, CleanReducers, setAuthUserPhoto } from 'store/auth/authReducer'
 import { AppDispatch, AppRootState } from 'store/redux-store'
-import { FollowUser as FollowUser, UnfollowUser as UnfollowUser } from 'store/users/usersReducer'
+import { FollowUser, UnfollowUser } from 'store/users/usersReducer'
 import { handleServerNetworkError } from 'utils/handleServerNetworkError'
 import { v1 } from 'uuid'
 

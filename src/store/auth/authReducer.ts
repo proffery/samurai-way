@@ -7,12 +7,14 @@ import {
     SetAppIsInitialized, setAppIsLoading
 } from 'store/app/appReducer'
 import { handleServerNetworkError } from 'utils/handleServerNetworkError'
+import { securityAPI } from 'api/securityAPI'
 
 
 //CONSTANTS
 const SET_AUTH_DATA = 'AUTH/SET-AUTH-DATA'
 const SET_IS_LOGGED_IN = 'AUTH/SET-IS-LOGGED-IN'
 const SET_PHOTO_URL = 'AUTH/SET-PHOTO-URL'
+const SET_CAPTCHA_URL = 'AUTH/SET-CAPTCHA-URL'
 export const CLEAR_REDUCER = 'AUTH/CLEAR-REDUCER'
 
 //INITIAL STATE
@@ -21,7 +23,8 @@ export const initialState: AuthState = {
     email: '',
     login: '',
     isLoggedIn: false,
-    photoUrl: ''
+    photoUrl: '',
+    captchaUrl: ''
 }
 
 //REDUCER
@@ -33,6 +36,8 @@ export const authReducer = (state: AuthState = initialState, action: AuthReducer
             return { ...state, isLoggedIn: action.payload.value }
         case SET_PHOTO_URL:
             return { ...state, photoUrl: action.payload.photoUrl }
+        case SET_CAPTCHA_URL:
+            return { ...state, captchaUrl: action.payload.captchaUrl }
         case CLEAR_REDUCER:
             return initialState
         default:
@@ -41,13 +46,14 @@ export const authReducer = (state: AuthState = initialState, action: AuthReducer
 }
 
 //ACTIONS
-export type CleanReducers = ReturnType<typeof cleanReducer>
 export const setAuthUserData = (data: GetMeData) =>
     ({ type: SET_AUTH_DATA, payload: { data } }) as const
 export const setIsLoggedIn = (value: boolean) =>
     ({ type: SET_IS_LOGGED_IN, payload: { value } }) as const
 export const setAuthUserPhoto = (photoUrl: string) =>
     ({ type: SET_PHOTO_URL, payload: { photoUrl } }) as const
+export const setCaptchaUrl = (captchaUrl: string) =>
+    ({ type: SET_CAPTCHA_URL, payload: { captchaUrl } }) as const
 export const cleanReducer = () =>
     ({ type: CLEAR_REDUCER }) as const
 
@@ -71,6 +77,9 @@ export const login = (loginData: LoginData) => async (dispatch: AppDispatch) => 
             dispatch(initializeApp())
         }
         else {
+            if (res.data.resultCode === ResultCode.captcha) {
+                dispatch(getCaptchaUrl())
+            }
             dispatch(addAppAlert('failed', res.data.messages[0]))
         }
     } catch (error) {
@@ -94,17 +103,30 @@ export const logout = () => async (dispatch: AppDispatch) => {
     } finally { dispatch(setAppIsLoading(false)) }
 }
 
+export const getCaptchaUrl = () => async (dispatch: AppDispatch) => {
+    dispatch(setAppIsLoading(true))
+    try {
+        const res = await securityAPI.getCaptchaUrl()
+        dispatch(setCaptchaUrl(res.data.url))
+    } catch (error) {
+        handleServerNetworkError(error, dispatch)
+    } finally { dispatch(setAppIsLoading(false)) }
+}
+
 //TYPES
 export type AuthReducerActions =
     | ReturnType<typeof setAuthUserData>
     | ReturnType<typeof setIsLoggedIn>
     | ReturnType<typeof setAuthUserPhoto>
+    | ReturnType<typeof setCaptchaUrl>
     | SetAppIsLoading
     | SetAppIsInitialized
     | CleanReducers
+export type CleanReducers = ReturnType<typeof cleanReducer>
 export interface AuthState extends GetMeData {
     isLoggedIn: boolean
-    photoUrl: string
+    photoUrl: string,
+    captchaUrl: string
 }
 
-export const authThunks = { logout, login, getAuthPhoto }
+export const authThunks = { logout, login, getAuthPhoto, setCaptchaUrl }

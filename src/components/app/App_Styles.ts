@@ -40,11 +40,10 @@ const AppWrapper = styled.div<Container>`
   `
 const LoginWrapper = styled.div`
     max-width: 1440px;
-    min-height: 100vh;
     margin: 0 auto;
     padding: 0;
     main {
-      height: 80vh;
+      height: 100vh;
     }
   `
 
