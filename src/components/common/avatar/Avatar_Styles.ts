@@ -1,3 +1,4 @@
+import { font } from './../../../styles/Font';
 import { Icon } from 'components/common/icon/Icon'
 import styled from 'styled-components'
 import { theme } from 'styles/Theme.styled'
@@ -9,6 +10,7 @@ const Container = styled.div`
     justify-content: center;
     min-width: 30px;
     color: ${theme.color.text.placeholder};
+    ${font({ weight: 300, Fmin: 8, Fmax: 10 })}
 `
 const Image = styled.img`
     border-radius: 50% 50%;

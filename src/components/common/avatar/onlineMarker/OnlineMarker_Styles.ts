@@ -1,31 +1,35 @@
-import { OnlineStatus } from 'components/common/avatar/OnlineMarker'
+import { OnlineStatus } from 'components/common/avatar/onlineMarker/OnlineMarker'
 import styled, { css } from 'styled-components'
 import { theme } from 'styles/Theme.styled'
 
-type MarkerProps = {
+type Props = {
     status?: OnlineStatus
 }
-const Marker = styled.div<MarkerProps>`
+const OnlineMarker = styled.div<Props>`
     position: absolute;
-    top: 85%;
-    left: 110%;
-    transform: translate(-110%, -85%);
+    top: 75%;
+    left: 70%;
+
     &::before{
         position: absolute;
-        content: '';
-        min-height: 1vmax;
-        min-width: 1vmax;
+        content: ' ';
+        display: flex;
+        height: calc(1em * 2);
+        width: calc(1em * 2);
+        text-align: center;
+        align-items: center;
+        justify-content: center;
         border-radius: 50%;
         background-color: transparent;
-        ${props => props.status === 'online' && css`
+        ${props => props.status === 'online' && css<Props>`
             background-color: ${theme.color.background.status_success};
             border: 2px solid ${theme.color.background.block};
         `}
-        ${props => props.status === 'busy' && css`
+        ${props => props.status === 'busy' && css<Props>`
             background-color: ${theme.color.background.status_busy};
             border: 2px solid ${theme.color.background.block};
         `}
-        ${props => props.status === 'offline' && css`
+        ${props => props.status === 'offline' && css<Props>`
             background-color: ${theme.color.background.status_error};
             border: 2px solid ${theme.color.background.block};
         `}
@@ -33,4 +37,4 @@ const Marker = styled.div<MarkerProps>`
     }
 `
 
-export const S = { Marker }
+export const S = { OnlineMarker }

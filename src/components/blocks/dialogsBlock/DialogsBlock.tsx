@@ -7,11 +7,11 @@ import { S } from './DialogsBlock_Styles'
 import { Patch } from 'components/app/Router/routeNames'
 
 type Props = {
-    className?:string
+    className?: string
     dialogs: DialogResponse[]
 }
 
-export const DialogsBlock: React.FC<Props> = memo(({ dialogs }) => {
+export const DialogsBlock: React.FC<Props> = memo(({ dialogs, className }) => {
     const scrollIntoViewRef = useRef<null | HTMLAnchorElement>(null)
     const draggRef = useRef<HTMLDivElement>() as React.MutableRefObject<HTMLInputElement>
     const { events } = useDraggable(draggRef, { isMounted: true })
@@ -30,8 +30,10 @@ export const DialogsBlock: React.FC<Props> = memo(({ dialogs }) => {
                     to={Patch.Messages + dialog.id}
                 >
                     <S.Photo
+                        className={className}
                         avatarURL={dialog.photos.small}
-                        lastUserActivityDate={dialog.lastUserActivityDate}
+                        lastActivityDate={dialog.lastUserActivityDate}
+                        newMessagesCount={dialog.newMessagesCount}
                     />
                     <S.Name>{dialog.userName}</S.Name>
                 </S.Dialog>

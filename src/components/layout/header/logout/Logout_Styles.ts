@@ -1,12 +1,10 @@
-import { font } from 'styles/Font'
-import styled, { css } from 'styled-components'
-import { theme } from 'styles/Theme.styled'
 import { Button } from 'components/common/button/Button'
-import { Avatar } from 'components/common/avatar/Avatar'
+import { NavLink } from 'react-router-dom'
+import styled from 'styled-components'
+import { font } from 'styles/Font'
+import { theme } from 'styles/Theme.styled'
 
-type Props = {
-    messages: number
-}
+
 const Logout = styled.div`
     display: flex;
     flex: 1;
@@ -29,34 +27,13 @@ const TextContainer = styled.div`
         display: none;
     }
 `
-const AvatarContainer = styled.div`
+const AvatarContainer = styled(NavLink)`
     display: flex;
     flex-direction: column;
     gap: 5px;
     width: 20%;
     justify-content: center;
     align-items: center;
-`
-const AvatarWithNewMessages = styled(Avatar)<Props>`
-    position: relative;
-    ${props => props.messages > 0 && css<Props>`
-        &::before {
-            position: absolute;
-            display: flex;
-            content: '${props.messages}';
-            height: calc(1em + 2px);
-            text-align: center;
-            align-items: center;
-            justify-content: center;
-            aspect-ratio: 1 / 1;
-            border-radius: 50%;
-            right: 0;
-            bottom: 0;
-            background-color: ${theme.color.background.second};
-            color: ${theme.color.text.second};
-            ${font({ weight: 500, Fmin: 10, Fmax: 14 })}
-        }
-    `}
 `
 const Name = styled.span`
     overflow-wrap: anywhere;
@@ -79,5 +56,4 @@ export const S = {
     Name,
     Email,
     LogoutButton,
-    AvatarWithNewMessages
 }
