@@ -16,13 +16,13 @@ export const dialogsAPI = {
     checkIsMessageReaded(messageId: number) {
         return instance.get<Response>(`dialogs/messages/${messageId}/viewed`)
     },
-    sendMessageToSpam(messageId: number) {
+    sendMessageToSpam(messageId: string) {
         return instance.post<Response>(`dialogs/messages/${messageId}/spam`)
     },
-    deleteMessage(messageId: number) {
+    deleteMessage(messageId: string) {
         return instance.delete<Response>(`dialogs/messages/${messageId}`)
     },
-    restoreMessage(messageId: number) {
+    restoreMessage(messageId: string) {
         return instance.put<Response>(`dialogs/messages/${messageId}/restore`)
     },
     getMessagesByDate(userId: number, date: string) {

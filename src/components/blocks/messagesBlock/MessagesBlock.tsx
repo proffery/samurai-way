@@ -13,14 +13,18 @@ type Props = {
     messagesState: MessagesState
     appIsLoading: boolean
     authData: AuthState
-    addMessage: (message: string) => void
     pageChangeHandler: () => void
+    addMessage: (message: string) => void
+    markMessageAsDelete: (messageId: string) => void
+    markMessageAsSpam: (messageId: string) => void
+    restoreMessage: (messageId: string) => void
     addAppAlert: (type: AlertType, message: string) => void
 }
 
 export const MessagesBlock: React.FC<Props> = memo((props) => {
     const { addMessage, addAppAlert, pageChangeHandler,
-        authData, appIsLoading, messagesState } = props
+        authData, appIsLoading, messagesState,
+        markMessageAsDelete, markMessageAsSpam, restoreMessage } = props
 
     return <S.MessagesBlock id="messages-block">
         <S.Header >
@@ -35,6 +39,9 @@ export const MessagesBlock: React.FC<Props> = memo((props) => {
                 appIsLoading={appIsLoading}
                 messagesState={messagesState}
                 pageChangeHandler={pageChangeHandler}
+                markMessageAsDelete={markMessageAsDelete}
+                markMessageAsSpam={markMessageAsSpam}
+                restoreMessage={restoreMessage}
             />
             <MessagesForm
                 addAppAlert={addAppAlert}

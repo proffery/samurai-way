@@ -13,7 +13,7 @@ const Friend = styled(NavLink)`
     height: 100%;
     width: 100%;
     gap: 6px;
-    padding: min(15px, 2vw);
+    padding: min(15px, 1vw);
     &::after {
         position: absolute;
         content: '';

@@ -1,14 +1,16 @@
+import { font } from './../../../../styles/Font';
+
 import { Avatar } from 'components/common/avatar/Avatar'
-import { font } from './../../../../styles/Font'
 import styled from 'styled-components'
 import { theme } from 'styles/Theme.styled'
 import { FlexWrapper } from 'components/common/FlexWrapper.styled'
+import { Button } from 'components/common/button/Button'
 
 const Message = styled.div`
     display: flex;
     flex-direction: column;
     gap: min(15px, 1vw);
-    ${font({ weight: 300, Fmin: 10, Fmax: 16 })}
+    ${font({ weight: 500, Fmin: 10, Fmax: 16 })}
     border-bottom: 1px solid;
     border-color: ${theme.color.background.primary};
 `
@@ -42,6 +44,11 @@ const Time = styled.span`
     align-self: center;
     text-align: center;
 `
+const OptionButton = styled(Button)`
+    opacity: .3;
+    align-self: center;
+    text-align: center;
+`
 
 export const S = {
     Message,
@@ -50,5 +57,6 @@ export const S = {
     Name,
     Photo,
     Text,
-    Time
+    Time,
+    OptionButton
 }

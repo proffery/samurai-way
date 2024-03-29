@@ -17,7 +17,9 @@ const Messages: React.FC<Props> = memo(({ className }) => {
     const messagesState = useSelector(selectMessagesState)
     const appIsLoading = useSelector(selectAppIsLoading)
     const authData = useSelector(selectAuthData)
-    const { addAppAlert, startDialog, getDialogs, sendMessage, getMessages } = useActions()
+    const { addAppAlert, startDialog, getDialogs,
+        sendMessage, getMessages, markMessageAsDelete,
+         markMessageAsSpam, restoreMessage } = useActions()
     const params = useParams<{ userId: string }>()
     const history = useHistory()
     const { currentPage, messagesOnPage, totalMessagesCount } = messagesState
@@ -66,7 +68,10 @@ const Messages: React.FC<Props> = memo(({ className }) => {
                 messagesState={messagesState}
                 addMessage={addMessage}
                 addAppAlert={addAppAlert}
+                markMessageAsDelete={markMessageAsDelete}
+                markMessageAsSpam={markMessageAsSpam}
                 pageChangeHandler={pageChangeHandler}
+                restoreMessage={restoreMessage}
             />
         </S.MessagesWrapper>
     </S.Messages>

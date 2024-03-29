@@ -1,6 +1,6 @@
 import { FlexWrapper } from 'components/common/FlexWrapper.styled'
 import { Icon } from 'components/common/icon/Icon'
-import { memo, useEffect, useRef } from 'react'
+import { memo } from 'react'
 import { MessagesDomain } from 'store/messages/messagesReducer'
 import { theme } from 'styles/Theme.styled'
 import { S } from './Message_Styles'
@@ -10,18 +10,11 @@ type Props = {
     opponentPhoto?: string
     authPhoto: string
     authId: number
-    markMessageAsDelete: (messageId: string) => void
-    markMessageAsSpam: (messageId: string) => void
+    restoreMessage: (messageId: string) => void
 }
 
-export const Message: React.FC<Props> = memo((props) => {
-    const { messageData, authId, authPhoto,
-        opponentPhoto, markMessageAsDelete, markMessageAsSpam } = props
-    const bottomRef = useRef<null | HTMLDivElement>(null)
-
-    useEffect(() => {
-        bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
-    }, [messageData])
+export const DeletedMessage: React.FC<Props> = memo((props) => {
+    const { messageData, authId, authPhoto, opponentPhoto, restoreMessage } = props
 
     const time = (date: string) => `${new Date(date).getHours()}:${new Date(date).getMinutes()}`
     const date = (date: string) => new Date(date).toLocaleDateString()
@@ -47,11 +40,19 @@ export const Message: React.FC<Props> = memo((props) => {
                     <S.Name>{messageData.senderName}&nbsp;</S.Name>
                 </FlexWrapper>
             }
-            <S.Text
-                justify={messageData.senderId === authId ? 'start' : 'end'}
-                align={'center'}
-            >{messageData.body}
-            </S.Text>
+            <FlexWrapper direction='column' style={{ width: '100%' }}>
+                <S.Text
+                    justify={messageData.senderId === authId ? 'start' : 'end'}
+                    align={'center'}
+                >{messageData.body}
+                </S.Text>
+                <S.Text
+                    style={{ opacity: .5 }}
+                    justify={messageData.senderId === authId ? 'start' : 'end'}
+                    align={'center'}
+                >This messge mark {messageData.isSpam ? ' as "SPAM" ' : ' for delete and will be removed!'}
+                </S.Text>
+            </FlexWrapper>
             <FlexWrapper
                 style={messageData.viewed ? { opacity: 1 } : { opacity: .3 }}
                 align={'center'}
@@ -61,25 +62,14 @@ export const Message: React.FC<Props> = memo((props) => {
         </FlexWrapper>
         <FlexWrapper gap='min(15px, 1vw)' align='center' justify='center'>
             <S.OptionButton
-                title='Delete message'
+                title='Undo'
                 variant='link'
-                onClick={() => markMessageAsDelete(messageData.id)}
-                ariaLabel='Delete'
+                onClick={() => restoreMessage(messageData.id)}
+                ariaLabel='Undo'
             >
-                <Icon iconId='trash' />
+                <Icon iconId='restore' />
             </S.OptionButton>
-            {messageData.senderId !== authId &&
-                <S.OptionButton
-                    title='Mark as spam'
-                    variant='link'
-                    onClick={() => markMessageAsSpam(messageData.id)}
-                    ariaLabel='Spam'
-                >
-                    <Icon iconId='spam' />
-                </S.OptionButton>
-            }
         </FlexWrapper>
-        <div style={{ padding: 0, margin: 0 }} ref={bottomRef} />
     </S.Message>
 })
 

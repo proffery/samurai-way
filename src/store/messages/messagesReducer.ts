@@ -6,11 +6,10 @@ import { handleServerNetworkError } from 'utils/handleServerNetworkError'
 import { ResultCode } from 'api/api-instance'
 import { DialogResponse, dialogsAPI, MessageResponse } from 'api/dialogsAPI'
 
-
 //INITIAL STATE
 const initialState = {
     dialogs: [] as DialogResponse[],
-    messages: [] as MessageResponse[],
+    messages: [] as MessagesDomain[],
     currentPage: 1 as number,
     messagesOnPage: 10 as number,
     totalMessagesCount: 0 as number,
@@ -36,8 +35,25 @@ const slice = createSlice({
             .addCase(sendMessage.fulfilled, (state, action) => {
                 state.messages.push(action.payload)
             })
+            .addCase(markMessageAsDelete.fulfilled, (state, action) => {
+                const newMessages = state.messages.map(message =>
+                    message.id === action.payload.messageId ? { ...message, isDleted: true } : message)
+                state.messages = newMessages
+            })
+            .addCase(markMessageAsSpam.fulfilled, (state, action) => {
+                const newMessages = state.messages.map(message =>
+                    message.id === action.payload.messageId ? { ...message, isSpam: true } : message)
+                state.messages = newMessages
+            })
+            .addCase(restoreMessage.fulfilled, (state, action) => {
+                const newMessages = state.messages.map(message =>
+                    message.id === action.payload.messageId ? { ...message, isSpam: false, isDleted: false } : message)
+                state.messages = newMessages
+            })
             .addCase(getMessages.fulfilled, (state, action) => {
-                state.messages = action.payload.messages
+                const domainMessages = action.payload.messages
+                    .map(message => ({ ...message, isDleted: false, isSpam: false }))
+                state.messages = domainMessages
                 state.totalMessagesCount = action.payload.totalCount
                 state.currentPage = action.payload.currentPage
                 state.messagesOnPage = action.payload.mesagesOnPage
@@ -78,7 +94,7 @@ export const startDialog = createAppAsyncThunk<undefined, number>(`${slice.name}
     }
 })
 
-export const sendMessage = createAppAsyncThunk<MessageResponse, SendMessageArgs>
+export const sendMessage = createAppAsyncThunk<MessagesDomain, SendMessageArgs>
     (`${slice.name}/sendMessage`, async (arg, thunkAPI) => {
         const { dispatch, rejectWithValue } = thunkAPI
         try {
@@ -86,7 +102,7 @@ export const sendMessage = createAppAsyncThunk<MessageResponse, SendMessageArgs>
             const res = await dialogsAPI.sendMessage(arg.userId, arg.message)
             if (res.data.resultCode === ResultCode.success) {
                 const { message } = res.data.data
-                const model: MessageResponse = {
+                const model: MessagesDomain = {
                     addedAt: message.addedAt,
                     body: message.body,
                     id: message.id,
@@ -94,7 +110,9 @@ export const sendMessage = createAppAsyncThunk<MessageResponse, SendMessageArgs>
                     senderId: message.senderId,
                     senderName: message.senderName,
                     translatedBody: message.translatedBody,
-                    viewed: message.viewed
+                    viewed: message.viewed,
+                    isDleted: false,
+                    isSpam: false
                 }
                 return model
             } else return rejectWithValue(null)
@@ -151,8 +169,67 @@ export const getNewMessagesCount = createAppAsyncThunk<{ newMessagesCount: numbe
             dispatch(appActions.setAppIsLoading(false))
         }
     })
+
+export const markMessageAsDelete = createAppAsyncThunk<{ messageId: string }, string>
+    (`${slice.name}/markMessageAsDelete`, async (messageId, thunkAPI) => {
+        const { dispatch, rejectWithValue } = thunkAPI
+        try {
+            dispatch(appActions.setAppIsLoading(true))
+            const res = await dialogsAPI.deleteMessage(messageId)
+            if (res.data.resultCode === ResultCode.success) {
+                return { messageId }
+            } else return rejectWithValue(null)
+        } catch (err) {
+            handleServerNetworkError(err, dispatch)
+            return rejectWithValue(null)
+        } finally {
+            dispatch(appActions.setAppIsLoading(false))
+        }
+    })
+
+export const markMessageAsSpam = createAppAsyncThunk<{ messageId: string }, string>
+    (`${slice.name}/markMessageAsSpam`, async (messageId, thunkAPI) => {
+        const { dispatch, rejectWithValue } = thunkAPI
+        try {
+            dispatch(appActions.setAppIsLoading(true))
+            const res = await dialogsAPI.sendMessageToSpam(messageId)
+            if (res.data.resultCode === ResultCode.success) {
+                return { messageId }
+            } else return rejectWithValue(null)
+        } catch (err) {
+            handleServerNetworkError(err, dispatch)
+            return rejectWithValue(null)
+        } finally {
+            dispatch(appActions.setAppIsLoading(false))
+        }
+    })
+
+export const restoreMessage = createAppAsyncThunk<{ messageId: string }, string>
+    (`${slice.name}/restoreMessage`, async (messageId, thunkAPI) => {
+        const { dispatch, rejectWithValue } = thunkAPI
+        try {
+            dispatch(appActions.setAppIsLoading(true))
+            const res = await dialogsAPI.restoreMessage(messageId)
+            if (res.data.resultCode === ResultCode.success) {
+                return { messageId }
+            } else return rejectWithValue(null)
+        } catch (err) {
+            handleServerNetworkError(err, dispatch)
+            return rejectWithValue(null)
+        } finally {
+            dispatch(appActions.setAppIsLoading(false))
+        }
+    })
 export type MessagesState = typeof initialState
 type SendMessageArgs = { userId: number, message: string }
+export interface MessagesDomain extends MessageResponse {
+    isSpam: boolean,
+    isDleted: boolean
+}
 
 export const messagesReducer = slice.reducer
-export const messagesThunks = { startDialog, getDialogs, sendMessage, getMessages, getNewMessagesCount }
+export const messagesThunks = {
+    startDialog, getDialogs, sendMessage,
+    getMessages, getNewMessagesCount, markMessageAsDelete,
+    markMessageAsSpam, restoreMessage
+}

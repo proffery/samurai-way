@@ -14,8 +14,8 @@ const MessagesMarker = styled.div<Props>`
             position: absolute;
             content: '${props.messages > 0 ? props.messages : ''}';
             display: flex;
-            height: calc(1em * 2);
-            width: calc(1em * 2);
+            height: calc(1em * 1.8);
+            width: calc(1em * 1.8);
             text-align: center;
             align-items: center;
             justify-content: center;

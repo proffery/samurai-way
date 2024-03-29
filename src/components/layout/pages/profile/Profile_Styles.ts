@@ -11,7 +11,7 @@ const Profile = styled.main`
     overflow-y: auto;
     overflow-x: hidden;
     grid-template-rows: auto auto repeat(4, .5fr);
-    grid-template-columns: repeat(5, 18%);
+    grid-template-columns: 21% 16% 15% 16% 21%;
     @media ${theme.media.mobile} {
         grid-template-rows: auto auto 1fr 1fr;
         grid-template-columns: 1fr 1fr;
