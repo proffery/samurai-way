@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.js": "/samurai-way/static/js/main.9e951f60.js",
-    "static/js/205.c115bde7.chunk.js": "/samurai-way/static/js/205.c115bde7.chunk.js",
-    "static/js/926.e65acf4c.chunk.js": "/samurai-way/static/js/926.e65acf4c.chunk.js",
-    "static/js/787.14de3d61.chunk.js": "/samurai-way/static/js/787.14de3d61.chunk.js",
+    "main.js": "/samurai-way/static/js/main.22f673de.js",
+    "static/js/205.913c9e84.chunk.js": "/samurai-way/static/js/205.913c9e84.chunk.js",
+    "static/js/926.f028bafd.chunk.js": "/samurai-way/static/js/926.f028bafd.chunk.js",
+    "static/js/832.6e105d2e.chunk.js": "/samurai-way/static/js/832.6e105d2e.chunk.js",
     "static/js/639.d9aae359.chunk.js": "/samurai-way/static/js/639.d9aae359.chunk.js",
     "static/js/464.9cabe15b.chunk.js": "/samurai-way/static/js/464.9cabe15b.chunk.js",
-    "static/media/icons-sprite.svg": "/samurai-way/static/media/icons-sprite.3133e5bf83cbbf3492559f736da2ccb4.svg",
+    "static/media/icons-sprite.svg": "/samurai-way/static/media/icons-sprite.ad3d9766b5aa43ec4fd77a4b302088ae.svg",
     "index.html": "/samurai-way/index.html",
     "static/media/Search.svg": "/samurai-way/static/media/Search.996fa3bc78d2ec597b6af296c65df6a5.svg",
-    "main.9e951f60.js.map": "/samurai-way/static/js/main.9e951f60.js.map",
-    "205.c115bde7.chunk.js.map": "/samurai-way/static/js/205.c115bde7.chunk.js.map",
-    "926.e65acf4c.chunk.js.map": "/samurai-way/static/js/926.e65acf4c.chunk.js.map",
-    "787.14de3d61.chunk.js.map": "/samurai-way/static/js/787.14de3d61.chunk.js.map",
+    "main.22f673de.js.map": "/samurai-way/static/js/main.22f673de.js.map",
+    "205.913c9e84.chunk.js.map": "/samurai-way/static/js/205.913c9e84.chunk.js.map",
+    "926.f028bafd.chunk.js.map": "/samurai-way/static/js/926.f028bafd.chunk.js.map",
+    "832.6e105d2e.chunk.js.map": "/samurai-way/static/js/832.6e105d2e.chunk.js.map",
     "639.d9aae359.chunk.js.map": "/samurai-way/static/js/639.d9aae359.chunk.js.map",
     "464.9cabe15b.chunk.js.map": "/samurai-way/static/js/464.9cabe15b.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/main.9e951f60.js"
+    "static/js/main.22f673de.js"
   ]
 }
