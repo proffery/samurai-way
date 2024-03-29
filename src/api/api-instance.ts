@@ -26,7 +26,6 @@ export type PhotosResponse = {
     small: string,
     large: string
 }
-
 export type ItemsResponse<D = []> = {
     error: string | null
     items: D

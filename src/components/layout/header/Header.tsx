@@ -2,16 +2,13 @@ import { Patch } from 'components/app/Router/routeNames'
 import { Logout } from 'components/layout/header/logout/Logout'
 import { useFormik } from 'formik'
 import { memo, useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { selectAuthData } from 'store/auth/authSelectors'
 import { useActions } from 'utils/customHooks/useActions'
 import search from '../../../assets/images/Search.svg'
 import { S } from './Header_Styles'
 
 export const Header: React.FC = memo(() => {
-    const { login, email, photoUrl } = useSelector(selectAuthData)
-    const { setUsersSearchTerm, logout, addAppAlert } = useActions()
+    const { setUsersSearchTerm, addAppAlert } = useActions()
     const [timerId, setTimerId] = useState<number | undefined>(undefined)
     const history = useHistory()
 
@@ -60,11 +57,6 @@ export const Header: React.FC = memo(() => {
                 error={!!formik.errors.searchTerm ? 'true' : 'false'}
             />
         </S.Form>
-        <Logout
-            login={login}
-            email={email}
-            photoUrl={photoUrl}
-            logOut={logout}
-        />
+        <Logout/>
     </S.Header>
 })

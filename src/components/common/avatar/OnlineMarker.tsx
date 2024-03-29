@@ -1,11 +1,10 @@
-import { S } from './OnlineMarker_Styles'
+import { S } from './onlineMarker/OnlineMarker_Styles'
 
 type Props = {
     className?: string
     lastUserActivityDate: string
 }
 export type OnlineStatus = 'online' | 'busy' | 'offline'
-
 const MIN_ONLINE = 10
 const MIN_BUSY = 30
 const MIN_IN_HOUR = 60

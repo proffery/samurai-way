@@ -8,3 +8,4 @@ export const selectDialogs = (state: AppRootState): DialogResponse[] => state.me
 export const selectMessagesCurrentPage = (state: AppRootState): number => state.messages.currentPage
 export const selectMessagesOnPage = (state: AppRootState): number => state.messages.messagesOnPage
 export const selectTotalMessagesCount = (state: AppRootState): number => state.messages.totalMessagesCount
+export const selectNewMessagesCount = (state: AppRootState): number => state.messages.newMessagesCount

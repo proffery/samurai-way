@@ -1,6 +1,6 @@
 import { memo } from 'react'
 import { S } from './Avatar_Styles'
-import { OnlineMarker } from './onlineMarker/OnlineMarker'
+import { OnlineMarker } from './OnlineMarker'
 
 type AvatarPropsType = {
     className?: string

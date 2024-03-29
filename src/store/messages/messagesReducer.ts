@@ -13,7 +13,8 @@ const initialState = {
     messages: [] as MessageResponse[],
     currentPage: 1 as number,
     messagesOnPage: 10 as number,
-    totalMessagesCount: 0 as number
+    totalMessagesCount: 0 as number,
+    newMessagesCount: 0 as number
 }
 //SLICE
 const slice = createSlice({
@@ -28,6 +29,9 @@ const slice = createSlice({
             })
             .addCase(getDialogs.fulfilled, (state, action) => {
                 state.dialogs = action.payload.dialogs
+            })
+            .addCase(getNewMessagesCount.fulfilled, (state, action) => {
+                state.newMessagesCount = action.payload.newMessagesCount
             })
             .addCase(sendMessage.fulfilled, (state, action) => {
                 state.messages.push(action.payload)
@@ -45,6 +49,7 @@ export const getDialogs = createAppAsyncThunk<{ dialogs: DialogResponse[] }>(`${
     const { dispatch, rejectWithValue } = thunkAPI
     try {
         dispatch(appActions.setAppIsLoading(true))
+        dispatch(getNewMessagesCount())
         const res = await dialogsAPI.getDialogs()
         return { dialogs: res.data }
     } catch (err) {
@@ -132,8 +137,22 @@ export const getMessages = createAppAsyncThunk<{
         }
     })
 
+export const getNewMessagesCount = createAppAsyncThunk<{ newMessagesCount: number }>(`${slice.name}/getNewMessagesCount`,
+    async (_, thunkAPI) => {
+        const { dispatch, rejectWithValue } = thunkAPI
+        try {
+            dispatch(appActions.setAppIsLoading(true))
+            const res = await dialogsAPI.getNewMessages()
+            return { newMessagesCount: res.data }
+        } catch (err) {
+            handleServerNetworkError(err, dispatch)
+            return rejectWithValue(null)
+        } finally {
+            dispatch(appActions.setAppIsLoading(false))
+        }
+    })
 export type MessagesState = typeof initialState
 type SendMessageArgs = { userId: number, message: string }
 
 export const messagesReducer = slice.reducer
-export const messagesThunks = { startDialog, getDialogs, sendMessage, getMessages }
+export const messagesThunks = { startDialog, getDialogs, sendMessage, getMessages, getNewMessagesCount }

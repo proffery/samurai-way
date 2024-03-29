@@ -1,4 +1,4 @@
-import { OnlineStatus } from 'components/common/avatar/onlineMarker/OnlineMarker'
+import { OnlineStatus } from 'components/common/avatar/OnlineMarker'
 import styled, { css } from 'styled-components'
 import { theme } from 'styles/Theme.styled'
 

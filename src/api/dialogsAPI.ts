@@ -29,7 +29,7 @@ export const dialogsAPI = {
         return instance.get<Response>(`dialogs/${userId}/messages/new?newerThen=${date}`)
     },
     getNewMessages() {
-        return instance.get<Response>('dialogs/messages/new/count')
+        return instance.get<number>('dialogs/messages/new/count')
     }
 }
 

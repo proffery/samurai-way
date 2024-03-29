@@ -5,6 +5,7 @@ import { AppDispatch, AppRootState } from 'store/redux-store'
 import { handleServerNetworkError } from 'utils/handleServerNetworkError'
 import { storageAvailable } from 'utils/storageAvailable'
 import { v1 } from 'uuid'
+import { messagesThunks } from 'store/messages/messagesReducer'
 
 //CONSTANTS
 const APP_ADD_ALERT = 'APP/ADD-ALERT'
@@ -141,6 +142,7 @@ export const initializeApp = () => async (dispatch: AppDispatch) => {
             Promise.all([
                 dispatch(setAuthUserData(res.data.data)),
                 dispatch(getAuthPhoto(res.data.data.id)),
+                dispatch(messagesThunks.getNewMessagesCount()),
                 dispatch(loadPathFromStorage()),
                 dispatch(setIsLoggedIn(true))
             ]).then(() => dispatch(setAppIsInitialized(true)))
