@@ -1,7 +1,6 @@
 import { Patch } from 'components/app/Router/routeNames'
-import { Notifications } from 'components/layout/pages/notifications/Notifications'
+import { Chat } from 'components/layout/pages/localChat/Chat'
 import { lazy, Suspense } from 'react'
-import { Settings } from 'components/layout/pages/settings/Settings'
 import { useSelector } from 'react-redux'
 import { Redirect, Route, Switch } from 'react-router-dom'
 import { selectStoragePath } from 'store/app/appSelectors'
@@ -25,8 +24,7 @@ export const AppRouteSwich: React.FC = () => {
             <Suspense fallback={<InitializationLoader />}><Messages /></Suspense>} />
         <Route path={Patch.NotFound} render={() =>
             <Suspense fallback={<InitializationLoader />}><NotFound /></Suspense>} />
-        <Route path={Patch.Notifications} component={Notifications} />
-        <Route path={Patch.Settings} component={Settings} />
+        <Route path={Patch.Chat} component={Chat} />
         <Route path={Patch.Login} render={() => <Redirect to={`${storagePath}`} />} />
         <Route path={Patch.Other} render={() => <Redirect to={Patch.NotFound} />} />
     </Switch>

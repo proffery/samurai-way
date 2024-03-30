@@ -5,7 +5,7 @@ export const Patch = {
     Messages: '/messages/',
     MessagesParams: '/messages/:userId?',
     Users: '/users',
-    Notifications: '/notifications',
+    Chat: '/chat',
     Settings: '/settings',
     NotFound: '/404',
     Login: '/login',
