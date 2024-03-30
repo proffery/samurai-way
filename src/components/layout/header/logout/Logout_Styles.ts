@@ -17,7 +17,6 @@ const Logout = styled.div`
 const TextContainer = styled.div`
   display: flex;
   gap: 3px;
-  width: 80%;
   width: fit-content;
   flex-direction: column;
   align-items: start;

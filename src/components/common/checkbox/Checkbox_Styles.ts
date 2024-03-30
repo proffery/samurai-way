@@ -12,7 +12,7 @@ const Label = styled.label`
   position: relative;
   display: flex;
   align-items: center;
-  padding: 0px 0px 0px 2em;
+  padding: 0 0 0 2em;
 `
 const rotate = keyframes`
   from {

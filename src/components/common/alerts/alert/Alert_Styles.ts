@@ -1,4 +1,4 @@
-import { AlertType } from "./../../../../store/app/appReducer"
+import { AlertType } from "store/app/appReducer"
 import styled, { css } from "styled-components"
 import { theme } from "styles/Theme.styled"
 
@@ -16,7 +16,7 @@ const Alert = styled.div<StyledProps>`
   color: #ffffff;
   border-radius: 0.5em;
   border: 1px solid;
-  margin: 10px 0px;
+  margin: 10px 0;
   padding: 12px;
   width: 100%;
 
@@ -29,32 +29,32 @@ const Alert = styled.div<StyledProps>`
     props.request === "succeeded" &&
     css<StyledProps>`
       background-color: ${theme.color.background.status_success};
-    `}
-    ${(props) =>
+    `} ${(props) =>
     props.request === "info" &&
     css<StyledProps>`
       background-color: ${theme.color.background.status_info};
-    `}
-    @media ${theme.media.mobile} {
+    `} @media ${theme.media.mobile} {
     padding: 6px;
   }
+
   &::before {
     content: "";
     position: absolute;
-    bottom: 0%;
+    bottom: 0;
     left: 0;
     width: 100%;
-    height: 0%;
+    height: 0;
     background: ${theme.gradient.banner};
     animation: moveColor ${(props) => props.delay / 1000}s linear;
     animation-fill-mode: forwards;
   }
+
   @keyframes moveColor {
     100% {
       height: 100%;
     }
     0% {
-      height: 0%;
+      height: 0;
     }
   }
 `

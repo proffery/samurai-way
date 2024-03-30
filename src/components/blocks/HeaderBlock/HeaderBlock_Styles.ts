@@ -1,4 +1,4 @@
-import { font } from "./../../../styles/Font"
+import { font } from "styles/Font"
 import { BlockSection } from "components/blocks/BlockSection.styled"
 import { Avatar } from "components/common/avatar/Avatar"
 import { NavLink } from "react-router-dom"

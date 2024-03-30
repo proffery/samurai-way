@@ -1,4 +1,4 @@
-import { font } from "./../../../../styles/Font"
+import { font } from "styles/Font"
 import { Avatar } from "components/common/avatar/Avatar"
 import styled, { css } from "styled-components"
 import { theme } from "styles/Theme.styled"

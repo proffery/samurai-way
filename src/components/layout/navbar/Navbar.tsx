@@ -22,7 +22,7 @@ export const Navbar: React.FC<Props> = memo(({ setIsCollapsed, isCollapsed }) =>
     return () => window.removeEventListener("resize", handleWindowResize)
   }, [])
 
-  const navbarCollapseHandler = (e: MouseEvent<HTMLButtonElement>) => {
+  const navbarCollapseHandler = () => {
     setIsCollapsed(!isCollapsed)
   }
 

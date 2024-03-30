@@ -19,14 +19,16 @@ const Category = styled.div`
   height: fit-content;
   gap: 5px;
   padding: 5px 0;
+
   &::after {
     position: absolute;
     content: "";
     width: 100%;
     height: 1px;
     background-color: ${theme.color.background.primary};
-    bottom: 0%;
+    bottom: 0;
   }
+
   @media ${theme.media.mobile} {
     flex-direction: row;
     &::after {

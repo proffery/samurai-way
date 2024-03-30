@@ -1,4 +1,4 @@
-import { font } from "./../../../../styles/Font"
+import { font } from "styles/Font"
 import { Avatar } from "components/common/avatar/Avatar"
 import { NavLink } from "react-router-dom"
 import styled from "styled-components"
@@ -14,19 +14,22 @@ const Friend = styled(NavLink)`
   width: 100%;
   gap: 6px;
   padding: min(15px, 1vw);
+
   &::after {
     position: absolute;
     content: "";
     width: 100%;
     height: 1px;
     background-color: ${theme.color.background.primary};
-    bottom: 0%;
+    bottom: 0;
   }
+
   &:hover {
     outline: 1px solid ${theme.color.background.primary};
     background-color: ${theme.color.background.primary};
     border-radius: 10px;
   }
+
   @media ${theme.media.mobile} {
     flex-direction: column;
     justify-content: flex-start;

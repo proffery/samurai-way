@@ -1,4 +1,4 @@
-import { font } from "./../../../styles/Font"
+import { font } from "styles/Font"
 import { BlockSection } from "components/blocks/BlockSection.styled"
 import styled from "styled-components"
 import { theme } from "styles/Theme.styled"

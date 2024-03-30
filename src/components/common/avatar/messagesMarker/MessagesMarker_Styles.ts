@@ -7,7 +7,7 @@ type Props = {
 const MessagesMarker = styled.div<Props>`
   position: absolute;
   top: 75%;
-  left: 0%;
+  left: 0;
   ${(props) =>
     props.messages &&
     css<Props>`

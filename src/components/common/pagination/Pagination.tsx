@@ -66,7 +66,7 @@ export const Pagination: React.FC<Props> = memo((props) => {
   const showInputHandler = () => {
     setShowInput((prev) => !prev)
   }
-  const formBlurHandle = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const formBlurHandle = () => {
     formik.handleSubmit()
     setShowInput(false)
   }
@@ -120,7 +120,7 @@ export const Pagination: React.FC<Props> = memo((props) => {
                 }}
                 onBlur={(e: React.ChangeEvent<HTMLInputElement>) => {
                   formik.handleBlur(e)
-                  formBlurHandle(e)
+                  formBlurHandle()
                 }}
                 autoFocus
               />
