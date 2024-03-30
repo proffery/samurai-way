@@ -1,11 +1,14 @@
-import { font } from './../../../../styles/Font';
-
+import { font } from './../../../../styles/Font'
 import { Avatar } from 'components/common/avatar/Avatar'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { theme } from 'styles/Theme.styled'
 import { FlexWrapper } from 'components/common/FlexWrapper.styled'
 import { Button } from 'components/common/button/Button'
 
+type Props = {
+    viewed: 'true' | 'false'
+    isMeOwner?: 'true' | 'false'
+}
 const Message = styled.div`
     display: flex;
     flex-direction: column;
@@ -13,6 +16,30 @@ const Message = styled.div`
     ${font({ weight: 500, Fmin: 10, Fmax: 16 })}
     border-bottom: 1px solid;
     border-color: ${theme.color.background.primary};
+`
+const MessageWrapper = styled.div<Props>`
+    display: flex;
+    border-radius: 10px;
+    padding: min(15px, 1vw);
+    gap: min(15px, 1vw);
+    ${props => props.isMeOwner === 'true'
+        ? css<Props>`
+        flex-direction: row;
+    ` : css<Props>`
+        flex-direction: row-reverse;
+    `}
+    ${props => props.viewed === 'true'
+        ? css<Props>`
+        background-color: transparent;
+    ` : css<Props>`
+        background-color: ${theme.color.background.primary} ;
+    `}
+`
+const ButtonsWrapper = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: min(15px, 1vw);
 `
 const Text = styled(FlexWrapper)`
     display: flex;
@@ -49,6 +76,16 @@ const OptionButton = styled(Button)`
     align-self: center;
     text-align: center;
 `
+const ReadedIconWrapper = styled.div<Props>`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    ${props => props.viewed === 'true' ? css<Props>`
+        opacity: 1;
+    `: css<Props>`
+        opacity: .3;
+    `}
+`
 
 export const S = {
     Message,
@@ -58,5 +95,8 @@ export const S = {
     Photo,
     Text,
     Time,
-    OptionButton
+    OptionButton,
+    MessageWrapper,
+    ButtonsWrapper,
+    ReadedIconWrapper
 }
