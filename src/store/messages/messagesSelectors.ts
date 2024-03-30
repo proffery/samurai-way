@@ -1,6 +1,6 @@
-import { DialogResponse, MessageResponse } from 'api/dialogsAPI'
-import { MessagesState } from 'store/messages/messagesReducer'
-import { AppRootState } from 'store/redux-store'
+import { DialogResponse, MessageResponse } from "api/dialogsAPI"
+import { MessagesState } from "store/messages/messagesReducer"
+import { AppRootState } from "store/redux-store"
 
 export const selectMessagesState = (state: AppRootState): MessagesState => state.messages
 export const selectMessages = (state: AppRootState): MessageResponse[] => state.messages.messages

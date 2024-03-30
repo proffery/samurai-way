@@ -1,7 +1,6 @@
-import { createGlobalStyle } from "styled-components";
-import { font } from 'styles/Font'
-import { theme } from 'styles/Theme.styled'
-
+import { createGlobalStyle } from "styled-components"
+import { font } from "styles/Font"
+import { theme } from "styles/Theme.styled"
 
 export const GlobalStyle = createGlobalStyle`
     *,
@@ -24,7 +23,7 @@ export const GlobalStyle = createGlobalStyle`
         margin: 0 auto;
         min-height: 100vh;
         background-color: white;
-        ${font({weight: 400, Fmin: 10, Fmax: 22})}
+        ${font({ weight: 400, Fmin: 10, Fmax: 22 })}
         font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Oxygen',
             'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
             sans-serif;

@@ -1,6 +1,6 @@
-import { Input } from 'components/common/input/Input.styled'
-import styled, { keyframes } from 'styled-components'
-import { theme } from 'styles/Theme.styled'
+import { Input } from "components/common/input/Input.styled"
+import styled, { keyframes } from "styled-components"
+import { theme } from "styles/Theme.styled"
 
 const CheckboxInput = styled(Input)`
   height: 0;
@@ -63,7 +63,7 @@ const Indicator = styled.div`
 `
 
 export const S = {
-    CheckboxInput,
-    Indicator,
-    Label
+  CheckboxInput,
+  Indicator,
+  Label,
 }

@@ -1,5 +1,5 @@
-import { AlertObject, IconsLinks } from 'store/app/appReducer'
-import { AppRootState } from 'store/redux-store'
+import { AlertObject, IconsLinks } from "store/app/appReducer"
+import { AppRootState } from "store/redux-store"
 
 export const selectAppIsLoading = (state: AppRootState): boolean => state.app.isLoading
 export const selectStoragePath = (state: AppRootState): string => state.app.currentPath

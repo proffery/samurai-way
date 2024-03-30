@@ -1,25 +1,25 @@
-import { instance, Response } from 'api/api-instance'
+import { instance, Response } from "api/api-instance"
 
 export const authAPI = {
-    getMe() {
-        return instance.get<Response<GetMeData>>('/auth/me')
-    },
-    logout() {
-        return instance.delete<Response>('/auth/login')
-    },
-    login(loginData: LoginData) {
-        return instance.post<Response<{ userId: number }>>('/auth/login', loginData)
-    }
+  getMe() {
+    return instance.get<Response<GetMeData>>("/auth/me")
+  },
+  logout() {
+    return instance.delete<Response>("/auth/login")
+  },
+  login(loginData: LoginData) {
+    return instance.post<Response<{ userId: number }>>("/auth/login", loginData)
+  },
 }
 
 export type GetMeData = {
-    id: number
-    email: string
-    login: string
+  id: number
+  email: string
+  login: string
 }
 export type LoginData = {
-    email: string
-    password: string
-    remember: boolean
-    captcha: string
+  email: string
+  password: string
+  remember: boolean
+  captcha: string
 }

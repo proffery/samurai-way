@@ -1,6 +1,6 @@
 import axios, { AxiosError } from "axios"
-import { appThunks } from 'store/app/appReducer'
-import { AppDispatch } from 'store/redux-store'
+import { appThunks } from "store/app/appReducer"
+import { AppDispatch } from "store/redux-store"
 
 /**
  * Данная функция обрабатывает глобальные ошибки приложения или сети.
@@ -11,8 +11,8 @@ export const handleServerNetworkError = (e: unknown, dispatch: AppDispatch) => {
   const err = e as Error | AxiosError<{ error: string }>
   if (axios.isAxiosError(err)) {
     const error = err.message ? err.message : "Some error occurred"
-    dispatch(appThunks.addAppAlert('failed', error))
+    dispatch(appThunks.addAppAlert("failed", error))
   } else {
-    dispatch(appThunks.addAppAlert('failed', `${err.message}`))
+    dispatch(appThunks.addAppAlert("failed", `${err.message}`))
   }
 }

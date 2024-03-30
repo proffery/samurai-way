@@ -1,13 +1,12 @@
-
 import { createAsyncThunk } from "@reduxjs/toolkit"
-import { AppDispatch, AppRootState } from 'store/redux-store'
+import { AppDispatch, AppRootState } from "store/redux-store"
 /**
  * Функция-оберека для типизации createAsyncThunk
  * https://redux-toolkit.js.org/usage/usage-with-typescript
  * Config:
  * return type for `thunkApi.getState`
  * state?: unknown
- * type for `thunkApi.dispatch` 
+ * type for `thunkApi.dispatch`
  * dispatch?: Dispatch
  * type of the `extra` argument for the thunk middleware, which will be passed in as `thunkApi.extra`
  * extra?: unknown
