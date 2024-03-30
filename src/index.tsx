@@ -8,13 +8,13 @@ import { GlobalStyle } from "styles/Global.styled"
 import { HashRouter as Router } from "react-router-dom"
 
 ReactDOM.render(
-  <ThemeProvider theme={theme}>
-    <Provider store={store}>
-      <Router>
-        <App />
-      </Router>
-    </Provider>
-    <GlobalStyle />
-  </ThemeProvider>,
-  document.getElementById("root"),
+    <ThemeProvider theme={theme}>
+        <Provider store={store}>
+            <Router>
+                <App />
+            </Router>
+        </Provider>
+        <GlobalStyle />
+    </ThemeProvider>,
+    document.getElementById("root"),
 )

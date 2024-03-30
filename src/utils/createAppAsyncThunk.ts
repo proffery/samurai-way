@@ -22,7 +22,7 @@ import { AppDispatch, AppRootState } from "store/redux-store"
  * rejectedMeta?: unknown
  */
 export const createAppAsyncThunk = createAsyncThunk.withTypes<{
-  state: AppRootState
-  dispatch: AppDispatch
-  rejectValue: null
+    state: AppRootState
+    dispatch: AppDispatch
+    rejectValue: null
 }>()

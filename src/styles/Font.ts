@@ -1,9 +1,9 @@
 type FontPropsType = {
-  family?: string
-  weight?: number
-  lineHeight?: number
-  Fmin: number
-  Fmax: number
+    family?: string
+    weight?: number
+    lineHeight?: number
+    Fmin: number
+    Fmax: number
 }
 
 export const font = ({ family, weight, lineHeight, Fmin, Fmax }: FontPropsType) => `

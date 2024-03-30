@@ -4,11 +4,11 @@ import styled from "styled-components"
 import { theme } from "styles/Theme.styled"
 
 const ContactsBlock = styled(BlockSection)`
-  display: flex;
-  flex-direction: column;
-  color: ${theme.color.text.primary};
-  ${font({ weight: 300, Fmin: 10, Fmax: 16 })}
+    display: flex;
+    flex-direction: column;
+    color: ${theme.color.text.primary};
+    ${font({ weight: 300, Fmin: 10, Fmax: 16 })}
 `
 export const S = {
-  ContactsBlock,
+    ContactsBlock,
 }

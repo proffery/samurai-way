@@ -6,34 +6,34 @@ import { selectMenuItems } from "store/app/appSelectors"
 import { S } from "./Navbar_Styles"
 
 type Props = {
-  isCollapsed: boolean
-  setIsCollapsed: (isCollapsed: boolean) => void
+    isCollapsed: boolean
+    setIsCollapsed: (isCollapsed: boolean) => void
 }
 
 export const Navbar: React.FC<Props> = memo(({ setIsCollapsed, isCollapsed }) => {
-  const menuItems = useSelector(selectMenuItems)
-  const [width, setWidth] = useState(window.innerWidth)
-  const COLLAPSED_WIDTH = 768
+    const menuItems = useSelector(selectMenuItems)
+    const [width, setWidth] = useState(window.innerWidth)
+    const COLLAPSED_WIDTH = 768
 
-  useEffect(() => {
-    const handleWindowResize = () => setWidth(window.innerWidth)
-    window.addEventListener("resize", handleWindowResize)
+    useEffect(() => {
+        const handleWindowResize = () => setWidth(window.innerWidth)
+        window.addEventListener("resize", handleWindowResize)
 
-    return () => window.removeEventListener("resize", handleWindowResize)
-  }, [])
+        return () => window.removeEventListener("resize", handleWindowResize)
+    }, [])
 
-  const navbarCollapseHandler = () => {
-    setIsCollapsed(!isCollapsed)
-  }
+    const navbarCollapseHandler = () => {
+        setIsCollapsed(!isCollapsed)
+    }
 
-  useEffect(() => {
-    width < COLLAPSED_WIDTH ? setIsCollapsed(false) : setIsCollapsed(true)
-  }, [width])
+    useEffect(() => {
+        width < COLLAPSED_WIDTH ? setIsCollapsed(false) : setIsCollapsed(true)
+    }, [width])
 
-  return (
-    <S.Navbar onClick={navbarCollapseHandler} collapsed={isCollapsed.toString()}>
-      <Logo variant={"secondary"} type={isCollapsed ? "text" : "logo"} />
-      <Menu type={"secondary"} icons={true} name={isCollapsed} direction={"column"} menuItems={menuItems} />
-    </S.Navbar>
-  )
+    return (
+        <S.Navbar onClick={navbarCollapseHandler} collapsed={isCollapsed.toString()}>
+            <Logo variant={"secondary"} type={isCollapsed ? "text" : "logo"} />
+            <Menu type={"secondary"} icons={true} name={isCollapsed} direction={"column"} menuItems={menuItems} />
+        </S.Navbar>
+    )
 })

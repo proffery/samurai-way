@@ -16,42 +16,42 @@ import { selectAppIsLoading, selectIsInitialized } from "store/app/appSelectors"
 import { InitializationLoader } from "components/common/loaders/IniatializationLoader"
 
 export const App: React.FC = () => {
-  const isLoggedIn = useSelector(selectIsloggedIn)
-  const isLoading = useSelector(selectAppIsLoading)
-  const isInitialized = useSelector(selectIsInitialized)
-  const { savePathToStorage, initializeApp } = useActions()
-  const [isCollapsed, setIsCollapsed] = useState(false)
-  const { pathname } = useHistory().location
+    const isLoggedIn = useSelector(selectIsloggedIn)
+    const isLoading = useSelector(selectAppIsLoading)
+    const isInitialized = useSelector(selectIsInitialized)
+    const { savePathToStorage, initializeApp } = useActions()
+    const [isCollapsed, setIsCollapsed] = useState(false)
+    const { pathname } = useHistory().location
 
-  useEffect(() => {
-    initializeApp()
-  }, [])
+    useEffect(() => {
+        initializeApp()
+    }, [])
 
-  useEffect(() => {
-    pathname !== Patch.Login && savePathToStorage(pathname)
-  }, [pathname])
+    useEffect(() => {
+        pathname !== Patch.Login && savePathToStorage(pathname)
+    }, [pathname])
 
-  if (!isLoggedIn) {
+    if (!isLoggedIn) {
+        return (
+            <S.LoginWrapper>
+                {isLoading && <LoadingLoader />}
+                {!isInitialized && <InitializationLoader />}
+                <Alerts />
+                <LoginRouteSwich />
+                <Footer />
+            </S.LoginWrapper>
+        )
+    }
+
     return (
-      <S.LoginWrapper>
-        {isLoading && <LoadingLoader />}
-        {!isInitialized && <InitializationLoader />}
-        <Alerts />
-        <LoginRouteSwich />
-        <Footer />
-      </S.LoginWrapper>
+        <S.AppWrapper collapsed={isCollapsed.toString()}>
+            {isLoading && <LoadingLoader />}
+            {!isInitialized && <InitializationLoader />}
+            <Alerts />
+            <Navbar isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
+            <Header />
+            <AppRouteSwich />
+            <Footer />
+        </S.AppWrapper>
     )
-  }
-
-  return (
-    <S.AppWrapper collapsed={isCollapsed.toString()}>
-      {isLoading && <LoadingLoader />}
-      {!isInitialized && <InitializationLoader />}
-      <Alerts />
-      <Navbar isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
-      <Header />
-      <AppRouteSwich />
-      <Footer />
-    </S.AppWrapper>
-  )
 }

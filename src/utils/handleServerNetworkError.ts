@@ -8,11 +8,11 @@ import { AppDispatch } from "store/redux-store"
  * @param dispatch - функция для отправки сообщений в store Redux
  */
 export const handleServerNetworkError = (e: unknown, dispatch: AppDispatch) => {
-  const err = e as Error | AxiosError<{ error: string }>
-  if (axios.isAxiosError(err)) {
-    const error = err.message ? err.message : "Some error occurred"
-    dispatch(appThunks.addAppAlert("failed", error))
-  } else {
-    dispatch(appThunks.addAppAlert("failed", `${err.message}`))
-  }
+    const err = e as Error | AxiosError<{ error: string }>
+    if (axios.isAxiosError(err)) {
+        const error = err.message ? err.message : "Some error occurred"
+        dispatch(appThunks.addAppAlert("failed", error))
+    } else {
+        dispatch(appThunks.addAppAlert("failed", `${err.message}`))
+    }
 }

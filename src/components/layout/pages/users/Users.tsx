@@ -5,16 +5,16 @@ import React, { memo } from "react"
 import { S } from "./Users_Styles"
 
 const Users: React.FC = memo(() => {
-  return (
-    <S.Users id="users">
-      <ToTop anchor_id="users-block" />
-      <UsersBlock />
-      <S.Wrapper>
-        <FriendsBlock headerName="Friends" />
-        <FriendsBlock headerName="Might know" isFriends={false} />
-      </S.Wrapper>
-    </S.Users>
-  )
+    return (
+        <S.Users id="users">
+            <ToTop anchor_id="users-block" />
+            <UsersBlock />
+            <S.Wrapper>
+                <FriendsBlock headerName="Friends" />
+                <FriendsBlock headerName="Might know" isFriends={false} />
+            </S.Wrapper>
+        </S.Users>
+    )
 })
 
 export default Users

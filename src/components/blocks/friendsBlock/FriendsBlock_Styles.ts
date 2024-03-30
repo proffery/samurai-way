@@ -5,27 +5,27 @@ import { font } from "styles/Font"
 import { theme } from "styles/Theme.styled"
 
 const FriendsBlock = styled(BlockSection)`
-  display: flex;
+    display: flex;
 `
 const FriendsList = styled.div`
-  display: flex;
-  align-items: center;
-  width: 100%;
-  justify-content: center;
-  flex-direction: column;
-  overflow-y: auto;
-  overflow-x: hidden;
-  @media ${theme.media.mobile} {
-    flex-direction: row;
-  }
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+    @media ${theme.media.mobile} {
+        flex-direction: row;
+    }
 `
 const FriendsPagination = styled(Pagination)`
-  ${font({ weight: 700, Fmin: 10, Fmax: 13 })}
-  height: 1em;
+    ${font({ weight: 700, Fmin: 10, Fmax: 13 })}
+    height: 1em;
 `
 
 export const S = {
-  FriendsBlock,
-  FriendsList,
-  FriendsPagination,
+    FriendsBlock,
+    FriendsList,
+    FriendsPagination,
 }

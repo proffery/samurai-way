@@ -9,51 +9,51 @@ import { S } from "./MessagesBlock_Styles"
 import { AlertType } from "store/app/appReducer"
 
 type Props = {
-  className?: string
-  messagesState: MessagesState
-  appIsLoading: boolean
-  authData: AuthState
-  pageChangeHandler: () => void
-  addMessage: (message: string) => void
-  markMessageAsDelete: (messageId: string) => void
-  markMessageAsSpam: (messageId: string) => void
-  restoreMessage: (messageId: string) => void
-  addAppAlert: (type: AlertType, message: string) => void
+    className?: string
+    messagesState: MessagesState
+    appIsLoading: boolean
+    authData: AuthState
+    pageChangeHandler: () => void
+    addMessage: (message: string) => void
+    markMessageAsDelete: (messageId: string) => void
+    markMessageAsSpam: (messageId: string) => void
+    restoreMessage: (messageId: string) => void
+    addAppAlert: (type: AlertType, message: string) => void
 }
 
 export const MessagesBlock: React.FC<Props> = memo((props) => {
-  const {
-    addMessage,
-    addAppAlert,
-    pageChangeHandler,
-    authData,
-    appIsLoading,
-    messagesState,
-    markMessageAsDelete,
-    markMessageAsSpam,
-    restoreMessage,
-  } = props
+    const {
+        addMessage,
+        addAppAlert,
+        pageChangeHandler,
+        authData,
+        appIsLoading,
+        messagesState,
+        markMessageAsDelete,
+        markMessageAsSpam,
+        restoreMessage,
+    } = props
 
-  return (
-    <S.MessagesBlock id="messages-block">
-      <S.Header>
-        <S.ProfileLink to={Patch.Profile + messagesState.dialogs[0]?.id}>
-          <Avatar avatarURL={messagesState.dialogs[0]?.photos.small} />
-          {messagesState.dialogs[0]?.userName}:
-        </S.ProfileLink>
-      </S.Header>
-      <S.ListWrapper>
-        <MessagesList
-          authData={authData}
-          appIsLoading={appIsLoading}
-          messagesState={messagesState}
-          pageChangeHandler={pageChangeHandler}
-          markMessageAsDelete={markMessageAsDelete}
-          markMessageAsSpam={markMessageAsSpam}
-          restoreMessage={restoreMessage}
-        />
-        <MessagesForm addAppAlert={addAppAlert} addMessage={addMessage} />
-      </S.ListWrapper>
-    </S.MessagesBlock>
-  )
+    return (
+        <S.MessagesBlock id="messages-block">
+            <S.Header>
+                <S.ProfileLink to={Patch.Profile + messagesState.dialogs[0]?.id}>
+                    <Avatar avatarURL={messagesState.dialogs[0]?.photos.small} />
+                    {messagesState.dialogs[0]?.userName}:
+                </S.ProfileLink>
+            </S.Header>
+            <S.ListWrapper>
+                <MessagesList
+                    authData={authData}
+                    appIsLoading={appIsLoading}
+                    messagesState={messagesState}
+                    pageChangeHandler={pageChangeHandler}
+                    markMessageAsDelete={markMessageAsDelete}
+                    markMessageAsSpam={markMessageAsSpam}
+                    restoreMessage={restoreMessage}
+                />
+                <MessagesForm addAppAlert={addAppAlert} addMessage={addMessage} />
+            </S.ListWrapper>
+        </S.MessagesBlock>
+    )
 })
